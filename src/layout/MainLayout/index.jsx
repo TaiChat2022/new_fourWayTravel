@@ -3,10 +3,15 @@ import { Link, Outlet } from 'react-router-dom';
 import { MENU_ITEMS } from './constants';
 import { useState } from 'react';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { routes } from '@/utils/routes';
+import { useLogoutMutation } from '@/queries/auth/useLogout';
+import Loading from '@/components/Loading';
 
 export function MainLayout() {
 	const [isOpenProfileDropdown, setIsOpenProfileDropdown] = useState(false);
+
+	const { mutate: logout, isLoading } = useLogoutMutation();
+
+	if (isLoading) return <Loading />;
 
 	return (
 		<Layout hasSider>
@@ -52,13 +57,13 @@ export function MainLayout() {
 										<SettingOutlined />
 										Cài đặt
 									</Link>
-									<Link
-										to={routes.LOGIN}
-										className="mb-2.5 capitalize text-slate-500 flex items-baseline gap-2 w-full whitespace-nowrap"
+									<span
+										onClick={logout}
+										className="cursor-pointer mb-2.5 capitalize text-slate-500 flex items-baseline gap-2 w-full whitespace-nowrap"
 									>
 										<LogoutOutlined />
 										Đăng xuất
-									</Link>
+									</span>
 								</div>
 							}
 						>

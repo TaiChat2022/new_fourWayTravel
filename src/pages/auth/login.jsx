@@ -16,7 +16,7 @@ export default function Login() {
 	const navigate = useNavigate();
 
 	const { mutateAsync: checkEmailInvalid } = useCheckEmailValid();
-	const { mutateAsync: login } = useLoginMutation();
+	const { mutateAsync: login, isLoading: isLogging } = useLoginMutation();
 
 	const handleSubmit = async (values) => {
 		const isEmailValid = await checkEmailInvalid(values.email);
@@ -38,7 +38,9 @@ export default function Login() {
 		if (!isLoading && !isEmpty(user)) navigate(routes.HOME);
 	}, [isLoading, navigate, user]);
 
-	if (isLoading) return <Loading />;
+	if (isLoading || isLogging) return <Loading />;
+
+	if (user) return null;
 
 	return (
 		<div className="w-screen flex-center mt-[200px] max-w-sm mx-auto">
