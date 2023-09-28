@@ -9,7 +9,7 @@ export function MainLayout() {
 
 	return (
 		<Layout hasSider>
-			<Layout.Sider className="h-screen fixed left-0 top-0 bottom-0 overflow-auto">
+			<Layout.Sider className="h-screen fixed left-0 top-0 bottom-0 overflow-auto select-none">
 				<h3 className="text-white text-base uppercase font-semibold h-12 flex items-center justify-center mb-4">
 					Mamoru
 				</h3>
