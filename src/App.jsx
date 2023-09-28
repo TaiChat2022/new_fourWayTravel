@@ -1,21 +1,17 @@
-import { Spin } from 'antd';
-import { Suspense, lazy } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import Loading from '@/components/Loading';
 import { MainLayout } from '@/layout';
 import { routes } from '@/utils/routes';
+import { Suspense, lazy } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 const Products = lazy(() => import('@/pages/products'));
 const ProductCategories = lazy(() => import('@/pages/products/categories'));
 
+const Login = lazy(() => import('@/pages/auth/login'));
+
 export default function App() {
 	return (
-		<Suspense
-			fallback={
-				<div className="bg-white w-screen h-screen flex items-center justify-center">
-					<Spin size="large" />
-				</div>
-			}
-		>
+		<Suspense fallback={<Loading />}>
 			<Routes>
 				<Route
 					path="/"
@@ -26,6 +22,8 @@ export default function App() {
 						/>
 					}
 				/>
+
+				{/* dashboard */}
 				<Route
 					path={routes.HOME}
 					element={<MainLayout />}
@@ -48,6 +46,14 @@ export default function App() {
 					</Route>
 					{/* end of products */}
 				</Route>
+				{/* end of dashboard */}
+
+				{/* auth */}
+				<Route
+					path={routes.LOGIN}
+					element={<Login />}
+				/>
+				{/* end of auth */}
 			</Routes>
 		</Suspense>
 	);
