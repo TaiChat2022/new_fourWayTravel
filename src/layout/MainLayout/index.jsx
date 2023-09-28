@@ -1,17 +1,24 @@
-import { AutoComplete, Avatar, Input, Layout, Menu, Popover } from 'antd';
-import { Link, Outlet } from 'react-router-dom';
-import { MENU_ITEMS } from './constants';
-import { useState } from 'react';
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { useLogoutMutation } from '@/queries/auth/useLogout';
 import Loading from '@/components/Loading';
+import { useLogoutMutation } from '@/queries/auth/useLogout';
+import { auth } from '@/utils/firebase.config';
+import { routes } from '@/utils/routes';
+import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { AutoComplete, Avatar, Input, Layout, Menu, Popover } from 'antd';
+import { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Link, Navigate, Outlet } from 'react-router-dom';
+import { MENU_ITEMS } from './constants';
 
 export function MainLayout() {
 	const [isOpenProfileDropdown, setIsOpenProfileDropdown] = useState(false);
 
+	const [user, isFetchingAuth] = useAuthState(auth);
+
 	const { mutate: logout, isLoading } = useLogoutMutation();
 
-	if (isLoading) return <Loading />;
+	if (isLoading || isFetchingAuth) return <Loading />;
+
+	if (!user) return <Navigate to={routes.LOGIN} />;
 
 	return (
 		<Layout hasSider>

@@ -16,10 +16,13 @@ export default function App() {
 				<Route
 					path="/"
 					element={
-						<Navigate
-							to={routes.HOME}
-							replace
-						/>
+						<>
+							<Loading />
+							<Navigate
+								to={routes.HOME}
+								replace
+							/>
+						</>
 					}
 				/>
 
