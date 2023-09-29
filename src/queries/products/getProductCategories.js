@@ -1,14 +1,12 @@
 import { firestore } from '@/utils/firebase.config';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { map } from 'lodash';
 import { useQuery } from 'react-query';
 
-export const useProductCategoriesQuery = (options) =>
-	useQuery(['PRODUCT_CATEGORIES', options], async () => {
+export const useProductCategoriesQuery = () =>
+	useQuery(['PRODUCT_CATEGORIES'], async () => {
 		let colRef = collection(firestore, 'product-categories');
 		let q = colRef;
-
-		if (options?.status) q = query(q, where('status', '==', options.status));
 
 		const response = await getDocs(q);
 

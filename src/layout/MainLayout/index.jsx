@@ -1,14 +1,14 @@
 import Loading from '@/components/Loading';
+import ModalManagement from '@/components/Modal';
 import { useLogoutMutation } from '@/queries/auth/useLogout';
 import { auth } from '@/utils/firebase.config';
 import { routes } from '@/utils/routes';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { AutoComplete, Button, Input, Layout, Menu, Popover } from 'antd';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, Navigate, Outlet } from 'react-router-dom';
 import { MENU_ITEMS } from './constants';
-import ModalManagement from '@/components/Modal';
 
 export function MainLayout() {
 	const [isOpenProfileDropdown, setIsOpenProfileDropdown] = useState(false);
@@ -33,7 +33,7 @@ export function MainLayout() {
 					items={MENU_ITEMS}
 				/>
 			</Layout.Sider>
-			<Layout className="ml-[200px]">
+			<Layout className="ml-[200px] min-h-screen">
 				<Layout.Header className="px-4 py-3 bg-white shadow-md h-min">
 					<div className="flex items-center justify-between">
 						<AutoComplete
@@ -82,9 +82,11 @@ export function MainLayout() {
 						</Popover>
 					</div>
 				</Layout.Header>
-				<Layout.Content className="pt-6 px-4">
+				<Layout.Content className="pt-6 px-4 relative">
 					<ModalManagement />
-					<Outlet />
+					<Suspense>
+						<Outlet />
+					</Suspense>
 				</Layout.Content>
 			</Layout>
 		</Layout>

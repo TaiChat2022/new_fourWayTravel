@@ -1,35 +1,29 @@
 import Badge from '@/components/Badge';
+import { useFilter } from '@/hooks/useFilter';
 import { useProductCategoriesQuery } from '@/queries/products/getProductCategories';
 import { useDeleteProductCategoryMutation } from '@/queries/products/useDeleteProductCategory';
 import { closeModal, openModal } from '@/stores/ui/slice';
 import { MODAL } from '@/utils/modal';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Image, Input, Table, Tooltip, Typography } from 'antd';
-import { deburr, filter, find, forEach, includes, isEmpty, isNil, toLower, toString, trim } from 'lodash';
-import { lazy, useEffect, useMemo, useState } from 'react';
+import { find, isEmpty } from 'lodash';
+import { Suspense, lazy, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { STATUS_FILTER } from './constants';
 
 const CategoryModal = lazy(() => import('./_components/CategoryModal'));
 
 export default function ProductCategories() {
-	const [searchParams] = useSearchParams();
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const { mutateAsync: deleteCategory } = useDeleteProductCategoryMutation();
 
 	const [isOpenModal, setIsOpenModal] = useState(false);
-	const [rows, setRows] = useState([]);
 	const [selectedId, setSelectedId] = useState(undefined);
 
-	const status = searchParams.get('status');
-	const q = searchParams.get('q');
+	const { data: categories, isFetching: isLoading } = useProductCategoriesQuery();
 
-	const { data: categories, isFetching: isLoading } = useProductCategoriesQuery({
-		status,
-	});
+	const { rows: data, setSearch, addFilter, removeFilter, clearAll, getFilterValue } = useFilter(categories);
 
 	const columns = useMemo(
 		() => [
@@ -73,6 +67,7 @@ export default function ProductCategories() {
 				title: '',
 				dataIndex: 'id',
 				key: 'id',
+				width: '10%',
 				render: (id) => {
 					return (
 						<div className="flex items-center gap-2">
@@ -116,19 +111,6 @@ export default function ProductCategories() {
 		[deleteCategory, dispatch],
 	);
 
-	const handleChangeFilter = (key, value) => {
-		if (isNil(value)) searchParams.delete(key);
-		else searchParams.set(key, value);
-
-		navigate(`?${toString(searchParams)}`);
-	};
-
-	const handleResetFilter = () => {
-		forEach([...searchParams.keys()], (value) => searchParams.delete(value));
-
-		navigate(`?${toString(searchParams)}`);
-	};
-
 	const handleCloseModal = () => {
 		setIsOpenModal(false);
 		setSelectedId(undefined);
@@ -136,22 +118,15 @@ export default function ProductCategories() {
 
 	const handleOpenModal = () => setIsOpenModal(true);
 
-	useEffect(() => {
-		if (isEmpty(q)) return setRows(categories);
-
-		const searchValue = deburr(toLower(trim(q)));
-
-		const result = filter(categories, (item) => includes(deburr(toLower(item?.name)), searchValue));
-		setRows(result);
-	}, [categories, q]);
-
 	return (
 		<>
-			<CategoryModal
-				open={isOpenModal}
-				onToggle={handleCloseModal}
-				id={selectedId}
-			/>
+			<Suspense>
+				<CategoryModal
+					open={isOpenModal}
+					onToggle={handleCloseModal}
+					id={selectedId}
+				/>
+			</Suspense>
 			<div className="flex items-center justify-between mb-2">
 				<Typography.Title level={4}>Danh mục sản phẩm</Typography.Title>
 				<Button
@@ -166,10 +141,8 @@ export default function ProductCategories() {
 
 			<Card
 				tabList={STATUS_FILTER}
-				activeTabKey={status || STATUS_FILTER?.[0]?.key}
-				onTabChange={(key) =>
-					key === STATUS_FILTER?.[0]?.key ? handleChangeFilter('status', undefined) : handleChangeFilter('status', key)
-				}
+				activeTabKey={getFilterValue('status') ? getFilterValue('status') : STATUS_FILTER?.[0]?.key}
+				onTabChange={(key) => (key === STATUS_FILTER?.[0]?.key ? removeFilter('status') : addFilter('status', key))}
 				bordered
 				className="w-full mb-2 mt-0"
 			>
@@ -177,8 +150,7 @@ export default function ProductCategories() {
 					<div className="w-60">
 						<Input.Search
 							placeholder="Tìm danh mục..."
-							onSearch={(v) => handleChangeFilter('q', v)}
-							defaultValue={q}
+							onSearch={(v) => setSearch('name', v)}
 							allowClear
 						/>
 					</div>
@@ -186,7 +158,7 @@ export default function ProductCategories() {
 						className="ml-auto"
 						danger
 						type="default"
-						onClick={handleResetFilter}
+						onClick={clearAll}
 					>
 						Khôi phục
 					</Button>
@@ -195,10 +167,14 @@ export default function ProductCategories() {
 
 			<Table
 				columns={columns}
-				dataSource={rows}
+				dataSource={data}
 				rowKey="id"
 				loading={isLoading}
-				pagination
+				pagination={{
+					pageSize: 10,
+					showSizeChanger: true,
+					hideOnSinglePage: true,
+				}}
 				size="small"
 			/>
 		</>

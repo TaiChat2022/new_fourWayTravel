@@ -1,6 +1,6 @@
 import { selectIsOpenModal, selectModalProps, selectModalView } from '@/stores/ui/selectors';
 import { Modal } from 'antd';
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { useSelector } from 'react-redux';
 
 const DeleteModal = lazy(() => import('./DeleteModal'));
@@ -11,13 +11,15 @@ export default function ModalManagement() {
 	const modalView = useSelector(selectModalView);
 
 	return (
-		<Modal
-			title={modalProps?.modalTitle}
-			open={isOpenModal}
-			onOk={() => modalProps.onOk()}
-			onCancel={() => modalProps.onCancel()}
-		>
-			{modalView === 'DELETE' && <DeleteModal title={modalProps?.title} />}
-		</Modal>
+		<Suspense>
+			<Modal
+				title={modalProps?.modalTitle}
+				open={isOpenModal}
+				onOk={() => modalProps.onOk()}
+				onCancel={() => modalProps.onCancel()}
+			>
+				{modalView === 'DELETE' && <DeleteModal title={modalProps?.title} />}
+			</Modal>
+		</Suspense>
 	);
 }
