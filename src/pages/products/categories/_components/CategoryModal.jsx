@@ -1,6 +1,6 @@
 import { useAddProductCategoryMutation } from '@/queries/products/useAddProductCategory';
 import { Avatar, Button, Form, Input, Modal, Select, Upload } from 'antd';
-import { isEmpty, map, slice } from 'lodash';
+import { isEmpty, map, noop, slice } from 'lodash';
 import { useEffect } from 'react';
 import { DEFAULT_FORM_VALUES, STATUS_FILTER } from '../constants';
 import ImgCrop from 'antd-img-crop';
@@ -19,7 +19,7 @@ export default function CategoryModal({ open, onToggle, id }) {
 	const { data: category } = useProductCategoryQuery(id);
 	const { mutateAsync: addCategory } = useAddProductCategoryMutation();
 	const { mutateAsync: editCategory } = useEditProductCategoryMutation();
-	const [uploadImage] = useUploadFile();
+	const [uploadImage, uploading] = useUploadFile();
 
 	const [form] = Form.useForm();
 	const image = Form.useWatch('image', form);
@@ -42,18 +42,21 @@ export default function CategoryModal({ open, onToggle, id }) {
 	};
 
 	useEffect(() => {
-		form.resetFields();
-		form.setFieldsValue(DEFAULT_FORM_VALUES);
+		if (open) {
+			form.resetFields();
+			form.setFieldsValue(DEFAULT_FORM_VALUES);
 
-		if (category && isEdit) form.setFieldsValue(category);
-	}, [form, open, isEdit, category]);
+			if (category && isEdit) form.setFieldsValue(category);
+		}
+	}, [category, form, isEdit, open]);
 
 	return (
 		<Modal
 			title="Danh mục"
 			open={open}
-			onOk={form.submit}
-			onCancel={onToggle}
+			onOk={uploading ? noop : form.submit}
+			onCancel={uploading ? noop : onToggle}
+			confirmLoading={uploading}
 		>
 			<Form
 				layout="vertical"
@@ -128,7 +131,12 @@ export default function CategoryModal({ open, onToggle, id }) {
 								}}
 							>
 								<div>
-									<Button icon={<UploadOutlined />}>Tải lên</Button>
+									<Button
+										loading={uploading}
+										icon={<UploadOutlined />}
+									>
+										Tải lên
+									</Button>
 								</div>
 								{!isEmpty(image) && (
 									<Avatar

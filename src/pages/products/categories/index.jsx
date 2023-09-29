@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { closeModal, openModal } from '@/stores/ui/slice';
 import { MODAL } from '@/utils/modal';
 import Badge from '@/components/Badge';
+import { useDeleteProductCategoryMutation } from '@/queries/products/useDeleteProductCategory';
 
 const CategoryModal = lazy(() => import('./_components/CategoryModal'));
 
@@ -16,6 +17,8 @@ export default function ProductCategories() {
 	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	const { mutateAsync: deleteCategory } = useDeleteProductCategoryMutation();
 
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [rows, setRows] = useState([]);
@@ -41,9 +44,10 @@ export default function ProductCategories() {
 						<div className="flex items-center gap-2">
 							<Image
 								width={60}
+								height={60}
 								preview
-								className="rounded-md"
-								src={item?.image}
+								className="rounded-md min-w-[60px]"
+								src={item?.image || '/placeholder.png'}
 							/>
 							<h4>{item?.name}</h4>
 						</div>
@@ -99,13 +103,9 @@ export default function ProductCategories() {
 													modalTitle: 'Xoá danh mục',
 													title: 'Bạn muốn xoá danh mục trên?',
 													onOk: () => {
-														dispatch(closeModal());
-														console.log('ok');
+														deleteCategory(id).then(() => dispatch(closeModal()));
 													},
-													onCancel: () => {
-														dispatch(closeModal());
-														console.log('cancel');
-													},
+													onCancel: () => dispatch(closeModal()),
 												},
 											}),
 										)
@@ -120,7 +120,7 @@ export default function ProductCategories() {
 				},
 			},
 		],
-		[dispatch],
+		[deleteCategory, dispatch],
 	);
 
 	const handleChangeFilter = (key, value) => {
