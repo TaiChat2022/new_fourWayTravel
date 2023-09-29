@@ -19,6 +19,7 @@ export default function ProductCategories() {
 
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [rows, setRows] = useState([]);
+	const [selectedId, setSelectedId] = useState(undefined);
 
 	const status = searchParams.get('status');
 	const sort = searchParams.get('sort');
@@ -72,16 +73,20 @@ export default function ProductCategories() {
 				key: 'usage',
 			},
 			{
-				title: 'Action',
+				title: '',
 				dataIndex: 'id',
 				key: 'id',
-				render: () => {
+				render: (id) => {
 					return (
 						<div className="flex items-center gap-2">
 							<Tooltip title="Cập nhật">
 								<Button
 									icon={<EditOutlined size="small" />}
 									type="text"
+									onClick={() => {
+										setIsOpenModal(true);
+										setSelectedId(id);
+									}}
 								/>
 							</Tooltip>
 							<Tooltip title="Xóa">
@@ -131,7 +136,10 @@ export default function ProductCategories() {
 		navigate(`?${toString(searchParams)}`);
 	};
 
-	const handleCloseModal = () => setIsOpenModal(false);
+	const handleCloseModal = () => {
+		setIsOpenModal(false);
+		setSelectedId(undefined);
+	};
 
 	const handleOpenModal = () => setIsOpenModal(true);
 
@@ -149,6 +157,7 @@ export default function ProductCategories() {
 			<CategoryModal
 				open={isOpenModal}
 				onToggle={handleCloseModal}
+				id={selectedId}
 			/>
 			<div className="flex items-center justify-between mb-2">
 				<Typography.Title level={4}>Danh mục sản phẩm</Typography.Title>

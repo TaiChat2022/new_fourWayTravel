@@ -10,9 +10,15 @@ import { getDownloadURL, ref } from 'firebase/storage';
 import { storage } from '@/utils/firebase.config';
 import { v4 } from 'uuid';
 import { toast } from 'react-toastify';
+import { useEditProductCategoryMutation } from '@/queries/products/useEditProductCategory';
+import { useProductCategoryQuery } from '@/queries/products/getProductCategory';
 
-export default function CategoryModal({ open, onToggle }) {
+export default function CategoryModal({ open, onToggle, id }) {
+	const isEdit = !!id;
+
+	const { data: category } = useProductCategoryQuery(id);
 	const { mutateAsync: addCategory } = useAddProductCategoryMutation();
+	const { mutateAsync: editCategory } = useEditProductCategoryMutation();
 	const [uploadImage] = useUploadFile();
 
 	const [form] = Form.useForm();
@@ -21,7 +27,13 @@ export default function CategoryModal({ open, onToggle }) {
 	const handleSubmit = () => {
 		form.validateFields().then(async (values) => {
 			try {
-				await addCategory(values);
+				if (isEdit)
+					await editCategory({
+						id,
+						data: values,
+					});
+				else await addCategory(values);
+
 				onToggle?.();
 			} catch (err) {
 				throw new Error(err);
@@ -32,7 +44,9 @@ export default function CategoryModal({ open, onToggle }) {
 	useEffect(() => {
 		form.resetFields();
 		form.setFieldsValue(DEFAULT_FORM_VALUES);
-	}, [form, open]);
+
+		if (category && isEdit) form.setFieldsValue(category);
+	}, [form, open, isEdit, category]);
 
 	return (
 		<Modal
