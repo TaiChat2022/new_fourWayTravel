@@ -3,11 +3,12 @@ import { useLogoutMutation } from '@/queries/auth/useLogout';
 import { auth } from '@/utils/firebase.config';
 import { routes } from '@/utils/routes';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { AutoComplete, Avatar, Button, Input, Layout, Menu, Popover } from 'antd';
+import { AutoComplete, Button, Input, Layout, Menu, Popover } from 'antd';
 import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, Navigate, Outlet } from 'react-router-dom';
 import { MENU_ITEMS } from './constants';
+import ModalManagement from '@/components/Modal';
 
 export function MainLayout() {
 	const [isOpenProfileDropdown, setIsOpenProfileDropdown] = useState(false);
@@ -82,6 +83,7 @@ export function MainLayout() {
 					</div>
 				</Layout.Header>
 				<Layout.Content className="pt-6 px-4">
+					<ModalManagement />
 					<Outlet />
 				</Layout.Content>
 			</Layout>

@@ -5,12 +5,16 @@ import { deburr, filter, forEach, includes, isEmpty, isNil, toLower, toString, t
 import { lazy, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { SORT_OPTIONS, STATUS_FILTER } from './onstants';
+import { useDispatch } from 'react-redux';
+import { closeModal, openModal } from '@/stores/ui/slice';
+import { MODAL } from '@/utils/modal';
 
 const CategoryModal = lazy(() => import('./_components/CategoryModal'));
 
 export default function ProductCategories() {
 	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [rows, setRows] = useState([]);
@@ -63,14 +67,31 @@ export default function ProductCategories() {
 						<div className="flex items-center gap-2">
 							<Tooltip title="Cập nhật">
 								<Button
-									onClick={() => console.log(id)}
 									icon={<EditOutlined size="small" />}
 									type="text"
 								/>
 							</Tooltip>
 							<Tooltip title="Xóa">
 								<Button
-									onClick={() => console.log(id)}
+									onClick={() =>
+										dispatch(
+											openModal({
+												view: MODAL.DELETE,
+												props: {
+													modalTitle: 'Xoá danh mục',
+													title: 'Bạn muốn xoá danh mục trên?',
+													onOk: () => {
+														dispatch(closeModal());
+														console.log('ok');
+													},
+													onCancel: () => {
+														dispatch(closeModal());
+														console.log('cancel');
+													},
+												},
+											}),
+										)
+									}
 									icon={<DeleteOutlined size="small" />}
 									type="text"
 									danger
