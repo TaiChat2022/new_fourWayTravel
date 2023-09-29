@@ -6,7 +6,10 @@ import { store } from '@/stores';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { ConfigProvider } from 'antd';
+import vi from 'antd/lib/locale/vi_VN';
 
+import 'antd/dist/reset.css';
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -23,12 +26,14 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<Provider store={store}>
-				<QueryClientProvider client={queryClient}>
-					<ToastContainer />
-					<App />
-				</QueryClientProvider>
-			</Provider>
+			<ConfigProvider locale={vi}>
+				<Provider store={store}>
+					<QueryClientProvider client={queryClient}>
+						<ToastContainer />
+						<App />
+					</QueryClientProvider>
+				</Provider>
+			</ConfigProvider>
 		</BrowserRouter>
 	</React.StrictMode>,
 );
