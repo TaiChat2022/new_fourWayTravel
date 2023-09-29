@@ -1,21 +1,27 @@
 import { useFilter } from '@/hooks/useFilter';
+import { useProductCategoriesQuery } from '@/queries/products/getProductCategories';
 import { useProductsQuery } from '@/queries/products/getProducts';
+import { useDeleteProductMutation } from '@/queries/products/useDeleteProduct';
+import { closeModal, openModal } from '@/stores/ui/slice';
+import { MODAL } from '@/utils/modal';
 import { routes } from '@/utils/routes';
 import { CopyOutlined, DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Image, Input, Select, Table, Tooltip, Typography } from 'antd';
-import { filter, includes, isEmpty, map, round } from 'lodash';
+import { isEmpty, map, replace, round } from 'lodash';
 import { useMemo } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { SORT_OPTIONS, STATUS_FILTER } from './constants';
-import { useProductCategoriesQuery } from '@/queries/products/getProductCategories';
 
 export default function Products() {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const { data: products, isFetching: isLoading } = useProductsQuery();
 	const { data: categories, isFetching: isLoadingCategories } = useProductCategoriesQuery();
+	const { mutateAsync: deleteProduct } = useDeleteProductMutation();
 
 	const { rows, getFilterValue, removeFilter, addFilter, setSearch, clearAll, sort, setSort, clearSort } =
 		useFilter(products);
@@ -114,6 +120,7 @@ export default function Products() {
 							<Button
 								icon={<EditOutlined size="small" />}
 								type="text"
+								onClick={() => navigate(replace(routes.PRODUCTS_EDIT, ':id', id))}
 							/>
 						</Tooltip>
 						<Tooltip title="Xóa">
@@ -121,13 +128,26 @@ export default function Products() {
 								icon={<DeleteOutlined size="small" />}
 								type="text"
 								danger
+								onClick={() =>
+									dispatch(
+										openModal({
+											props: {
+												modalTitle: 'Xác nhận xóa',
+												title: 'Bạn có chắc chắn muốn xóa sản phẩm này không?',
+												onCancel: () => dispatch(closeModal()),
+												onOk: () => deleteProduct(id).then(() => dispatch(closeModal())),
+											},
+											view: MODAL.DELETE,
+										}),
+									)
+								}
 							/>
 						</Tooltip>
 					</div>
 				),
 			},
 		],
-		[],
+		[deleteProduct, dispatch, navigate],
 	);
 
 	return (
