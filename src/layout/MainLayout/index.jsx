@@ -4,7 +4,7 @@ import { useLogoutMutation } from '@/queries/auth/useLogout';
 import { auth } from '@/utils/firebase.config';
 import { routes } from '@/utils/routes';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { AutoComplete, Button, Input, Layout, Menu, Popover } from 'antd';
+import { AutoComplete, Button, Input, Layout, Menu, Popover, Spin } from 'antd';
 import { Suspense, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, Navigate, Outlet } from 'react-router-dom';
@@ -87,7 +87,13 @@ export function MainLayout() {
 				</Layout.Header>
 				<Layout.Content className="pt-6 px-4 relative">
 					<ModalManagement />
-					<Suspense>
+					<Suspense
+						fallback={
+							<div className="absolute inset-0 bg-white flex-center">
+								<Spin size="large" />
+							</div>
+						}
+					>
 						<Outlet />
 					</Suspense>
 				</Layout.Content>

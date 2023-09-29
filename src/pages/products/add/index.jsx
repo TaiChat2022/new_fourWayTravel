@@ -10,10 +10,12 @@ import { cloneDeep, filter, findIndex, get, isEmpty, map, size } from 'lodash';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useUploadFile } from 'react-firebase-hooks/storage';
 import ReactQuill from 'react-quill';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 import { INITIAL_VALUES } from './constants';
+import { useEditProductMutation } from '@/queries/products/useEditProduct';
+import { useProductQuery } from '@/queries/products/getProduct';
 
 function formatPrice(value) {
 	return `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -24,9 +26,15 @@ function parsePrice(value) {
 }
 
 export default function AddProduct() {
+	const { id } = useParams();
 	const navigate = useNavigate();
-	const { mutateAsync: addProduct } = useAddProductMutation();
 	const [uploadFile, uploading] = useUploadFile();
+
+	const isEdit = !!id;
+
+	const { data: product } = useProductQuery(id);
+	const { mutateAsync: addProduct } = useAddProductMutation();
+	const { mutateAsync: editProduct } = useEditProductMutation();
 
 	const editorRef = useRef();
 
@@ -89,7 +97,8 @@ export default function AddProduct() {
 	const handleSubmit = () =>
 		form.validateFields().then(async (values) => {
 			try {
-				await addProduct(values).then(() => navigate(routes.PRODUCTS));
+				if (isEdit && id && product) await editProduct({ data: values, id }).then(() => navigate(routes.PRODUCTS));
+				else await addProduct(values).then(() => navigate(routes.PRODUCTS));
 			} catch (error) {
 				throw new Error(error);
 			}
@@ -97,7 +106,11 @@ export default function AddProduct() {
 
 	useEffect(() => {
 		form.setFieldsValue(INITIAL_VALUES);
-	}, [form]);
+
+		if (isEdit && id && product) {
+			form.setFieldsValue(product);
+		}
+	}, [form, id, isEdit, product]);
 
 	return (
 		<Form

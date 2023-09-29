@@ -6,6 +6,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 const Products = lazy(() => import('@/pages/products'));
 const ProductsAdd = lazy(() => import('@/pages/products/add'));
+const ProductsEdit = lazy(() => import('@/pages/products/edit'));
 const ProductCategories = lazy(() => import('@/pages/products/categories'));
 
 const Login = lazy(() => import('@/pages/auth/login'));
@@ -46,6 +47,10 @@ export default function App() {
 						<Route
 							path={routes.PRODUCTS_ADD}
 							element={<ProductsAdd />}
+						/>
+						<Route
+							path={routes.PRODUCTS_EDIT}
+							element={<ProductsEdit />}
 						/>
 						<Route
 							path={routes.PRODUCT_CATEGORIES}
