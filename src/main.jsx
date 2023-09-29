@@ -9,9 +9,10 @@ import { ToastContainer } from 'react-toastify';
 import { ConfigProvider } from 'antd';
 import vi from 'antd/lib/locale/vi_VN';
 
+import 'react-quill/dist/quill.snow.css';
 import 'antd/dist/reset.css';
-import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
+import './index.css';
 
 const queryClient = new QueryClient({
 	defaultOptions: {

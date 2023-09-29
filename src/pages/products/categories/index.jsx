@@ -40,6 +40,7 @@ export default function ProductCategories() {
 								preview
 								className="rounded-md min-w-[60px]"
 								src={item?.image || '/placeholder.png'}
+								placeholder="/placeholder.png"
 							/>
 							<h4>{item?.name}</h4>
 						</div>

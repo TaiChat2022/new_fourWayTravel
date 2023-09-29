@@ -5,6 +5,7 @@ import { Suspense, lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 const Products = lazy(() => import('@/pages/products'));
+const ProductsAdd = lazy(() => import('@/pages/products/add'));
 const ProductCategories = lazy(() => import('@/pages/products/categories'));
 
 const Login = lazy(() => import('@/pages/auth/login'));
@@ -41,6 +42,10 @@ export default function App() {
 						<Route
 							index
 							element={<Products />}
+						/>
+						<Route
+							path={routes.PRODUCTS_ADD}
+							element={<ProductsAdd />}
 						/>
 						<Route
 							path={routes.PRODUCT_CATEGORIES}
