@@ -161,7 +161,7 @@ export default function ProductCategories() {
 						type="default"
 						onClick={clearAll}
 					>
-						Khôi phục
+						Mặc định
 					</Button>
 				</div>
 			</Card>

@@ -2,15 +2,20 @@ import { removeVietnamese } from '@/utils/utils';
 import {
 	cloneDeep,
 	deburr,
+	differenceWith,
 	findIndex,
+	flatten,
+	forEach,
 	includes,
 	isEmpty,
 	isEqual,
 	filter as loFilter,
 	map,
 	orderBy,
+	size,
 	toLower,
 	trim,
+	uniqWith,
 } from 'lodash';
 import { useEffect, useState } from 'react';
 
@@ -97,13 +102,21 @@ export const useFilter = (data) => {
 		}
 
 		if (!isEmpty(filter)) {
-			map(filter, ({ key, value }) => {
-				result = loFilter(result, (item) => {
-					if (isEmpty(item[key])) return false;
+			const filterItems = loFilter(result, (item) => {
+				let pass = 0;
 
-					return isEqual(deburr(toLower(value)), deburr(toLower(item[key])));
+				forEach(filter, (filterItem) => {
+					const { key, value } = filterItem;
+
+					if (includes(item[key], value)) {
+						pass += 1;
+					}
 				});
+
+				return pass === size(filter);
 			});
+
+			result = filterItems;
 		}
 
 		if (!isEmpty(sort)) {

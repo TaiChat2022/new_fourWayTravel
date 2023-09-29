@@ -15,6 +15,14 @@ import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 import { INITIAL_VALUES } from './constants';
 
+function formatPrice(value) {
+	return `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function parsePrice(value) {
+	return value.replace(/(,*)/g, '');
+}
+
 export default function AddProduct() {
 	const navigate = useNavigate();
 	const { mutateAsync: addProduct } = useAddProductMutation();
@@ -183,18 +191,14 @@ export default function AddProduct() {
 									pattern: /^[0-9]*$/,
 									message: 'Giá sản phẩm phải là số',
 								},
-								{
-									min: 0,
-									message: 'Giá sản phẩm phải lớn hơn 0',
-								},
 							]}
 						>
 							<InputNumber
 								prefix="đ"
 								className="w-full"
-								stringMode
-								formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+								formatter={formatPrice}
+								parser={parsePrice}
+								min={0}
 							/>
 						</Form.Item>
 					</div>
@@ -211,10 +215,6 @@ export default function AddProduct() {
 									message: 'Giá khuyến mãi sản phẩm phải là số',
 								},
 								{
-									min: 0,
-									message: 'Giá khuyến mãi sản phẩm phải lớn hơn 0',
-								},
-								{
 									validator: (_, value) => {
 										if (value >= form.getFieldValue('price')) {
 											return Promise.reject(new Error('Giá khuyến mãi phải nhỏ hơn giá gốc'));
@@ -228,9 +228,9 @@ export default function AddProduct() {
 							<InputNumber
 								prefix="đ"
 								className="w-full"
-								stringMode
-								formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+								formatter={formatPrice}
+								parser={parsePrice}
+								min={0}
 							/>
 						</Form.Item>
 					</div>
@@ -250,18 +250,14 @@ export default function AddProduct() {
 									pattern: /^[0-9]*$/,
 									message: 'Số lượng sản phẩm phải là số',
 								},
-								{
-									min: 0,
-									message: 'Số lượng sản phẩm phải lớn hơn hoặc bằng 0',
-								},
 							]}
 						>
 							<InputNumber
 								prefix="đ"
 								className="w-full"
-								stringMode
-								formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+								formatter={formatPrice}
+								parser={parsePrice}
+								min={0}
 							/>
 						</Form.Item>
 					</div>
