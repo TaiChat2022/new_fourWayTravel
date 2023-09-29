@@ -6,10 +6,12 @@ export const STATUS_FILTER = [
 	{
 		key: 'active',
 		label: 'Active',
+		color: 'blue',
 	},
 	{
 		key: 'disabled',
 		label: 'Disabled',
+		color: 'red',
 	},
 ];
 
@@ -23,3 +25,10 @@ export const SORT_OPTIONS = [
 		value: 'usage',
 	},
 ];
+
+export const DEFAULT_FORM_VALUES = {
+	name: '',
+	status: 'active',
+	usage: 0,
+	image: '',
+};

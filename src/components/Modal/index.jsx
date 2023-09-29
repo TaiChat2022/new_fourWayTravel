@@ -12,7 +12,7 @@ export default function ModalManagement() {
 
 	return (
 		<Modal
-			title={modalProps?.title}
+			title={modalProps?.modalTitle}
 			open={isOpenModal}
 			onOk={() => modalProps.onOk()}
 			onCancel={() => modalProps.onCancel()}

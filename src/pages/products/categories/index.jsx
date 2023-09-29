@@ -1,13 +1,14 @@
 import { useProductCategoriesQuery } from '@/queries/products/getProductCategories';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Image, Input, Select, Table, Tooltip, Typography } from 'antd';
-import { deburr, filter, forEach, includes, isEmpty, isNil, toLower, toString, trim } from 'lodash';
+import { deburr, filter, find, forEach, includes, isEmpty, isNil, toLower, toString, trim } from 'lodash';
 import { lazy, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { SORT_OPTIONS, STATUS_FILTER } from './onstants';
+import { SORT_OPTIONS, STATUS_FILTER } from './constants';
 import { useDispatch } from 'react-redux';
 import { closeModal, openModal } from '@/stores/ui/slice';
 import { MODAL } from '@/utils/modal';
+import Badge from '@/components/Badge';
 
 const CategoryModal = lazy(() => import('./_components/CategoryModal'));
 
@@ -52,6 +53,18 @@ export default function ProductCategories() {
 				title: 'Status',
 				dataIndex: 'status',
 				key: 'status',
+				render: (status) => {
+					const statusResult = find(STATUS_FILTER, { key: status });
+
+					if (isEmpty(statusResult)) return null;
+
+					return (
+						<Badge
+							color={statusResult?.color}
+							title={statusResult?.label}
+						/>
+					);
+				},
 			},
 			{
 				title: 'Sản phẩm',
@@ -62,7 +75,7 @@ export default function ProductCategories() {
 				title: 'Action',
 				dataIndex: 'id',
 				key: 'id',
-				render: (id) => {
+				render: () => {
 					return (
 						<div className="flex items-center gap-2">
 							<Tooltip title="Cập nhật">
@@ -102,7 +115,7 @@ export default function ProductCategories() {
 				},
 			},
 		],
-		[],
+		[dispatch],
 	);
 
 	const handleChangeFilter = (key, value) => {
@@ -135,8 +148,7 @@ export default function ProductCategories() {
 		<>
 			<CategoryModal
 				open={isOpenModal}
-				onAccept={handleCloseModal}
-				onCancel={handleCloseModal}
+				onToggle={handleCloseModal}
 			/>
 			<div className="flex items-center justify-between mb-2">
 				<Typography.Title level={4}>Danh mục sản phẩm</Typography.Title>
