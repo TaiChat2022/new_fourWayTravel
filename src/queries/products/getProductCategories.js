@@ -9,7 +9,7 @@ export const useProductCategoriesQuery = (options) =>
 		let q = colRef;
 
 		if (options?.status) q = query(q, where('status', '==', options.status));
-		if (options?.sort) q = query(q, orderBy(options?.sort, options?.sortType || 'asc'));
+		if (options?.sort) q = query(q, orderBy(options?.sort, 'asc'));
 
 		const response = await getDocs(q);
 

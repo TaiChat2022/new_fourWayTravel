@@ -3,7 +3,7 @@ import { useLogoutMutation } from '@/queries/auth/useLogout';
 import { auth } from '@/utils/firebase.config';
 import { routes } from '@/utils/routes';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { AutoComplete, Avatar, Input, Layout, Menu, Popover } from 'antd';
+import { AutoComplete, Avatar, Button, Input, Layout, Menu, Popover } from 'antd';
 import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, Navigate, Outlet } from 'react-router-dom';
@@ -22,7 +22,7 @@ export function MainLayout() {
 
 	return (
 		<Layout hasSider>
-			<Layout.Sider className="h-screen fixed left-0 top-0 bottom-0 overflow-auto select-none">
+			<Layout.Sider className="h-screen !fixed left-0 top-0 bottom-0 overflow-auto select-none">
 				<h3 className="text-white text-base uppercase font-semibold h-12 flex items-center justify-center mb-4">
 					Mamoru
 				</h3>
@@ -32,7 +32,7 @@ export function MainLayout() {
 					items={MENU_ITEMS}
 				/>
 			</Layout.Sider>
-			<Layout>
+			<Layout className="ml-[200px]">
 				<Layout.Header className="px-4 py-3 bg-white shadow-md h-min">
 					<div className="flex items-center justify-between">
 						<AutoComplete
@@ -74,15 +74,10 @@ export function MainLayout() {
 								</div>
 							}
 						>
-							<div
-								className="flex items-center gap-2 cursor-pointer rounded-lg p-1 px-3 hover:bg-gray-100 select-none"
+							<Button
 								onClick={() => setIsOpenProfileDropdown(true)}
-							>
-								<Avatar src="https://cdn.dribbble.com/userupload/10277125/file/original-b259ff41d00beffdcf91c02130412efa.png?resize=1024x768" />
-								<div>
-									<h4 className="capitalize text-sm font-semibold">Hữu Lộc</h4>
-								</div>
-							</div>
+								icon={<SettingOutlined />}
+							/>
 						</Popover>
 					</div>
 				</Layout.Header>
