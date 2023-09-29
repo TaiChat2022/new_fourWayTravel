@@ -1,15 +1,15 @@
+import Badge from '@/components/Badge';
 import { useProductCategoriesQuery } from '@/queries/products/getProductCategories';
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Card, Image, Input, Select, Table, Tooltip, Typography } from 'antd';
-import { deburr, filter, find, forEach, includes, isEmpty, isNil, toLower, toString, trim } from 'lodash';
-import { lazy, useEffect, useMemo, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { SORT_OPTIONS, STATUS_FILTER } from './constants';
-import { useDispatch } from 'react-redux';
+import { useDeleteProductCategoryMutation } from '@/queries/products/useDeleteProductCategory';
 import { closeModal, openModal } from '@/stores/ui/slice';
 import { MODAL } from '@/utils/modal';
-import Badge from '@/components/Badge';
-import { useDeleteProductCategoryMutation } from '@/queries/products/useDeleteProductCategory';
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Card, Image, Input, Table, Tooltip, Typography } from 'antd';
+import { deburr, filter, find, forEach, includes, isEmpty, isNil, toLower, toString, trim } from 'lodash';
+import { lazy, useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { STATUS_FILTER } from './constants';
 
 const CategoryModal = lazy(() => import('./_components/CategoryModal'));
 
@@ -25,12 +25,10 @@ export default function ProductCategories() {
 	const [selectedId, setSelectedId] = useState(undefined);
 
 	const status = searchParams.get('status');
-	const sort = searchParams.get('sort');
 	const q = searchParams.get('q');
 
 	const { data: categories, isFetching: isLoading } = useProductCategoriesQuery({
 		status,
-		sort,
 	});
 
 	const columns = useMemo(
@@ -70,11 +68,6 @@ export default function ProductCategories() {
 						/>
 					);
 				},
-			},
-			{
-				title: 'Sản phẩm',
-				dataIndex: 'usage',
-				key: 'usage',
 			},
 			{
 				title: '',
@@ -187,17 +180,6 @@ export default function ProductCategories() {
 							onSearch={(v) => handleChangeFilter('q', v)}
 							defaultValue={q}
 							allowClear
-						/>
-					</div>
-					<div className="w-40">
-						<Select
-							options={SORT_OPTIONS}
-							value={sort}
-							onChange={(value) => handleChangeFilter('sort', value)}
-							className="w-full"
-							placeholder="Sắp xếp"
-							allowClear
-							onClear={() => handleChangeFilter('sort')}
 						/>
 					</div>
 					<Button
