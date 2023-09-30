@@ -42,6 +42,21 @@ export default function Blogs() {
 				),
 			},
 			{
+				title: 'Danh mục',
+				dataIndex: 'category',
+				key: 'category',
+				render: (category) => {
+					const result = JSON.parse(category);
+
+					return (
+						<Preview
+							name={result?.name}
+							id={result?.id}
+						/>
+					);
+				},
+			},
+			{
 				title: 'Trạng thái',
 				dataIndex: 'status',
 				key: 'status',

@@ -6,12 +6,14 @@ import { toast } from 'react-toastify';
 export function Preview({ id, image, name }) {
 	return (
 		<div className="flex items-center gap-2">
-			<Image
-				src={image}
-				width={70}
-				height={70}
-				className="rounded-md"
-			/>
+			{image && (
+				<Image
+					src={image}
+					width={70}
+					height={70}
+					className="rounded-md"
+				/>
+			)}
 			<div>
 				<h5 className="text-base mb-0 leading-5">{name}</h5>
 				<small className="text-gray-500">
