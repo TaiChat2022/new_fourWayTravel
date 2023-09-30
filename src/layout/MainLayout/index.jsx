@@ -5,12 +5,17 @@ import { auth } from '@/utils/firebase.config';
 import { routes } from '@/utils/routes';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { AutoComplete, Button, Input, Layout, Menu, Popover, Spin } from 'antd';
+import { initial, join, split } from 'lodash';
 import { Suspense, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, Navigate, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { MENU_ITEMS } from './constants';
 
 export function MainLayout() {
+	const location = useLocation();
+
+	const openKeys = join(initial(split(location.pathname, '/')), '/');
+
 	const [isOpenProfileDropdown, setIsOpenProfileDropdown] = useState(false);
 
 	const [user, isFetchingAuth] = useAuthState(auth);
@@ -34,6 +39,8 @@ export function MainLayout() {
 					mode="inline"
 					theme="dark"
 					items={MENU_ITEMS}
+					defaultOpenKeys={[`${openKeys}-container`]}
+					defaultSelectedKeys={[location.pathname]}
 				/>
 			</Layout.Sider>
 			<Layout className="ml-[200px] min-h-screen">

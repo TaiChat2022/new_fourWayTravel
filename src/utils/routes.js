@@ -3,17 +3,17 @@ export const routes = {
 
 	PRODUCTS: '/dashboard/products',
 	PRODUCTS_ADD: '/dashboard/products/add',
-	PRODUCTS_EDIT: '/dashboard/products/:id',
+	PRODUCTS_EDIT: '/dashboard/products/:id/edit',
 	PRODUCT_CATEGORIES: '/dashboard/products/categories',
 
 	BLOGS: '/dashboard/blogs',
 	BLOGS_ADD: '/dashboard/blogs/add',
-	BLOGS_EDIT: '/dashboard/blogs/:id',
+	BLOGS_EDIT: '/dashboard/blogs/:id/edit',
 	BLOG_CATEGORIES: '/dashboard/blogs/categories',
 
 	ORDERS: '/dashboard/orders',
 	ORDERS_ADD: '/dashboard/orders/add',
-	ORDERS_EDIT: '/dashboard/orders/:id',
+	ORDERS_EDIT: '/dashboard/orders/:id/edit',
 
 	LOGIN: '/auth/login',
 };

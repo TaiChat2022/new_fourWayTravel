@@ -10,7 +10,7 @@ export const MENU_ITEMS = [
 	},
 	{
 		label: <span>Sản phẩm</span>,
-		key: routes.PRODUCTS,
+		key: `${routes.PRODUCTS}-container`,
 		icon: <ShopOutlined />,
 		children: [
 			{
@@ -29,7 +29,7 @@ export const MENU_ITEMS = [
 	},
 	{
 		label: <span>Bài viết</span>,
-		key: routes.BLOGS,
+		key: `${routes.BLOGS}-container`,
 		icon: <FileOutlined />,
 		children: [
 			{
@@ -37,7 +37,7 @@ export const MENU_ITEMS = [
 				key: routes.BLOGS,
 			},
 			{
-				label: <Link to={routes.BLOGS_CREATE}>Thêm mới</Link>,
+				label: <Link to={routes.BLOGS_ADD}>Thêm mới</Link>,
 				key: routes.BLOGS_ADD,
 			},
 			{

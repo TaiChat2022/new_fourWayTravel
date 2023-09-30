@@ -12,6 +12,8 @@ const ProductCategories = lazy(() => import('@/pages/products/categories'));
 
 // blogs
 const Blogs = lazy(() => import('@/pages/blogs'));
+const BlogsAdd = lazy(() => import('@/pages/blogs/add'));
+const BlogsEdit = lazy(() => import('@/pages/blogs/edit'));
 const BlogCategories = lazy(() => import('@/pages/blogs/categories'));
 
 const Login = lazy(() => import('@/pages/auth/login'));
@@ -69,6 +71,14 @@ export default function App() {
 						<Route
 							index
 							element={<Blogs />}
+						/>
+						<Route
+							path={routes.BLOGS_ADD}
+							element={<BlogsAdd />}
+						/>
+						<Route
+							path={routes.BLOGS_EDIT}
+							element={<BlogsEdit />}
 						/>
 						<Route
 							path={routes.BLOG_CATEGORIES}
