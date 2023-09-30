@@ -1,29 +1,29 @@
 import Badge from '@/components/Badge';
-import { Preview } from '@/components/Table';
 import Actions from '@/components/Table/Actions';
 import { useFilter } from '@/hooks/useFilter';
-import { useProductCategoriesQuery } from '@/queries/products/getProductCategories';
-import { useDeleteProductCategoryMutation } from '@/queries/products/useDeleteProductCategory';
+import { useBlogCategoriesQuery } from '@/queries/blogs/getBlogCategories';
+import { useDeleteBlogCategoryMutation } from '@/queries/blogs/useDeleteBlogCategory';
 import { closeModal, openModal } from '@/stores/ui/slice';
 import { MODAL } from '@/utils/modal';
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Card, Input, Table, Typography } from 'antd';
+import { CopyOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Card, Image, Input, Table, Typography } from 'antd';
 import { find, isEmpty } from 'lodash';
 import { Suspense, lazy, useMemo, useState } from 'react';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { STATUS_FILTER } from './constants';
 
 const CategoryModal = lazy(() => import('./_components/CategoryModal'));
 
-export default function ProductCategories() {
+export default function BlogCategories() {
 	const dispatch = useDispatch();
 
-	const { mutateAsync: deleteCategory } = useDeleteProductCategoryMutation();
-
-	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [selectedId, setSelectedId] = useState(undefined);
+	const [isOpen, setIsOpen] = useState(false);
 
-	const { data: categories, isFetching: isLoading } = useProductCategoriesQuery();
+	const { data: categories, isFetching: isLoading } = useBlogCategoriesQuery();
+	const { mutateAsync: deleteCategory } = useDeleteBlogCategoryMutation();
 
 	const { rows: data, setSearch, addFilter, removeFilter, clearAll, getFilterValue } = useFilter(categories);
 
@@ -33,13 +33,33 @@ export default function ProductCategories() {
 				title: 'Preview',
 				dataIndex: 'id',
 				key: 'id',
-				render: (id, item) => {
+				render: (_, item) => {
 					return (
-						<Preview
-							id={id}
-							image={item?.image}
-							name={item?.name}
-						/>
+						<div className="flex items-center gap-2">
+							<Image
+								width={60}
+								height={60}
+								preview
+								className="rounded-md min-w-[60px]"
+								src={item?.image || '/placeholder.png'}
+								placeholder="/placeholder.png"
+							/>
+							<div>
+								<h5 className="text-base mb-0 leading-5">{item?.name}</h5>
+								<small className="text-gray-500">
+									ID: {item?.id}
+									<CopyToClipboard
+										text={item?.id}
+										onCopy={() => toast.success('Sao chép thàn công!!!')}
+									>
+										<CopyOutlined
+											className="ml-1"
+											size="small"
+										/>
+									</CopyToClipboard>
+								</small>
+							</div>
+						</div>
 					);
 				},
 			},
@@ -69,8 +89,8 @@ export default function ProductCategories() {
 					return (
 						<Actions
 							onEditClick={() => {
-								setIsOpenModal(true);
 								setSelectedId(id);
+								setIsOpen(true);
 							}}
 							onDeleteClick={() =>
 								dispatch(
@@ -96,28 +116,26 @@ export default function ProductCategories() {
 	);
 
 	const handleCloseModal = () => {
-		setIsOpenModal(false);
+		setIsOpen(false);
 		setSelectedId(undefined);
 	};
-
-	const handleOpenModal = () => setIsOpenModal(true);
 
 	return (
 		<>
 			<Suspense>
 				<CategoryModal
-					open={isOpenModal}
+					open={isOpen}
 					onToggle={handleCloseModal}
 					id={selectedId}
 				/>
 			</Suspense>
 			<div className="flex items-center justify-between mb-2">
-				<Typography.Title level={4}>Danh mục sản phẩm</Typography.Title>
+				<Typography.Title level={4}>Danh mục bài viết</Typography.Title>
 				<Button
 					size="small"
 					icon={<PlusOutlined size="small" />}
 					type="link"
-					onClick={handleOpenModal}
+					onClick={() => setIsOpen(true)}
 				>
 					Thêm danh mục
 				</Button>

@@ -1,3 +1,5 @@
+import { Preview } from '@/components/Table';
+import Actions from '@/components/Table/Actions';
 import { useFilter } from '@/hooks/useFilter';
 import { useProductCategoriesQuery } from '@/queries/products/getProductCategories';
 import { useProductsQuery } from '@/queries/products/getProducts';
@@ -5,14 +7,12 @@ import { useDeleteProductMutation } from '@/queries/products/useDeleteProduct';
 import { closeModal, openModal } from '@/stores/ui/slice';
 import { MODAL } from '@/utils/modal';
 import { routes } from '@/utils/routes';
-import { CopyOutlined, DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Card, Image, Input, Select, Table, Tooltip, Typography } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, Card, Input, Select, Table, Typography } from 'antd';
 import { isEmpty, map, replace, round } from 'lodash';
 import { useMemo } from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { SORT_OPTIONS, STATUS_FILTER } from './constants';
 
 export default function Products() {
@@ -32,29 +32,11 @@ export default function Products() {
 				title: 'Preview',
 				dataIndex: 'id',
 				render: (id, item) => (
-					<div className="flex items-center gap-2">
-						<Image
-							src={item?.thumbnail}
-							width={70}
-							height={70}
-							className="rounded-md"
-						/>
-						<div>
-							<h5 className="text-base mb-0 leading-5">{item?.name}</h5>
-							<small className="text-gray-500">
-								ID: {id}
-								<CopyToClipboard
-									text={id}
-									onCopy={() => toast.success('Sao chép thàn công!!!')}
-								>
-									<CopyOutlined
-										className="ml-1"
-										size="small"
-									/>
-								</CopyToClipboard>
-							</small>
-						</div>
-					</div>
+					<Preview
+						id={id}
+						image={item?.thumbnail}
+						name={item?.name}
+					/>
 				),
 			},
 			{
@@ -115,35 +97,22 @@ export default function Products() {
 				dataIndex: 'id',
 				width: '10%',
 				render: (id) => (
-					<div className="flex items-center gap-2">
-						<Tooltip title="Cập nhật">
-							<Button
-								icon={<EditOutlined size="small" />}
-								type="text"
-								onClick={() => navigate(replace(routes.PRODUCTS_EDIT, ':id', id))}
-							/>
-						</Tooltip>
-						<Tooltip title="Xóa">
-							<Button
-								icon={<DeleteOutlined size="small" />}
-								type="text"
-								danger
-								onClick={() =>
-									dispatch(
-										openModal({
-											props: {
-												modalTitle: 'Xác nhận xóa',
-												title: 'Bạn có chắc chắn muốn xóa sản phẩm này không?',
-												onCancel: () => dispatch(closeModal()),
-												onOk: () => deleteProduct(id).then(() => dispatch(closeModal())),
-											},
-											view: MODAL.DELETE,
-										}),
-									)
-								}
-							/>
-						</Tooltip>
-					</div>
+					<Actions
+						onEditClick={() => navigate(replace(routes.PRODUCTS_EDIT, ':id', id))}
+						onDeleteClick={() =>
+							dispatch(
+								openModal({
+									props: {
+										modalTitle: 'Xác nhận xóa',
+										title: 'Bạn có chắc chắn muốn xóa sản phẩm này không?',
+										onCancel: () => dispatch(closeModal()),
+										onOk: () => deleteProduct(id).then(() => dispatch(closeModal())),
+									},
+									view: MODAL.DELETE,
+								}),
+							)
+						}
+					/>
 				),
 			},
 		],
@@ -171,7 +140,9 @@ export default function Products() {
 			<Card
 				tabList={STATUS_FILTER}
 				activeTabKey={getFilterValue('status') ? getFilterValue('status') : STATUS_FILTER?.[0]?.key}
-				onTabChange={(key) => (key === STATUS_FILTER?.[0]?.key ? removeFilter('status') : addFilter('status', key))}
+				onTabChange={(key) =>
+					key === STATUS_FILTER?.[0]?.key ? removeFilter('status') : addFilter('status', key)
+				}
 				bordered
 				className="w-full mb-2 mt-0"
 			>

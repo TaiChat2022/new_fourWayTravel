@@ -4,10 +4,15 @@ import { routes } from '@/utils/routes';
 import { Suspense, lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+// products
 const Products = lazy(() => import('@/pages/products'));
 const ProductsAdd = lazy(() => import('@/pages/products/add'));
 const ProductsEdit = lazy(() => import('@/pages/products/edit'));
 const ProductCategories = lazy(() => import('@/pages/products/categories'));
+
+// blogs
+const Blogs = lazy(() => import('@/pages/blogs'));
+const BlogCategories = lazy(() => import('@/pages/blogs/categories'));
 
 const Login = lazy(() => import('@/pages/auth/login'));
 
@@ -58,6 +63,19 @@ export default function App() {
 						/>
 					</Route>
 					{/* end of products */}
+
+					{/* blogs */}
+					<Route path={routes.BLOGS}>
+						<Route
+							index
+							element={<Blogs />}
+						/>
+						<Route
+							path={routes.BLOG_CATEGORIES}
+							element={<BlogCategories />}
+						/>
+					</Route>
+					{/* end of blogs */}
 				</Route>
 				{/* end of dashboard */}
 
