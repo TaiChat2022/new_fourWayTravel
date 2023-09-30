@@ -1,7 +1,6 @@
-import { useBlogCategoryQuery } from '@/queries/blogs/getBlogCategory';
-import { useAddBlogCategoryMutation } from '@/queries/blogs/useAddBlogCategory';
-import { useEditBlogCategoryMutation } from '@/queries/blogs/useEditBlogCategory';
+import { useAddDoc, useDocQuery, useEditDoc } from '@/hooks/useFirestore';
 import { storage } from '@/utils/firebase.config';
+import { QUERY_KEY } from '@/utils/queryKey';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Form, Image, Input, Modal, Select, Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
@@ -16,9 +15,9 @@ import { DEFAULT_FORM_VALUES, STATUS_FILTER } from '../constants';
 export default function CategoryModal({ open, onToggle, id }) {
 	const isEdit = !!id;
 
-	const { data: category } = useBlogCategoryQuery(id);
-	const { mutateAsync: addCategory } = useAddBlogCategoryMutation();
-	const { mutateAsync: editCategory } = useEditBlogCategoryMutation();
+	const { data: category, isFetching: isLoadingCategory } = useDocQuery(QUERY_KEY.BLOG_CATEGORIES, id);
+	const { mutateAsync: addCategory, isLoading: isAdding } = useAddDoc(QUERY_KEY.BLOG_CATEGORIES);
+	const { mutateAsync: editCategory, isLoading: isEdtting } = useEditDoc(QUERY_KEY.BLOG_CATEGORIES);
 	const [uploadImage, uploading] = useUploadFile();
 
 	const [form] = Form.useForm();
@@ -56,7 +55,13 @@ export default function CategoryModal({ open, onToggle, id }) {
 			open={open}
 			onOk={uploading ? noop : form.submit}
 			onCancel={uploading ? noop : onToggle}
-			confirmLoading={uploading}
+			confirmLoading={uploading || isAdding || isEdtting || isLoadingCategory}
+			okButtonProps={{
+				loading: uploading || isAdding || isEdtting || isLoadingCategory,
+			}}
+			cancelButtonProps={{
+				loading: uploading || isAdding || isEdtting || isLoadingCategory,
+			}}
 		>
 			<Form
 				layout="vertical"

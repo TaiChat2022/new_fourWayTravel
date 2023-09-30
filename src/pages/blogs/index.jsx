@@ -1,14 +1,14 @@
 import { Preview } from '@/components/Table';
 import Actions from '@/components/Table/Actions';
 import { useFilter } from '@/hooks/useFilter';
-import { useBlogsQuery } from '@/queries/blogs/getBlogs';
-import { useDeleteBlogMutation } from '@/queries/blogs/useDeleteBlog';
+import { useDeleteDoc, useDocsQuery } from '@/hooks/useFirestore';
 import { closeModal, openModal } from '@/stores/ui/slice';
 import { MODAL } from '@/utils/modal';
+import { QUERY_KEY } from '@/utils/queryKey';
 import { routes } from '@/utils/routes';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Input, Select, Table, Typography } from 'antd';
-import { find, isNil, replace } from 'lodash';
+import { find, isEmpty, isNil, map, replace } from 'lodash';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -18,8 +18,12 @@ export default function Blogs() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { data: blogs, isFetching: isLoading } = useBlogsQuery();
-	const { mutateAsync: deleteBlog } = useDeleteBlogMutation();
+	const { data: blogs, isFetching: isLoading } = useDocsQuery(QUERY_KEY.BLOGS);
+	const { data: categories, isFetching: isLoadingCategories } = useDocsQuery(QUERY_KEY.BLOG_CATEGORIES);
+	const { mutateAsync: deleteBlog } = useDeleteDoc(QUERY_KEY.BLOGS, {
+		successMsg: 'Xóa bài viết thành công!',
+		errorMsg: 'Xóa bài viết thất bại!',
+	});
 
 	const { rows, getFilterValue, removeFilter, addFilter, clearAll, setSearch } = useFilter(blogs);
 
@@ -157,6 +161,25 @@ export default function Blogs() {
 							className="w-full"
 							placeholder="Nổi bật"
 							allowClear
+						/>
+					</div>
+					<div className="w-40">
+						<Select
+							loading={isLoadingCategories}
+							options={map(categories, ({ name, id }) => ({
+								label: name,
+								value: id,
+							}))}
+							placeholder="Danh mục"
+							allowClear
+							className="w-full"
+							value={getFilterValue('category')}
+							onChange={(v) => {
+								if (isEmpty(v)) return removeFilter('category');
+
+								addFilter('category', v);
+							}}
+							onClear={() => removeFilter('category')}
 						/>
 					</div>
 					<Button

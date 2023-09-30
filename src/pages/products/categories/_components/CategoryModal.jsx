@@ -1,24 +1,29 @@
-import { useAddProductCategoryMutation } from '@/queries/products/useAddProductCategory';
+import { useAddDoc, useDocQuery, useEditDoc } from '@/hooks/useFirestore';
+import { storage } from '@/utils/firebase.config';
+import { QUERY_KEY } from '@/utils/queryKey';
+import { UploadOutlined } from '@ant-design/icons';
 import { Avatar, Button, Form, Input, Modal, Select, Upload } from 'antd';
+import ImgCrop from 'antd-img-crop';
+import { getDownloadURL, ref } from 'firebase/storage';
 import { isEmpty, map, noop, slice } from 'lodash';
 import { useEffect } from 'react';
-import { DEFAULT_FORM_VALUES, STATUS_FILTER } from '../constants';
-import ImgCrop from 'antd-img-crop';
-import { UploadOutlined } from '@ant-design/icons';
 import { useUploadFile } from 'react-firebase-hooks/storage';
-import { getDownloadURL, ref } from 'firebase/storage';
-import { storage } from '@/utils/firebase.config';
-import { v4 } from 'uuid';
 import { toast } from 'react-toastify';
-import { useEditProductCategoryMutation } from '@/queries/products/useEditProductCategory';
-import { useProductCategoryQuery } from '@/queries/products/getProductCategory';
+import { v4 } from 'uuid';
+import { DEFAULT_FORM_VALUES, STATUS_FILTER } from '../constants';
 
 export default function CategoryModal({ open, onToggle, id }) {
 	const isEdit = !!id;
 
-	const { data: category } = useProductCategoryQuery(id);
-	const { mutateAsync: addCategory } = useAddProductCategoryMutation();
-	const { mutateAsync: editCategory } = useEditProductCategoryMutation();
+	const { data: category, isFetching: isLoadingCategory } = useDocQuery(QUERY_KEY.PRODUCT_CATEGORIES, id);
+	const { mutateAsync: addCategory, isLoading: isAdding } = useAddDoc(QUERY_KEY.PRODUCT_CATEGORIES, {
+		successMsg: 'Thêm danh mục thành công!',
+		errorMsg: 'Thêm danh mục thất bại!',
+	});
+	const { mutateAsync: editCategory, isLoading: isEditting } = useEditDoc(QUERY_KEY.PRODUCT_CATEGORIES, {
+		successMsg: 'Sửa danh mục thành công!',
+		errorMsg: 'Sửa danh mục thất bại!',
+	});
 	const [uploadImage, uploading] = useUploadFile();
 
 	const [form] = Form.useForm();
@@ -56,7 +61,13 @@ export default function CategoryModal({ open, onToggle, id }) {
 			open={open}
 			onOk={uploading ? noop : form.submit}
 			onCancel={uploading ? noop : onToggle}
-			confirmLoading={uploading}
+			confirmLoading={uploading || isAdding || isEditting || isLoadingCategory}
+			okButtonProps={{
+				loading: uploading || isAdding || isEditting || isLoadingCategory,
+			}}
+			cancelButtonProps={{
+				loading: uploading || isAdding || isEditting || isLoadingCategory,
+			}}
 		>
 			<Form
 				layout="vertical"

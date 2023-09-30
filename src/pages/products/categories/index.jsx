@@ -2,8 +2,6 @@ import Badge from '@/components/Badge';
 import { Preview } from '@/components/Table';
 import Actions from '@/components/Table/Actions';
 import { useFilter } from '@/hooks/useFilter';
-import { useProductCategoriesQuery } from '@/queries/products/getProductCategories';
-import { useDeleteProductCategoryMutation } from '@/queries/products/useDeleteProductCategory';
 import { closeModal, openModal } from '@/stores/ui/slice';
 import { MODAL } from '@/utils/modal';
 import { PlusOutlined } from '@ant-design/icons';
@@ -12,18 +10,22 @@ import { find, isEmpty } from 'lodash';
 import { Suspense, lazy, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { STATUS_FILTER } from './constants';
+import { useDeleteDoc, useDocsQuery } from '@/hooks/useFirestore';
+import { QUERY_KEY } from '@/utils/queryKey';
 
 const CategoryModal = lazy(() => import('./_components/CategoryModal'));
 
 export default function ProductCategories() {
 	const dispatch = useDispatch();
 
-	const { mutateAsync: deleteCategory } = useDeleteProductCategoryMutation();
-
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [selectedId, setSelectedId] = useState(undefined);
 
-	const { data: categories, isFetching: isLoading } = useProductCategoriesQuery();
+	const { mutateAsync: deleteCategory } = useDeleteDoc(QUERY_KEY.PRODUCT_CATEGORIES, {
+		successMsg: 'Xóa danh mục thành công!',
+		errorMsg: 'Xóa danh mục thất bại!',
+	});
+	const { data: categories, isFetching: isLoading } = useDocsQuery(QUERY_KEY.PRODUCT_CATEGORIES);
 
 	const { rows: data, setSearch, addFilter, removeFilter, clearAll, getFilterValue } = useFilter(categories);
 

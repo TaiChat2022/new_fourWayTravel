@@ -1,11 +1,10 @@
 import { Preview } from '@/components/Table';
 import Actions from '@/components/Table/Actions';
 import { useFilter } from '@/hooks/useFilter';
-import { useProductCategoriesQuery } from '@/queries/products/getProductCategories';
-import { useProductsQuery } from '@/queries/products/getProducts';
-import { useDeleteProductMutation } from '@/queries/products/useDeleteProduct';
+import { useDeleteDoc, useDocsQuery } from '@/hooks/useFirestore';
 import { closeModal, openModal } from '@/stores/ui/slice';
 import { MODAL } from '@/utils/modal';
+import { QUERY_KEY } from '@/utils/queryKey';
 import { routes } from '@/utils/routes';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Input, Select, Table, Typography } from 'antd';
@@ -19,9 +18,12 @@ export default function Products() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { data: products, isFetching: isLoading } = useProductsQuery();
-	const { data: categories, isFetching: isLoadingCategories } = useProductCategoriesQuery();
-	const { mutateAsync: deleteProduct } = useDeleteProductMutation();
+	const { data: products, isFetching: isLoading } = useDocsQuery(QUERY_KEY.PRODUCTS);
+	const { data: categories, isFetching: isLoadingCategories } = useDocsQuery(QUERY_KEY.PRODUCT_CATEGORIES);
+	const { mutateAsync: deleteProduct } = useDeleteDoc(QUERY_KEY.PRODUCTS, {
+		successMsg: 'Xóa sản phẩm thành công!',
+		errorMsg: 'Xóa sản phẩm thất bại!',
+	});
 
 	const { rows, getFilterValue, removeFilter, addFilter, setSearch, clearAll, sort, setSort, clearSort } =
 		useFilter(products);

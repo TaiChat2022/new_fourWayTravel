@@ -1,6 +1,6 @@
-import { useProductCategoriesQuery } from '@/queries/products/getProductCategories';
-import { useAddProductMutation } from '@/queries/products/useAddProduct';
+import { useAddDoc, useDocQuery, useDocsQuery, useEditDoc } from '@/hooks/useFirestore';
 import { storage } from '@/utils/firebase.config';
+import { QUERY_KEY } from '@/utils/queryKey';
 import { routes } from '@/utils/routes';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Image, Input, InputNumber, Select, Typography, Upload } from 'antd';
@@ -14,8 +14,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 import { INITIAL_VALUES } from './constants';
-import { useEditProductMutation } from '@/queries/products/useEditProduct';
-import { useProductQuery } from '@/queries/products/getProduct';
 
 function formatPrice(value) {
 	return `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -32,17 +30,22 @@ export default function AddProduct() {
 
 	const isEdit = !!id;
 
-	const { data: product } = useProductQuery(id);
-	const { mutateAsync: addProduct } = useAddProductMutation();
-	const { mutateAsync: editProduct } = useEditProductMutation();
+	const { data: product } = useDocQuery(QUERY_KEY.PRODUCTS, id);
+	const { mutateAsync: addProduct, isLoading: isAdding } = useAddDoc(QUERY_KEY.PRODUCTS, {
+		successMsg: 'Thêm sản phẩm thành công!',
+		errorMsg: 'Thêm sản phẩm thất bại!',
+	});
+	const { mutateAsync: editProduct, isLoading: isEditting } = useEditDoc(QUERY_KEY.PRODUCTS, {
+		successMsg: 'Sửa sản phẩm thành công!',
+		errorMsg: 'Sửa sản phẩm thất bại!',
+	});
+	const { data: categories, isFetching: isCategoriesLoading } = useDocsQuery(QUERY_KEY.PRODUCT_CATEGORIES);
 
 	const editorRef = useRef();
 
 	const [form] = Form.useForm();
 	const thumbnail = Form.useWatch('thumbnail', form);
 	const images = Form.useWatch('images', form);
-
-	const { data: categories, isFetching: isCategoriesLoading } = useProductCategoriesQuery();
 
 	const imageHandler = useCallback(() => {
 		const input = document.createElement('input');
@@ -97,7 +100,8 @@ export default function AddProduct() {
 	const handleSubmit = () =>
 		form.validateFields().then(async (values) => {
 			try {
-				if (isEdit && id && product) await editProduct({ data: values, id }).then(() => navigate(routes.PRODUCTS));
+				if (isEdit && id && product)
+					await editProduct({ data: values, id }).then(() => navigate(routes.PRODUCTS));
 				else await addProduct(values).then(() => navigate(routes.PRODUCTS));
 			} catch (error) {
 				throw new Error(error);
@@ -481,8 +485,10 @@ export default function AddProduct() {
 			<Card className="mt-4">
 				<div className="flex items-center gap-2 justify-end">
 					<Button
+						onClick={() => navigate(routes.PRODUCTS)}
 						htmlType="button"
 						type="default"
+						loading={isEditting || isAdding}
 						danger
 					>
 						Huỷ
@@ -490,6 +496,7 @@ export default function AddProduct() {
 					<Button
 						htmlType="submit"
 						type="primary"
+						loading={isEditting || isAdding}
 					>
 						Lưu
 					</Button>

@@ -1,10 +1,10 @@
 import Badge from '@/components/Badge';
 import Actions from '@/components/Table/Actions';
 import { useFilter } from '@/hooks/useFilter';
-import { useBlogCategoriesQuery } from '@/queries/blogs/getBlogCategories';
-import { useDeleteBlogCategoryMutation } from '@/queries/blogs/useDeleteBlogCategory';
+import { useDeleteDoc, useDocsQuery } from '@/hooks/useFirestore';
 import { closeModal, openModal } from '@/stores/ui/slice';
 import { MODAL } from '@/utils/modal';
+import { QUERY_KEY } from '@/utils/queryKey';
 import { CopyOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Image, Input, Table, Typography } from 'antd';
 import { find, isEmpty } from 'lodash';
@@ -22,8 +22,11 @@ export default function BlogCategories() {
 	const [selectedId, setSelectedId] = useState(undefined);
 	const [isOpen, setIsOpen] = useState(false);
 
-	const { data: categories, isFetching: isLoading } = useBlogCategoriesQuery();
-	const { mutateAsync: deleteCategory } = useDeleteBlogCategoryMutation();
+	const { data: categories, isFetching: isLoading } = useDocsQuery(QUERY_KEY.BLOG_CATEGORIES);
+	const { mutateAsync: deleteCategory } = useDeleteDoc(QUERY_KEY.BLOG_CATEGORIES, {
+		successMsg: 'Xóa danh mục thành công!',
+		errorMsg: 'Xóa danh mục thất bại!',
+	});
 
 	const { rows: data, setSearch, addFilter, removeFilter, clearAll, getFilterValue } = useFilter(categories);
 
