@@ -5,7 +5,7 @@ export const BLOG_STATUS = [
 	},
 	{
 		key: 'published',
-		label: 'Đã xuất bản',
+		label: 'Xuất bản',
 	},
 	{
 		key: 'draft',

@@ -20,7 +20,7 @@ export default function CategoryModal({ open, onToggle, id }) {
 		successMsg: 'Thêm danh mục thành công!',
 		errorMsg: 'Thêm danh mục thất bại!',
 	});
-	const { mutateAsync: editCategory, isLoading: isEditting } = useEditDoc(QUERY_KEY.PRODUCT_CATEGORIES, {
+	const { mutateAsync: editCategory, isLoading: isEditing } = useEditDoc(QUERY_KEY.PRODUCT_CATEGORIES, {
 		successMsg: 'Sửa danh mục thành công!',
 		errorMsg: 'Sửa danh mục thất bại!',
 	});
@@ -61,12 +61,12 @@ export default function CategoryModal({ open, onToggle, id }) {
 			open={open}
 			onOk={uploading ? noop : form.submit}
 			onCancel={uploading ? noop : onToggle}
-			confirmLoading={uploading || isAdding || isEditting || isLoadingCategory}
+			confirmLoading={uploading || isAdding || isEditing || isLoadingCategory}
 			okButtonProps={{
-				loading: uploading || isAdding || isEditting || isLoadingCategory,
+				loading: uploading || isAdding || isEditing || isLoadingCategory,
 			}}
 			cancelButtonProps={{
-				loading: uploading || isAdding || isEditting || isLoadingCategory,
+				loading: uploading || isAdding || isEditing || isLoadingCategory,
 			}}
 		>
 			<Form

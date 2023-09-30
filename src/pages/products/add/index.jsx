@@ -14,6 +14,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 import { INITIAL_VALUES } from './constants';
+import Editor from '@/components/Editor';
 
 function formatPrice(value) {
 	return `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -35,7 +36,7 @@ export default function AddProduct() {
 		successMsg: 'Thêm sản phẩm thành công!',
 		errorMsg: 'Thêm sản phẩm thất bại!',
 	});
-	const { mutateAsync: editProduct, isLoading: isEditting } = useEditDoc(QUERY_KEY.PRODUCTS, {
+	const { mutateAsync: editProduct, isLoading: isEditing } = useEditDoc(QUERY_KEY.PRODUCTS, {
 		successMsg: 'Sửa sản phẩm thành công!',
 		errorMsg: 'Sửa sản phẩm thất bại!',
 	});
@@ -121,7 +122,7 @@ export default function AddProduct() {
 			form={form}
 			onFinish={handleSubmit}
 		>
-			<Typography.Title level={4}>Thêm sản phẩm</Typography.Title>
+			<Typography.Title level={4}>sản phẩm</Typography.Title>
 
 			<Card title="Thông tin cơ bản">
 				<div className="grid grid-cols-12 gap-x-4">
@@ -300,9 +301,7 @@ export default function AddProduct() {
 						</Form.Item>
 					</div>
 					<div className="col-span-full">
-						<Form.Item
-							labelCol={{ span: 24 }}
-							wrapperCol={{ span: 24 }}
+						<Editor
 							label="Mô tả chi tiết"
 							name="description"
 							tooltip="Mô tả chi tiết sản phẩm, bắt buộc"
@@ -312,31 +311,7 @@ export default function AddProduct() {
 									message: 'Vui lòng nhập mô tả chi tiết sản phẩm',
 								},
 							]}
-							className="editor"
-						>
-							<ReactQuill
-								ref={editorRef}
-								theme="snow"
-								modules={modules}
-								formats={[
-									'header',
-									'font',
-									'size',
-									'bold',
-									'italic',
-									'underline',
-									'strike',
-									'blockquote',
-									'list',
-									'bullet',
-									'indent',
-									'link',
-									'image',
-									'video',
-									'code-block',
-								]}
-							/>
-						</Form.Item>
+						/>
 					</div>
 				</div>
 			</Card>
@@ -488,7 +463,7 @@ export default function AddProduct() {
 						onClick={() => navigate(routes.PRODUCTS)}
 						htmlType="button"
 						type="default"
-						loading={isEditting || isAdding}
+						loading={isEditing || isAdding}
 						danger
 					>
 						Huỷ
@@ -496,7 +471,7 @@ export default function AddProduct() {
 					<Button
 						htmlType="submit"
 						type="primary"
-						loading={isEditting || isAdding}
+						loading={isEditing || isAdding}
 					>
 						Lưu
 					</Button>
