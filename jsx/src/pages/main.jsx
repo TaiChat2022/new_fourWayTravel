@@ -1,13 +1,14 @@
 import React,{useState , useEffect} from 'react';
 import { Route, Routes } from "react-router-dom";
 import Menu from './menu';
-import Home from './home';
-import Book from './book';
+import LuuTru from './luuTru';
+import Popular from './popular';
+import Vistlocation from './vistlocation';
 
 import FooterUI from './layout/footerUI';
 const Main = () => {
     // MENU 
-        const [currentMenu, setCurrentMenu] = useState('messenger');
+        const [currentMenu, setCurrentMenu] = useState('luutru');
         const [selectedMenu, setSelectedMenu] = useState({
             luutru: true,
             khachsan: false,
@@ -54,26 +55,26 @@ const Main = () => {
             />
             <div className={`${currentMenu === 'luutru' ? '' : 'hidden'}`}>
                 <Routes>
-                    <Route path="/" element={<Book />} />
-                    <Route path=":userId" element={<Book />}/>
+                    <Route path="/" element={<LuuTru />} />
+                    <Route path=":userId" element={<LuuTru />}/>
                 </Routes>
             </div>
             <div className={`${currentMenu === 'khachsan' ? '' : 'hidden'}`}>
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path=":userId" element={<Home />}/>
+                    <Route path="/" element={<LuuTru />} />
+                    <Route path=":userId" element={<LuuTru />}/>
                 </Routes>
             </div>
             <div className={`${currentMenu === 'diadiemthamquan' ? '' : 'hidden'}`}>
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path=":userId" element={<Home />}/>
+                    <Route path="/" element={<Vistlocation />} />
+                    <Route path=":userId" element={<Vistlocation />}/>
                 </Routes>
             </div>
             <div className={`${currentMenu === 'taxi' ? '' : 'hidden'}`}>
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path=":userId" element={<Home />}/>
+                    <Route path="/" element={<Popular />} />
+                    <Route path=":userId" element={<Popular />}/>
                 </Routes>
             </div>
             

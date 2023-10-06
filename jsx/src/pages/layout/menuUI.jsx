@@ -50,7 +50,9 @@ const MenuUI = ({
                                         </div>
                                     </div>
                                 </>
-                            ) : (
+                            ) 
+                            : 
+                            (
                                 <>
                                     <ul className="flex font-medium gap-1 rounded-lg">
                                         <li>
@@ -65,7 +67,8 @@ const MenuUI = ({
                                         </li>
                                     </ul>
                                 </>
-                            )}
+                            )
+                            }
                         </div>
                         <button data-collapse-toggle="navbar-dropdown" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm  rounded-sm md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-white dark:hover:bg-sky-600 dark:hover:text-white" aria-controls="navbar-dropdown" aria-expanded="false">
                             <span className="sr-only">Open main menu</span>
