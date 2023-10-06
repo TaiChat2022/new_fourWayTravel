@@ -41,7 +41,7 @@ const Login = () => {
             }
 
             if (navigator.geolocation) {
-                navigate("/trangchu");
+                navigate(`/trangchu/${result.user.uid}`);
                 // setTimeout(() => {
                 // }, 1500);
             }

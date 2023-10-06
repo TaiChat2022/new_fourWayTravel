@@ -1,13 +1,25 @@
 import React from 'react';
 
-const HomeUI = () => {
+const HomeUI = ({
+    user
+}) => {
     return (
         <>
-            <div className="container mt-5">
-                <footer className="py-3 my-4">
-                    <p className="text-center text-muted">© 2023 Đặng Minh Tài</p>
-                </footer>
-            </div>
+            {user ?
+                (
+                    <>
+                        <p className="text-center text-muted">
+                            Chào mừng bạn {user.displayName}
+                            đến website FourWay Travel
+                        </p>
+                    </>
+                ) 
+                : (
+                    <>
+                        <p className="text-center text-muted">Chào mừng bạn đến website FourWay Travel</p>
+                    </>
+                )
+            }
         </>
     );
 };

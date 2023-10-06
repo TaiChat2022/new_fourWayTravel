@@ -2,7 +2,11 @@ import React ,{ useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import MenuUI from './layout/menuUI';
 import {auth} from '../server/firebase'
-const Menu = () => {
+const Menu = ({
+    currentMenu, selectedMenu,
+    resetMenus , handleMenuClick
+    
+}) => {
     const [user, setUser] = useState(null);
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
@@ -34,6 +38,11 @@ const Menu = () => {
                 signOut = {signOut}
                 isDropdownOpen = {isDropdownOpen}
                 toggleDropdown = {toggleDropdown}
+
+                currentMenu ={currentMenu}
+                selectedMenu= {selectedMenu}
+                resetMenus = {resetMenus}
+                handleMenuClick ={handleMenuClick}
             />
         </>
     );
