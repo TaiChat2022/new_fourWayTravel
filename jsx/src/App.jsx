@@ -4,9 +4,10 @@ import './App.css';
 
 import { Suspense, lazy } from 'react';
 
-const Main = lazy(() => import("./pages/main"))
-const Login = lazy(() => import("./components/Login"))
-const ListLuuTru = lazy(() => import("./pages/list_luuTru"))
+const Main = lazy(() => import("./pages/main"));
+const Login = lazy(() => import("./components/Login"));
+const ListLuuTru = lazy(() => import("./pages/list_luuTru"));
+const ListKhachSan = lazy(() => import("./pages/list_khachSan"));
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
 
             <Route path="/luuTru/" element={<Main />} />
             <Route path="/luuTru/:id" element={<ListLuuTru />} />
+
+            <Route path="/khachSan/" element={<Main />} />
+            <Route path="/khachSan/:id" element={<ListKhachSan />} />
           </Routes>
         </Suspense>
       </Router>

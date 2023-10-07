@@ -4,6 +4,8 @@ import Menu from './menu';
 
 import LuuTru from './luuTru';
 
+import KhachSan from './khachSan';
+
 import Popular from './popular';
 import Vistlocation from './vistlocation';
 
@@ -64,8 +66,9 @@ const Main = () => {
             </div>
             <div className={`${currentMenu === 'khachsan' ? '' : 'hidden'}`}>
                 <Routes>
-                    <Route path="/" element={<LuuTru />} />
-                    <Route path=":userId" element={<LuuTru />} />
+                    <Route path="/" element={<KhachSan />} />
+                    <Route path=":userId" element={<KhachSan />} />
+                    <Route path="/khachSan/" element={<KhachSan />} />
                 </Routes>
             </div>
             <div className={`${currentMenu === 'diadiemthamquan' ? '' : 'hidden'}`}>
