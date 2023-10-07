@@ -1,12 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authSlice } from './auth/slice';
-import uiSlice from './ui/slice';
 
 export const store = configureStore({
-	reducer: {
-		[authSlice.name]: authSlice.reducer,
-		[uiSlice.name]: uiSlice.reducer,
-	},
+	reducer: {},
 	middleware: (getDMW) =>
 		getDMW({
 			serializableCheck: false,

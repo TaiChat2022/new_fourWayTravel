@@ -7,7 +7,3 @@
 		@apply flex items-center justify-center;
 	}
 }
-
-.editor .ql-editor {
-	min-height: 18em;
-}
