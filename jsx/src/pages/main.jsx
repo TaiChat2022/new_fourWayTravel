@@ -1,7 +1,10 @@
 import React,{useState , useEffect} from 'react';
 import { Route, Routes } from "react-router-dom";
 import Menu from './menu';
+
 import LuuTru from './luuTru';
+import List_luuTru from './list_luuTru';
+
 import Popular from './popular';
 import Vistlocation from './vistlocation';
 
@@ -57,6 +60,8 @@ const Main = () => {
                 <Routes>
                     <Route path="/" element={<LuuTru />} />
                     <Route path=":userId" element={<LuuTru />}/>
+                    <Route path="/luuTru/" element={<LuuTru />} />
+                    <Route path="/luuTru/:luuTruId" element={<List_luuTru />} />
                 </Routes>
             </div>
             <div className={`${currentMenu === 'khachsan' ? '' : 'hidden'}`}>

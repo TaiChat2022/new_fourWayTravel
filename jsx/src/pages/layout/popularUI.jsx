@@ -3,9 +3,7 @@ import React from 'react';
 const PopularUI = () => {
     return (
       <>
-        {/* <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" /> */}
-        {/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossOrigin="anonymous" referrerPolicy="no-referrer" /> */}
-        <div className="pt-12  ">
+        <div className="pt-12">
           <div className="text-center">
             <span className="text-3xl font-semibold mb-5">CHUYẾN BAY PHỔ BIẾN </span> <br />
             <span className="text-0.25xl text-gray-500 font-light mb-20">Được khách hàng tin tưởng và lựa chọn</span>

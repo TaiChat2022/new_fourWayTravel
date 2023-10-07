@@ -1,12 +1,12 @@
 import React ,{ useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
 import MenuUI from './layout/menuUI';
 import {auth} from '../server/firebase'
 const Menu = ({
     currentMenu, selectedMenu,
     resetMenus , handleMenuClick
-    
 }) => {
+    const navigate = useNavigate();
     const [user, setUser] = useState(null);
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
@@ -27,6 +27,7 @@ const Menu = ({
 
     const signOut = () => {
         auth.signOut().then(() => {
+            navigate(`/`);
             alert('Đăng xuất thành công!');
         })
     }
