@@ -1,19 +1,42 @@
 import React from 'react';
-import { useParams} from "react-router-dom";
-
-import List_luuTruUI from './layout/list_luuTruUI';
+import { Link, useParams } from "react-router-dom";
+import { useDocQuery } from "../hooks/firestore";
+import FooterUI from './layout/footerUI';
+import ListLuuTruUI from './layout/list_luuTruUI';
+import Menu from './menu';
 const List_luuTru = ({
-    luuTru_list = []
 }) => {
-    const { luuTruId } = useParams();
-    
-    const selectedItem = luuTru_list.find(item => item.id === luuTruId);
-
+    const { id } = useParams();
+    const { data, } = useDocQuery('luuTru', id)
+    const renderStars = () => {
+        let stars = [];
+        for (let i = 0; i < data.star; i++) {
+            stars.push(<i key={i} className="bi bi-star-fill text-yellow-400"></i>);
+        }
+        return stars;
+    };
+    // RESPONSIVE
+    const [windowWidth, setWindowWidth] = React.useState(window.innerWidth); // Lưu trữ kích thước màn hình
+    // Xác định kích thước màn hình và cập nhật state windowWidth
+    React.useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    // END RESPONSIVE
     return (
         <>
-            <List_luuTruUI
-                selectedItem={selectedItem}
+            <Menu />
+            <ListLuuTruUI
+                data={data}
+                renderStars={renderStars}
+                Link={Link}
+                windowWidth={windowWidth}
             />
+
+            <FooterUI />
         </>
     );
 };

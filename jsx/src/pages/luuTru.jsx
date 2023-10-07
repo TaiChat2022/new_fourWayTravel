@@ -1,21 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import LuuTruUI from './layout/luuTruUI';
-import { db } from '../server/firebase';
+import React from 'react';
 import { Link } from "react-router-dom";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { useDocsQuery } from '../hooks/firestore';
+import LuuTruUI from './layout/luuTruUI';
 const LuuTru = () => {
-    const [luuTru_list, setLuuTru_list] = useState([]);
-    useEffect(() => {
-        const u = query(collection(db, "luuTru"));
-        const unsubscribe = onSnapshot(u, (snapshot) => {
-            const list = [];
-            snapshot.forEach((doc) => {
-                list.push({ id: doc.id, ...doc.data() });
-            });
-            setLuuTru_list(list);
-        });
-        return () => unsubscribe();
-    }, []);
+    const { data: luuTru_list } = useDocsQuery('luuTru')
+
     const getRatingText = (star) => {
         if (star > 4) return "Xuất sắc";
         if (star > 3) return "Tuyệt vời";
@@ -25,11 +14,11 @@ const LuuTru = () => {
     return (
         <>
             <LuuTruUI
-                luuTru_list ={luuTru_list}
-                getRatingText ={getRatingText}
-                Link = {Link}
+                luuTru_list={luuTru_list}
+                getRatingText={getRatingText}
+                Link={Link}
             />
-            <list/>
+            <list />
         </>
     );
 };
