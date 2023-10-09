@@ -44,7 +44,7 @@
     border: 1px solid var(--bg-color__300);
 }
 .custom_menu_hover:hover,
-.custom_menu_hover:focus
+.custom_menu_clicked
 {
     color: var(--bg-color_white__100);
     background-color: var(--bg-color__400);
