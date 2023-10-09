@@ -7,10 +7,12 @@
 *:after {
 	box-sizing: border-box;
 }
+
 * {
 	margin: 0;
 	padding: 0;
 }
+
 img,
 picture,
 svg,
@@ -18,24 +20,32 @@ video {
 	display: block;
 	max-width: 100%;
 }
+
 input,
 select,
 textarea {
 	background-color: transparent;
 	outline: none;
 }
+
+.action1 {
+	width: 1240px;
+}
+
 button {
 	cursor: pointer;
 	background-color: transparent;
 	outline: none;
 	border: 0;
 }
+
 body {
 	min-height: 100vh;
 
 	font-size: 16px;
 	line-height: 1;
 }
+
 .container {
 	display: flex;
 	justify-content: center;
@@ -43,24 +53,29 @@ body {
 	margin: 30px;
 	margin: auto;
 }
+
 .action1 h5 {
 	margin: 20px 0px;
 }
+
 .action1 p {
 	margin-bottom: 20px;
 	color: 474747;
 	font-weight: normal;
 }
+
 .selection {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	gap: 20px;
 }
+
 .product {
 	border-radius: 7px;
 	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
 .img img {
 	border-radius: 7px 7px 0 0;
 	width: 100%;
@@ -72,6 +87,7 @@ body {
 	font-size: 24px;
 	font-weight: bold;
 }
+
 .action1 p {
 	font-size: 18px;
 	font-weight: 300;
@@ -81,6 +97,7 @@ body {
 .title {
 	margin: 20px 10px;
 }
+
 .title h5 {
 	font-size: 14px;
 	font-weight: bold;
@@ -91,6 +108,7 @@ body {
 	color: 1A1A1A;
 	margin: 10px;
 }
+
 .feetback {
 	display: flex;
 	justify-content: space-between;
@@ -100,10 +118,12 @@ body {
 	margin: 5px 10px;
 	padding-top: 20px;
 }
+
 .feetback p {
 	font-size: 14px;
 	margin-bottom: 0;
 }
+
 .feetback_box {
 	background-color: #fa6035;
 	width: 24px;
@@ -114,6 +134,7 @@ body {
 	justify-content: center;
 	align-items: center;
 }
+
 .feetback_box p {
 	color: #ffff;
 	text-align: center;
@@ -128,6 +149,7 @@ body {
 	justify-content: flex-start;
 	gap: 1020px;
 }
+
 .center_ct p {
 	font-size: 14px;
 	color: rgb(38, 91, 198);
