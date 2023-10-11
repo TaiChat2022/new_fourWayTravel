@@ -1,38 +1,25 @@
-import { Backdrop, CircularProgress } from "@mui/material";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import './App.css';
-
+import Loading from '@/components/Loading';
 import { Suspense, lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Layout from './layout';
+import { routes } from './utils/routes';
 
-const Main = lazy(() => import("./pages/main"));
-const Login = lazy(() => import("./components/Login"));
-const ListLuuTru = lazy(() => import("./pages/list_luuTru"));
-const ListKhachSan = lazy(() => import("./pages/list_khachSan"));
+const Home = lazy(() => import('@/pages/Home'));
 
-function App() {
-  return (
-    <>
-      <Router>
-        <Suspense fallback={<Backdrop open style={{
-          zIndex: 10000
-        }} className="flex items-center justify-center">
-          <CircularProgress />
-        </Backdrop>}>
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/trangchu/*" element={<Main />} />
-            <Route path="/login" element={<Login />} />
-
-            <Route path="/luuTru/" element={<Main />} />
-            <Route path="/luuTru/:id" element={<ListLuuTru />} />
-
-            <Route path="/khachSan/" element={<Main />} />
-            <Route path="/khachSan/:id" element={<ListKhachSan />} />
-          </Routes>
-        </Suspense>
-      </Router>
-    </>
-  );
+export default function App() {
+	return (
+		<Suspense fallback={<Loading />}>
+			<Routes>
+				<Route
+					path="/"
+					element={<Layout />}
+				>
+					<Route
+						path={routes.HOME}
+						element={<Home />}
+					/>
+				</Route>
+			</Routes>
+		</Suspense>
+	);
 }
-
-export default App;
