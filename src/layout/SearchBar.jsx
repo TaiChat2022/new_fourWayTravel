@@ -4,7 +4,7 @@ export default function SearchBar() {
             <div className="mx-auto mt-4 w-3/4 shadow-2xl border-2 rounded-lg">
                 <div className="flex w-full shadow-nux-30 rounded-lg bg-white overflow-hidden " data-testid="search-form">
                     <div className="grid grid-cols-3 w-full rounded-lg">
-                        <button type="button" data-testid="search-form-destination" className="border-2 group w-full text-left truncate h-20 px-5 bg-white active:bg-grey-200">
+                        <button type="button" data-testid="search-form-destination" className=" group w-full text-left truncate h-20 px-5 bg-white active:bg-grey-200">
                             <span className="flex items-center 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
                                 <span className="leading-none inline-flex transform flex-shrink-0 mr-3 " aria-hidden="true">
                                     <i className="fa-solid fa-magnifying-glass text-lg"></i>
@@ -19,7 +19,7 @@ export default function SearchBar() {
                                 </span>
                             </span>
                         </button>
-                        <button type="button" data-testid="search-form-calendar" className="border-2 group w-full text-left truncate h-20 px-5 bg-white active:bg-grey-200">
+                        <button type="button" data-testid="search-form-calendar" className="border-l-2 group w-full text-left truncate h-20 px-5 bg-white active:bg-grey-200">
                             <span className="flex items-center 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
                                 <span className="leading-none inline-flex transform flex-shrink-0 mr-3 " aria-hidden="true">
                                     <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" className="pointer-events-none max-h-full max-w-full">
@@ -37,7 +37,7 @@ export default function SearchBar() {
                                 </span>
                             </span>
                         </button>
-                        <button type="button" data-testid="search-form-guest-selector" className="border-2 group w-full text-left truncate h-20 px-5 bg-white active:bg-grey-200">
+                        <button type="button" data-testid="search-form-guest-selector" className="border-l-2 group w-full text-left truncate h-20 px-5 bg-white active:bg-grey-200">
                             <span className="flex items-center 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
                                 <span className="leading-none inline-flex transform flex-shrink-0 mr-3 " aria-hidden="true">
                                     <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" className="pointer-events-none max-h-full max-w-full">
@@ -51,7 +51,7 @@ export default function SearchBar() {
                             </span>
                         </button>
                     </div>
-                    <button type="button" className=" relative px-6 py-2 rounded-sm text-white text-xl font-bold bg-blue-800" data-testid="search-button">
+                    <button type="button" className=" relative mx-4 px-8 my-4 rounded-lg text-white text-xl font-bold bg-blue-600" data-testid="search-button">
                         <span className>Tìm</span>
                     </button>
                 </div>
