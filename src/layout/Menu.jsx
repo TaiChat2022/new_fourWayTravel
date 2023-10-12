@@ -8,7 +8,7 @@ export default function MenuLayOut({
     language, anchorE3, open3, handleClick3, handleClose3,
     selectedLanguage, handleLanguageChange,
 
-    styleModal, Box, Typography, Modal, openModal, handleOpenModal, handleCloseModal
+    styleModal, Box, Typography, Modal, openModal, handleOpenModal, handleCloseModal,
 }) {
     return (
         <>
