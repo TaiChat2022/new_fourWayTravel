@@ -1,12 +1,14 @@
 export default function MenuLayOut({
-    Logo, Link, Login,
+    Logo, Link,
     Button, Menu, MenuItem, anchorEl, open, handleClick, handleClose,
 
     currincey, ITEM_HEIGHT, anchorE2, open2, handleClick2, handleClose2,
     selectedCurrency, handleCurrencyChange,
 
     language, anchorE3, open3, handleClick3, handleClose3,
-    selectedLanguage, handleLanguageChange
+    selectedLanguage, handleLanguageChange,
+
+    styleModal, Box, Typography, Modal, openModal, handleOpenModal, handleCloseModal
 }) {
     return (
         <>
@@ -18,6 +20,7 @@ export default function MenuLayOut({
                         </Link>
                         <nav className="h-full self-end ml-auto">
                             <ul className="flex h-full mr-2 s:mr-0 text-grey-900">
+                                {/* Yêu thích */}
                                 <li className="h-full list-none flex relative">
                                     <div className="flex justify-center">
                                         <Link to="#" className="flex w-full items-center h-full  cursor-pointer hover:bg-grey-200 px-4">
@@ -28,6 +31,7 @@ export default function MenuLayOut({
                                         </Link>
                                     </div>
                                 </li>
+                                {/* Currincy */}
                                 <li className="h-full list-none flex relative">
                                     <div className="flex justify-center">
                                         <div className="flex w-full items-center h-full cursor-pointer hover:bg-grey-200 px-4">
@@ -55,7 +59,7 @@ export default function MenuLayOut({
                                                 PaperProps={{
                                                     style: {
                                                         maxHeight: ITEM_HEIGHT * 4.5,
-                                                        width: '20ch',
+                                                        width: '21ch',
                                                     },
                                                 }}
                                             >
@@ -68,6 +72,7 @@ export default function MenuLayOut({
                                         </div>
                                     </div>
                                 </li>
+                                {/* Language */}
                                 <li className="h-full list-none flex relative">
                                     <div className="flex justify-center">
                                         <div className="flex w-full items-center h-full cursor-pointer hover:bg-grey-200 px-4">
@@ -108,7 +113,59 @@ export default function MenuLayOut({
                                         </div>
                                     </div>
                                 </li>
-                                <Login />
+                                {/* Login */}
+                                <li className="h-full list-none flex relative">
+                                    <div className="flex justify-center">
+                                        <Button onClick={handleOpenModal}
+                                            className="flex w-full items-center h-full  cursor-pointer hover:bg-grey-200 px-4">
+                                            <i className="fa-regular fa-circle-user leading-none inline-flex transform text-black"></i>
+                                            <span className="flex-grow text-md text-black space-nowrap mx-2">
+                                                Đăng nhập
+                                            </span>
+                                        </Button>
+                                    </div>
+                                    <Modal
+                                        open={openModal}
+                                        onClose={handleCloseModal}
+                                        aria-labelledby="modal-modal-title"
+                                        aria-describedby="modal-modal-description"
+                                    >
+                                        <Box sx={styleModal}>
+                                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                                <span className="font-bold">
+                                                    Đăng nhập
+                                                </span>
+                                            </Typography>
+                                            <Typography id="modal-modal-description" sx={{ mt: 2 }} component="div">
+                                                <form >
+                                                    <div className="mb-6">
+                                                        <label htmlFor="email" className="block mb-2 text-sm font-bold text-black">Your email</label>
+                                                        <input type="email" id="email" className="bg-white border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500" placeholder="name@flowbite.com" required />
+                                                    </div>
+                                                    <div className="mb-6">
+                                                        <label htmlFor="password" className="block mb-2 text-sm font-bold text-black">Your password</label>
+                                                        <input type="password" id="password" className="bg-white border  border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500" required />
+                                                    </div>
+                                                    <div className="flex items-start mb-6">
+                                                        <div className="flex items-center h-5">
+                                                            <input id="remember" type="checkbox" defaultValue className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+                                                        </div>
+                                                        <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900">Remember me</label>
+                                                    </div>
+                                                    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                                                </form>
+                                            </Typography>
+                                            <hr className="mt-2" />
+                                            <Button className="border-t mt-2 border-2 border-gray-900 flex items-center justify-center w-full">
+                                                <span>
+                                                    Đăng nhập với google
+                                                </span>
+                                            </Button>
+                                        </Box>
+                                    </Modal>
+                                </li>
+
+                                {/* Menu */}
                                 <li className="h-full list-none flex relative">
                                     <div className="flex justify-center">
                                         <div className="flex w-full items-center h-full  cursor-pointer hover:bg-grey-200 px-4">

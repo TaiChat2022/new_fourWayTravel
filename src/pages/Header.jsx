@@ -1,7 +1,9 @@
 import Logo from '@/assets/img/Logo_hotel.png';
-import Login from '@/auth/Login';
 import MenuLayOut from "@/layout/Menu";
+import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -9,10 +11,22 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 
 const currincey = [
-    'VNĐ - Việt Nam Đồng',
+    'VNĐ - Việt Nam đồng',
     'USD - Us Dollar',
     'JPY - Japanese Yen',
 ];
+
+const styleModal = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 const language = [
     'VI - tiếng Việt',
@@ -61,11 +75,16 @@ const Header = () => {
         setSelectedLanguage(newLanguage);
         handleClose3(); // Đóng menu sau khi chọn
     };
+
+    // Modal 
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleOpenModal = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
+
     return (
         <MenuLayOut
             Logo={Logo}
             Link={Link}
-            Login={Login}
 
             Button={Button}
             Menu={Menu}
@@ -93,6 +112,14 @@ const Header = () => {
 
             selectedLanguage={selectedLanguage}
             handleLanguageChange={handleLanguageChange}
+
+            styleModal={styleModal}
+            Box={Box}
+            Typography={Typography}
+            Modal={Modal}
+            openModal={openModal}
+            handleOpenModal={handleOpenModal}
+            handleCloseModal={handleCloseModal}
         />
     );
 };
