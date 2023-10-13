@@ -35,7 +35,9 @@ const language = [
 ];
 const ITEM_HEIGHT = 36;
 
-const Header = () => {
+const Header = ({
+    windowWidth
+}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -85,6 +87,7 @@ const Header = () => {
         <MenuLayOut
             Logo={Logo}
             Link={Link}
+            windowWidth={windowWidth}
 
             Button={Button}
             Menu={Menu}
