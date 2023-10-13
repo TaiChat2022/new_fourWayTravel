@@ -60,7 +60,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '265px', height: '290px' }}
 					>
 						<div
 							className="box-img"
@@ -68,18 +68,20 @@ export default function BasicTabs() {
 						>
 							<div
 								className="box-content"
-								style={{ position: 'absolute', margin: '10px 0px 0px 10px' }}
+								style={{
+									position: 'absolute',
+									margin: '10px 0px 0px 10px',
+									transform: 'translate(0px, 188px)',
+								}}
 							>
 								<h3
 									className="name-travel"
 									style={{
-										fontSize: '18px',
+										fontSize: '25px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									Vũng Tàu
@@ -87,30 +89,14 @@ export default function BasicTabs() {
 								<h3
 									className="total-room"
 									style={{
-										fontSize: '18px',
+										fontSize: '15px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									<span className="total-number">1.615</span> Khách sạn
-								</h3>
-								<h3
-									className="medium"
-									style={{
-										fontSize: '18px',
-										fontWeight: 600,
-										backgroundColor: '#fff',
-										padding: '2px 2px',
-										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
-									}}
-								>
-									<span className="medium-number">Trung bình:</span> 54đ
 								</h3>
 							</div>
 							<img
@@ -125,7 +111,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '265px', height: '290px' }}
 					>
 						<div
 							className="box-img"
@@ -133,18 +119,20 @@ export default function BasicTabs() {
 						>
 							<div
 								className="box-content"
-								style={{ position: 'absolute', margin: '10px 0px 0px 10px' }}
+								style={{
+									position: 'absolute',
+									margin: '10px 0px 0px 10px',
+									transform: 'translate(0px, 188px)',
+								}}
 							>
 								<h3
 									className="name-travel"
 									style={{
-										fontSize: '18px',
+										fontSize: '25px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									TP. Hồ Chí Minh
@@ -152,30 +140,14 @@ export default function BasicTabs() {
 								<h3
 									className="total-room"
 									style={{
-										fontSize: '18px',
+										fontSize: '15px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									<span className="total-number">1.615</span> Khách sạn
-								</h3>
-								<h3
-									className="medium"
-									style={{
-										fontSize: '18px',
-										fontWeight: 600,
-										backgroundColor: '#fff',
-										padding: '2px 2px',
-										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
-									}}
-								>
-									<span className="medium-number">Trung bình:</span> 54đ
 								</h3>
 							</div>
 							<img
@@ -190,7 +162,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '265px', height: '290px' }}
 					>
 						<div
 							className="box-img"
@@ -198,18 +170,20 @@ export default function BasicTabs() {
 						>
 							<div
 								className="box-content"
-								style={{ position: 'absolute', margin: '10px 0px 0px 10px' }}
+								style={{
+									position: 'absolute',
+									margin: '10px 0px 0px 10px',
+									transform: 'translate(0px, 188px)',
+								}}
 							>
 								<h3
 									className="name-travel"
 									style={{
-										fontSize: '18px',
+										fontSize: '25px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									Đà Lạt
@@ -217,30 +191,14 @@ export default function BasicTabs() {
 								<h3
 									className="total-room"
 									style={{
-										fontSize: '18px',
+										fontSize: '15px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									<span className="total-number">1.615</span> Khách sạn
-								</h3>
-								<h3
-									className="medium"
-									style={{
-										fontSize: '18px',
-										fontWeight: 600,
-										backgroundColor: '#fff',
-										padding: '2px 2px',
-										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
-									}}
-								>
-									<span className="medium-number">Trung bình:</span> 54đ
 								</h3>
 							</div>
 							<img
@@ -255,7 +213,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '265px', height: '290px' }}
 					>
 						<div
 							className="box-img"
@@ -263,18 +221,20 @@ export default function BasicTabs() {
 						>
 							<div
 								className="box-content"
-								style={{ position: 'absolute', margin: '10px 0px 0px 10px' }}
+								style={{
+									position: 'absolute',
+									margin: '10px 0px 0px 10px',
+									transform: 'translate(0px, 188px)',
+								}}
 							>
 								<h3
 									className="name-travel"
 									style={{
-										fontSize: '18px',
+										fontSize: '25px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									Nha Trang
@@ -282,30 +242,14 @@ export default function BasicTabs() {
 								<h3
 									className="total-room"
 									style={{
-										fontSize: '18px',
+										fontSize: '15px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									<span className="total-number">1.615</span> Khách sạn
-								</h3>
-								<h3
-									className="medium"
-									style={{
-										fontSize: '18px',
-										fontWeight: 600,
-										backgroundColor: '#fff',
-										padding: '2px 2px',
-										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
-									}}
-								>
-									<span className="medium-number">Trung bình:</span> 54đ
 								</h3>
 							</div>
 							<img
@@ -326,7 +270,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '265px', height: '300px' }}
 					>
 						<div
 							className="box-img"
@@ -334,18 +278,20 @@ export default function BasicTabs() {
 						>
 							<div
 								className="box-content"
-								style={{ position: 'absolute', margin: '10px 0px 0px 10px' }}
+								style={{
+									position: 'absolute',
+									margin: '10px 0px 0px 10px',
+									transform: 'translate(0px, 188px)',
+								}}
 							>
 								<h3
 									className="name-travel"
 									style={{
-										fontSize: '18px',
+										fontSize: '25px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									Vũng Tàu
@@ -353,30 +299,14 @@ export default function BasicTabs() {
 								<h3
 									className="total-room"
 									style={{
-										fontSize: '18px',
+										fontSize: '15px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									<span className="total-number">1.615</span> Khách sạn
-								</h3>
-								<h3
-									className="medium"
-									style={{
-										fontSize: '18px',
-										fontWeight: 600,
-										backgroundColor: '#fff',
-										padding: '2px 2px',
-										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
-									}}
-								>
-									<span className="medium-number">Trung bình:</span> 54đ
 								</h3>
 							</div>
 							<img
@@ -391,7 +321,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '265px', height: '300px' }}
 					>
 						<div
 							className="box-img"
@@ -399,18 +329,20 @@ export default function BasicTabs() {
 						>
 							<div
 								className="box-content"
-								style={{ position: 'absolute', margin: '10px 0px 0px 10px' }}
+								style={{
+									position: 'absolute',
+									margin: '10px 0px 0px 10px',
+									transform: 'translate(0px, 188px)',
+								}}
 							>
 								<h3
 									className="name-travel"
 									style={{
-										fontSize: '18px',
+										fontSize: '25px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									TP. Hồ Chí Minh
@@ -418,30 +350,14 @@ export default function BasicTabs() {
 								<h3
 									className="total-room"
 									style={{
-										fontSize: '18px',
+										fontSize: '15px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									<span className="total-number">1.615</span> Khách sạn
-								</h3>
-								<h3
-									className="medium"
-									style={{
-										fontSize: '18px',
-										fontWeight: 600,
-										backgroundColor: '#fff',
-										padding: '2px 2px',
-										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
-									}}
-								>
-									<span className="medium-number">Trung bình:</span> 54đ
 								</h3>
 							</div>
 							<img
@@ -456,7 +372,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '265px', height: '300px' }}
 					>
 						<div
 							className="box-img"
@@ -464,18 +380,20 @@ export default function BasicTabs() {
 						>
 							<div
 								className="box-content"
-								style={{ position: 'absolute', margin: '10px 0px 0px 10px' }}
+								style={{
+									position: 'absolute',
+									margin: '10px 0px 0px 10px',
+									transform: 'translate(0px, 188px)',
+								}}
 							>
 								<h3
 									className="name-travel"
 									style={{
-										fontSize: '18px',
+										fontSize: '25px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									Đà Lạt
@@ -483,30 +401,14 @@ export default function BasicTabs() {
 								<h3
 									className="total-room"
 									style={{
-										fontSize: '18px',
+										fontSize: '15px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									<span className="total-number">1.615</span> Khách sạn
-								</h3>
-								<h3
-									className="medium"
-									style={{
-										fontSize: '18px',
-										fontWeight: 600,
-										backgroundColor: '#fff',
-										padding: '2px 2px',
-										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
-									}}
-								>
-									<span className="medium-number">Trung bình:</span> 54đ
 								</h3>
 							</div>
 							<img
@@ -521,7 +423,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '265px', height: '300px' }}
 					>
 						<div
 							className="box-img"
@@ -529,18 +431,20 @@ export default function BasicTabs() {
 						>
 							<div
 								className="box-content"
-								style={{ position: 'absolute', margin: '10px 0px 0px 10px' }}
+								style={{
+									position: 'absolute',
+									margin: '10px 0px 0px 10px',
+									transform: 'translate(0px, 188px)',
+								}}
 							>
 								<h3
 									className="name-travel"
 									style={{
-										fontSize: '18px',
+										fontSize: '25px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									Nha Trang
@@ -548,30 +452,14 @@ export default function BasicTabs() {
 								<h3
 									className="total-room"
 									style={{
-										fontSize: '18px',
+										fontSize: '15px',
 										fontWeight: 600,
-										backgroundColor: '#fff',
 										padding: '2px 2px',
 										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
+										color: '#fff',
 									}}
 								>
 									<span className="total-number">1.615</span> Khách sạn
-								</h3>
-								<h3
-									className="medium"
-									style={{
-										fontSize: '18px',
-										fontWeight: 600,
-										backgroundColor: '#fff',
-										padding: '2px 2px',
-										borderRadius: '10px',
-										marginBottom: '10px',
-										color: '#5c93d1',
-									}}
-								>
-									<span className="medium-number">Trung bình:</span> 54đ
 								</h3>
 							</div>
 							<img
@@ -583,12 +471,6 @@ export default function BasicTabs() {
 						</div>
 					</Link>
 				</div>
-			</TabPanel>
-			<TabPanel
-				value={value}
-				index={2}
-			>
-				Item Three
 			</TabPanel>
 		</Box>
 	);
