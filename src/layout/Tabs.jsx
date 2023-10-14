@@ -4,6 +4,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
+import '../../public/css/Tabs.css';
 
 function TabPanel(props) {
 	const { children, value, index } = props;
@@ -32,77 +33,54 @@ export default function BasicTabs() {
 	};
 
 	return (
-		<Box sx={{ width: '75%', margin: 'auto' }}>
-			<Box sx={{ fontSize: '20px', fontWeight: 700, marginTop: '50px' }}>Tìm kiếm phổ biến</Box>
-			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+		<Box className="container">
+			<Box className="search-title">Tìm kiếm phổ biến</Box>
+			<Box className="search-tabs">
 				<Tabs
 					value={value}
 					onChange={handleChange}
 					aria-label="basic tabs example"
 				>
 					<Tab
-						sx={{ fontSize: '12px', fontWeight: 600 }}
-						label="Thành phố"
+						style={{ fontSize: '12px', fontWeight: '600' }}
+						className="tabs"
+						label="Miền bắc"
 						{...a11yProps(0)}
 					/>
 					<Tab
-						sx={{ fontSize: '12px', fontWeight: 600 }}
-						label="Điểm đến"
+						style={{ fontSize: '12px', fontWeight: '600' }}
+						className="tabs"
+						label="Miền trung"
 						{...a11yProps(1)}
+					/>
+					<Tab
+						style={{ fontSize: '12px', fontWeight: '600' }}
+						className="tabs"
+						label="Miền nam"
+						{...a11yProps(2)}
 					/>
 				</Tabs>
 			</Box>
 			<TabPanel
 				value={value}
 				index={0}
+				className=""
 			>
-				<div className="grid grid-cols-4 gap-4">
+				<div className="grid grid-cols-4 gap-4 p-0">
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '265px', height: '290px' }}
 					>
-						<div
-							className="box-img"
-							style={{ width: '100%', height: '100%' }}
-						>
-							<div
-								className="box-content"
-								style={{
-									position: 'absolute',
-									margin: '10px 0px 0px 10px',
-									transform: 'translate(0px, 188px)',
-								}}
-							>
-								<h3
-									className="name-travel"
-									style={{
-										fontSize: '25px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
-									Vũng Tàu
-								</h3>
-								<h3
-									className="total-room"
-									style={{
-										fontSize: '15px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
+						<div className="box-img">
+							<div className="box-content">
+								<h3 className="name-travel">Cát Bà</h3>
+								<h3 className="total-room">
 									<span className="total-number">1.615</span> Khách sạn
 								</h3>
 							</div>
 							<img
-								src="https://imgcy.trivago.com/c_fill,d_dummy.jpeg,e_sharpen:60,f_auto,h_258,q_auto,w_258/categoryimages/68/07/68078_v73.jpeg"
+								src="https://vcdn-vnexpress.vnecdn.net/2023/07/03/catb-9687-1688394483.jpg"
 								alt=""
-								style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
 								className="image"
 							/>
 						</div>
@@ -111,49 +89,17 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '265px', height: '290px' }}
 					>
-						<div
-							className="box-img"
-							style={{ width: '100%', height: '100%' }}
-						>
-							<div
-								className="box-content"
-								style={{
-									position: 'absolute',
-									margin: '10px 0px 0px 10px',
-									transform: 'translate(0px, 188px)',
-								}}
-							>
-								<h3
-									className="name-travel"
-									style={{
-										fontSize: '25px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
-									TP. Hồ Chí Minh
-								</h3>
-								<h3
-									className="total-room"
-									style={{
-										fontSize: '15px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
+						<div className="box-img">
+							<div className="box-content">
+								<h3 className="name-travel">Sa Pa</h3>
+								<h3 className="total-room">
 									<span className="total-number">1.615</span> Khách sạn
 								</h3>
 							</div>
 							<img
-								src="https://imgcy.trivago.com/c_fill,d_dummy.jpeg,e_sharpen:60,f_auto,h_258,q_auto,w_258/categoryimages/68/08/68089_v54.jpeg"
+								src="https://datviettour.com.vn/uploads/images/tin-tuc-SEO/mien-bac/sa-pa/du-lich-sapa-tet-nguyen-dan-2023.jpg"
 								alt=""
-								style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
 								className="image"
 							/>
 						</div>
@@ -162,49 +108,17 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '265px', height: '290px' }}
 					>
-						<div
-							className="box-img"
-							style={{ width: '100%', height: '100%' }}
-						>
-							<div
-								className="box-content"
-								style={{
-									position: 'absolute',
-									margin: '10px 0px 0px 10px',
-									transform: 'translate(0px, 188px)',
-								}}
-							>
-								<h3
-									className="name-travel"
-									style={{
-										fontSize: '25px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
-									Đà Lạt
-								</h3>
-								<h3
-									className="total-room"
-									style={{
-										fontSize: '15px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
+						<div className="box-img">
+							<div className="box-content">
+								<h3 className="name-travel">Hà Nội</h3>
+								<h3 className="total-room">
 									<span className="total-number">1.615</span> Khách sạn
 								</h3>
 							</div>
 							<img
-								src="https://imgcy.trivago.com/c_fill,d_dummy.jpeg,e_sharpen:60,f_auto,h_258,q_auto,w_258/categoryimages/68/09/68093_v72.jpeg"
+								src="https://static.vinwonders.com/2022/07/dia-diem-du-lich-ha-noi-6.jpg"
 								alt=""
-								style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
 								className="image"
 							/>
 						</div>
@@ -213,50 +127,18 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '265px', height: '290px' }}
 					>
-						<div
-							className="box-img"
-							style={{ width: '100%', height: '100%' }}
-						>
-							<div
-								className="box-content"
-								style={{
-									position: 'absolute',
-									margin: '10px 0px 0px 10px',
-									transform: 'translate(0px, 188px)',
-								}}
-							>
-								<h3
-									className="name-travel"
-									style={{
-										fontSize: '25px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
-									Nha Trang
-								</h3>
-								<h3
-									className="total-room"
-									style={{
-										fontSize: '15px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
+						<div className="box-img">
+							<div className="box-content">
+								<h3 className="name-travel">Mộc Châu</h3>
+								<h3 className="total-room">
 									<span className="total-number">1.615</span> Khách sạn
 								</h3>
 							</div>
 							<img
-								src="https://imgcy.trivago.com/c_fill,d_dummy.jpeg,e_sharpen:60,f_auto,h_258,q_auto,w_258/categoryimages/68/08/68088_v59.jpeg"
+								src="https://family-64-home-mo-c-chau-moc-chau.hotelmix.vn/data/Photos/OriginalPhoto/13039/1303996/1303996564/Family-64-Home-Mo-C-Chau-Moc-Chau-Exterior.JPEG"
 								alt=""
 								className="image"
-								style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
 							/>
 						</div>
 					</Link>
@@ -270,49 +152,17 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '265px', height: '300px' }}
 					>
-						<div
-							className="box-img"
-							style={{ width: '100%', height: '100%' }}
-						>
-							<div
-								className="box-content"
-								style={{
-									position: 'absolute',
-									margin: '10px 0px 0px 10px',
-									transform: 'translate(0px, 188px)',
-								}}
-							>
-								<h3
-									className="name-travel"
-									style={{
-										fontSize: '25px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
-									Vũng Tàu
-								</h3>
-								<h3
-									className="total-room"
-									style={{
-										fontSize: '15px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
+						<div className="box-img">
+							<div className="box-content">
+								<h3 className="name-travel">Quy Nhơn</h3>
+								<h3 className="total-room">
 									<span className="total-number">1.615</span> Khách sạn
 								</h3>
 							</div>
 							<img
-								src="https://imgcy.trivago.com/c_fill,d_dummy.jpeg,e_sharpen:60,f_auto,h_258,q_auto,w_258/categoryimages/0/217_v79.jpeg"
+								src="https://grandcenterquynhon.com.vn/images/tt_duan1a.jpg"
 								alt=""
-								style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
 								className="image"
 							/>
 						</div>
@@ -321,49 +171,17 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '265px', height: '300px' }}
 					>
-						<div
-							className="box-img"
-							style={{ width: '100%', height: '100%' }}
-						>
-							<div
-								className="box-content"
-								style={{
-									position: 'absolute',
-									margin: '10px 0px 0px 10px',
-									transform: 'translate(0px, 188px)',
-								}}
-							>
-								<h3
-									className="name-travel"
-									style={{
-										fontSize: '25px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
-									TP. Hồ Chí Minh
-								</h3>
-								<h3
-									className="total-room"
-									style={{
-										fontSize: '15px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
+						<div className="box-img">
+							<div className="box-content">
+								<h3 className="name-travel">Đà Nắng</h3>
+								<h3 className="total-room">
 									<span className="total-number">1.615</span> Khách sạn
 								</h3>
 							</div>
 							<img
-								src="https://imgcy.trivago.com/c_fill,d_dummy.jpeg,e_sharpen:60,f_auto,h_258,q_auto,w_258/categoryimages/31/47/31474_v73.jpeg"
+								src="https://media.baodautu.vn/Images/chicuong/2022/06/24/16-Bana_Hilss.jpg"
 								alt=""
-								style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
 								className="image"
 							/>
 						</div>
@@ -372,49 +190,17 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '265px', height: '300px' }}
 					>
-						<div
-							className="box-img"
-							style={{ width: '100%', height: '100%' }}
-						>
-							<div
-								className="box-content"
-								style={{
-									position: 'absolute',
-									margin: '10px 0px 0px 10px',
-									transform: 'translate(0px, 188px)',
-								}}
-							>
-								<h3
-									className="name-travel"
-									style={{
-										fontSize: '25px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
-									Đà Lạt
-								</h3>
-								<h3
-									className="total-room"
-									style={{
-										fontSize: '15px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
+						<div className="box-img">
+							<div className="box-content">
+								<h3 className="name-travel">Nha Trang</h3>
+								<h3 className="total-room">
 									<span className="total-number">1.615</span> Khách sạn
 								</h3>
 							</div>
 							<img
-								src="https://imgcy.trivago.com/c_fill,d_dummy.jpeg,e_sharpen:60,f_auto,h_258,q_auto,w_258/categoryimages/41/85/418570_v71.jpeg"
+								src="https://baodienbienphu.com.vn/Uploads/images/uthong85/2023/02/14/NT777837387837833.jpg"
 								alt=""
-								style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
 								className="image"
 							/>
 						</div>
@@ -423,50 +209,101 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '265px', height: '300px' }}
 					>
-						<div
-							className="box-img"
-							style={{ width: '100%', height: '100%' }}
-						>
-							<div
-								className="box-content"
-								style={{
-									position: 'absolute',
-									margin: '10px 0px 0px 10px',
-									transform: 'translate(0px, 188px)',
-								}}
-							>
-								<h3
-									className="name-travel"
-									style={{
-										fontSize: '25px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
-									Nha Trang
-								</h3>
-								<h3
-									className="total-room"
-									style={{
-										fontSize: '15px',
-										fontWeight: 600,
-										padding: '2px 2px',
-										borderRadius: '10px',
-										color: '#fff',
-									}}
-								>
+						<div className="box-img">
+							<div className="box-content">
+								<h3 className="name-travel">Bình Thuận</h3>
+								<h3 className="total-room">
 									<span className="total-number">1.615</span> Khách sạn
 								</h3>
 							</div>
 							<img
-								src="https://imgcy.trivago.com/c_fill,d_dummy.jpeg,e_sharpen:60,f_auto,h_258,q_auto,w_258/categoryimages/68/05/68057_v73.jpeg"
+								src="https://binhthuan.gov.vn/Images/Dangtai/Thang122019/3012/tin7/image003.jpg"
 								alt=""
 								className="image"
-								style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
+							/>
+						</div>
+					</Link>
+				</div>
+			</TabPanel>
+			<TabPanel
+				value={value}
+				index={2}
+				className=""
+			>
+				<div className="grid grid-cols-4 gap-4">
+					<Link
+						to=""
+						className="box-images"
+					>
+						<div className="box-img">
+							<div className="box-content">
+								<h3 className="name-travel">Vũng Tàu</h3>
+								<h3 className="total-room">
+									<span className="total-number">1.615</span> Khách sạn
+								</h3>
+							</div>
+							<img
+								src="https://cdn3.ivivu.com/2022/09/T%E1%BB%95ng-quan-du-l%E1%BB%8Bch-V%C5%A9ng-T%C3%A0u-ivivu.jpg"
+								alt=""
+								className="image"
+							/>
+						</div>
+					</Link>
+
+					<Link
+						to=""
+						className="box-images"
+					>
+						<div className="box-img">
+							<div className="box-content">
+								<h3 className="name-travel">Kiên Giang</h3>
+								<h3 className="total-room">
+									<span className="total-number">1.615</span> Khách sạn
+								</h3>
+							</div>
+							<img
+								src="https://xdcs.cdnchinhphu.vn/446259493575335936/2023/9/20/kiengiang2-169518441550478692841.jpg"
+								alt=""
+								className="image"
+							/>
+						</div>
+					</Link>
+
+					<Link
+						to=""
+						className="box-images"
+					>
+						<div className="box-img">
+							<div className="box-content">
+								<h3 className="name-travel">Cần Thơ</h3>
+								<h3 className="total-room">
+									<span className="total-number">1.615</span> Khách sạn
+								</h3>
+							</div>
+							<img
+								src="https://vcdn-kinhdoanh.vnecdn.net/2020/10/19/121774598-699865344269296-8580-6401-9195-1603091427.jpg"
+								alt=""
+								className="image"
+							/>
+						</div>
+					</Link>
+
+					<Link
+						to=""
+						className="box-images"
+					>
+						<div className="box-img">
+							<div className="box-content">
+								<h3 className="name-travel">TP. Hồ Chí Minh</h3>
+								<h3 className="total-room">
+									<span className="total-number">1.615</span> Khách sạn
+								</h3>
+							</div>
+							<img
+								src="https://media.vneconomy.vn/w800/images/upload/2022/07/13/dang-ky-bao-ho-nhan-hieu-tai-thanh-pho-ho-chi-minh.jpg"
+								alt=""
+								className="image"
 							/>
 						</div>
 					</Link>
