@@ -9,9 +9,19 @@ export default {
 			fontFamily: {
 				poppins: ['Poppins', 'sans-serif'],
 			},
+			fontSize: {
+				xm: '13.5px',
+			},
 			width: {
 				78: '78%',
 				200: '200px',
+			},
+			height: {
+				300: '300px',
+			},
+			backgroundColor: {
+				1: 'rgb(233 244 250)',
+				2: '#F3F4F5',
 			},
 			colors: {
 				primary: {

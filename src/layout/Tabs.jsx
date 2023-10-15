@@ -33,7 +33,7 @@ export default function BasicTabs() {
 	};
 
 	return (
-		<Box className="container">
+		<Box className="container mt-0">
 			<Box className="search-title">Tìm kiếm phổ biến</Box>
 			<Box className="search-tabs">
 				<Tabs

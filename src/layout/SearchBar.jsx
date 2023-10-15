@@ -3,7 +3,7 @@ export default function SearchBar({ windowWidth }) {
 		<>
 			{windowWidth < 720 ? (
 				<>
-					<div className="mx-auto mt-4 w-5/6 shadow-2xl border-none rounded-lg">
+					<div className="mx-auto mt-4 mb-7 w-5/6 shadow-2xl border-none rounded-lg">
 						<div
 							className="flex flex-wrap w-full rounded-lg bg-white overflow-hidden "
 							data-testid="search-form"
@@ -138,7 +138,7 @@ export default function SearchBar({ windowWidth }) {
 				</>
 			) : (
 				<>
-					<div className="mx-auto mt-4 w-3/4 shadow-3xl border-none rounded-lg">
+					<div className="mx-auto mt-4 mb-12 w-3/4 shadow-3xl border-none rounded-lg">
 						<div
 							className="flex w-full  rounded-lg bg-white overflow-hidden "
 							data-testid="search-form"

@@ -1,6 +1,10 @@
 import Tabs from '../layout/Tabs';
 import Footer from '../layout/Footer';
 import SearchBar from '../layout/searchBar';
+import Partner from '@/layout/Partner';
+import QRcode from '@/layout/QRcode';
+import AboutFTW from '@/layout/AboutFTW';
+import SearchList from '@/layout/SearchList';
 const Home = ({ windowWidth }) => {
 	return (
 		<>
@@ -10,7 +14,11 @@ const Home = ({ windowWidth }) => {
 				</h1>
 			</div>
 			<SearchBar windowWidth={windowWidth} />
+			<Partner />
 			<Tabs />
+			<QRcode />
+			<AboutFTW />
+			<SearchList />
 			<Footer windowWidth={windowWidth} />
 		</>
 	);
