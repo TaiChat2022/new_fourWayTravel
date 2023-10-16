@@ -1,24 +1,24 @@
-import Loading from '@/components/Loading';
+// import Loading from '@/components/Loading';
 import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Layout from './layout';
 import { routes } from './utils/routes';
 
-const Home = lazy(() => import('@/pages/Home'));
+const Main = lazy(() => import('@/pages/index'))
+const Login = lazy(() => import('@/auth/Login'));
 
 export default function App() {
 	return (
-		<Suspense fallback={<Loading />}>
+		<Suspense fallback={<div />}>
 			<Routes>
 				<Route
-					path="/"
-					element={<Layout />}
+					path={routes.HOME}
+					element={<Main />}
 				>
-					<Route
-						path={routes.HOME}
-						element={<Home />}
-					/>
 				</Route>
+				<Route
+					path={routes.LOGIN}
+					element={<Login />}
+				/>
 			</Routes>
 		</Suspense>
 	);
