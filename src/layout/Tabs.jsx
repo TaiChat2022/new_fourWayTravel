@@ -56,11 +56,11 @@ export default function BasicTabs() {
 				value={value}
 				index={0}
 			>
-				<div className="grid grid-cols-4 gap-4">
+				<div className="grid grid-cols-4 gap-4 my-2">
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '200px', height: '280px' }}
 					>
 						<div
 							className="box-img"
@@ -125,7 +125,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '200px', height: '280px' }}
 					>
 						<div
 							className="box-img"
@@ -190,7 +190,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '200px', height: '280px' }}
 					>
 						<div
 							className="box-img"
@@ -255,7 +255,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '200px', height: '280px' }}
 					>
 						<div
 							className="box-img"
@@ -326,7 +326,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '200px', height: '280px' }}
 					>
 						<div
 							className="box-img"
@@ -391,7 +391,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '200px', height: '280px' }}
 					>
 						<div
 							className="box-img"
@@ -456,7 +456,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '200px', height: '280px' }}
 					>
 						<div
 							className="box-img"
@@ -521,7 +521,7 @@ export default function BasicTabs() {
 					<Link
 						to=""
 						className="box-images"
-						style={{ width: '233px', height: '280px' }}
+						style={{ width: '200px', height: '280px' }}
 					>
 						<div
 							className="box-img"

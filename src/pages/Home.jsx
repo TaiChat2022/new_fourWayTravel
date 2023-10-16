@@ -1,6 +1,8 @@
 import Tabs from '../layout/Tabs';
 import Footer from '../layout/Footer';
 import SearchBar from '../layout/searchBar';
+import Booking from '@/layout/Booking';
+import Support from '@/layout/Support';
 const Home = ({ windowWidth }) => {
 	return (
 		<>
@@ -10,7 +12,8 @@ const Home = ({ windowWidth }) => {
 				</h1>
 			</div>
 			<SearchBar windowWidth={windowWidth} />
-			<Tabs />
+			{/* <Support /> */}
+			<Booking />
 			<Footer windowWidth={windowWidth} />
 		</>
 	);
