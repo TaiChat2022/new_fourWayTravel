@@ -3,6 +3,26 @@ export default {
 	content: ['./index.html', './src/**/*.{js,jsx}'],
 	theme: {
 		extend: {
+			boxShadow: {
+				'3xl': 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;',
+			},
+			fontFamily: {
+				poppins: ['Poppins', 'sans-serif'],
+			},
+			fontSize: {
+				xm: '13.5px',
+			},
+			width: {
+				78: '78%',
+				200: '200px',
+			},
+			height: {
+				300: '300px',
+			},
+			backgroundColor: {
+				1: 'rgb(233 244 250)',
+				2: '#F3F4F5',
+			},
 			colors: {
 				primary: {
 					100: '#cce5f3',
