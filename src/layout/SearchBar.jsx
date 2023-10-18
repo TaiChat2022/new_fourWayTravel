@@ -175,7 +175,7 @@ export default function SearchBar({ windowWidth }) {
 								<button
 									type="button"
 									data-testid="search-form-calendar"
-									className="border-l-2 group w-full text-left truncate h-14 px-5 bg-white active:bg-grey-200"
+									className="border-l-2 group w-full text-left flex truncate h-14 px-5 bg-white active:bg-grey-200"
 								>
 									<span className="flex items-center 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
 										<span
@@ -210,7 +210,24 @@ export default function SearchBar({ windowWidth }) {
 												className="leading-tight text-grey-700 truncate text-xs"
 												data-testid="search-form-calendar-label"
 											>
-												Nhận/trả phòng
+												Nhận phòng
+											</span>
+											<span
+												className="text-sm leading-normal font-bold truncate text-grey-900"
+												data-testid="search-form-calendar-value"
+											>
+												Chọn ngày
+											</span>
+										</span>
+									</span>
+									<span className="flex justify-start m-auto items-center 2xl:p-2 z-20 2xl:hover:bg-grey-200 2xl:rounded-md">
+										<div className="space w-0.5 h-9 bg-3 m-auto z-10"></div>
+										<span className="flex flex-col pl-4 relative w-full truncate">
+											<span
+												className="leading-tight text-grey-700 truncate text-xs"
+												data-testid="search-form-calendar-label"
+											>
+												Trả phòng
 											</span>
 											<span
 												className="text-sm leading-normal font-bold truncate text-grey-900"

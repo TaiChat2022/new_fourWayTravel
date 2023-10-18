@@ -22,6 +22,7 @@ export default {
 			backgroundColor: {
 				1: 'rgb(233 244 250)',
 				2: '#F3F4F5',
+				3: '#E5E7EB',
 			},
 			colors: {
 				primary: {
