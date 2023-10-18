@@ -439,10 +439,10 @@ export default function MenuLayOut({
 															aria-haspopup="true"
 															onClick={handleClick4}
 														>
-
-															<span className="flex items-center text-sm text-black space-nowrap mx-2 normal-case w-24 h-12 truncate">
-																Chào bạn {user.displayName}
-															</span>
+															<div className="flex items-center justify-center py-2">
+																<img className="flex items-center h-8 w-8 rounded-full ring-2"
+																	src={user.photoURL} alt={user.displayName} />
+															</div>
 														</Button>
 													</div>
 													<Menu
@@ -460,10 +460,9 @@ export default function MenuLayOut({
 															},
 														}}
 													>
-														<div className="flex items-center justify-center py-2">
-															<img className="flex items-center h-12 w-12 rounded-full ring-2"
-																src={user.photoURL} alt={user.displayName} />
-														</div>
+														<span className="flex items-center justify-center text-sm text-black space-nowrap mx-2 py-2 normal-case truncate">
+															{user.displayName}
+														</span>
 														<MenuItem>
 															<Button onClick={signOut}
 																className="border-t mt-2 border-2 border-gray-900 flex items-center justify-center w-full">

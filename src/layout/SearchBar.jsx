@@ -3,12 +3,13 @@ export default function SearchBar({
 }) {
 	return (
 		<>
-			<div className="mx-auto mt-4 mb-7 w-5/6 2xl:w-3/4 shadow-2xl border-none rounded-lg">
+			<div className="mx-auto mt-4 mb-7 w-3/4 2xl:w-3/4 shadow-2xl border-none rounded-lg">
 				<div
 					className="flex flex-wrap 2xl:flex-nowrap w-full rounded-lg bg-white overflow-hidden "
 					data-testid="search-form"
 				>
-					<div className="grid grid-cols-1 md:grid-cols-4 w-full rounded-lg">
+					<div className="grid grid-cols-1 md:grid-cols-5 w-full rounded-lg">
+						{/* Địa danh */}
 						<button
 							type="button"
 							data-testid="search-form-destination"
@@ -37,10 +38,11 @@ export default function SearchBar({
 								</span>
 							</span>
 						</button>
+						{/* Nhận trả phòng */}
 						<button
 							type="button"
 							data-testid="search-form-calendar"
-							className="border-t-2 md:border-l-2 md:border-t-0 col-span-1 group w-full text-left truncate h-14 px-5 bg-white active:bg-grey-200"
+							className="border-t md:border-l md:border-t-0 col-span-1 group w-full text-left truncate h-14 px-5 bg-white active:bg-grey-200"
 						>
 							<span className="flex items-center md:p-2 md:hover:bg-grey-200 md:rounded-md">
 								<span
@@ -86,10 +88,35 @@ export default function SearchBar({
 								</span>
 							</span>
 						</button>
+						{/* Trả phòng */}
 						<button
 							type="button"
 							data-testid="search-form-guest-selector"
-							className="border-t-2 md:border-l-2 md:border-t-0 col-span-1 group w-full text-left truncate h-14 px-5 bg-white active:bg-grey-200"
+							className="hidden md:inline-block border-t md:border-l md:border-t-0 col-span-1 group w-full text-left truncate h-14 bg-white active:bg-grey-200"
+						>
+							<span className="flex justify-start m-auto items-center 2xl:p-2 z-20 2xl:hover:bg-grey-200 2xl:rounded-md">
+								<div className="space w-0.5 h-9 bg-3 m-auto z-10"></div>
+								<span className="flex flex-col pl-4 relative w-full truncate">
+									<span
+										className="leading-tight text-grey-700 truncate text-xs"
+										data-testid="search-form-calendar-label"
+									>
+										Trả phòng
+									</span>
+									<span
+										className="text-sm leading-normal font-bold truncate text-grey-900"
+										data-testid="search-form-calendar-value"
+									>
+										Chọn ngày
+									</span>
+								</span>
+							</span>
+						</button>
+						{/* Số khách và phòng */}
+						<button
+							type="button"
+							data-testid="search-form-guest-selector"
+							className="border-t md:border-l md:border-t-0 col-span-1 group w-full text-left truncate h-14 px-5 bg-white active:bg-grey-200"
 						>
 							<span className="flex items-center 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span
@@ -125,6 +152,7 @@ export default function SearchBar({
 								</span>
 							</span>
 						</button>
+
 						<Link to='/booking'>
 							<div className="col-span-1 flex items-center justify-end">
 								<button
