@@ -1,13 +1,14 @@
 import Logo from '@/assets/img/logo1.jpg';
 import Login from '@/auth/Login';
 import MenuLayOut from '@/layout/Menu';
-import { auth } from '@/utils/firebase.config';
+import { auth, firestore } from '@/utils/firebase.config';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
+import { collection, doc, updateDoc } from "firebase/firestore";
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 const currincey = ['VND - Việt Nam Đồng', 'USD - Us Dollar', 'JPY - Japanese Yen'];
@@ -74,7 +75,6 @@ const Header = ({ windowWidth }) => {
 	const handleOpenModal = () => setOpenModal(true);
 	const handleCloseModal = () => setOpenModal(false);
 
-
 	const [anchorE4, setAnchorE4] = React.useState(null);
 	const open4 = Boolean(anchorE4);
 	const handleClick4 = (event) => {
@@ -95,11 +95,23 @@ const Header = ({ windowWidth }) => {
 			}
 		});
 	}, []);
-	const signOut = () => {
-		auth.signOut().then(() => {
-			navigate(`/`);
-		})
-	}
+	const signOut = async () => {
+		try {
+			// Update the user's Firestore document to set isOnline to false
+			if (user) {
+				const usersCollection = collection(firestore, 'users');
+				const userDoc = doc(usersCollection, user.uid);
+				await updateDoc(userDoc, { isOnline: false });
+			}
+			// Sign out the user
+			await auth.signOut();
+			// alert('Đăng xuất thành công!');
+			// Thực hiện chuyển trang sau khi đăng xuất
+			navigate = '/';
+		} catch (error) {
+			console.error('Sign out error:', error);
+		}
+	};
 	return (
 		<MenuLayOut
 			Logo={Logo}
