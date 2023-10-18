@@ -1,10 +1,11 @@
-import Tabs from '../layout/Tabs';
-import Footer from '../layout/Footer';
-import SearchBar from '../layout/searchBar';
+import AboutFTW from '@/layout/AboutFTW';
 import Partner from '@/layout/Partner';
 import QRcode from '@/layout/QRcode';
-import AboutFTW from '@/layout/AboutFTW';
 import SearchList from '@/layout/SearchList';
+import { Link } from 'react-router-dom';
+import Footer from '../layout/Footer';
+import Tabs from '../layout/Tabs';
+import SearchBar from '../layout/searchBar';
 const Home = ({ windowWidth }) => {
 	return (
 		<>
@@ -13,7 +14,9 @@ const Home = ({ windowWidth }) => {
 					<span>Chúng tôi so sánh giá phòng từ nhiều trang</span>
 				</h1>
 			</div>
-			<SearchBar windowWidth={windowWidth} />
+			<SearchBar
+				Link={Link}
+			/>
 			<Partner />
 			<Tabs />
 			<QRcode />

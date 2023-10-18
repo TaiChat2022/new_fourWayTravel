@@ -1,7 +1,8 @@
-export default function SearchBar({ windowWidth }) {
+export default function SearchBar({
+	Link
+}) {
 	return (
 		<>
-
 			<div className="mx-auto mt-4 mb-7 w-5/6 2xl:w-3/4 shadow-2xl border-none rounded-lg">
 				<div
 					className="flex flex-wrap 2xl:flex-nowrap w-full rounded-lg bg-white overflow-hidden "
@@ -124,15 +125,17 @@ export default function SearchBar({ windowWidth }) {
 								</span>
 							</span>
 						</button>
-						<div className="col-span-1 flex items-center justify-end">
-							<button
-								type="button"
-								className="flex items-center justify-center  mx-4 px-8 py-1 my-2 rounded-md text-white text-xl font-semibold bg-blue-600 hover:bg-blue-700 w-full md:w-20"
-								data-testid="search-button"
-							>
-								<span className="text-center">Tìm</span>
-							</button>
-						</div>
+						<Link to='/booking'>
+							<div className="col-span-1 flex items-center justify-end">
+								<button
+									type="button"
+									className="flex items-center justify-center  mx-4 px-8 py-1 my-2 rounded-md text-white text-xl font-semibold bg-blue-600 hover:bg-blue-700 w-full md:w-20"
+									data-testid="search-button"
+								>
+									<span className="text-center">Tìm</span>
+								</button>
+							</div>
+						</Link>
 					</div>
 				</div>
 			</div>
