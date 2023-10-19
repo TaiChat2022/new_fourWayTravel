@@ -10,8 +10,7 @@ import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { collection, doc, updateDoc } from "firebase/firestore";
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-const currincey = ['VND - Việt Nam Đồng', 'USD - Us Dollar', 'JPY - Japanese Yen'];
+import { Link } from 'react-router-dom';
 
 const styleModal = {
 	position: 'absolute',
@@ -24,7 +23,7 @@ const styleModal = {
 	boxShadow: 24,
 	p: 4,
 };
-
+const currincey = ['VND - Việt Nam Đồng', 'USD - Us Dollar', 'JPY - Japanese Yen'];
 const language = ['VI - Tiếng Việt', 'EN - Tiếng Anh', 'JP - Tiếng Nhật'];
 const ITEM_HEIGHT = 36;
 
@@ -83,7 +82,6 @@ const Header = ({ windowWidth }) => {
 	const handleClose4 = () => {
 		setAnchorE4(null);
 	};
-	const navigate = useNavigate();
 	const [user, setUser] = React.useState(null);
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -107,7 +105,7 @@ const Header = ({ windowWidth }) => {
 			await auth.signOut();
 			// alert('Đăng xuất thành công!');
 			// Thực hiện chuyển trang sau khi đăng xuất
-			navigate = '/';
+			window.location.href = '/';
 		} catch (error) {
 			console.error('Sign out error:', error);
 		}

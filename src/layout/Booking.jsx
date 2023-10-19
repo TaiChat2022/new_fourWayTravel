@@ -93,7 +93,7 @@ const BookingLayout = ({
 								</div>
 								<div className="flex text-sm">
 									<svg
-										class="w-4 h-3 text-gray-800 dark:text-white m-2 text-lime-600"
+										class="w-4 h-3 shadow:text-gray-800 dark:text-white m-2 text-lime-600"
 										aria-hidden="true"
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
@@ -232,7 +232,7 @@ const BookingLayout = ({
 								</div>
 								<div className="flex text-sm">
 									<svg
-										class="w-4 h-3 text-gray-800 dark:text-white m-2 text-lime-600"
+										class="w-4 h-3 shadow:text-gray-800 dark:text-white m-2 text-lime-600"
 										aria-hidden="true"
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
@@ -304,7 +304,7 @@ const BookingLayout = ({
 								<div className="flex gap-52 cursor-pointer">
 									<h1 className="font-semibold ">Nha Nghi 846b50</h1>
 									<svg
-										class="w-5 h-5 text-gray-800 dark:text-white mt-1 cursor-pointer"
+										class="w-5 h-5 text-gray-800 dark:text-white mt-1 cursor-pointer "
 										aria-hidden="true"
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"

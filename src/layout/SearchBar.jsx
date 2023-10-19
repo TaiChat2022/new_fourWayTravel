@@ -1,5 +1,6 @@
-export default function SearchBar({
-	Link
+export default function SearchBarLayout({
+	Link, Box, FormControl, NativeSelect,
+	diadanh,
 }) {
 	return (
 		<>
@@ -8,7 +9,7 @@ export default function SearchBar({
 					className="flex flex-wrap 2xl:flex-nowrap w-full rounded-lg bg-white overflow-hidden "
 					data-testid="search-form"
 				>
-					<div className="grid grid-cols-1 md:grid-cols-5 w-full rounded-lg">
+					<div className="grid grid-cols-1 md:grid-cols-5 w-full rounded-lg" date-rangepicker>
 						{/* Địa danh */}
 						<button
 							type="button"
@@ -20,14 +21,57 @@ export default function SearchBar({
 									className="leading-none inline-flex transform flex-shrink-0 mr-3 "
 									aria-hidden="true"
 								>
-									<i className="fa-solid fa-magnifying-glass text-lg"></i>
+									<svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" classname="pointer-events-none max-h-full max-w-full">
+										<g fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit={10} strokeWidth={2}>
+											<path d="M10 3a7 7 0 107 7 7 7 0 00-7-7zM21 21l-6-6" vectorEffect="non-scaling-stroke">
+											</path>
+										</g>
+									</svg>
+
 								</span>
 								<span className="flex flex-col relative w-full truncate">
+									<Box sx={{ minWidth: 150 }}>
+										<FormControl fullWidth>
+											<span
+												className="text-xs leading-tight text-grey-700 truncate"
+												data-testid="search-form-destination-label"
+											>
+												Địa danh
+											</span>
+
+											<NativeSelect
+												defaultValue={30}
+												inputProps={{
+													name: 'diadanh',
+													id: 'uncontrolled-native',
+												}}
+
+											>
+												{diadanh ? (
+													<>
+														{diadanh.map((khuvuc) => (
+															<>
+																<option value={`${khuvuc.text}`}>{khuvuc.text}</option>
+															</>
+														))}
+													</>
+												) :
+													(
+														<>
+															<p>Không lấy được dữ liệu địa danh</p>
+														</>
+													)
+												}
+											</NativeSelect>
+										</FormControl>
+									</Box>
+								</span>
+								{/* <span className="flex flex-col relative w-full truncate">
 									<span
 										className="text-xs leading-tight text-grey-700 truncate"
 										data-testid="search-form-destination-label"
 									>
-										<span className="block relative h-5">Địa danh</span>
+										Địa danh
 									</span>
 									<span
 										className="text-sm leading-normal font-bold truncate text-grey-900"
@@ -35,7 +79,7 @@ export default function SearchBar({
 									>
 										Vũng Tàu
 									</span>
-								</span>
+								</span> */}
 							</span>
 						</button>
 						{/* Nhận trả phòng */}
@@ -46,15 +90,12 @@ export default function SearchBar({
 						>
 							<span className="flex items-center md:p-2 md:hover:bg-grey-200 md:rounded-md">
 								<span
-									className="leading-none inline-flex transform flex-shrink-0 mr-3 "
+									className="leading-none inline-flex transform flex-shrink-0 mr-3"
 									aria-hidden="true"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
-										width={24}
-										height={24}
-										viewBox="0 0 24 24"
-										className="pointer-events-none max-h-full max-w-full"
+										className="pointer-events-none max-h-full max-w-full w-6 h-6"
 									>
 										<g fill="currentColor">
 											<path d="M19 5h-1a1 1 0 00-2 0H8a1 1 0 00-2 0H5a2 2 0 00-2 2v11a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2zm1 13a1 1 0 01-1 1H5a1 1 0 01-1-1V9h16zm0-10H4V7a1 1 0 011-1h14a1 1 0 011 1z" />
@@ -83,7 +124,9 @@ export default function SearchBar({
 										className="text-sm leading-normal font-bold truncate text-grey-900"
 										data-testid="search-form-calendar-value"
 									>
-										Chọn ngày
+										<input type="date" name="start"
+											className="text-sm block w-full"
+										/>
 									</span>
 								</span>
 							</span>
@@ -107,7 +150,9 @@ export default function SearchBar({
 										className="text-sm leading-normal font-bold truncate text-grey-900"
 										data-testid="search-form-calendar-value"
 									>
-										Chọn ngày
+										<input type="date" name="end"
+											className="text-sm block w-full"
+										/>
 									</span>
 								</span>
 							</span>
@@ -167,8 +212,6 @@ export default function SearchBar({
 					</div>
 				</div>
 			</div>
-
-
 		</>
 	);
 }

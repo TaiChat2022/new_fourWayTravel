@@ -1,20 +1,17 @@
 import BookingLayout from "@/layout/Booking";
-import SearchBar from "@/layout/SearchBar";
 import { Box, Container } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import SearchBar from "./SearchBar";
 
 import Header from "./Header";
 const Booking = () => {
     return (
         <>
             <Header />
-            <SearchBar
-                Link={Link}
-            />
+            <SearchBar />
             <BookingLayout
                 React={React}
                 Box={Box}
