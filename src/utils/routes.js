@@ -3,4 +3,6 @@ export const routes = {
 
 	LOGIN: '/auth/login',
 	REGISTER: '/auth/register',
+	Favourite: '/favourite',
+	Listluutru: '/listluutru',
 };
