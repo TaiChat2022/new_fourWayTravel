@@ -4,7 +4,7 @@ export default function SearchBarLayout({
 }) {
 	return (
 		<>
-			<div className="mx-auto mt-4 mb-7 w-3/4 2xl:w-3/4 shadow-2xl border-none rounded-lg">
+			<div className="mx-auto mt-4 mb-7 w-3/4 shadow-2xl border-none rounded-lg">
 				<div
 					className="flex flex-wrap 2xl:flex-nowrap w-full rounded-lg bg-white overflow-hidden "
 					data-testid="search-form"

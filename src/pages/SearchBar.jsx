@@ -5,8 +5,6 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
 
-
-
 import { Link } from 'react-router-dom';
 
 const SearchBar = () => {
@@ -21,9 +19,6 @@ const SearchBar = () => {
                 FormControl={FormControl}
                 NativeSelect={NativeSelect}
                 diadanh={diadanh}
-
-
-
             />
         </>
     );
