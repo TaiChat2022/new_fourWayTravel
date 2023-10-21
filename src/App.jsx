@@ -1,14 +1,24 @@
 // import Loading from '@/components/Loading';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { routes } from './utils/routes';
 
 const Main = lazy(() => import('@/pages/index'))
+const Booking = lazy(() => import('@/pages/Booking'))
 const Login = lazy(() => import('@/auth/Login'));
 
 export default function App() {
 	return (
-		<Suspense fallback={<div />}>
+		<Suspense fallback={
+			<Backdrop
+				sx={{ zIndex: 1000 }}
+				open
+			>
+				<CircularProgress color="inherit" />
+			</Backdrop>
+		}>
 			<Routes>
 				<Route
 					path={routes.HOME}
@@ -18,6 +28,10 @@ export default function App() {
 				<Route
 					path={routes.LOGIN}
 					element={<Login />}
+				/>
+				<Route
+					path={routes.BOOKING}
+					element={<Booking />}
 				/>
 			</Routes>
 		</Suspense>

@@ -1,12 +1,13 @@
+import { auth, firestore } from "@/utils/firebase.config";
+import Button from '@mui/material/Button';
 import {
     GoogleAuthProvider,
     signInWithPopup,
 } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/custom_color.css";
 import "../assets/css/login.css";
-import { auth, firestore } from "../utils/firebase.config";
 import { routes } from '../utils/routes';
 
 const Login = () => {
@@ -34,7 +35,9 @@ const Login = () => {
                 await setDoc(userDocRef, userData);
             }
             if (userSnapshot.exists()) {
-                await firestore.collection('users').doc(result.user.uid).update({ isOnline: true });
+                const usersCollection = collection(firestore, 'users');
+                const userDoc = doc(usersCollection, result.user.uid);
+                await updateDoc(userDoc, { isOnline: true });
             }
 
             if (navigator.geolocation) {
@@ -46,16 +49,10 @@ const Login = () => {
     };
     return (
         <>
-            <li className="h-full list-none flex relative">
-                <div className="flex justify-center">
-                    <button onClick={signInWithGoogle} className="flex w-full items-center h-full  cursor-pointer hover:bg-grey-200 px-4">
-                        <i className="fa-regular fa-circle-user leading-none inline-flex transform "></i>
-                        <span className="flex-grow text-md text-black space-nowrap mx-2">
-                            Đăng nhập
-                        </span>
-                    </button>
-                </div>
-            </li>
+            <Button onClick={signInWithGoogle}
+                className="border-t mt-2 border-2 border-gray-900 flex items-center justify-center w-full">
+                <span>Đăng nhập với google</span>
+            </Button>
         </>
     );
 }
