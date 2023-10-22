@@ -1,7 +1,7 @@
 const BookingLayout = ({
 	React,
 	Box, FormControl, MenuItem, Select,
-	luuTru, getRatingText
+	luuTru, getRatingText, renderStars
 }) => {
 	const [age, setAge] = React.useState('');
 
@@ -18,7 +18,7 @@ const BookingLayout = ({
 				{luuTru ? (
 					<>
 						{luuTru.map((item) =>
-							<Box className="mt-2 borderRadius={1} bg-white rounded-lg h-48 mb-4">
+							<Box className="mt-2 border-1 bg-white rounded-lg h-48 mb-4">
 								<div className="grid grid-cols-1 md:grid-cols-3 max-h-44 gap-8 ">
 									<div className="flex gap-4 col-span-1 md:col-span-2  relative">
 										<div className="mr-1">
@@ -56,6 +56,9 @@ const BookingLayout = ({
 													{item.star} - {getRatingText(item.star)}
 												</span>
 												<p className="text-sm">(30)</p>
+												<span>
+													{renderStars(item.star)}
+												</span>
 											</div>
 										</div>
 									</div>

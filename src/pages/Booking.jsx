@@ -16,6 +16,13 @@ const Booking = () => {
         if (star === 3) return 'Bình thường';
         return 'Giá rẻ';
     };
+    const renderStars = (soSao) => {
+        let stars = [];
+        for (let i = 0; i < soSao; i++) {
+            stars.push(<i key={i} className="fa-solid fa-star text-yellow-400"></i>);
+        }
+        return stars;
+    };
     return (
         <>
             <Header />
@@ -28,6 +35,7 @@ const Booking = () => {
                 Select={Select}
                 luuTru={luuTru}
                 getRatingText={getRatingText}
+                renderStars={renderStars}
             />
         </>
     );

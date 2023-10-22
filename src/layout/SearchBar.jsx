@@ -1,6 +1,10 @@
 export default function SearchBarLayout({
 	Link, Box, FormControl, NativeSelect,
 	diadanh,
+	startDate, endDate, handleStartDateChange, handleEndDateChange,
+	startDateSelected,
+
+	handleSearch
 }) {
 	return (
 		<>
@@ -9,7 +13,7 @@ export default function SearchBarLayout({
 					className="flex flex-wrap 2xl:flex-nowrap w-full rounded-lg bg-white overflow-hidden "
 					data-testid="search-form"
 				>
-					<div className="grid grid-cols-1 md:grid-cols-5 w-full rounded-lg" date-rangepicker>
+					<div className="grid grid-cols-1 md:grid-cols-5 w-full rounded-lg">
 						{/* Địa danh */}
 						<button
 							type="button"
@@ -21,7 +25,7 @@ export default function SearchBarLayout({
 									className="leading-none inline-flex transform flex-shrink-0 mr-3 "
 									aria-hidden="true"
 								>
-									<svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" classname="pointer-events-none max-h-full max-w-full">
+									<svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" className="pointer-events-none max-h-full max-w-full">
 										<g fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit={10} strokeWidth={2}>
 											<path d="M10 3a7 7 0 107 7 7 7 0 00-7-7zM21 21l-6-6" vectorEffect="non-scaling-stroke">
 											</path>
@@ -38,7 +42,6 @@ export default function SearchBarLayout({
 											>
 												Địa danh
 											</span>
-
 											<NativeSelect
 												defaultValue={30}
 												inputProps={{
@@ -51,7 +54,7 @@ export default function SearchBarLayout({
 													<>
 														{diadanh.map((khuvuc) => (
 															<>
-																<option value={`${khuvuc.text}`}>{khuvuc.text}</option>
+																<option key={khuvuc.id} value={`${khuvuc.text}`}>{khuvuc.text}</option>
 															</>
 														))}
 													</>
@@ -66,20 +69,7 @@ export default function SearchBarLayout({
 										</FormControl>
 									</Box>
 								</span>
-								{/* <span className="flex flex-col relative w-full truncate">
-									<span
-										className="text-xs leading-tight text-grey-700 truncate"
-										data-testid="search-form-destination-label"
-									>
-										Địa danh
-									</span>
-									<span
-										className="text-sm leading-normal font-bold truncate text-grey-900"
-										data-testid="search-form-destination-value"
-									>
-										Vũng Tàu
-									</span>
-								</span> */}
+
 							</span>
 						</button>
 						{/* Nhận trả phòng */}
@@ -124,8 +114,12 @@ export default function SearchBarLayout({
 										className="text-sm leading-normal font-bold truncate text-grey-900"
 										data-testid="search-form-calendar-value"
 									>
-										<input type="date" name="start"
+										<input
+											type="date"
+											name="start"
 											className="text-sm block w-full"
+											value={startDate}
+											onChange={handleStartDateChange}
 										/>
 									</span>
 								</span>
@@ -150,8 +144,13 @@ export default function SearchBarLayout({
 										className="text-sm leading-normal font-bold truncate text-grey-900"
 										data-testid="search-form-calendar-value"
 									>
-										<input type="date" name="end"
+										<input
+											type="date"
+											name="end"
 											className="text-sm block w-full"
+											value={endDate}
+											onChange={handleEndDateChange}
+											disabled={!startDateSelected}
 										/>
 									</span>
 								</span>
