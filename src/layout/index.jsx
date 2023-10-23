@@ -7,6 +7,7 @@ import Partner from './Partner';
 import QRcode from './QRcode';
 import AboutFTW from './AboutFTW';
 import SearchList from './SearchList';
+import Bookings from './Bookings';
 export default function Layout() {
 	return (
 		<>
@@ -17,6 +18,7 @@ export default function Layout() {
 			<QRcode />
 			<AboutFTW />
 			<SearchList />
+			<Bookings />
 			<Footer />
 			<SearchBar />
 		</>
