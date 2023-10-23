@@ -27,7 +27,7 @@ const currincey = ['VND - Việt Nam Đồng', 'USD - Us Dollar', 'JPY - Japanes
 const language = ['VI - Tiếng Việt', 'EN - Tiếng Anh', 'JP - Tiếng Nhật'];
 const ITEM_HEIGHT = 36;
 
-const Header = ({ windowWidth }) => {
+const Header = () => {
 
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
@@ -110,6 +110,15 @@ const Header = ({ windowWidth }) => {
 			console.error('Sign out error:', error);
 		}
 	};
+
+	const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+	React.useEffect(() => {
+		const handleResize = () => {
+			setWindowWidth(window.innerWidth);
+		};
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
 	return (
 		<MenuLayOut
 			Logo={Logo}
@@ -152,6 +161,7 @@ const Header = ({ windowWidth }) => {
 			open4={open4}
 			handleClick4={handleClick4}
 			handleClose4={handleClose4}
+
 		/>
 	);
 };

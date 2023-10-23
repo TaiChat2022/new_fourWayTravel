@@ -7,6 +7,8 @@ import { routes } from './utils/routes';
 
 const Main = lazy(() => import('@/pages/index'))
 const Booking = lazy(() => import('@/pages/Booking'))
+const ChiTiet = lazy(() => import('@/pages/chiTiet'))
+
 const Login = lazy(() => import('@/auth/Login'));
 
 export default function App() {
@@ -32,6 +34,10 @@ export default function App() {
 				<Route
 					path={routes.BOOKING}
 					element={<Booking />}
+				/>
+				<Route
+					path={routes.CHITIET}
+					element={<ChiTiet />}
 				/>
 			</Routes>
 		</Suspense>
