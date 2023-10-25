@@ -1,4 +1,7 @@
-const BookingLayout = ({ renderStars, luuTru, getRatingText }) => {
+const BookingLayout = ({
+	renderStars, luuTru, getRatingText,
+	Link
+}) => {
 	return (
 		<>
 			<div className="mt-2 w-3/4 mx-auto">
@@ -9,8 +12,8 @@ const BookingLayout = ({ renderStars, luuTru, getRatingText }) => {
 					<>
 						{luuTru.map((item) => (
 							<>
-								<div className="mt-2 borderRadius={1} bg-white rounded-lg h-48 mb-4 shadow-product">
-									<div className="grid grid-cols-1 md:grid-cols-3 max-h-44 gap-8 ">
+								<div key={item.id} className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product">
+									<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 										<div className="flex gap-4 col-span-1 md:col-span-2  relative">
 											<div className="mr-1 w-2/6">
 												<img
@@ -63,7 +66,7 @@ const BookingLayout = ({ renderStars, luuTru, getRatingText }) => {
 												</div>
 											</div>
 										</div>
-										<div className="m-2 col-span-1 relative">
+										<div className="block m-2 col-span-1 relative">
 											<div className="w-full h-24 rounded-lg border-green-200 border-2 bg-lime-50">
 												<div className="absolute top-2 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-red-600">
 													<span className="bg-red-600 text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
@@ -81,13 +84,13 @@ const BookingLayout = ({ renderStars, luuTru, getRatingText }) => {
 													<span className="text-mm text-green-600">Gồm bữa sáng</span>
 												</div>
 												<div className="flex justify-between ml-2 mr-2">
-													<span className="text-xl mt-2 font-semibold text-green-800">
+													<span className="flex text-lg md:text-xl mt-2 font-semibold text-green-800">
 														1.158.400 <span className="underline">đ</span>
 													</span>
-													<button className="flex items-center justify-center border rounded-md bg-green-700 text-white font-bold w-40 text-sm">
-														<span className="p-2 ">Xem Giá Tốt</span>
+													<Link to={`/booking/${item.id}`} className="flex items-center justify-center border rounded-md bg-green-700 text-white font-bold w-1/2 md:text-sm">
+														<span className="p-2">Xem Giá Tốt</span>
 														<i className="fa-solid fa-chevron-right mr-2"></i>
-													</button>
+													</Link>
 												</div>
 											</div>
 

@@ -13,7 +13,7 @@ const Main = () => {
 	}, []);
 	return (
 		<>
-			<Header windowWidth={windowWidth} />
+			<Header />
 			<Outlet />
 			<Home windowWidth={windowWidth} />
 		</>
