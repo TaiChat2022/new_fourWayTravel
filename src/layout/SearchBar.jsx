@@ -53,9 +53,9 @@ export default function SearchBarLayout({
 												{diadanh ? (
 													<>
 														{diadanh.map((khuvuc) => (
-															<>
-																<option key={khuvuc.id} value={`${khuvuc.text}`}>{khuvuc.text}</option>
-															</>
+
+															<option key={khuvuc.id} value={`${khuvuc.text}`}>{khuvuc.text}</option>
+
 														))}
 													</>
 												) :
@@ -216,7 +216,12 @@ export default function SearchBarLayout({
 						<Link to='/booking' className="col-span-1 flex items-center justify-end">
 							<button
 								type="button"
-								className="flex items-center justify-center px-12 py-2 h-full rounded-b-lg md:rounded-md text-white text-xl font-semibold bg-blue-600 hover:bg-blue-700 w-full md:w-20"
+								className={`
+									flex items-center justify-center px-12 py-2
+									h-full rounded-b-lg md:rounded-md text-white 
+									text-md font-semibold
+									bg-blue-600 hover:bg-blue-700 w-full md:w-20
+								`}
 								data-testid="search-button"
 							>
 								<span className="text-center">Tìm</span>

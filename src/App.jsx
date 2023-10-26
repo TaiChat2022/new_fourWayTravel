@@ -8,6 +8,8 @@ import { routes } from './utils/routes';
 const Main = lazy(() => import('@/pages/index'))
 const Booking = lazy(() => import('@/pages/Booking'))
 const ChiTiet = lazy(() => import('@/pages/chiTiet'))
+const ListLuutru = lazy(() => import('@/pages/ListLuutru'))
+const Favourite = lazy(() => import('@/pages/Favourite'))
 
 const Login = lazy(() => import('@/auth/Login'));
 
@@ -38,6 +40,14 @@ export default function App() {
 				<Route
 					path={routes.CHITIET}
 					element={<ChiTiet />}
+				/>
+				<Route
+					path={routes.Favourite}
+					element={<Favourite />}
+				/>
+				<Route
+					path={routes.ListLuutru}
+					element={<ListLuutru />}
 				/>
 			</Routes>
 		</Suspense>
