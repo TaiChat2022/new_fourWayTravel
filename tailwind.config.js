@@ -34,6 +34,7 @@ export default {
 				vch: '5px 0px 0px 5px',
 				vchh: '0px 5px 5px 0px',
 				ss: '4px 4px 4px 0px',
+				ww: '8px 0px 0px 8px',
 				zz: '50%',
 			},
 			backgroundColor: {

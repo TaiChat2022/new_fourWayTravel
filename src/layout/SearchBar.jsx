@@ -1,10 +1,16 @@
 export default function SearchBarLayout({
-	Link, Box, FormControl, NativeSelect,
+	Link,
+	Box,
+	FormControl,
+	NativeSelect,
 	diadanh,
-	startDate, endDate, handleStartDateChange, handleEndDateChange,
+	startDate,
+	endDate,
+	handleStartDateChange,
+	handleEndDateChange,
 	startDateSelected,
 
-	handleSearch
+	handleSearch,
 }) {
 	return (
 		<>
@@ -25,13 +31,26 @@ export default function SearchBarLayout({
 									className="leading-none inline-flex transform flex-shrink-0 mr-3 "
 									aria-hidden="true"
 								>
-									<svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" className="pointer-events-none max-h-full max-w-full">
-										<g fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit={10} strokeWidth={2}>
-											<path d="M10 3a7 7 0 107 7 7 7 0 00-7-7zM21 21l-6-6" vectorEffect="non-scaling-stroke">
-											</path>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width={24}
+										height={24}
+										viewBox="0 0 24 24"
+										className="pointer-events-none max-h-full max-w-full"
+									>
+										<g
+											fill="none"
+											stroke="currentColor"
+											strokeLinecap="round"
+											strokeMiterlimit={10}
+											strokeWidth={2}
+										>
+											<path
+												d="M10 3a7 7 0 107 7 7 7 0 00-7-7zM21 21l-6-6"
+												vectorEffect="non-scaling-stroke"
+											></path>
 										</g>
 									</svg>
-
 								</span>
 								<span className="flex flex-col relative w-full truncate">
 									<Box sx={{ minWidth: 150 }}>
@@ -48,28 +67,29 @@ export default function SearchBarLayout({
 													name: 'diadanh',
 													id: 'uncontrolled-native',
 												}}
-
 											>
 												{diadanh ? (
 													<>
 														{diadanh.map((khuvuc) => (
 															<>
-																<option key={khuvuc.id} value={`${khuvuc.text}`}>{khuvuc.text}</option>
+																<option
+																	key={khuvuc.id}
+																	value={`${khuvuc.text}`}
+																>
+																	{khuvuc.text}
+																</option>
 															</>
 														))}
 													</>
-												) :
-													(
-														<>
-															<p>Không lấy được dữ liệu địa danh</p>
-														</>
-													)
-												}
+												) : (
+													<>
+														<p>Không lấy được dữ liệu địa danh</p>
+													</>
+												)}
 											</NativeSelect>
 										</FormControl>
 									</Box>
 								</span>
-
 							</span>
 						</button>
 						{/* Nhận trả phòng */}
@@ -103,6 +123,7 @@ export default function SearchBarLayout({
 										</g>
 									</svg>
 								</span>
+
 								<span className="flex flex-col relative w-full truncate">
 									<span
 										className="text-xs leading-tight text-grey-700 truncate"
@@ -110,18 +131,33 @@ export default function SearchBarLayout({
 									>
 										Nhận/trả phòng
 									</span>
-									<span
-										className="text-sm leading-normal font-bold truncate text-grey-900"
-										data-testid="search-form-calendar-value"
-									>
-										<input
-											type="date"
-											name="start"
-											className="text-sm block w-full"
-											value={startDate}
-											onChange={handleStartDateChange}
-										/>
-									</span>
+									<div className="flex items-center justify-between">
+										<span
+											className="text-sm leading-normal font-bold truncate text-grey-900"
+											data-testid="search-form-calendar-value"
+										>
+											<input
+												type="date"
+												name="start"
+												className="text-sm block w-full outline-0"
+												value={startDate}
+												onChange={handleStartDateChange}
+											/>
+										</span>
+										<span
+											className="md:hidden inline-block text-sm leading-normal font-bold truncate text-grey-900"
+											data-testid="search-form-calendar-value"
+										>
+											<input
+												type="date"
+												name="end"
+												className="text-sm block w-full outline-0"
+												value={endDate}
+												onChange={handleEndDateChange}
+												disabled={!startDateSelected}
+											/>
+										</span>
+									</div>
 								</span>
 							</span>
 						</button>
@@ -132,7 +168,6 @@ export default function SearchBarLayout({
 							className="hidden md:inline-block border-t md:border-l md:border-t-0 col-span-1 group w-full text-left truncate h-14 bg-white active:bg-grey-200"
 						>
 							<span className="flex justify-start m-auto items-center 2xl:p-2 z-20 2xl:hover:bg-grey-200 2xl:rounded-md">
-								<div className="space w-0.5 h-9 bg-3 m-auto z-10"></div>
 								<span className="flex flex-col pl-4 relative w-full truncate">
 									<span
 										className="leading-tight text-grey-700 truncate text-xs"
@@ -147,7 +182,7 @@ export default function SearchBarLayout({
 										<input
 											type="date"
 											name="end"
-											className="text-sm block w-full"
+											className="text-sm block w-full outline-0"
 											value={endDate}
 											onChange={handleEndDateChange}
 											disabled={!startDateSelected}
@@ -197,16 +232,17 @@ export default function SearchBarLayout({
 							</span>
 						</button>
 
-						<Link to='/booking'>
-							<div className="col-span-1 flex items-center justify-end">
-								<button
-									type="button"
-									className="flex items-center justify-center  mx-4 px-8 py-1 my-2 rounded-md text-white text-xl font-semibold bg-blue-600 hover:bg-blue-700 w-full md:w-20"
-									data-testid="search-button"
-								>
-									<span className="text-center">Tìm</span>
-								</button>
-							</div>
+						<Link
+							to="/booking"
+							className="col-span-1 flex items-center justify-end"
+						>
+							<button
+								type="button"
+								className="flex items-center justify-center px-12 py-2 h-full rounded-vchh md:rounded-vchh text-white text-xl font-semibold bg-blue-600 hover:bg-blue-700 w-full md:w-20"
+								data-testid="search-button"
+							>
+								<span className="text-center">Tìm</span>
+							</button>
 						</Link>
 					</div>
 				</div>

@@ -1,6 +1,10 @@
 const BookingLayout = ({
 	renderStars, luuTru, getRatingText,
-	Link
+	Link, toggleFavorite, isFavorite,
+
+	currentUser,
+	Checkbox, labelFavorite
+
 }) => {
 	return (
 		<>
@@ -12,23 +16,31 @@ const BookingLayout = ({
 					<>
 						{luuTru.map((item) => (
 							<>
-								<div key={item.id} className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product">
-									<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-										<div className="flex gap-4 col-span-1 md:col-span-2  relative">
-											<div className="mr-1 w-2/6">
+								<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product">
+									<div key={item.id} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+										<div className="flex flex-wrap gap-4 col-span-1 md:col-span-2  relative">
+											<div className="w-full md:w-2/6">
 												<img
 													src={item.img}
 													alt={item.title}
-													className="rounded-l-lg w-full h-48 object-cover"
+													className="rounded-t-lg md:rounded-l-lg md:rounded-t-none md:rounded-tl-lg w-full h-48 md:h-full object-cover"
 												/>
 											</div>
-											<div>
-												<div className="cursor-pointer mt-3 ">
+											<div className="ml-3">
+												<div className=" mt-3">
 													<h1 className="flex justify-between font-semibold text-lg">
 														{item.title}
-														<div className="favourite">
-															<i className="fa-regular fa-heart"></i>
-														</div>
+														{/* Yêu thích */}
+														<Checkbox {...labelFavorite}
+															onClick={() => toggleFavorite((item.id, item))}
+															icon={
+																<i className="fa-regular fa-heart"></i>
+															}
+															checkedIcon={
+																<i className="fa-solid fa-heart text-red-500"></i>
+															}
+														/>
+
 													</h1>
 													<p className="render text-xx text-gray-300 flex items-center">
 														{renderStars(item.star)}
@@ -67,7 +79,7 @@ const BookingLayout = ({
 											</div>
 										</div>
 										<div className="block m-2 col-span-1 relative">
-											<div className="w-full h-24 rounded-lg border-green-200 border-2 bg-lime-50">
+											<div className="w-full h-auto rounded-lg border-green-200 border-2 bg-lime-50">
 												<div className="absolute top-2 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-red-600">
 													<span className="bg-red-600 text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
 														18%
@@ -83,18 +95,24 @@ const BookingLayout = ({
 													<i className="fa-solid fa-check text-mm text-green-600"></i>
 													<span className="text-mm text-green-600">Gồm bữa sáng</span>
 												</div>
-												<div className="flex justify-between ml-2 mr-2">
-													<span className="flex text-lg md:text-xl mt-2 font-semibold text-green-800">
-														1.158.400 <span className="underline">đ</span>
+												<div className="flex flex-wrap justify-between ml-2 mr-2 mb-2">
+													<span className="flex text-lg md:text-md mt-2 font-semibold text-green-800">
+														{(1158400).toLocaleString('vi')}đ
 													</span>
-													<Link to={`/booking/${item.id}`} className="flex items-center justify-center border rounded-md bg-green-700 text-white font-bold w-1/2 md:text-sm">
+													<Link to={`/booking/${item.id}`}
+														className={`
+															flex items-center justify-center border rounded-md
+															bg-green-700 text-white font-bold px-2 md:px-0
+															text-sm  md:text-xx lg:text-xs
+														`}
+													>
 														<span className="p-2">Xem Giá Tốt</span>
 														<i className="fa-solid fa-chevron-right mr-2"></i>
 													</Link>
 												</div>
 											</div>
 
-											<div className="bg-gray-200 border-none w-full h-16 rounded-lg mt-3 flex gap-2 flex-wrap">
+											<div className="bg-gray-200 border-none w-full h-auto rounded-lg mt-3 flex gap-2 flex-wrap">
 												<div className="flex justify-start items-center ml-2 pt-1 text-mm gap-1">
 													<i className="fa-regular fa-wifi"></i>
 													<span>WiFi miễn phí</span>
@@ -122,7 +140,7 @@ const BookingLayout = ({
 											</div>
 										</div>
 									</div>
-								</div>
+								</div >
 							</>
 						))}
 					</>
@@ -131,7 +149,7 @@ const BookingLayout = ({
 						<p>Không tìm được phòng</p>
 					</>
 				)}
-			</div>
+			</div >
 		</>
 	);
 };

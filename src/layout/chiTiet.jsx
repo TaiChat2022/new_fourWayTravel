@@ -1,10 +1,13 @@
 const ChiTietLayout = ({ data, renderStars }) => {
 	return (
 		<>
-			<div className="container-details w-full h-screen">
+			<div className="container-details w-full h-auto">
 				<div className="w-3/4 mx-auto mt-2">
-					<div className="flex justify-between">
-						<div className="flex flex-col items-start justify-center ">
+					<div className="flex flex-wrap md:flex-nowrap justify-between">
+						<div
+							key={data.id}
+							className="flex flex-col items-start justify-center"
+						>
 							<h1 className="text-3xl font-bold">{data.title}</h1>
 							<p className="text-sm mt-1 text-gray-600 font-bold">{data.title}</p>
 							<p className="render text-xm font-normal text-blue-600 flex items-center">
@@ -28,27 +31,25 @@ const ChiTietLayout = ({ data, renderStars }) => {
 								</p>
 							</div>
 						</div>
-						<div className="flex flex-col items-end justify-center">
+						<div className="flex flex-auto flex-col items-end justify-center">
 							<p className="text-xs font-medium">Giá phòng mỗi đêm từ</p>
-
 							<span className="text-2xl text-orange-600 font-bold">1.606.000 VND</span>
-
-							<button className="w-64 h-11 rounded-md bg-orange-600 text-white">
+							<button className="w-full md:w-64 h-11 rounded-md bg-orange-600 text-white">
 								<span className="font-semibold">Chọn phòng</span>
 							</button>
 						</div>
 					</div>
 					{/* start images */}
-					<div className="grid grid-cols-5 gap-2 w-full mt-5">
-						<div className="col-span-3 h-full w-full">
+					<div className="grid grid-cols-1 md:grid-cols-5 gap-2 w-full mt-5">
+						<div className="col-span-1 md:col-span-3 w-full max-h-96">
 							<img
-								className="w-full rounded-lg max-h-96 object-cover"
+								className="w-full rounded-lg h-full object-cover"
 								src={data.img}
 								alt={data.title}
 							/>
 						</div>
-						<div className="grid grid-cols-2 gap-2 col-span-2 max-h-96 overflow-hidden">
-							<div className="col-span-1 ">
+						<div className="grid grid-cols-3 md:grid-cols-2 gap-2 col-span-1  md:col-span-2 max-h-96 overflow-hidden">
+							<div className="col-span-1">
 								<img
 									className="w-full rounded-lg h-32 object-cover "
 									src={data.img}
@@ -94,12 +95,13 @@ const ChiTietLayout = ({ data, renderStars }) => {
 					</div>
 					{/* end images */}
 
-					<div className="grid grid-cols-5 grid-rows-5 w-full gap-4 mt-5">
-						<div className="col-span-2 row-span-2 shadow-3xl rounded-lg">
+					<div className="grid grid-cols-1 md:grid-cols-5  w-full gap-4 mt-5">
+						{/* Giới thiệu */}
+						<div className="grid-cols-1 md:col-span-2  shadow-3xl rounded-lg">
 							<div className="p-3">
 								<div className="flex justify-between items-center mb-4">
 									<h2 className="font-semibold text-base">Giới thiệu cơ sở lưu trú</h2>
-									<div className="">
+									{/* <div className="">
 										<a
 											href=""
 											className=""
@@ -108,7 +110,30 @@ const ChiTietLayout = ({ data, renderStars }) => {
 												Xem thêm <i className="fa-regular fa-chevron-right text-mm"></i>
 											</span>
 										</a>
-									</div>
+									</div> */}
+
+									{/* Open the modal using document.getElementById('ID').showModal() method */}
+									<button
+										className="btn text-blue-600 font-medium text-base outline-none "
+										onClick={() => document.getElementById('my_modal_5').showModal()}
+									>
+										Xem thêm <i className="fa-regular fa-chevron-right text-mm"></i>
+									</button>
+									<dialog
+										id="my_modal_5"
+										className="modal modal-bottom sm:modal-middle m-auto w-2/5 p-4 rounded-lg"
+									>
+										<div className="modal-box">
+											<h3 className="font-bold text-lg">Giới thiệu Millennium Hanoi Hotel</h3>
+											<p className="py-4">Press ESC key or click the button below to close</p>
+											<div className="modal-action">
+												<form method="dialog">
+													{/* if there is a button in form, it will close the modal */}
+													<button className="btn">Close</button>
+												</form>
+											</div>
+										</div>
+									</dialog>
 								</div>
 								<div className="">
 									<p className="text-sm font-normal leading-relaxed">
@@ -119,7 +144,8 @@ const ChiTietLayout = ({ data, renderStars }) => {
 								</div>
 							</div>
 						</div>
-						<div className="col-span-3 row-span-2 col-start-3 shadow-3xl rounded-lg">
+						{/* Trong khu vực */}
+						<div className="grid-cols-1 md:col-span-3  shadow-3xl rounded-lg">
 							<div className="p-3">
 								<div className="mb-4">
 									<h2 className="text-base font-semibold">Trong khu vực</h2>
@@ -194,22 +220,18 @@ const ChiTietLayout = ({ data, renderStars }) => {
 								</div>
 							</div>
 						</div>
-						<div className="col-span-2 row-span-3 row-start-3 shadow-3xl rounded-lg">
+						{/* Tiện ích */}
+						<div className="grid-cols-1 md:col-span-2 	shadow-3xl rounded-lg">
 							<div className="p-3">
 								<div className="flex justify-between items-center mb-4">
 									<h2 className="text-base font-semibold">Tiện ích chính</h2>
-									<div className="">
-										<a
-											href=""
-											className=""
-										>
-											<span className="text-blue-600 font-medium text-base">
-												Xem thêm <i className="fa-regular fa-chevron-right text-mm"></i>
-											</span>
-										</a>
-									</div>
+									<a>
+										<span className="text-blue-600 font-medium text-base">
+											Xem thêm <i className="fa-regular fa-chevron-right text-mm"></i>
+										</span>
+									</a>
 								</div>
-								<div className="">
+								<div className="grid grid-cols-3 md:grid-cols-1">
 									<div className="flex justify-start items-center gap-2 mb-4">
 										<i
 											className="fa-light fa-snowflake"
@@ -255,7 +277,8 @@ const ChiTietLayout = ({ data, renderStars }) => {
 								</div>
 							</div>
 						</div>
-						<div className="col-span-3 row-span-3 col-start-3 row-start-3 shadow-3xl rounded-lg">
+						{/* Khách bình luận */}
+						<div className="grid-cols-1 md:col-span-3  shadow-3xl rounded-lg">
 							<div className="p-3">
 								<div className="flex justify-between items-center mb-4">
 									<h2 className="text-base font-semibold">Khách nói gì về kỳ nghỉ của họ</h2>

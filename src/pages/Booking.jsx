@@ -1,11 +1,17 @@
 import { useDocsQuery } from '@/hooks/useFirestore';
 import BookingLayout from '@/layout/Booking';
+import { auth, firestore } from '@/utils/firebase.config';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
+
+import Checkbox from '@mui/material/Checkbox';
+const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 import Header from './Header';
 const Booking = () => {
@@ -28,6 +34,45 @@ const Booking = () => {
 		}
 		return stars;
 	};
+
+
+	const [currentUser, setCurrentUser] = React.useState(null);
+
+	React.useEffect(() => {
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				setCurrentUser(user);
+			} else {
+				setCurrentUser(null);
+			}
+		});
+	}, []);
+	const [isFavorite, setIsFavorite] = React.useState(false);
+
+	const toggleFavorite = async (itemId) => {
+		if (currentUser) {
+			const userRef = doc(firestore, 'users', currentUser.uid);
+			const userDoc = await getDoc(userRef);
+
+			if (userDoc.exists()) {
+				const userFavorites = userDoc.data().favorites || [];
+
+				if (userFavorites.includes(itemId.id)) {
+					// Item is already in favorites, remove it
+					const updatedFavorites = userFavorites.filter((favoriteId) => favoriteId !== itemId);
+					await updateDoc(userRef, { favorites: updatedFavorites });
+					setIsFavorite(false); // Set isFavorite to false
+				} else {
+					// Item is not in favorites, add it
+					const updatedFavorites = [...userFavorites, itemId];
+					await updateDoc(userRef, { favorites: updatedFavorites });
+					setIsFavorite(true); // Set isFavorite to true
+				}
+			}
+		}
+	};
+
+
 	return (
 		<>
 			<Header />
@@ -42,6 +87,12 @@ const Booking = () => {
 				getRatingText={getRatingText}
 
 				Link={Link}
+				toggleFavorite={toggleFavorite}
+				isFavorite={isFavorite}
+
+				currentUser={currentUser}
+				Checkbox={Checkbox}
+				labelFavorite={labelFavorite}
 			/>
 		</>
 	);
