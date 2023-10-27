@@ -2,7 +2,8 @@ const BookingLayout = ({
 	renderStars, luuTru, getRatingText,
 	Link, toggleFavorite, isFavorite,
 
-	currentUser
+	currentUser,
+	Checkbox, labelFavorite
 
 }) => {
 	return (
@@ -30,16 +31,15 @@ const BookingLayout = ({
 													<h1 className="flex justify-between font-semibold text-lg">
 														{item.title}
 														{/* Yêu thích */}
-														<button
-															type="button"
-															onClick={() => toggleFavorite(item.id)}
-														>
-															{isFavorite ? (
-																<i className="fa-solid fa-heart text-red-500"></i>
-															) : (
+														<Checkbox {...labelFavorite}
+															onClick={() => toggleFavorite((item.id, item))}
+															icon={
 																<i className="fa-regular fa-heart"></i>
-															)}
-														</button>
+															}
+															checkedIcon={
+																<i className="fa-solid fa-heart text-red-500"></i>
+															}
+														/>
 
 													</h1>
 													<p className="render text-xx text-gray-300 flex items-center">

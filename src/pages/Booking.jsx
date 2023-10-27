@@ -8,6 +8,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
+import Checkbox from '@mui/material/Checkbox';
+const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 import Header from './Header';
@@ -48,12 +51,13 @@ const Booking = () => {
 
 	const toggleFavorite = async (itemId) => {
 		if (currentUser) {
-			const userRef = doc(firestore, 'users', currentUser.uid); // Reference to the user's document
+			const userRef = doc(firestore, 'users', currentUser.uid);
 			const userDoc = await getDoc(userRef);
+
 			if (userDoc.exists()) {
 				const userFavorites = userDoc.data().favorites || [];
 
-				if (userFavorites.includes(itemId)) {
+				if (userFavorites.includes(itemId.id)) {
 					// Item is already in favorites, remove it
 					const updatedFavorites = userFavorites.filter((favoriteId) => favoriteId !== itemId);
 					await updateDoc(userRef, { favorites: updatedFavorites });
@@ -67,6 +71,7 @@ const Booking = () => {
 			}
 		}
 	};
+
 
 	return (
 		<>
@@ -86,6 +91,8 @@ const Booking = () => {
 				isFavorite={isFavorite}
 
 				currentUser={currentUser}
+				Checkbox={Checkbox}
+				labelFavorite={labelFavorite}
 			/>
 		</>
 	);
