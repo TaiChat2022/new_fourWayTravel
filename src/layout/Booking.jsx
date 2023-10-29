@@ -1,6 +1,6 @@
 const BookingLayout = ({
 	renderStars, luuTru, getRatingText,
-	Link, toggleFavorite, isFavorite,
+	Link, handleFavoriteChange, favorites,
 
 	currentUser,
 	Checkbox, labelFavorite
@@ -17,65 +17,67 @@ const BookingLayout = ({
 						{luuTru.map((item) => (
 							<>
 								<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product">
-									<div key={item.id} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-										<div className="flex flex-wrap gap-4 col-span-1 md:col-span-2  relative">
-											<div className="w-full md:w-2/6">
-												<img
-													src={item.img}
-													alt={item.title}
-													className="rounded-t-lg md:rounded-l-lg md:rounded-t-none md:rounded-tl-lg w-full h-48 md:h-full object-cover"
-												/>
-											</div>
-											<div className="ml-3">
-												<div className=" mt-3">
-													<h1 className="flex justify-between font-semibold text-lg">
+									<div key={item.id} className="grid grid-cols-1 md:grid-cols-4 gap-8">
+										<div className="col-span-1">
+											<img
+												src={item.img}
+												alt={item.title}
+												className="rounded-t-lg md:rounded-l-lg md:rounded-t-none md:rounded-tl-lg w-full h-48 md:h-full object-cover"
+											/>
+										</div>
+										<div className="ml-3 md:ml-0 col-span-1 md:col-span-2">
+											<div className="mt-2">
+												<div className="flex items-center justify-between">
+													<Link to={`/booking/${item.id}`}
+														className="font-semibold text-lg">
 														{item.title}
-														{/* Yêu thích */}
-														<Checkbox {...labelFavorite}
-															onClick={() => toggleFavorite((item.id, item))}
-															icon={
-																<i className="fa-regular fa-heart"></i>
-															}
-															checkedIcon={
-																<i className="fa-solid fa-heart text-red-500"></i>
-															}
-														/>
-
-													</h1>
-													<p className="render text-xx text-gray-300 flex items-center">
-														{renderStars(item.star)}
-														<span className="text-xm ml-2 font-light text-slate-950">
-															Khách sạn
-														</span>
-													</p>
+													</Link>
+													{/* Yêu thích */}
+													<Checkbox
+														{...labelFavorite}
+														onChange={() => handleFavoriteChange((item.id, item))}
+														// checked={currentUser && currentUser.favorites && currentUser.favorites.includes(item.id)}
+														icon={
+															<i className="fa-regular fa-heart"></i>
+														}
+														checkedIcon={
+															<i className="fa-solid fa-heart text-red-500"></i>
+														}
+													/>
 												</div>
-												<div className="flex justify-between mt-2 text-sm">
-													<p className="text-sm font-200">
-														cách Trung tâm thành phố <span>0.0km</span>
-													</p>
-													<svg
-														className="w-4 h-4 text-gray-800 dark:text-white mt-1"
-														aria-hidden="true"
-														xmlns="http://www.w3.org/2000/svg"
-														fill="none"
-														viewBox="0 0 10 6"
-													>
-														<path
-															stroke="currentColor"
-															strokeLinecap="round"
-															strokeLinejoin="round"
-															strokeWidth="2"
-															d="m1 1 4 4 4-4"
-														/>
-													</svg>
-												</div>
-												<div className="flex items-center justify-start mt-2 text-sm">
-													<span className="font-semibold text-sm mr-1">
-														<i className="fa-solid fa-star mb-1 mr-1 text-gray-300"></i>
-														{item.star} - {getRatingText(item.star)}
+												<p className="text-xm text-gray-300 flex items-center">
+													{renderStars(item.star)}
+													<span className="text-xm ml-2 font-light text-slate-950">
+														Khách sạn
 													</span>
-													<p className="text-sm">(30 đánh giá)</p>
-												</div>
+												</p>
+											</div>
+											<div className="flex justify-between mt-2 text-sm">
+												<p className="text-sm font-200">
+													Cách trung tâm thành phố <span>0.0km</span>
+												</p>
+												<svg
+													className="w-4 h-4 text-gray-800 dark:text-white mt-1"
+													aria-hidden="true"
+													xmlns="http://www.w3.org/2000/svg"
+													fill="none"
+													viewBox="0 0 10 6"
+												>
+													<path
+														stroke="currentColor"
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														strokeWidth="2"
+														d="m1 1 4 4 4-4"
+													/>
+												</svg>
+											</div>
+											<div className="flex items-center justify-start mt-2 text-sm">
+												<span className="font-semibold text-sm mr-1">
+													<i className="fa-solid fa-star mb-1 mr-1 text-gray-300"></i>
+													{item.star} - {getRatingText(item.star)}
+												</span>
+												<p className="text-sm">(30 đánh giá)</p>
 											</div>
 										</div>
 										<div className="block m-2 col-span-1 relative">
@@ -112,7 +114,7 @@ const BookingLayout = ({
 												</div>
 											</div>
 
-											<div className="bg-gray-200 border-none w-full h-auto rounded-lg mt-3 flex gap-2 flex-wrap">
+											<div className="w-full h-auto border-none bg-gray-200 rounded-lg py-2 mt-3 flex gap-2 flex-wrap">
 												<div className="flex justify-start items-center ml-2 pt-1 text-mm gap-1">
 													<i className="fa-regular fa-wifi"></i>
 													<span>WiFi miễn phí</span>

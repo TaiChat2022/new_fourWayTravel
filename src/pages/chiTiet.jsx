@@ -1,7 +1,6 @@
 import { useDocQuery } from '@/hooks/useFirestore';
-import Footer from '@/layout/Footer';
 import ChiTietLayout from "@/layout/chiTiet";
-import { useEffect, useState } from 'react';
+import Footer from '@/pages/Footer';
 import { useParams } from "react-router-dom";
 import Header from './Header';
 import SearchBar from './SearchBar';
@@ -28,14 +27,7 @@ const chiTiet = () => {
         return stars;
     };
 
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth);
-        };
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+
     return (
         <>
             <Header />
@@ -45,9 +37,7 @@ const chiTiet = () => {
                 getRatingText={getRatingText}
                 renderStars={renderStars}
             />
-            <Footer
-                windowWidth={windowWidth}
-            />
+            <Footer />
 
         </>
     );

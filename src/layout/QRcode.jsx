@@ -1,5 +1,5 @@
+import ip15 from '@/assets/img/images1.png';
 import { Link } from 'react-router-dom';
-
 const QRcode = () => {
 	return (
 		<>
@@ -80,8 +80,8 @@ const QRcode = () => {
 											width={258}
 											height={293}
 											x={75}
-											y={170}
-											href="https://imgcy.trivago.com/image/upload/q_auto/w_516/v1694443346/hardcodedimages/app/trivago_app_thumbnail.png"
+											y={200}
+											href={ip15}
 										></image>
 									</g>
 									<ellipse

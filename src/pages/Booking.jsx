@@ -13,6 +13,7 @@ const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
+import Footer from '@/pages/Footer';
 import Header from './Header';
 const Booking = () => {
 	const { data: luuTru } = useDocsQuery('luuTru');
@@ -35,7 +36,6 @@ const Booking = () => {
 		return stars;
 	};
 
-
 	const [currentUser, setCurrentUser] = React.useState(null);
 
 	React.useEffect(() => {
@@ -47,28 +47,39 @@ const Booking = () => {
 			}
 		});
 	}, []);
-	const [isFavorite, setIsFavorite] = React.useState(false);
+	const [favorites, setFavorites] = React.useState([]); // Thay đổi trạng thái yêu thích thành một mảng
 
-	const toggleFavorite = async (itemId) => {
+	React.useEffect(() => {
+		if (currentUser) {
+			// Load user's favorites when the component mounts
+			const userRef = doc(firestore, 'users', currentUser.uid);
+			const loadFavorites = async () => {
+				const userDoc = await getDoc(userRef);
+				if (userDoc.exists()) {
+					const userFavorites = userDoc.data().favorites || [];
+					setFavorites(userFavorites);
+				}
+			};
+			loadFavorites();
+		}
+	}, [currentUser]);
+
+	const handleFavoriteChange = async (itemId) => {
 		if (currentUser) {
 			const userRef = doc(firestore, 'users', currentUser.uid);
-			const userDoc = await getDoc(userRef);
+			let updatedFavorites; // Định nghĩa biến updatedFavorites ở đây
 
-			if (userDoc.exists()) {
-				const userFavorites = userDoc.data().favorites || [];
-
-				if (userFavorites.includes(itemId.id)) {
-					// Item is already in favorites, remove it
-					const updatedFavorites = userFavorites.filter((favoriteId) => favoriteId !== itemId);
-					await updateDoc(userRef, { favorites: updatedFavorites });
-					setIsFavorite(false); // Set isFavorite to false
-				} else {
-					// Item is not in favorites, add it
-					const updatedFavorites = [...userFavorites, itemId];
-					await updateDoc(userRef, { favorites: updatedFavorites });
-					setIsFavorite(true); // Set isFavorite to true
-				}
+			if (favorites.includes(itemId)) {
+				// Item is already in favorites, remove it
+				updatedFavorites = favorites.filter((favoriteId) => favoriteId !== itemId);
+			} else {
+				// Item is not in favorites, add it
+				updatedFavorites = [...favorites, itemId];
 			}
+
+			await updateDoc(userRef, { favorites: updatedFavorites }); // Cập nhật dữ liệu Firestore
+			// Cập nhật trạng thái yêu thích sau khi cập nhật Firestore thành công
+			setFavorites(updatedFavorites);
 		}
 	};
 
@@ -87,13 +98,14 @@ const Booking = () => {
 				getRatingText={getRatingText}
 
 				Link={Link}
-				toggleFavorite={toggleFavorite}
-				isFavorite={isFavorite}
+				handleFavoriteChange={handleFavoriteChange}
+				favorites={favorites}
 
 				currentUser={currentUser}
 				Checkbox={Checkbox}
 				labelFavorite={labelFavorite}
 			/>
+			<Footer />
 		</>
 	);
 };
