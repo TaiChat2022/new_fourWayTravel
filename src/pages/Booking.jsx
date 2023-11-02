@@ -72,9 +72,14 @@ const Booking = () => {
 			if (favorites.includes(itemId)) {
 				// Item is already in favorites, remove it
 				updatedFavorites = favorites.filter((favoriteId) => favoriteId !== itemId);
-			} else {
+			}
+			else {
 				// Item is not in favorites, add it
 				updatedFavorites = [...favorites, itemId];
+			}
+			if (userFavorites.some((favorite) => favorite.id === itemId.id)) {
+				//remove it
+				updatedFavorites = userFavorites.filter((favorite) => favorite.id !== itemId.id);
 			}
 
 			await updateDoc(userRef, { favorites: updatedFavorites }); // Cập nhật dữ liệu Firestore
@@ -83,6 +88,27 @@ const Booking = () => {
 		}
 	};
 
+	const [userFavorites, setUserFavorites] = React.useState([]);
+
+	React.useEffect(() => {
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				setCurrentUser(user);
+
+				// Lấy thông tin người dùng hiện tại và mảng "favorites"
+				const userRef = doc(firestore, 'users', user.uid);
+				const fetchUserFavorites = async () => {
+					const userDoc = await getDoc(userRef);
+					if (userDoc.exists()) {
+						setUserFavorites(userDoc.data().favorites || []);
+					}
+				};
+				fetchUserFavorites();
+			} else {
+				setCurrentUser(null);
+			}
+		});
+	}, []);
 
 	return (
 		<>
@@ -104,6 +130,8 @@ const Booking = () => {
 				currentUser={currentUser}
 				Checkbox={Checkbox}
 				labelFavorite={labelFavorite}
+
+				userFavorites={userFavorites}
 			/>
 			<Footer />
 		</>

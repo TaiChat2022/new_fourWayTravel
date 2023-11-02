@@ -27,7 +27,6 @@ const chiTiet = () => {
         return stars;
     };
 
-
     return (
         <>
             <Header />

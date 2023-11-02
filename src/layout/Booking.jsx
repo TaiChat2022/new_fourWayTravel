@@ -3,7 +3,8 @@ const BookingLayout = ({
 	Link, handleFavoriteChange, favorites,
 
 	currentUser,
-	Checkbox, labelFavorite
+	Checkbox, labelFavorite,
+	userFavorites
 
 }) => {
 	return (
@@ -33,17 +34,36 @@ const BookingLayout = ({
 														{item.title}
 													</Link>
 													{/* Yêu thích */}
-													<Checkbox
-														{...labelFavorite}
-														onChange={() => handleFavoriteChange((item.id, item))}
-														// checked={currentUser && currentUser.favorites && currentUser.favorites.includes(item.id)}
-														icon={
-															<i className="fa-regular fa-heart"></i>
-														}
-														checkedIcon={
-															<i className="fa-solid fa-heart text-red-500"></i>
-														}
-													/>
+													{userFavorites.some((favorite) => favorite.id === item.id) ? (
+														<>
+															<Checkbox
+																{...labelFavorite}
+																onChange={() => handleFavoriteChange((item.id, item))}
+																icon={
+																	<i className="fa-solid fa-heart text-red-500"></i>
+
+																}
+																checkedIcon={
+																	<i className="fa-regular fa-heart"></i>
+																}
+															/>
+														</>
+													) : (
+														<>
+															<Checkbox
+																{...labelFavorite}
+																onChange={() => handleFavoriteChange((item.id, item))}
+																icon={
+																	<i className="fa-regular fa-heart"></i>
+																}
+																checkedIcon={
+																	<i className="fa-solid fa-heart text-red-500"></i>
+																}
+															/>
+														</>
+													)
+													}
+
 												</div>
 												<p className="text-xm text-gray-300 flex items-center">
 													{renderStars(item.star)}
@@ -99,7 +119,7 @@ const BookingLayout = ({
 												</div>
 												<div className="flex flex-wrap justify-between ml-2 mr-2 mb-2">
 													<span className="flex text-lg md:text-md mt-2 font-semibold text-green-800">
-														{(1158400).toLocaleString('vi')}đ
+														{(item.price).toLocaleString('vi')}đ
 													</span>
 													<Link to={`/booking/${item.id}`}
 														className={`
