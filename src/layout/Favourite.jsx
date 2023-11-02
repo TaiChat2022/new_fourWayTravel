@@ -55,9 +55,9 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser }) => {
 																	<div className="bg-white rounded flex flex-col">
 																		<article className="flex bg-white w-full text-gray-900 rounded 2xl:rounded-sm">
 																			<div className="flex w-3/4 justify-between gap-2 rounded-lg shadow-3xl m-auto">
-																				<div className="">
+																				<div className="w-64 h-44">
 																					<img
-																						className="rounded-ww w-64 h-44"
+																						className="rounded-ww w-64 h-full "
 																						src={item.img}
 																						alt=""
 																					/>

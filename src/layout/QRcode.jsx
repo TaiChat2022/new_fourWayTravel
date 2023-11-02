@@ -1,6 +1,5 @@
+import ip15 from '@/assets/img/images1.png';
 import { Link } from 'react-router-dom';
-import mobile from '@/assets/img/images1.png';
-
 const QRcode = () => {
 	return (
 		<>
@@ -82,7 +81,7 @@ const QRcode = () => {
 											height={293}
 											x={75}
 											y={200}
-											href={mobile}
+											href={ip15}
 										></image>
 									</g>
 									<ellipse

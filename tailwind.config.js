@@ -21,6 +21,7 @@ export default {
 				200: '200px',
 				70: '70%',
 				10: '10%',
+				'100px': '100px',
 			},
 			height: {
 				300: '300px',
@@ -34,8 +35,10 @@ export default {
 				vch: '5px 0px 0px 5px',
 				vchh: '0px 5px 5px 0px',
 				ss: '4px 4px 4px 0px',
-				ww: '8px 0px 0px 8px',
 				zz: '50%',
+				ww: '8px 0px 0px 8px',
+				bb: '0px 8px 8px 0px',
+				qq: '8px 8px 0px 0px',
 			},
 			backgroundColor: {
 				1: 'rgb(233 244 250)',
@@ -43,6 +46,10 @@ export default {
 				3: '#E5E7EB',
 				4: '#E8E2DD',
 				5: '#0A1121',
+			},
+			translate: {
+				10: '10%',
+				18: '18%',
 			},
 			colors: {
 				primary: {

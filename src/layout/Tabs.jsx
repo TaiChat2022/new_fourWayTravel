@@ -69,10 +69,10 @@ export default function BasicTabs() {
 					className="p-0"
 				>
 					{/* <div className="grid grid-cols-4 gap-4 p-0"> */}
-					<div className="flex flex-grow flex-wrap justify-between gap-4 p-0 lg:flex-nowrap">
+					<div className="flex flex-grow flex-wrap justify-between gap-4 p-0 sm:flex-nowrap">
 						<Link
 							to=""
-							className="box-images w-full md:w-1/4 m-auto"
+							className="box-images"
 						>
 							<div className="box-img">
 								<div className="box-content">
@@ -91,7 +91,7 @@ export default function BasicTabs() {
 
 						<Link
 							to=""
-							className="box-images w-full md:w-1/4 m-auto"
+							className="box-images"
 						>
 							<div className="box-img">
 								<div className="box-content">
@@ -110,7 +110,7 @@ export default function BasicTabs() {
 
 						<Link
 							to=""
-							className="box-images w-full md:w-1/4 m-auto"
+							className="box-images"
 						>
 							<div className="box-img">
 								<div className="box-content">
@@ -129,7 +129,7 @@ export default function BasicTabs() {
 
 						<Link
 							to=""
-							className="box-images w-full md:w-1/4 m-auto"
+							className="box-images"
 						>
 							<div className="box-img">
 								<div className="box-content">
@@ -154,7 +154,7 @@ export default function BasicTabs() {
 					<div className="grid grid-cols-4 gap-4">
 						<Link
 							to=""
-							className="box-images w-full md:w-1/4 m-auto"
+							className="box-images"
 						>
 							<div className="box-img">
 								<div className="box-content">
@@ -173,7 +173,7 @@ export default function BasicTabs() {
 
 						<Link
 							to=""
-							className="box-images w-full md:w-1/4 m-auto"
+							className="box-images"
 						>
 							<div className="box-img">
 								<div className="box-content">
@@ -192,7 +192,7 @@ export default function BasicTabs() {
 
 						<Link
 							to=""
-							className="box-images w-full md:w-1/4 m-auto"
+							className="box-images"
 						>
 							<div className="box-img">
 								<div className="box-content">
@@ -211,7 +211,7 @@ export default function BasicTabs() {
 
 						<Link
 							to=""
-							className="box-images w-full md:w-1/4 m-auto"
+							className="box-images"
 						>
 							<div className="box-img">
 								<div className="box-content">
@@ -237,7 +237,7 @@ export default function BasicTabs() {
 					<div className="grid grid-cols-4 gap-4">
 						<Link
 							to=""
-							className="box-images w-full md:w-1/4 m-auto"
+							className="box-images"
 						>
 							<div className="box-img">
 								<div className="box-content">
@@ -256,7 +256,7 @@ export default function BasicTabs() {
 
 						<Link
 							to=""
-							className="box-images w-full md:w-1/4 m-auto"
+							className="box-images"
 						>
 							<div className="box-img">
 								<div className="box-content">
@@ -275,7 +275,7 @@ export default function BasicTabs() {
 
 						<Link
 							to=""
-							className="box-images w-full md:w-1/4 m-auto"
+							className="box-images"
 						>
 							<div className="box-img">
 								<div className="box-content">
@@ -294,7 +294,7 @@ export default function BasicTabs() {
 
 						<Link
 							to=""
-							className="box-images w-full md:w-1/4 m-auto"
+							className="box-images"
 						>
 							<div className="box-img">
 								<div className="box-content">
