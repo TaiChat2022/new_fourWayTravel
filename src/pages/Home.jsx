@@ -1,17 +1,25 @@
+import AboutFTW from '@/layout/AboutFTW';
+import Partner from '@/layout/Partner';
+import QRcode from '@/layout/QRcode';
+import SearchList from '@/layout/SearchList';
+import Footer from '@/pages/Footer';
 import Tabs from '../layout/Tabs';
-import Footer from '../layout/Footer';
-import SearchBar from '../layout/searchBar';
-const Home = ({ windowWidth }) => {
+import SearchBar from './SearchBar';
+const Home = () => {
 	return (
 		<>
-			<div className="w-3/4 mx-auto mt-10 mb-7">
+			<div className="mx-auto mb-7 w-3/4 mt-10">
 				<h1 className="text-2xl font-semibold leading-tight font-poppins">
 					<span>Chúng tôi so sánh giá phòng từ nhiều trang</span>
 				</h1>
 			</div>
-			<SearchBar windowWidth={windowWidth} />
+			<SearchBar />
+			<Partner />
 			<Tabs />
-			<Footer windowWidth={windowWidth} />
+			<QRcode />
+			<AboutFTW />
+			<SearchList />
+			<Footer />
 		</>
 	);
 };
