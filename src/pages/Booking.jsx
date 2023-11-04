@@ -94,7 +94,6 @@ const Booking = () => {
 		auth.onAuthStateChanged((user) => {
 			if (user) {
 				setCurrentUser(user);
-
 				// Lấy thông tin người dùng hiện tại và mảng "favorites"
 				const userRef = doc(firestore, 'users', user.uid);
 				const fetchUserFavorites = async () => {
@@ -109,6 +108,30 @@ const Booking = () => {
 			}
 		});
 	}, []);
+
+	const [xemGanDay, setXemGanDay] = React.useState([]);
+
+	const handleAddToRecentlyViewed = async (itemId, danhMuc, title, img) => {
+		// Kiểm tra xem itemId đã tồn tại trong xemGanDay chưa
+		const itemIndex = xemGanDay.findIndex((item) => item.id === itemId);
+		if (itemIndex !== -1) {
+			// Nếu đã tồn tại, thì tăng số lần xem lên 1
+			const updatedXemGanDay = [...xemGanDay];
+			updatedXemGanDay[itemIndex].views += 1;
+			setXemGanDay(updatedXemGanDay);
+		} else {
+			// Nếu itemId chưa có trong mảng, thêm itemId vào mảng với số lần xem là 1
+			const newItem = { id: itemId, danhMuc, title, img, views: 1 };
+			setXemGanDay([...xemGanDay, newItem]);
+		}
+
+		if (currentUser) {
+			// Nếu có người dùng đăng nhập, bạn có thể lưu xemGanDay vào Firestore
+			const userRef = doc(firestore, 'users', currentUser.uid);
+			await updateDoc(userRef, { xemGanDay: xemGanDay });
+		}
+	};
+
 
 	return (
 		<>
@@ -125,13 +148,12 @@ const Booking = () => {
 
 				Link={Link}
 				handleFavoriteChange={handleFavoriteChange}
-				favorites={favorites}
 
-				currentUser={currentUser}
 				Checkbox={Checkbox}
 				labelFavorite={labelFavorite}
 
 				userFavorites={userFavorites}
+				handleAddToRecentlyViewed={handleAddToRecentlyViewed}
 			/>
 			<Footer />
 		</>

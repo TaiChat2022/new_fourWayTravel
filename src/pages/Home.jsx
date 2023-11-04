@@ -5,6 +5,7 @@ import SearchList from '@/layout/SearchList';
 import Footer from '@/pages/Footer';
 import Tabs from '../layout/Tabs';
 import SearchBar from './SearchBar';
+import XemGanDay from './xemGanDay';
 const Home = () => {
 	return (
 		<>
@@ -15,6 +16,7 @@ const Home = () => {
 			</div>
 			<SearchBar />
 			<Partner />
+			<XemGanDay />
 			<Tabs />
 			<QRcode />
 			<AboutFTW />

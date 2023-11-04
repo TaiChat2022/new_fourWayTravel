@@ -1,12 +1,13 @@
-const ChiTietLayout = ({
-	data, renderStars
-}) => {
+const ChiTietLayout = ({ data, renderStars }) => {
 	return (
 		<>
 			<div className="container-details w-full h-auto">
 				<div className="w-3/4 mx-auto mt-2">
 					<div className="flex flex-wrap md:flex-nowrap justify-between">
-						<div key={data.id} className="flex flex-col items-start justify-center">
+						<div
+							key={data.id}
+							className="flex flex-col items-start justify-center"
+						>
 							<h1 className="text-3xl font-bold">{data.title}</h1>
 							<p className="text-sm mt-1 text-gray-600 font-bold">{data.title}</p>
 							<p className="render text-xm font-normal text-blue-600 flex items-center">
@@ -206,7 +207,6 @@ const ChiTietLayout = ({
 											Xem thêm <i className="fa-regular fa-chevron-right text-mm"></i>
 										</span>
 									</a>
-
 								</div>
 								<div className="grid grid-cols-3 md:grid-cols-1">
 									<div className="flex justify-start items-center gap-2 mb-4">
@@ -387,6 +387,225 @@ const ChiTietLayout = ({
 											</dl>
 										</div>
 									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="bg-blue-100 w-3/4 mx-auto mt-2 rounded-md px-3 py-6">
+					<div className="mb-4">
+						<h1 className="text-black text-xl -tracking-normal font-semibold">
+							Những phòng còn trống tại Vinpearl Wonderworld Phu Quoc
+						</h1>
+					</div>
+					<div className="flex justify-start gap-3 items-center bg-blue-950 p-3 rounded-md">
+						<img
+							src="https://ik.imagekit.io/tvlk/image/imageResource/2020/04/14/1586844222168-9f81c6c60bcffcde668cf46de941aa3c.png?tr=q-75"
+							alt=""
+							className="w-9 h-9"
+						/>
+						<span className="text-white text-sm font-semibold tracking-wider">
+							Phải đặt phòng trong thời điểm không chắc chắn này? Hãy chọn phòng có thể hủy miễn phí!
+						</span>
+					</div>
+					<div className="bg-white mt-3 p-6 rounded-md">
+						<div className="">
+							<h1 className="font-sm font-semibold tracking-wider mb-3">
+								Tìm kiếm nhanh hơn bằng cách chọn những tiện nghi bạn cần
+							</h1>
+							<div className="xl:flex xl:gap-32">
+								<div className="xl:flex xl:items-center xl:gap-2 flex items-center mb-2">
+									<input
+										id="inline-checkbox"
+										type="checkbox"
+										defaultValue=""
+										className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded"
+									/>
+									<label
+										htmlFor="inline-checkbox"
+										className="ml-2 text-sm font-medium text-gray-900"
+									>
+										Miễn phí hủy phòng
+									</label>
+								</div>
+								<div className="xl:flex xl:items-center xl:gap-2 flex items-center mb-2">
+									<input
+										id="inline-2-checkbox"
+										type="checkbox"
+										defaultValue=""
+										className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded"
+									/>
+									<label
+										htmlFor="inline-2-checkbox"
+										className="ml-2 text-sm font-medium text-gray-900"
+									>
+										Extra Benefit
+									</label>
+								</div>
+								<div className="xl:flex xl:items-center xl:gap-2 flex items-center mb-2">
+									<input
+										defaultChecked=""
+										id="inline-checked-checkbox"
+										type="checkbox"
+										defaultValue=""
+										className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded"
+									/>
+									<label
+										htmlFor="inline-checked-checkbox"
+										className="ml-2 text-sm font-medium text-gray-900"
+									>
+										Miễn phí bữa sáng
+									</label>
+								</div>
+								<div className="xl:flex xl:items-center xl:gap-2 flex items-center mb-2">
+									<input
+										defaultChecked=""
+										id="inline-checked-checkbox"
+										type="checkbox"
+										defaultValue=""
+										className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded"
+									/>
+									<label
+										htmlFor="inline-checked-checkbox"
+										className="ml-2 text-sm font-medium text-gray-900"
+									>
+										Miễn phí đưa đón
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className="bg-white mt-3 px-6 py-3 rounded-md">
+						<div className="mb-3">
+							<h1 className="text-xl font-extrabold">Superior Double</h1>
+						</div>
+						<div className="xl:flex xl:justify-between xl:gap-4">
+							<div className="shadow-2xl xl:w-2/6 xl:pb-4 rounded-lg">
+								<div className="">
+									<img
+										src="https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20023314-1dd3b52ce5baa32f9a4b15a21224d64b.jpeg?_src=imagekit&tr=c-at_max,h-144,q-40,w-287"
+										alt=""
+										className="w-full h-52 object-cover rounded-qq"
+									/>
+								</div>
+								<div className="flex justify-start items-center gap-3 pl-3 mt-3">
+									<i
+										className="fa-duotone fa-pen-ruler"
+										style={{ color: '#0094F3' }}
+									></i>
+									<span className="font-semibold text-sm">
+										25.0 m<sup>2</sup>
+									</span>
+								</div>
+								<div className="pl-3 mt-3">
+									<p className="text-xm text-green-700 font-medium bg-green-50 mb-2 p-1 rounded-md w-28">
+										Vòi tắm đứng
+									</p>
+									<p className="text-xm text-green-700 font-medium bg-green-50 mb-2 p-1 rounded-md w-28">
+										Máy lạnh
+									</p>
+									<p className="text-xm text-green-700 font-medium bg-green-50 mb-2 p-1 rounded-md w-28">
+										Tủ lạnh
+									</p>
+									<p className="text-xm text-green-700 font-medium bg-green-50 mb-2 p-1 rounded-md w-28">
+										Nước nóng
+									</p>
+								</div>
+								<div className="bg-gray-50 text-center w-4/5 py-1 m-auto rounded-md ">
+									<button className="text-blue-600 font-semibold tracking-wide text-sm">
+										Xem chi tiết phòng
+									</button>
+								</div>
+							</div>
+
+							<div className="xl:w-4/6 xl:h-80 shadow-2xl rounded-lg mt-4">
+								<div className="xl:px-6 px-6 pt-5 hidden">
+									<h1 className="font-semibold">Deluxe Twin</h1>
+									<div className="flex justify-between mt-3">
+										<div className="flex gap-3 justify-start items-center mb-3 font-semibold text-sm tracking-wider">
+											<i className="fa-light fa-bed"></i>
+											<span>2 Giường Đơn</span>
+										</div>
+										<div className="flex gap-3 justify-start items-center mb-3 font-semibold text-sm tracking-wider">
+											<i className="fa-duotone fa-user-group"></i>
+											<span>2 khách</span>
+										</div>
+										<p className="font-semibold text-sm tracking-wider">Chỉ còn 1 phòng</p>
+									</div>
+								</div>
+								<div className="w-11/12 h-0.5 bg-gray-100 m-auto mb-4"></div>
+
+								<div className="px-6 xl:flex xl:justify-between">
+									<div className="">
+										<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm text-green-600 tracking-wider">
+											<i
+												className="fa-solid fa-utensils"
+												style={{ color: '#0DC175' }}
+											></i>
+											<span>Miễn phí bữa sáng</span>
+										</div>
+										<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm text-green-600 tracking-wider">
+											<i
+												className="fa-solid fa-wifi"
+												style={{ color: '#0DC175' }}
+											></i>
+											<span>WiFi miễn phí</span>
+										</div>
+										<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm text-green-600 tracking-wider">
+											<i
+												className="fa-solid fa-smoking"
+												style={{ color: '#0DC175' }}
+											></i>
+											<span>Không hút thuốc</span>
+										</div>
+									</div>
+									<div className="">
+										<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm text-gray-500 tracking-wider">
+											<i
+												className="fa-solid fa-ban"
+												style={{ color: '#687176' }}
+											></i>
+											<span>Hủy phòng có thu phí</span>
+										</div>
+										<div className="flex gap-3 justify-start items-center mb-1 font-medium text-xm text-blue-500 tracking-wider">
+											<i
+												className="fa-solid fa-question"
+												style={{ color: '#0094F3' }}
+											></i>
+											<span>Xem chính sách hủy phòng</span>
+										</div>
+									</div>
+									<div className="">
+										<p className="font-medium text-mm tracking-wider text-gray-500 line-through">
+											3.200.000 VND
+										</p>
+										<p className="font-bold text-lg tracking-wider text-green-600">2.048.000 VND</p>
+										<p className="font-bold text-mm tracking-wider text-gray-500">/ phòng / đêm</p>
+										<p className="font-bold text-mm tracking-wider text-blue-500">Giá cuối cùng</p>
+									</div>
+								</div>
+								<div className="px-6 mt-6 xl:flex xl:justify-between">
+									<div className="flex justify-start items-center gap-4 ">
+										<i
+											className="fa-solid fa-money-check-dollar"
+											style={{ color: '#0094F3' }}
+										></i>
+										<div className="text-xm font-medium text-blue-500 tracking-wider">
+											<p className="">Thanh toán khi nhận phòng</p>
+											<p className="">Đặt bây giờ và thanh toán khi nhận phòng!</p>
+										</div>
+									</div>
+									<div className="bg-green-600 w-28 text-center rounded-lg">
+										<button className="px-3 py-2 text-base text-white">Đặt ngay</button>
+									</div>
+								</div>
+								<div className="w-11/12 h-0.5 bg-gray-100 m-auto mt-4"></div>
+								<div className="xl:px-6 xl:mt-6 xl:flex xl:justify-start xl:items-center xl:gap-4 px-6 mt-6 pb-5 flex justify-start items-center gap-4">
+									<i
+										className="fa-solid fa-hotel"
+										style={{ color: '#0DC175' }}
+									></i>
+									<p className="text-xm font-medium text-green-600">Ưu đãi giờ chót - giảm 36%!</p>
 								</div>
 							</div>
 						</div>

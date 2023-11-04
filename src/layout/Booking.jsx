@@ -1,11 +1,10 @@
 const BookingLayout = ({
 	renderStars, luuTru, getRatingText,
-	Link, handleFavoriteChange, favorites,
+	Link, handleFavoriteChange,
 
-	currentUser,
 	Checkbox, labelFavorite,
-	userFavorites
-
+	userFavorites,
+	handleAddToRecentlyViewed
 }) => {
 	return (
 		<>
@@ -30,9 +29,16 @@ const BookingLayout = ({
 											<div className="mt-2">
 												<div className="flex items-center justify-between">
 													<Link to={`/booking/${item.id}`}
-														className="font-semibold text-lg">
+														className="font-semibold text-lg"
+														onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img)}
+													>
 														{item.title}
 													</Link>
+													{/* <button
+														onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img)}
+													>
+														Đếm
+													</button> */}
 													{/* Yêu thích */}
 													{userFavorites.some((favorite) => favorite.id === item.id) ? (
 														<>
@@ -41,7 +47,6 @@ const BookingLayout = ({
 																onChange={() => handleFavoriteChange((item.id, item))}
 																icon={
 																	<i className="fa-solid fa-heart text-red-500"></i>
-
 																}
 																checkedIcon={
 																	<i className="fa-regular fa-heart"></i>
@@ -63,7 +68,6 @@ const BookingLayout = ({
 														</>
 													)
 													}
-
 												</div>
 												<p className="text-xm text-gray-300 flex items-center">
 													{renderStars(item.star)}
@@ -127,6 +131,7 @@ const BookingLayout = ({
 															bg-green-700 text-white font-bold px-2 md:px-0
 															text-sm  md:text-xx lg:text-xs
 														`}
+														onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img)}
 													>
 														<span className="p-2">Xem Giá Tốt</span>
 														<i className="fa-solid fa-chevron-right mr-2"></i>
