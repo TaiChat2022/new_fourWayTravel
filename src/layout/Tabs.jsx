@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/css/Tabs.css';
 
@@ -69,9 +69,9 @@ export default function BasicTabs() {
 					className="p-0"
 				>
 					{/* <div className="grid grid-cols-4 gap-4 p-0"> */}
-					<div className="flex flex-grow flex-wrap justify-between gap-4 p-0 sm:flex-nowrap">
+					<div className="flex flex-wrap justify-center md:justify-between gap-4 p-0 md:flex-nowrap">
 						<Link
-							to=""
+							to="#"
 							className="box-images"
 						>
 							<div className="box-img">

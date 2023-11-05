@@ -10,8 +10,7 @@ import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { collection, doc, updateDoc } from "firebase/firestore";
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-const currincey = ['VND - Việt Nam Đồng', 'USD - Us Dollar', 'JPY - Japanese Yen'];
+import { Link } from 'react-router-dom';
 
 const styleModal = {
 	position: 'absolute',
@@ -25,10 +24,9 @@ const styleModal = {
 	p: 4,
 };
 
-const language = ['VI - Tiếng Việt', 'EN - Tiếng Anh', 'JP - Tiếng Nhật'];
 const ITEM_HEIGHT = 36;
 
-const Header = ({ windowWidth }) => {
+const Header = () => {
 
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
@@ -39,36 +37,6 @@ const Header = ({ windowWidth }) => {
 		setAnchorEl(null);
 	};
 
-	const [anchorE2, setAnchorE2] = React.useState(null);
-	const open2 = Boolean(anchorE2);
-	const handleClick2 = (event) => {
-		setAnchorE2(event.currentTarget);
-	};
-	const handleClose2 = () => {
-		setAnchorE2(null);
-	};
-
-	const [anchorE3, setAnchorE3] = React.useState(null);
-	const open3 = Boolean(anchorE3);
-	const handleClick3 = (event) => {
-		setAnchorE3(event.currentTarget);
-	};
-	const handleClose3 = () => {
-		setAnchorE3(null);
-	};
-
-	// Select Currency
-	const [selectedCurrency, setSelectedCurrency] = React.useState('VND - Việt Nam Đồng');
-	const handleCurrencyChange = (newCurrency) => {
-		setSelectedCurrency(newCurrency);
-		handleClose2();
-	};
-	// Select Language
-	const [selectedLanguage, setSelectedLanguage] = React.useState('VI - Tiếng Việt');
-	const handleLanguageChange = (newLanguage) => {
-		setSelectedLanguage(newLanguage);
-		handleClose3(); // Đóng menu sau khi chọn
-	};
 
 	// Modal
 	const [openModal, setOpenModal] = React.useState(false);
@@ -83,7 +51,6 @@ const Header = ({ windowWidth }) => {
 	const handleClose4 = () => {
 		setAnchorE4(null);
 	};
-	const navigate = useNavigate();
 	const [user, setUser] = React.useState(null);
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -107,16 +74,16 @@ const Header = ({ windowWidth }) => {
 			await auth.signOut();
 			// alert('Đăng xuất thành công!');
 			// Thực hiện chuyển trang sau khi đăng xuất
-			navigate = '/';
+			window.location.href = '/';
 		} catch (error) {
 			console.error('Sign out error:', error);
 		}
 	};
+
 	return (
 		<MenuLayOut
 			Logo={Logo}
 			Link={Link}
-			windowWidth={windowWidth}
 			Button={Button}
 			Menu={Menu}
 			MenuItem={MenuItem}
@@ -124,21 +91,7 @@ const Header = ({ windowWidth }) => {
 			open={open}
 			handleClick={handleClick}
 			handleClose={handleClose}
-			currincey={currincey}
 			ITEM_HEIGHT={ITEM_HEIGHT}
-			anchorE2={anchorE2}
-			open2={open2}
-			handleClick2={handleClick2}
-			handleClose2={handleClose2}
-			selectedCurrency={selectedCurrency}
-			handleCurrencyChange={handleCurrencyChange}
-			language={language}
-			anchorE3={anchorE3}
-			open3={open3}
-			handleClick3={handleClick3}
-			handleClose3={handleClose3}
-			selectedLanguage={selectedLanguage}
-			handleLanguageChange={handleLanguageChange}
 			styleModal={styleModal}
 			Box={Box}
 			Typography={Typography}
@@ -154,6 +107,7 @@ const Header = ({ windowWidth }) => {
 			open4={open4}
 			handleClick4={handleClick4}
 			handleClose4={handleClose4}
+
 		/>
 	);
 };

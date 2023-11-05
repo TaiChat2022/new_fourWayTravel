@@ -7,6 +7,11 @@ import { routes } from './utils/routes';
 
 const Main = lazy(() => import('@/pages/index'))
 const Booking = lazy(() => import('@/pages/Booking'))
+const ChiTiet = lazy(() => import('@/pages/chiTiet'))
+const ListLuutru = lazy(() => import('@/pages/ListLuutru'))
+const Favourite = lazy(() => import('@/pages/Favourite'))
+const Datphong = lazy(() => import('@/pages/Datphong'));
+
 const Login = lazy(() => import('@/auth/Login'));
 
 export default function App() {
@@ -32,6 +37,22 @@ export default function App() {
 				<Route
 					path={routes.BOOKING}
 					element={<Booking />}
+				/>
+				<Route
+					path={routes.CHITIET}
+					element={<ChiTiet />}
+				/>
+				<Route
+					path={routes.Favourite}
+					element={<Favourite />}
+				/>
+				<Route
+					path={routes.ListLuutru}
+					element={<ListLuutru />}
+				/>
+				<Route
+					path={routes.DATPHONG}
+					element={<Datphong />}
 				/>
 			</Routes>
 		</Suspense>
