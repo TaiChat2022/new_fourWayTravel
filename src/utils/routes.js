@@ -5,6 +5,7 @@ export const routes = {
 	ListLuutru: '/listluutru',
 	BOOKING: '/booking',
 	CHITIET: '/booking/:id',
+	DATPHONG: '/datphong/:id',
 	LOGIN: '/auth/login',
 	REGISTER: '/auth/register',
 };

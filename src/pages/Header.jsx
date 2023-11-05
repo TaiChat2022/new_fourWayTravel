@@ -23,6 +23,7 @@ const styleModal = {
 	boxShadow: 24,
 	p: 4,
 };
+
 const ITEM_HEIGHT = 36;
 
 const Header = () => {

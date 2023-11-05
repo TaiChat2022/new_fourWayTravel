@@ -1,4 +1,6 @@
-const ChiTietLayout = ({ data, renderStars }) => {
+const ChiTietLayout = ({
+	data, renderStars, Link
+}) => {
 	return (
 		<>
 			<div className="container-details w-full h-auto">
@@ -34,8 +36,10 @@ const ChiTietLayout = ({ data, renderStars }) => {
 						<div className="flex flex-auto flex-col items-end justify-center">
 							<p className="text-xs font-medium">Giá phòng mỗi đêm từ</p>
 							<span className="text-2xl text-orange-600 font-bold">1.606.000 VND</span>
-							<button className="w-full md:w-64 h-11 rounded-md bg-orange-600 text-white">
-								<span className="font-semibold">Chọn phòng</span>
+							<button className="w-full md:w-64 h-11 rounded-md bg-orange-600 text-white font-semibold">
+								<Link to={`/datphong/${data.id}`}>
+									Đặt phòng
+								</Link>
 							</button>
 						</div>
 					</div>
