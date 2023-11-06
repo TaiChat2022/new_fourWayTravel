@@ -1,4 +1,4 @@
-const FavouriteLayout = ({ Link, userFavorites, currentUser }) => {
+const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChange, Checkbox, labelFavorite }) => {
 	return (
 		<>
 			{currentUser ? (
@@ -8,7 +8,7 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser }) => {
 							<main className="flex justify-start w-3/4 mx-auto pt-9 max-w-screen-2xl">
 								<span className="self-start mr-10">
 									<Link
-										to="/"
+										to="/booking"
 										className="flex items-center text-blue-500 text-md hover:text-blue-700"
 									>
 										<i className="fa-solid fa-chevron-left"></i>
@@ -90,18 +90,47 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser }) => {
 																									className="flex ml-2"
 																									data-testid="accommodation-card-favorite-list-button"
 																								>
-																									<svg
-																										xmlns="http://www.w3.org/2000/svg"
-																										width="28"
-																										height="28"
-																										viewBox="0 0 24 24"
-																										className="text-red-800  cursor-pointer"
-																									>
-																										<path
-																											d="M20.43 4.82a5.13 5.13 0 00-7.5-.36A6.32 6.32 0 0012 5.58a6.32 6.32 0 00-.92-1.12A5.24 5.24 0 007.51 3a5.23 5.23 0 00-3.92 1.82A6.35 6.35 0 002 9.07v.28c0 5.42 7.25 10.18 9.47 11.51a1 1 0 001 0C14.75 19.53 22 14.77 22 9.35v-.22-.06a6.35 6.35 0 00-1.57-4.25z"
-																											fill="currentColor"
-																										></path>
-																									</svg>
+																									{userFavorites.some(
+																										(favorite) =>
+																											favorite.id ===
+																											item.id,
+																									) ? (
+																										<>
+																											<Checkbox
+																												{...labelFavorite}
+																												onChange={() =>
+																													handleFavoriteChange(
+																														(item.id,
+																														item),
+																													)
+																												}
+																												icon={
+																													<i className="fa-solid fa-heart text-red-500"></i>
+																												}
+																												checkedIcon={
+																													<i className="fa-regular fa-heart"></i>
+																												}
+																											/>
+																										</>
+																									) : (
+																										<>
+																											<Checkbox
+																												{...labelFavorite}
+																												onChange={() =>
+																													handleFavoriteChange(
+																														(item.id,
+																														item),
+																													)
+																												}
+																												icon={
+																													<i className="fa-regular fa-heart"></i>
+																												}
+																												checkedIcon={
+																													<i className="fa-solid fa-heart text-red-500"></i>
+																												}
+																											/>
+																										</>
+																									)}
 																									<span className="sr-only">
 																										Loại bỏ trong
 																										danh sách yêu
@@ -206,12 +235,12 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser }) => {
 																							Kiểm tra giá và lượng phòng
 																							vào ngày bạn chọn
 																						</p>
-																						<a
+																						<Link
 																							className="text-white px-3 py-2 self-end text-xs font-bold w-auto rounded-lg bg-gray-500 border-b border-gray-500 hover:bg-gray-500 focus:bg-gray-500 active:bg-gray-500 disabled:bg-gray-300 disabled:border-gray-300 "
-																							href=""
+																							to={`/booking/${item.id}`}
 																						>
 																							Kiểm tra giá
-																						</a>
+																						</Link>
 																					</div>
 																				</div>
 																			</div>

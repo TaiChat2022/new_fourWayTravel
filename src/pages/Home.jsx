@@ -4,6 +4,7 @@ import QRcode from '@/layout/QRcode';
 import SearchList from '@/layout/SearchList';
 import Footer from '@/pages/Footer';
 import Tabs from '../layout/Tabs';
+import Product from './Product';
 import SearchBar from './SearchBar';
 import XemGanDay from './xemGanDay';
 const Home = () => {
@@ -19,6 +20,7 @@ const Home = () => {
 			<XemGanDay />
 			<Tabs />
 			<QRcode />
+			<Product />
 			<AboutFTW />
 			<SearchList />
 			<Footer />

@@ -7,14 +7,12 @@ import Select from '@mui/material/Select';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
-
 import Checkbox from '@mui/material/Checkbox';
 const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-
 import Footer from '@/pages/Footer';
 import Header from './Header';
+import Rating1 from '../components/rating1';
 const Booking = () => {
 	const { data: luuTru } = useDocsQuery('luuTru');
 	const getRatingText = (star) => {
@@ -72,8 +70,7 @@ const Booking = () => {
 			if (favorites.includes(itemId)) {
 				// Item is already in favorites, remove it
 				updatedFavorites = favorites.filter((favoriteId) => favoriteId !== itemId);
-			}
-			else {
+			} else {
 				// Item is not in favorites, add it
 				updatedFavorites = [...favorites, itemId];
 			}
@@ -132,7 +129,6 @@ const Booking = () => {
 		}
 	};
 
-
 	return (
 		<>
 			<Header />
@@ -145,16 +141,15 @@ const Booking = () => {
 				Select={Select}
 				luuTru={luuTru}
 				getRatingText={getRatingText}
-
 				Link={Link}
 				handleFavoriteChange={handleFavoriteChange}
-
 				Checkbox={Checkbox}
 				labelFavorite={labelFavorite}
-
 				userFavorites={userFavorites}
 				handleAddToRecentlyViewed={handleAddToRecentlyViewed}
+				Rating1={Rating1}
 			/>
+
 			<Footer />
 		</>
 	);
