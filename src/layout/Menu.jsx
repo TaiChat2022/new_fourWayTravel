@@ -7,7 +7,8 @@ export default function MenuLayOut({
 
 	styleModal, Modal, openModal, handleOpenModal, handleCloseModal,
 
-	Login, user, signOut, anchorE4, open4, handleClick4, handleClose4
+	Login, user, signOut, anchorE4, open4, handleClick4, handleClose4,
+
 }) {
 	return (
 		<>
@@ -207,11 +208,36 @@ export default function MenuLayOut({
 											'aria-labelledby': 'menu-btn',
 										}}
 									>
-										<MenuItem onClick={handleClose}>Xem gần đây</MenuItem>
-										<MenuItem onClick={handleClose}>Hỗ trợ và trợ giúp</MenuItem>
+										<div className="flex flex-col justify-start">
+											<button
+												onClick={handleClose}
+												className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
+											>
+												Xem gần đây
+											</button>
+											{user ?
+												(
+													<>
+														<button
+															onClick={handleClose}
+															className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
+														>
+															Lịch sử đặt hàng
+														</button>
+													</>
+												) : (
+													<></>
+												)
+											}
+
+											<button
+												onClick={handleClose}
+												className="w-full py-2 px-4 text-left hover:text-blue-500"
+											>
+												Hỗ trợ và trợ giúp
+											</button>
+										</div>
 									</Menu>
-
-
 								</li>
 							</ul>
 						</nav>

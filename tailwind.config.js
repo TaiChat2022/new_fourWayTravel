@@ -6,6 +6,10 @@ export default {
 			boxShadow: {
 				'3xl': 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;',
 				product: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;',
+				zz: 'rgba(0, 0, 0, 0.16) 0px 1px 4px;',
+			},
+			lineHeight: {
+				128: '128px',
 			},
 			fontFamily: {
 				poppins: ['Poppins', 'sans-serif'],
@@ -29,6 +33,7 @@ export default {
 				340: '340px',
 				110: '110px',
 				96: '96px',
+				0.2: '0.2px',
 			},
 			borderRadius: {
 				search: '0px 10px 10px 0px',
@@ -50,6 +55,9 @@ export default {
 			translate: {
 				10: '10%',
 				18: '18%',
+			},
+			padding: {
+				'26px': '0px 0px 0px 26px',
 			},
 			colors: {
 				primary: {

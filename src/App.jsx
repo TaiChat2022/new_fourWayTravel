@@ -10,6 +10,7 @@ const Booking = lazy(() => import('@/pages/Booking'))
 const ChiTiet = lazy(() => import('@/pages/chiTiet'))
 const ListLuutru = lazy(() => import('@/pages/ListLuutru'))
 const Favourite = lazy(() => import('@/pages/Favourite'))
+const Datphong = lazy(() => import('@/pages/Datphong'));
 
 const Login = lazy(() => import('@/auth/Login'));
 
@@ -48,6 +49,10 @@ export default function App() {
 				<Route
 					path={routes.ListLuutru}
 					element={<ListLuutru />}
+				/>
+				<Route
+					path={routes.DATPHONG}
+					element={<Datphong />}
 				/>
 			</Routes>
 		</Suspense>
