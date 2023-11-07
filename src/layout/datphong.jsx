@@ -1,226 +1,254 @@
-// import logo from '@/assets/img/logo1.jpg';
-
-const DatphongLayout = ({ data }) => {
+const DatphongLayout = ({
+	data, handleChange, handleSubmit, formData, formErrors
+}) => {
 	return (
 		<>
-			<div className="container bg-gray-100 w-3/4 m-auto">
+			<div className="container w-3/4 m-auto">
 				<div className="flex md:gap-4 md:justify-between ">
-					<div className="md:w-4/6">
-						<div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
-							<div className="-mx-3 md:flex mb-6">
-								<div className="md:flex md:w-1/2">
-									<div className="md:w-2/6 px-3 w-4">
+					<div className="w-4/6 drop-shadow">
+						<form onSubmit={handleSubmit}>
+							<div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+								<div className="-mx-3 flex mb-6">
+									<div className="flex w-1/2">
+										<div className="w-2/6 px-3">
+											<label
+												className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+												htmlFor="grid-state"
+											>
+												Tiêu đề
+											</label>
+											<div className="relative">
+												<select
+													name="title" // Add the 'name' attribute to link with formData
+													className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
+													id="grid-state"
+													value={formData.title} // Control the input with formData state
+													onChange={handleChange} // Set the event handler
+												>
+													<option value="Ông">Ông</option>
+													<option value="Bà">Bà</option>
+													<option value="Anh">Anh</option>
+													<option value="Chị">Chị</option>
+												</select>
+												<div className="pointer-events-none absolute inset-1/2 right-0 -translate-y-1/4 flex items-center px-2 text-grey-darker">
+													<i className="fa-regular fa-chevron-down"></i>
+												</div>
+											</div>
+										</div>
+										<div className="w-4/6 px-3 mb-6 md:mb-0">
+											<label
+												className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+												htmlFor="grid-first-name"
+											>
+												Tên *
+											</label>
+											<input
+												className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+												id="grid-first-name"
+												type="text"
+												name="firstName"
+												value={formData.firstName}
+												onChange={handleChange}
+												placeholder=""
+											/>
+										</div>
+									</div>
+									<div className="md:w-1/2 px-3">
+										<label
+											className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+											htmlFor="grid-last-name"
+										>
+											Họ *
+										</label>
+										<input
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+											id="grid-last-name"
+											type="text"
+											name="lastName"
+											value={formData.lastName}
+											onChange={handleChange}
+											placeholder=""
+										/>
+									</div>
+								</div>
+								<div className="-mx-3 flex mb-2">
+									<div className="w-1/2 px-3 mb-6 md:mb-0">
+										<label
+											className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+											htmlFor="grid-email"
+										>
+											Email *
+										</label>
+										<input
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+											id="grid-email"
+											type="email"
+											name="email"
+											value={formData.email}
+											onChange={handleChange}
+											placeholder=""
+										/>
+									</div>
+									<div className="md:w-1/2 px-3">
+										<label
+											className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+											htmlFor="grid-email"
+										>
+											Nhập lại email *
+										</label>
+										<input
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+											id="grid-email"
+											type="email"
+											name="confirmEmail"
+											value={formData.confirmEmail}
+											onChange={handleChange}
+											placeholder=""
+										/>
+									</div>
+								</div>
+
+								<div className="-mx-3 flex mb-2">
+									<div className="md:w-1/2 px-3 mb-6 md:mb-0">
+										<label
+											className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+											htmlFor="grid-phone"
+										>
+											Số điện thoại *
+										</label>
+										<input
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+											id="grid-city"
+											type="text"
+											name="phone"
+											value={formData.phone}
+											onChange={handleChange}
+											placeholder="+84"
+										/>
+									</div>
+									<div className="md:w-1/2 px-3">
 										<label
 											className="block tracking-wide text-grey-darker text-base font-bold mb-2"
 											htmlFor="grid-state"
 										>
-											Tiêu đề
+											Khu vực *
 										</label>
 										<div className="relative">
 											<select
 												className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
 												id="grid-state"
+												value={formData.region} // Control the input with formData state
+												onChange={handleChange} // Set the event handler
 											>
-												<option>Ông</option>
-												<option>Bà</option>
-												<option>Anh</option>
-												<option>Chị</option>
+												<option value="Miền Bắc">Miền Bắc</option>
+												<option value="Miền Trung">Miền Trung</option>
+												<option value="Miền Nam">Miền Nam</option>
 											</select>
 											<div className="pointer-events-none absolute top-1/2 right-0 -translate-y-1/4 flex items-center px-2 text-grey-darker">
 												<i className="fa-regular fa-chevron-down"></i>
 											</div>
 										</div>
 									</div>
-									<div className="md:w-4/6 px-3 mb-6 md:mb-0">
+								</div>
+								<div className="-mx-3 flex mb-2">
+									<div className="md:w-full px-3 mb-6 md:mb-0">
 										<label
 											className="block tracking-wide text-grey-darker text-base font-bold mb-2"
-											htmlFor="grid-first-name"
+											htmlFor="grid-phone"
 										>
-											Tên *
+											Yêu cầu thêm
 										</label>
-										<input
-											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-											id="grid-first-name"
-											type="text"
-											placeholder=""
-										/>
+										<textarea
+											name="additionalRequest" // Add 'name' attribute to link with formData
+											className="w-full border p-3 outline-none rounded-sm text-sm"
+											id=""
+											cols="30"
+											rows="10"
+											placeholder="Ví dụ: Sở thích về Giường, địa điểm đón hoặc trả khách"
+											value={formData.additionalRequest} // Control the input with formData state
+											onChange={handleChange} // Set the event handler
+										></textarea>
 									</div>
 								</div>
-								<div className="md:w-1/2 px-3">
-									<label
-										className="block tracking-wide text-grey-darker text-base font-bold mb-2"
-										htmlFor="grid-last-name"
-									>
-										Họ *
-									</label>
-									<input
-										className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-										id="grid-last-name"
-										type="text"
-										placeholder=""
-									/>
-								</div>
-							</div>
-							<div className="-mx-3 md:flex mb-2">
-								<div className="md:w-1/2 px-3 mb-6 md:mb-0">
-									<label
-										className="block tracking-wide text-grey-darker text-base font-bold mb-2"
-										htmlFor="grid-email"
-									>
-										Email *
-									</label>
-									<input
-										className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-										id="grid-email"
-										type="email"
-										placeholder=""
-									/>
-								</div>
-								<div className="md:w-1/2 px-3">
-									<label
-										className="block tracking-wide text-grey-darker text-base font-bold mb-2"
-										htmlFor="grid-email"
-									>
-										Nhập lại email *
-									</label>
-									<input
-										className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-										id="grid-email"
-										type="email"
-										placeholder=""
-									/>
-								</div>
-							</div>
 
-							<div className="-mx-3 md:flex mb-2">
-								<div className="md:w-1/2 px-3 mb-6 md:mb-0">
-									<label
-										className="block tracking-wide text-grey-darker text-base font-bold mb-2"
-										htmlFor="grid-phone"
-									>
-										Số điện thoại *
-									</label>
-									<input
-										className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-										id="grid-city"
-										type="text"
-										placeholder="987 654 321"
-									/>
+							</div>
+							<div className="bg-white px-3 py-4 mb-4">
+								<h1 className="text-lg font-semibold tracking-wide">Chính sách đặt phòng</h1>
+								<div className="w-full h-0.2 bg-gray-500 my-5"></div>
+								<div className="rounded-sm">
+									<div className="flex justify-start items-center my-2 gap-3 ">
+										<i className="fa-light fa-file-lines text-lg"></i>
+										<span className="font-semibold text-sm tracking-wide">Phòng Superior Twin</span>
+									</div>
+									<div className="flex justify-start items-center my-2 gap-2 p-26px">
+										<span className="font-semibold text-sm">Hủy:</span>
+										<p className="text-sm tracking-wide ">
+											Nếu hủy, thay đổi hoặc không đến, khách sẽ trả toàn bộ giá trị tiền đặt phòng.
+										</p>
+									</div>
+									<div className="flex justify-start items-center my-2 gap-2 p-26px">
+										<span className="font-semibold text-sm tracking-wide">Thanh toán:</span>
+										<p className="text-sm tracking-wide">Thanh toán toàn bộ giá trị tiền đặt phòng.</p>
+									</div>
+									<div className="my-2 p-26px">
+										<span className="font-semibold text-sm tracking-wide">Đã bao gồm ăn sáng</span>
+									</div>
 								</div>
-								<div className="md:w-1/2 px-3">
-									<label
-										className="block tracking-wide text-grey-darker text-base font-bold mb-2"
-										htmlFor="grid-state"
-									>
-										Khu vực *
-									</label>
+							</div>
+							<div className="bg-white px-3 py-4">
+								<h1 className="text-lg font-semibold tracking-wide">Phương thức thanh toán</h1>
+								<div className="w-full h-0.2 bg-gray-500 my-5"></div>
+								<div className="md:w-full px-3 w-4">
 									<div className="relative">
 										<select
 											className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
 											id="grid-state"
 										>
-											<option>Miền Bắc</option>
-											<option>Miền Trung</option>
-											<option>Miền Nam</option>
+											<option>OnePay Vietnam (Thẻ ATM)</option>
+											<option>
+												Online Payment via International Cards (Visa, Master, JCB, Amex, CUP)
+											</option>
 										</select>
 										<div className="pointer-events-none absolute top-1/2 right-0 -translate-y-1/4 flex items-center px-2 text-grey-darker">
 											<i className="fa-regular fa-chevron-down"></i>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div className="-mx-3 md:flex mb-2">
-								<div className="md:w-full px-3 mb-6 md:mb-0">
+								<div className="flex items-center  px-3 mt-4">
+									<input
+										id="default-radio-1"
+										type="radio"
+										defaultValue=""
+										name="default-radio"
+										className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300"
+									/>
 									<label
-										className="block tracking-wide text-grey-darker text-base font-bold mb-2"
-										htmlFor="grid-phone"
+										htmlFor="default-radio-1"
+										className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-800"
 									>
-										Yêu cầu thêm
+										Vui lòng đọc kỹ và đồng ý với điều khoản đặt phòng bằng cách đánh dấu vào ô bên
+										cạnh.
 									</label>
-									<textarea
-										className="w-full border p-3 outline-none rounded-sm text-sm"
-										name=""
-										id=""
-										cols="30"
-										rows="10"
-										placeholder="Ví dụ: Sở thích về Giường, địa điểm đón hoặc trả khách"
-									></textarea>
+								</div>
+								<div className="mt-3">
+									<button className="w-36 py-3 bg-green-500 borrder-none rounded-md text-white text-base font-semibold tracking-wide">
+										Đặt phòng
+									</button>
 								</div>
 							</div>
-						</div>
-						<div className="bg-white px-3 py-4 mb-4">
-							<h1 className="text-lg font-semibold tracking-wide">Chính sách đặt phòng</h1>
-							<div className="w-full h-0.2 bg-gray-500 my-5"></div>
-							<div className="rounded-sm">
-								<div className="flex justify-start items-center my-2 gap-3 ">
-									<i className="fa-light fa-file-lines text-lg"></i>
-									<span className="font-semibold text-sm tracking-wide">Phòng Superior Twin</span>
-								</div>
-								<div className="flex justify-start items-center my-2 gap-2 p-26px">
-									<span className="font-semibold text-sm">Hủy:</span>
-									<p className="text-sm tracking-wide ">
-										Nếu hủy, thay đổi hoặc không đến, khách sẽ trả toàn bộ giá trị tiền đặt phòng.
-									</p>
-								</div>
-								<div className="flex justify-start items-center my-2 gap-2 p-26px">
-									<span className="font-semibold text-sm tracking-wide">Thanh toán:</span>
-									<p className="text-sm tracking-wide">Thanh toán toàn bộ giá trị tiền đặt phòng.</p>
-								</div>
-								<div className="my-2 p-26px">
-									<span className="font-semibold text-sm tracking-wide">Đã bao gồm ăn sáng</span>
-								</div>
-							</div>
-						</div>
-						<div className="bg-white px-3 py-4">
-							<h1 className="text-lg font-semibold tracking-wide">Phương thức thanh toán</h1>
-							<div className="w-full h-0.2 bg-gray-500 my-5"></div>
-							<div className="md:w-full px-3 w-4">
-								<label
-									className="block tracking-wide text-grey-darker text-base font-bold mb-2"
-									htmlFor="grid-state"
-								>
-									Tiêu đề
-								</label>
-								<div className="relative">
-									<select
-										className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
-										id="grid-state"
-									>
-										<option>OnePay Vietnam (Thẻ ATM)</option>
-										<option>
-											Online Payment via International Cards (Visa, Master, JCB, Amex, CUP)
-										</option>
-									</select>
-									<div className="pointer-events-none absolute top-1/2 right-0 -translate-y-1/4 flex items-center px-2 text-grey-darker">
-										<i className="fa-regular fa-chevron-down"></i>
-									</div>
-								</div>
-							</div>
-							<div className="flex items-center  px-3 mt-4">
-								<input
-									id="default-radio-1"
-									type="radio"
-									defaultValue=""
-									name="default-radio"
-									className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300"
-								/>
-								<label
-									htmlFor="default-radio-1"
-									className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-800"
-								>
-									Vui lòng đọc kỹ và đồng ý với điều khoản đặt phòng bằng cách đánh dấu vào ô bên
-									cạnh.
-								</label>
-							</div>
-							<div className="mt-3">
-								<button className="w-36 py-3 bg-green-500 borrder-none rounded-md text-white text-base font-semibold tracking-wide">
-									Đặt phòng
-								</button>
-							</div>
-						</div>
+						</form>
 					</div>
-
-					<div className="xl:w-2/6 mt-2 ">
+					{Object.keys(formErrors).length > 0 && (
+						<div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
+							<p className="font-bold">Cần chú ý</p>
+							<ul>
+								{Object.keys(formErrors).map((key) => {
+									return <li key={key}>{formErrors[key]}</li>;
+								})}
+							</ul>
+						</div>
+					)}
+					<div className="w-2/6 mt-2 drop-shadow ">
 						<div className="w-full h-auto bg-white p-5 rounded-md">
 							<div className="flex justify-between gap-4">
 								<img
@@ -302,8 +330,8 @@ const DatphongLayout = ({ data }) => {
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				</div >
+			</div >
 		</>
 	);
 };

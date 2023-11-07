@@ -1,10 +1,10 @@
 import FavouriteLayout from '@/layout/Favourite';
 import { auth, firestore } from '@/utils/firebase.config';
+import Checkbox from '@mui/material/Checkbox';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../pages/Header';
-import Checkbox from '@mui/material/Checkbox';
 
 const Favourite = () => {
 	const [currentUser, setCurrentUser] = React.useState(null);
@@ -14,7 +14,6 @@ const Favourite = () => {
 		auth.onAuthStateChanged((user) => {
 			if (user) {
 				setCurrentUser(user);
-
 				// Lấy thông tin người dùng hiện tại và mảng "favorites"
 				const userRef = doc(firestore, 'users', user.uid);
 				const fetchUserFavorites = async () => {
