@@ -7,14 +7,16 @@ import Select from '@mui/material/Select';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
-
 import Checkbox from '@mui/material/Checkbox';
-const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-
 import Footer from '@/pages/Footer';
 import Header from './Header';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
 const Booking = () => {
 	const { data: luuTru } = useDocsQuery('luuTru');
 	const getRatingText = (star) => {
@@ -72,8 +74,7 @@ const Booking = () => {
 			if (favorites.includes(itemId)) {
 				// Item is already in favorites, remove it
 				updatedFavorites = favorites.filter((favoriteId) => favoriteId !== itemId);
-			}
-			else {
+			} else {
 				// Item is not in favorites, add it
 				updatedFavorites = [...favorites, itemId];
 			}
@@ -132,6 +133,9 @@ const Booking = () => {
 		}
 	};
 
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
 
 	return (
 		<>
@@ -145,16 +149,29 @@ const Booking = () => {
 				Select={Select}
 				luuTru={luuTru}
 				getRatingText={getRatingText}
-
 				Link={Link}
 				handleFavoriteChange={handleFavoriteChange}
-
 				Checkbox={Checkbox}
 				labelFavorite={labelFavorite}
-
 				userFavorites={userFavorites}
 				handleAddToRecentlyViewed={handleAddToRecentlyViewed}
+				//start modal
+				open={open}
+				handleClose={handleClose}
+				handleOpen={handleOpen}
+				Box={Box}
+				Button={Button}
+				Typography={Typography}
+				Modal={Modal}
+				//end modal
+
+				// showAll={showAll}
+				// setShowAll={setShowAll}
+				// expandedBox={expandedBox}
+				// setExpandedBox={setExpandedBox}
+				// Rating1={Rating1}
 			/>
+
 			<Footer />
 		</>
 	);

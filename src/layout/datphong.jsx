@@ -1,4 +1,6 @@
-const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors }) => {
+const DatphongLayout = ({
+	data, handleChange, handleSubmit, formData, formErrors
+}) => {
 	return (
 		<>
 			<div className="container w-3/4 m-auto">
@@ -28,7 +30,7 @@ const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors
 													<option value="Anh">Anh</option>
 													<option value="Chị">Chị</option>
 												</select>
-												<div className="pointer-events-none absolute inset-y-1/2 right-0 -translate-y-1/4 flex items-center px-2 text-grey-darker">
+												<div className="pointer-events-none absolute inset-1/2 right-0 -translate-y-1/4 flex items-center px-2 text-grey-darker">
 													<i className="fa-regular fa-chevron-down"></i>
 												</div>
 											</div>
@@ -131,10 +133,8 @@ const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors
 										>
 											Khu vực *
 										</label>
-
 										<div className="relative">
 											<select
-												name="khuvuc" // Add the 'name' attribute to link with formData
 												className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
 												id="grid-state"
 												value={formData.region} // Control the input with formData state
@@ -170,6 +170,7 @@ const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors
 										></textarea>
 									</div>
 								</div>
+
 							</div>
 							<div className="bg-white px-3 py-4 mb-4">
 								<h1 className="text-lg font-semibold tracking-wide">Chính sách đặt phòng</h1>
@@ -182,15 +183,12 @@ const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors
 									<div className="flex justify-start items-center my-2 gap-2 p-26px">
 										<span className="font-semibold text-sm">Hủy:</span>
 										<p className="text-sm tracking-wide ">
-											Nếu hủy, thay đổi hoặc không đến, khách sẽ trả toàn bộ giá trị tiền đặt
-											phòng.
+											Nếu hủy, thay đổi hoặc không đến, khách sẽ trả toàn bộ giá trị tiền đặt phòng.
 										</p>
 									</div>
 									<div className="flex justify-start items-center my-2 gap-2 p-26px">
 										<span className="font-semibold text-sm tracking-wide">Thanh toán:</span>
-										<p className="text-sm tracking-wide">
-											Thanh toán toàn bộ giá trị tiền đặt phòng.
-										</p>
+										<p className="text-sm tracking-wide">Thanh toán toàn bộ giá trị tiền đặt phòng.</p>
 									</div>
 									<div className="my-2 p-26px">
 										<span className="font-semibold text-sm tracking-wide">Đã bao gồm ăn sáng</span>
@@ -241,10 +239,7 @@ const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors
 						</form>
 					</div>
 					{Object.keys(formErrors).length > 0 && (
-						<div
-							className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4"
-							role="alert"
-						>
+						<div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
 							<p className="font-bold">Cần chú ý</p>
 							<ul>
 								{Object.keys(formErrors).map((key) => {
@@ -335,8 +330,8 @@ const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				</div >
+			</div >
 		</>
 	);
 };

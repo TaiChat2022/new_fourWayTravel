@@ -6,7 +6,6 @@ import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Header from './Header';
-import { firestore } from '@/utils/firebase.config';
 
 // import SearchBar from './SearchBar';
 const Datphong = () => {
@@ -17,7 +16,8 @@ const Datphong = () => {
 		auth.onAuthStateChanged((user) => {
 			if (user) {
 				setUser(user);
-			} else {
+			}
+			else {
 				setUser(null);
 			}
 		});
@@ -41,8 +41,6 @@ const Datphong = () => {
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
-		const selectedValue = e.target.value; // Get the selected value
-		updateFirebaseWithSelectedValue(selectedValue); // Call the function to update Firebase
 	};
 
 	const validateForm = () => {
@@ -113,25 +111,6 @@ const Datphong = () => {
 			alert('Lỗi khi lưu thông tin đặt phòng.');
 		}
 	};
-
-	const updateFirebaseWithSelectedValue = (selectedValue) => {
-		// Define the collection and document where you want to update the value
-		const collectionRef = firestore.collection('thanhtoan'); // Change to your collection name
-		const documentRef = collectionRef.doc('YOUR_DOCUMENT_ID'); // Replace with the document ID you want to update
-
-		// Update the 'tieuDe' field with the selected value
-		documentRef
-			.update({
-				tieuDe: selectedValue,
-			})
-			.then(() => {
-				console.log(`Document updated with value: ${selectedValue}`);
-			})
-			.catch((error) => {
-				console.error('Error updating document:', error);
-			});
-	};
-
 	return (
 		<>
 			<Header />
@@ -142,7 +121,6 @@ const Datphong = () => {
 				handleSubmit={handleSubmit}
 				formData={formData}
 				formErrors={formErrors}
-				updateFirebaseWithSelectedValue={updateFirebaseWithSelectedValue}
 			/>
 			<Footer />
 		</>
