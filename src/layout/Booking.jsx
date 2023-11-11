@@ -1,3 +1,5 @@
+import 'flowbite';
+
 const BookingLayout = ({
 	// renderStars,
 	luuTru,
@@ -12,6 +14,7 @@ const BookingLayout = ({
 	handleClose,
 	handleOpen,
 	open,
+	selectedAmenity,
 }) => {
 	return (
 		<>
@@ -186,25 +189,36 @@ const BookingLayout = ({
 			<Modal
 				open={open}
 				onClose={handleClose}
-				className="bg-white backdrop-1"
+				className="bg-white backdrop-1 opacity-90"
 			>
 				<div className="bg-white w-1/3 m-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  border-none rounded-md p-6 opacity-100">
-					<h1 className="text-2xl font-bold">Tất cả các tiện ích của khách sạn</h1>
+					<h1 className="text-2xl font-bold">
+						{selectedAmenity ? `Tất cả các tiện ích:` : 'Chọn một tiện ích'}
+					</h1>
 					<div className="mt-2">
 						<div className="flex flex-wrap gap-2 mb-2">
 							{luuTru.map((item) => (
-								<>
+								<div key={item.id}>
 									{item.tienich.map((value, index) => (
 										<div
 											key={index}
-											className="w-auto h-8 border-none bg-black rounded-lg mt-1 "
+											className={`w-auto h-8 border-none rounded-lg mt-1 cursor-pointer ${
+												selectedAmenity === value ? 'bg-yellow-500' : ''
+											}`}
+											onClick={() => handleOpen(value)}
 										>
 											<div className="flex justify-start items-center  pt-1 text-mm gap-1">
-												<div className="p-1 text-white">{value} </div>
+												<div
+													className={`p-1 ${
+														selectedAmenity === value ? 'text-white' : 'text-black'
+													}`}
+												>
+													{value}
+												</div>
 											</div>
 										</div>
 									))}
-								</>
+								</div>
 							))}
 						</div>
 					</div>

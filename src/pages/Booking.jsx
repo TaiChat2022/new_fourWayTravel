@@ -4,7 +4,7 @@ import { auth, firestore } from '@/utils/firebase.config';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import Checkbox from '@mui/material/Checkbox';
@@ -132,11 +132,18 @@ const Booking = () => {
 			await updateDoc(userRef, { xemGanDay: xemGanDay });
 		}
 	};
+	const [open, setOpen] = useState(false);
+	const [selectedAmenity, setSelectedAmenity] = useState(null);
 
-	const [open, setOpen] = React.useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+	const handleOpen = (amenity) => {
+		setSelectedAmenity(amenity);
+		setOpen(true);
+	};
 
+	const handleClose = () => {
+		setSelectedAmenity(null);
+		setOpen(false);
+	};
 	return (
 		<>
 			<Header />
@@ -163,6 +170,7 @@ const Booking = () => {
 				Button={Button}
 				Typography={Typography}
 				Modal={Modal}
+				selectedAmenity={selectedAmenity}
 				//end modal
 
 				// showAll={showAll}
