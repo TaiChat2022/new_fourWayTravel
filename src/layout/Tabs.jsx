@@ -25,12 +25,13 @@ function TabPanel(props) {
   );
 }
 
-export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
+export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3,luuTruCountByDanhMuc }) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
 
   return (
     <>
@@ -66,18 +67,18 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
         {tinhthanh1 ? (
           <>
             <TabPanel value={value} index={0} className="p-0">
-              <div className="flex flex-wrap justify-center md:justify-between gap-x-4 p-0 md:flex-nowrap">
-                {tinhthanh1.slice(0, 3).map((item) => (
-                  <Link to="#" key={item.id}>
+            <div className="grid grid-cols-4 gap-4 w-full h-300">
+                {tinhthanh1.map((item) => (
+                  <Link to="/booking" key={item.id}>
                     <div className="box-img">
                       <div className="box-content">
                         <h3 className="name-travel">{item.text}</h3>
                         <h3 className="total-room">
-                          <span className="total-number">1.615</span> Khách sạn
+                          <span className="total-number">{luuTruCountByDanhMuc[item.text] || 0}</span> Khách sạn
                         </h3>
                       </div>
                       <img
-                        src="https://vcdn-vnexpress.vnecdn.net/2023/07/03/catb-9687-1688394483.jpg"
+                        src={item.img}
                         alt=""
                         className="image"
                       />
@@ -86,6 +87,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
                 ))}
               </div>
             </TabPanel>
+            
           </>
         ) : (
           <>
@@ -96,9 +98,9 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
         {tinhthanh3 ? (
           <>
             <TabPanel value={value} index={1}>
-              <div className="grid grid-cols-4 gap-4">
-                {tinhthanh3.slice(0, 3).map((item) => (
-                  <Link to="#" key={item.id}>
+              <div className="grid grid-cols-4 gap-4 w-full h-300">
+                {tinhthanh3.slice(0, 4).map((item) => (
+                  <Link to="/booking" key={item.id}>
                     <div className="box-img">
                       <div className="box-content">
                         <h3 className="name-travel">{item.text}</h3>
@@ -107,7 +109,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
                         </h3>
                       </div>
                       <img
-                        src="https://grandcenterquynhon.com.vn/images/tt_duan1a.jpg"
+                        src={item.img}
                         alt=""
                         className="image"
                       />
@@ -126,9 +128,9 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
         {tinhthanh2 ? (
           <>
             <TabPanel value={value} index={2} className="">
-              <div className="grid grid-cols-4 gap-4">
-                {tinhthanh2.slice(0, 3).map((item) => (
-                  <Link to="#" key={item.id}>
+              <div className="grid grid-cols-4 gap-4 w-full h-300">
+                {tinhthanh2.slice(0,4).map((item) => (
+                  <Link to="/booking" key={item.id}>
                     <div className="box-img">
                       <div className="box-content">
                         <h3 className="name-travel">{item.text}</h3>
@@ -137,7 +139,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
                         </h3>
                       </div>
                       <img
-                        src="https://cdn3.ivivu.com/2022/09/T%E1%BB%95ng-quan-du-l%E1%BB%8Bch-V%C5%A9ng-T%C3%A0u-ivivu.jpg"
+                        src={item.img}
                         alt=""
                         className="image"
                       />

@@ -1,12 +1,11 @@
 import { useDocsQuery } from '@/hooks/useFirestore';
 import BasicTabs from '@/layout/Tabs';
-import React, {  useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 
 
 const Tabs = () => {
   
-
+    const [luuTruCountByDanhMuc, setLuuTruCountByDanhMuc] = useState({});
     const { data: tinhthanh1 } = useDocsQuery('danhmuc');
     const { data: tinhthanh2 } = useDocsQuery('danhmuc');
     const { data: tinhthanh3 } = useDocsQuery('danhmuc');
@@ -15,7 +14,23 @@ const Tabs = () => {
     const filteredDanhmucMienNam = tinhthanh2.filter((danhmuc) => danhmuc.khuvuc === 'Miền Nam');
     const filteredDanhmucMienTrung = tinhthanh3.filter((danhmuc) => danhmuc.khuvuc === 'Miền Trung');
 
+    const { data: dsbookingMienNam } = useDocsQuery('luuTru');
+    const filteredBookingMienNam = dsbookingMienNam.filter((luuTru) => luuTru.khuvuc === 'Miền Nam');
+ // Fetch hotel count by danh muc
+ useEffect(() => {
+    // ... (fetch hotel count data from Firebase or Redux)
+    // For demonstration, let's assume you have a function to fetch luuTruCountByDanhMuc
 
+    // Replace the following with your actual function to fetch luuTruCountByDanhMuc
+    const fetchLuuTruCountByDanhMuc = async () => {
+      // Example function, replace this with your actual implementation
+      const luuTruCountData = await fetchLuuTruCount(); // Assuming you have a function to fetch luuTruCount
+      setLuuTruCountByDanhMuc(luuTruCountData);
+    };
+
+    fetchLuuTruCountByDanhMuc();
+
+  }, []); // Ensure that this e
 
     return (
         <>
@@ -23,8 +38,10 @@ const Tabs = () => {
             tinhthanh1={filteredDanhmucMienBac}
             tinhthanh2={filteredDanhmucMienNam}
             tinhthanh3={filteredDanhmucMienTrung}
+            luuTruCountByDanhMuc={luuTruCountByDanhMuc}
 
             />
+            
         </>
     );
 };
