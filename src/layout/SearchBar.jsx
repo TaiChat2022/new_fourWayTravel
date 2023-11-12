@@ -1,7 +1,9 @@
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Filter from './Filter';
 
 export default function SearchBarLayout({
-	Link,
+	handleSearch,
 	Box,
 	FormControl,
 	NativeSelect,
@@ -11,7 +13,17 @@ export default function SearchBarLayout({
 	handleStartDateChange,
 	handleEndDateChange,
 	startDateSelected,
+	onAddressChange,
 }) {
+	const location = useLocation();
+	const isBookingPage = location.pathname === '/booking';
+
+	const searchParams = new URLSearchParams(location.search);
+
+	const address = searchParams.get('address');
+
+	const [filterAddress, setFilterAddress] = useState(address);
+
 	return (
 		<>
 			<div className="w-3/4 mx-auto mt-4 border-none rounded-lg shadow-2xl mb-7">
@@ -62,11 +74,17 @@ export default function SearchBarLayout({
 												Địa danh
 											</span>
 											<NativeSelect
+												value={isBookingPage ? filterAddress : undefined}
 												defaultValue={30}
 												inputProps={{
 													name: 'diadanh',
 													id: 'uncontrolled-native',
 												}}
+												onChange={
+													isBookingPage
+														? (e) => setFilterAddress(e.target.value)
+														: onAddressChange
+												}
 											>
 												{diadanh ? (
 													<>
@@ -190,58 +208,18 @@ export default function SearchBarLayout({
 							</span>
 						</button>
 						{/* Số khách và phòng */}
-						{/* <button
-							type="button"
-							data-testid="search-form-guest-selector"
-							className="w-full col-span-1 px-5 text-left truncate bg-white border-t md:border-l md:border-t-0 group h-14 active:bg-grey-200"
-						>
-							<span className="flex items-center 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
-								<span
-									className="inline-flex flex-shrink-0 mr-3 leading-none transform "
-									aria-hidden="true"
-								>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width={24}
-										height={24}
-										viewBox="0 0 24 24"
-										className="max-w-full max-h-full pointer-events-none"
-									>
-										<path
-											d="M21 12a3.1 3.1 0 00-1-2.31V6a1 1 0 00-1-1H5a1 1 0 00-1 1v3.69A3.1 3.1 0 003 12a1 1 0 00-1 1v4a2 2 0 002 2h16a2 2 0 002-2v-4a1 1 0 00-1-1zm-7.76-1a1.72 1.72 0 011.51-1h3.5a1.5 1.5 0 01.75.2 1.87 1.87 0 01.91 1.21A1.87 1.87 0 0120 12h-7a2.2 2.2 0 01.24-1zM5 6h14v3.12a2.36 2.36 0 00-.75-.12h-3.5a2.78 2.78 0 00-2.59 2 3.27 3.27 0 00-.16 1 3.27 3.27 0 00-.16-1 2.78 2.78 0 00-2.59-2h-3.5a2.36 2.36 0 00-.75.12zm-.91 5.41A1.87 1.87 0 015 10.2a1.5 1.5 0 01.75-.2h3.5a1.72 1.72 0 011.51 1 2.2 2.2 0 01.24 1H4a1.87 1.87 0 01.09-.59zM21 17a1 1 0 01-1 1H4a1 1 0 01-1-1v-4h18z"
-											fill="currentColor"
-										/>
-									</svg>
-								</span>
-								<span className="relative flex flex-col w-full truncate">
-									<span
-										className="text-xs leading-tight truncate text-grey-700"
-										data-testid="search-form-guest-selector-label"
-									>
-										Số khách và phòng
-									</span>
-									<span
-										className="text-sm font-bold leading-normal truncate text-grey-900"
-										data-testid="search-form-guest-selector-value"
-									>
-										2 khách, 1 phòng
-									</span>
-								</span>
-							</span>
-						</button> */}
+
 						{/*Fiter */}
 						<Filter></Filter>
 						{/* end Fiter */}
 
-						<Link
-							to="/booking"
-							className="flex items-center justify-end col-span-1"
-						>
+						<span className="flex items-center justify-end col-span-1">
 							<button
+								onClick={handleSearch}
 								type="button"
 								className={`
 									flex items-center justify-center px-12 py-2
-									h-full rounded-b-lg md:rounded-md text-white 
+									h-full rounded-b-lg md:rounded-md text-white
 									text-md font-semibold
 									bg-blue-600 hover:bg-blue-700 w-full md:w-20
 								`}
@@ -249,7 +227,7 @@ export default function SearchBarLayout({
 							>
 								<span className="text-center">Tìm</span>
 							</button>
-						</Link>
+						</span>
 					</div>
 				</div>
 			</div>

@@ -1,10 +1,20 @@
+import 'flowbite';
+
 const BookingLayout = ({
-	renderStars, luuTru, getRatingText,
-	Link, handleFavoriteChange, favorites,
-
-	currentUser,
-	Checkbox, labelFavorite
-
+	// renderStars,
+	luuTru,
+	getRatingText,
+	Link,
+	handleFavoriteChange,
+	Checkbox,
+	labelFavorite,
+	userFavorites,
+	handleAddToRecentlyViewed,
+	Modal,
+	handleClose,
+	handleOpen,
+	open,
+	selectedAmenity,
 }) => {
 	return (
 		<>
@@ -17,7 +27,10 @@ const BookingLayout = ({
 						{luuTru.map((item) => (
 							<>
 								<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product">
-									<div key={item.id} className="grid grid-cols-1 md:grid-cols-4 gap-8">
+									<div
+										key={item.id}
+										className="grid grid-cols-1 md:grid-cols-5 gap-8"
+									>
 										<div className="col-span-1">
 											<img
 												src={item.img}
@@ -28,25 +41,53 @@ const BookingLayout = ({
 										<div className="ml-3 md:ml-0 col-span-1 md:col-span-2">
 											<div className="mt-2">
 												<div className="flex items-center justify-between">
-													<Link to={`/booking/${item.id}`}
-														className="font-semibold text-lg">
+													<Link
+														to={`/booking/${item.id}`}
+														className="font-semibold text-lg"
+														onClick={() =>
+															handleAddToRecentlyViewed(
+																item.id,
+																item.danhmuc,
+																item.title,
+																item.img,
+															)
+														}
+													>
 														{item.title}
 													</Link>
+													{/* <button
+														onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img)}
+													>
+														Đếm
+													</button> */}
 													{/* Yêu thích */}
-													<Checkbox
-														{...labelFavorite}
-														onChange={() => handleFavoriteChange((item.id, item))}
-														// checked={currentUser && currentUser.favorites && currentUser.favorites.includes(item.id)}
-														icon={
-															<i className="fa-regular fa-heart"></i>
-														}
-														checkedIcon={
-															<i className="fa-solid fa-heart text-red-500"></i>
-														}
-													/>
+													{userFavorites.some((favorite) => favorite.id === item.id) ? (
+														<>
+															<Checkbox
+																{...labelFavorite}
+																onChange={() => handleFavoriteChange((item.id, item))}
+																icon={
+																	<i className="fa-solid fa-heart text-red-500"></i>
+																}
+																checkedIcon={<i className="fa-regular fa-heart"></i>}
+															/>
+														</>
+													) : (
+														<>
+															<Checkbox
+																{...labelFavorite}
+																onChange={() => handleFavoriteChange((item.id, item))}
+																icon={<i className="fa-regular fa-heart"></i>}
+																checkedIcon={
+																	<i className="fa-solid fa-heart text-red-500"></i>
+																}
+															/>
+														</>
+													)}
 												</div>
 												<p className="text-xm text-gray-300 flex items-center">
-													{renderStars(item.star)}
+													{/* <Rating1></Rating1> */}
+													{/* {renderStars(item.star)} */}
 													<span className="text-xm ml-2 font-light text-slate-950">
 														Khách sạn
 													</span>
@@ -56,21 +97,23 @@ const BookingLayout = ({
 												<p className="text-sm font-200">
 													Cách trung tâm thành phố <span>0.0km</span>
 												</p>
-												<svg
-													className="w-4 h-4 text-gray-800 dark:text-white mt-1"
-													aria-hidden="true"
-													xmlns="http://www.w3.org/2000/svg"
-													fill="none"
-													viewBox="0 0 10 6"
-												>
-													<path
-														stroke="currentColor"
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														strokeWidth="2"
-														d="m1 1 4 4 4-4"
-													/>
-												</svg>
+												<div className="pr-2">
+													<svg
+														className="w-4 h-4 text-gray-800 dark:text-white mt-1 "
+														aria-hidden="true"
+														xmlns="http://www.w3.org/2000/svg"
+														fill="none"
+														viewBox="0 0 10 6"
+													>
+														<path
+															stroke="currentColor"
+															strokeLinecap="round"
+															strokeLinejoin="round"
+															strokeWidth="2"
+															d="m1 1 4 4 4-4"
+														/>
+													</svg>
+												</div>
 											</div>
 											<div className="flex items-center justify-start mt-2 text-sm">
 												<span className="font-semibold text-sm mr-1">
@@ -79,10 +122,30 @@ const BookingLayout = ({
 												</span>
 												<p className="text-sm">(30 đánh giá)</p>
 											</div>
+											<div className="flex items-center justify-start mt-2 text-sm">
+												<span className=" text-sm mr-1">
+													<span className="font-semibold"> Địa chỉ: </span>
+													{item.diaChi}
+												</span>
+											</div>
+											{/* <span className="text-sm font-semibold">Tiện ích:</span> */}
+											<div className="flex flex-wrap gap-2 mb-2">
+												{item.tienich.map((value, index) => (
+													<div
+														key={index}
+														className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
+													>
+														<div className="flex justify-start items-center  pt-1 text-mm gap-1">
+															<div className="p-1">{value} </div>
+														</div>
+													</div>
+												))}
+											</div>
+											<button onClick={handleOpen}>Tiện ích</button>
 										</div>
-										<div className="block m-2 col-span-1 relative">
-											<div className="w-full h-auto rounded-lg border-green-200 border-2 bg-lime-50">
-												<div className="absolute top-2 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-red-600">
+										<div className="block m-2 col-span-1 md:col-span-2 relative">
+											<div className="w-full rounded-lg  border-none bg-stone-300">
+												<div className="absolute top-2 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-red-600 pt-2">
 													<span className="bg-red-600 text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
 														18%
 													</span>
@@ -90,59 +153,30 @@ const BookingLayout = ({
 														Rẻ hơn mọi khi
 													</span>
 												</div>
-												<div className="flex items-center w-full mt-2">
+												<div className="flex items-center w-full mt-2 pt-2 ml-2">
 													<span className="text-mm ml-1 font-bold">Agoda</span>
 												</div>
 												<div className="service flex gap-2 justify-start items-center ml-1 mt-1">
-													<i className="fa-solid fa-check text-mm text-green-600"></i>
-													<span className="text-mm text-green-600">Gồm bữa sáng</span>
+													<i className="fa-solid fa-check text-mm  ml-2"></i>
+													<span className="text-mm  font-semibold">Gồm bữa sáng</span>
 												</div>
-												<div className="flex flex-wrap justify-between ml-2 mr-2 mb-2">
-													<span className="flex text-lg md:text-md mt-2 font-semibold text-green-800">
-														{(1158400).toLocaleString('vi')}đ
+												<div className="flex flex-wrap justify-between ml-3 mr-2 mb-2 pb-2 ">
+													<span className="flex text-lg md:text-md mt-1 font-semibold ">
+														{item.price.toLocaleString('vi')}đ
 													</span>
-													<Link to={`/booking/${item.id}`}
-														className={`
-															flex items-center justify-center border rounded-md
-															bg-green-700 text-white font-bold px-2 md:px-0
-															text-sm  md:text-xx lg:text-xs
-														`}
-													>
-														<span className="p-2">Xem Giá Tốt</span>
-														<i className="fa-solid fa-chevron-right mr-2"></i>
-													</Link>
 												</div>
 											</div>
-
-											<div className="w-full h-auto border-none bg-gray-200 rounded-lg py-2 mt-3 flex gap-2 flex-wrap">
-												<div className="flex justify-start items-center ml-2 pt-1 text-mm gap-1">
-													<i className="fa-regular fa-wifi"></i>
-													<span>WiFi miễn phí</span>
-												</div>
-												<div className="flex justify-start items-center ml-2 pt-1 text-mm gap-1">
-													<i className="fa-light fa-martini-glass"></i>
-													<span>Quầy bar</span>
-												</div>
-												<div className="flex justify-start items-center ml-2 pt-1 text-mm gap-1">
-													<i className="fa-light fa-snowflake"></i>
-													<span>Điều hào nhiệt độ</span>
-												</div>
-												<div className="flex justify-start items-center ml-2 pt-1 text-mm gap-1">
-													<i className="fa-light fa-utensils"></i>
-													<span>Nhà hàng</span>
-												</div>
-												<div className="flex justify-start items-center ml-2 pt-1 text-mm gap-1">
-													<i className="fa-light fa-square-parking"></i>
-													<span>Bãi đỗ xe</span>
-												</div>
-												<div className="flex justify-start items-center ml-2 pt-1 text-mm gap-1">
-													<i className="fa-solid fa-paw"></i>
-													<span>Chấp nhận vật nuôi</span>
-												</div>
+											<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-orange-600 hover:bg-orange-700">
+												<Link
+													to={`/booking/${item.id}`}
+													className="w-full flex items-center justify-center h-11 rounded-md"
+												>
+													<p className="text-white font-light text-base">Xem chi tiết</p>
+												</Link>
 											</div>
 										</div>
 									</div>
-								</div >
+								</div>
 							</>
 						))}
 					</>
@@ -151,7 +185,45 @@ const BookingLayout = ({
 						<p>Không tìm được phòng</p>
 					</>
 				)}
-			</div >
+			</div>
+			<Modal
+				open={open}
+				onClose={handleClose}
+				className="bg-white backdrop-1 opacity-90"
+			>
+				<div className="bg-white w-1/3 m-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  border-none rounded-md p-6 opacity-100">
+					<h1 className="text-2xl font-bold">
+						{selectedAmenity ? `Tất cả các tiện ích:` : 'Chọn một tiện ích'}
+					</h1>
+					<div className="mt-2">
+						<div className="flex flex-wrap gap-2 mb-2">
+							{luuTru.map((item) => (
+								<div key={item.id}>
+									{item.tienich.map((value, index) => (
+										<div
+											key={index}
+											className={`w-auto h-8 border-none rounded-lg mt-1 cursor-pointer ${
+												selectedAmenity === value ? 'bg-yellow-500' : ''
+											}`}
+											onClick={() => handleOpen(value)}
+										>
+											<div className="flex justify-start items-center  pt-1 text-mm gap-1">
+												<div
+													className={`p-1 ${
+														selectedAmenity === value ? 'text-white' : 'text-black'
+													}`}
+												>
+													{value}
+												</div>
+											</div>
+										</div>
+									))}
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
+			</Modal>
 		</>
 	);
 };
