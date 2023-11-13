@@ -30,12 +30,6 @@ const chiTiet = () => {
 		return stars;
 	};
 
-	//tiện ích
-	// const tienIchIcons = {
-	// 	DieuHoa: 'fa-snowflake',
-	// 	pool: 'fa-swimming-pool',
-	// 	wifi: 'fa-wifi',
-	// };
 	const checkIcon = (tienIch) => {
 		if (tienIch === "Điều hòa ") {
 			return 'fa-snowflake';
