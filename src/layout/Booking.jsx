@@ -145,8 +145,8 @@ const BookingLayout = ({
 										</div>
 										<div className="block m-2 col-span-1 md:col-span-2 relative">
 											<div className="w-full rounded-lg  border-none bg-stone-300">
-												<div className="absolute top-2 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-red-600 pt-2">
-													<span className="bg-red-600 text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
+												<div className="absolute top-2 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-primary-do pt-2">
+													<span className="bg-primary-do text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
 														18%
 													</span>
 													<span className="bg-white w-auto border-solid border-2 rounded-vchh border-red-600 px-1.5 py-0.5 text-black h-full ">
@@ -166,7 +166,7 @@ const BookingLayout = ({
 													</span>
 												</div>
 											</div>
-											<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-orange-600 hover:bg-orange-700">
+											<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do hover:opacity-70 transition-opacity">
 												<Link
 													to={`/booking/${item.id}`}
 													className="w-full flex items-center justify-center h-11 rounded-md"
@@ -203,7 +203,7 @@ const BookingLayout = ({
 										<div
 											key={index}
 											className={`w-auto h-8 border-none rounded-lg mt-1 cursor-pointer ${
-												selectedAmenity === value ? 'bg-yellow-500' : ''
+												selectedAmenity === value ? 'bg-primary-vang' : ''
 											}`}
 											onClick={() => handleOpen(value)}
 										>

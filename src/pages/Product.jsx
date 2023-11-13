@@ -1,5 +1,6 @@
 import { useDocsQuery } from '@/hooks/useFirestore';
 import ProductLayout from '@/layout/Product';
+import { Link } from 'react-router-dom';
 
 const Product = () => {
 	const { data: luuTru } = useDocsQuery('luuTru');
@@ -15,11 +16,14 @@ const Product = () => {
 		}
 		return stars;
 	};
+	const hotLuuTru = luuTru.filter((item) => item.hot === true);
 	return (
 		<>
 			<ProductLayout
 				luuTru={luuTru}
+				hotLuuTru={hotLuuTru}
 				renderStars={renderStars}
+				Link={Link}
 			/>
 		</>
 	);

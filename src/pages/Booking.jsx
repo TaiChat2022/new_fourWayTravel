@@ -1,11 +1,11 @@
-import { useDocsQuery } from '@/hooks/useFirestore';
+import { useDocQuery, useDocsQuery } from '@/hooks/useFirestore';
 import BookingLayout from '@/layout/Booking';
 import { auth, firestore } from '@/utils/firebase.config';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import Checkbox from '@mui/material/Checkbox';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
@@ -18,7 +18,10 @@ import Modal from '@mui/material/Modal';
 const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const Booking = () => {
+	const { id } = useParams();
+	const { data } = useDocQuery('luuTru', id);
 	const { data: luuTru } = useDocsQuery('luuTru');
+
 	const getRatingText = (star) => {
 		if (star > 4) return 'Xuất sắc';
 		if (star > 3) return 'Tuyệt vời';
@@ -171,6 +174,7 @@ const Booking = () => {
 				Typography={Typography}
 				Modal={Modal}
 				selectedAmenity={selectedAmenity}
+				data={data}
 				//end modal
 
 				// showAll={showAll}

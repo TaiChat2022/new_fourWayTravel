@@ -1,9 +1,8 @@
-import { useDocQuery } from '@/hooks/useFirestore';
+import { useDocQuery, useDocsQuery } from '@/hooks/useFirestore';
 import ChiTietLayout from '@/layout/chiTiet';
 import Footer from '@/pages/Footer';
 import { Link, useParams } from 'react-router-dom';
 import Header from './Header';
-import { useDocsQuery } from '@/hooks/useFirestore';
 import SearchBar from './SearchBar';
 
 const chiTiet = () => {
@@ -32,12 +31,64 @@ const chiTiet = () => {
 	};
 
 	//tiện ích
-	const amenityIcons = {
-		'Điều hòa': 'fa-snowflake',
-		pool: 'fa-swimming-pool',
-		wifi: 'fa-wifi',
-
-		// Add more amenities and their corresponding icons as needed
+	// const tienIchIcons = {
+	// 	DieuHoa: 'fa-snowflake',
+	// 	pool: 'fa-swimming-pool',
+	// 	wifi: 'fa-wifi',
+	// };
+	const checkIcon = (tienIch) => {
+		if (tienIch === 'Điều hòa') {
+			return 'fa-snowflake';
+		}
+		if (tienIch === 'Với đầy đủ bữa ăn') {
+			return 'fa-utensils';
+		}
+		if (tienIch === 'Đường cho xe lăn') {
+			return 'fa-wheelchair';
+		}
+		if (tienIch === 'Thanh toán tại nơi lưu trú') {
+			return 'fa-money-bill';
+		}
+		if (tienIch === 'Với 1 bữa ăn') {
+			return 'fa-bell-concierge';
+		}
+		if (tienIch === 'Đầy đủ dịch vụ') {
+			return 'fa-wifi';
+		}
+		if (tienIch === 'Gia đình') {
+			return 'fa-people-roof';
+		}
+		if (tienIch === 'Biển') {
+			return 'fa-water';
+		}
+		if (tienIch === 'Bể bơi') {
+			return 'fa-water-ladder';
+		}
+		if (tienIch === 'Gồm bữa sáng') {
+			return 'fa-utensils';
+		}
+		if (tienIch === 'Đậu xe') {
+			return 'fa-square-parking';
+		}
+		if (tienIch === 'Bồn tắm nước nóng') {
+			return 'fa-bath';
+		}
+		if (tienIch === 'Spa') {
+			return 'fa-spa';
+		}
+		if (tienIch === 'Miễn phí Đổi/Hủy') {
+			return 'fa-road-circle-check';
+		}
+		if (tienIch === 'Chấp nhận vật nuôi') {
+			return 'fa-paw';
+		}
+		if (tienIch === 'Nhà hàng') {
+			return 'fa-utensils';
+		}
+		if (tienIch === 'Phòng Gym') {
+			return 'fa-dumbbell';
+		}
+		return null;
 	};
 
 	return (
@@ -49,8 +100,8 @@ const chiTiet = () => {
 				getRatingText={getRatingText}
 				renderStars={renderStars}
 				Link={Link}
-				amenityIcons={amenityIcons}
 				luuTru={luuTru}
+				checkIcon={checkIcon}
 			/>
 			<Footer />
 		</>
