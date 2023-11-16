@@ -30,15 +30,12 @@ const chiTiet = () => {
 		return stars;
 	};
 
-	//tiện ích
-	// const tienIchIcons = {
-	// 	DieuHoa: 'fa-snowflake',
-	// 	pool: 'fa-swimming-pool',
-	// 	wifi: 'fa-wifi',
-	// };
 	const checkIcon = (tienIch) => {
 		if (tienIch === 'Điều hòa') {
 			return 'fa-snowflake';
+		}
+		if (tienIch === 'WiFi') {
+			return 'fa-wifi';
 		}
 		if (tienIch === 'Với đầy đủ bữa ăn') {
 			return 'fa-utensils';
@@ -50,10 +47,10 @@ const chiTiet = () => {
 			return 'fa-money-bill';
 		}
 		if (tienIch === 'Với 1 bữa ăn') {
-			return 'fa-bell-concierge';
+			return 'fa-utensils';
 		}
 		if (tienIch === 'Đầy đủ dịch vụ') {
-			return 'fa-wifi';
+			return 'fa-bell-concierge';
 		}
 		if (tienIch === 'Gia đình') {
 			return 'fa-people-roof';

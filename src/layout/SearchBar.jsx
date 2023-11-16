@@ -1,5 +1,5 @@
 export default function SearchBarLayout({
-	Link,
+	handleSearch,
 	Box,
 	FormControl,
 	NativeSelect,
@@ -9,26 +9,33 @@ export default function SearchBarLayout({
 	handleStartDateChange,
 	handleEndDateChange,
 	startDateSelected,
-
-	handleSearch,
+	onAddressChange,
+	Filter,
+	location,
+	isBookingPage,
+	SearchAddress,
+	filterAddress,
+	setFilterAddress,
+	showNotification,
+	hideNotification,
 }) {
 	return (
 		<>
-			<div className="mx-auto mt-4 mb-7 w-3/4 shadow-2xl border-none rounded-lg">
+			<div className="w-3/4 mx-auto mt-4 border-none rounded-lg shadow-2xl mb-7">
 				<div
-					className="flex flex-wrap 2xl:flex-nowrap w-full rounded-lg bg-white overflow-hidden "
+					className="flex flex-wrap w-full overflow-hidden bg-white rounded-lg 2xl:flex-nowrap "
 					data-testid="search-form"
 				>
-					<div className="grid grid-cols-1 md:grid-cols-5 w-full rounded-lg">
+					<div className="grid w-full grid-cols-1 rounded-lg md:grid-cols-5">
 						{/* Địa danh */}
 						<button
 							type="button"
 							data-testid="search-form-destination"
-							className=" group w-full col-span-1 text-left truncate h-14 px-5 bg-white active:bg-grey-200"
+							className="w-full col-span-1 px-5 text-left truncate bg-white group h-14 active:bg-grey-200"
 						>
 							<span className="flex items-center 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span
-									className="leading-none inline-flex transform flex-shrink-0 mr-3 "
+									className="inline-flex flex-shrink-0 mr-3 leading-none transform "
 									aria-hidden="true"
 								>
 									<svg
@@ -36,7 +43,7 @@ export default function SearchBarLayout({
 										width={24}
 										height={24}
 										viewBox="0 0 24 24"
-										className="pointer-events-none max-h-full max-w-full"
+										className="max-w-full max-h-full pointer-events-none"
 									>
 										<g
 											fill="none"
@@ -52,21 +59,27 @@ export default function SearchBarLayout({
 										</g>
 									</svg>
 								</span>
-								<span className="flex flex-col relative w-full truncate">
+								<span className="relative flex flex-col w-full truncate">
 									<Box sx={{ minWidth: 150 }}>
 										<FormControl fullWidth>
 											<span
-												className="text-xs leading-tight text-grey-700 truncate"
+												className="text-xs leading-tight truncate text-grey-700"
 												data-testid="search-form-destination-label"
 											>
 												Địa danh
 											</span>
 											<NativeSelect
+												value={isBookingPage ? filterAddress : undefined}
 												defaultValue={30}
 												inputProps={{
 													name: 'diadanh',
 													id: 'uncontrolled-native',
 												}}
+												onChange={
+													isBookingPage
+														? (e) => setFilterAddress(e.target.value)
+														: onAddressChange
+												}
 											>
 												{diadanh ? (
 													<>
@@ -94,16 +107,16 @@ export default function SearchBarLayout({
 						<button
 							type="button"
 							data-testid="search-form-calendar"
-							className="border-t md:border-l md:border-t-0 col-span-1 group w-full text-left truncate h-14 px-5 bg-white active:bg-grey-200"
+							className="w-full col-span-1 px-5 text-left truncate bg-white border-t md:border-l md:border-t-0 group h-14 active:bg-grey-200"
 						>
 							<span className="flex items-center md:p-2 md:hover:bg-grey-200 md:rounded-md">
 								<span
-									className="leading-none inline-flex transform flex-shrink-0 mr-3"
+									className="inline-flex flex-shrink-0 mr-3 leading-none transform"
 									aria-hidden="true"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
-										className="pointer-events-none max-h-full max-w-full w-6 h-6"
+										className="w-6 h-6 max-w-full max-h-full pointer-events-none"
 									>
 										<g fill="currentColor">
 											<path d="M19 5h-1a1 1 0 00-2 0H8a1 1 0 00-2 0H5a2 2 0 00-2 2v11a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2zm1 13a1 1 0 01-1 1H5a1 1 0 01-1-1V9h16zm0-10H4V7a1 1 0 011-1h14a1 1 0 011 1z" />
@@ -122,34 +135,34 @@ export default function SearchBarLayout({
 									</svg>
 								</span>
 
-								<span className="flex flex-col relative w-full truncate">
+								<span className="relative flex flex-col w-full truncate">
 									<span
-										className="text-xs leading-tight text-grey-700 truncate"
+										className="text-xs leading-tight truncate text-grey-700"
 										data-testid="search-form-calendar-label"
 									>
 										Nhận/trả phòng
 									</span>
 									<div className="flex items-center justify-between">
 										<span
-											className="text-sm leading-normal font-bold truncate text-grey-900"
+											className="text-sm font-bold leading-normal truncate text-grey-900"
 											data-testid="search-form-calendar-value"
 										>
 											<input
 												type="date"
 												name="start"
-												className="text-sm block w-full outline-0"
+												className="block w-full text-sm outline-0"
 												value={startDate}
 												onChange={handleStartDateChange}
 											/>
 										</span>
 										<span
-											className="md:hidden inline-block text-sm leading-normal font-bold truncate text-grey-900"
+											className="inline-block text-sm font-bold leading-normal truncate md:hidden text-grey-900"
 											data-testid="search-form-calendar-value"
 										>
 											<input
 												type="date"
 												name="end"
-												className="text-sm block w-full outline-0"
+												className="block w-full text-sm outline-0"
 												value={endDate}
 												onChange={handleEndDateChange}
 												disabled={!startDateSelected}
@@ -163,24 +176,24 @@ export default function SearchBarLayout({
 						<button
 							type="button"
 							data-testid="search-form-guest-selector"
-							className="hidden md:inline-block border-t md:border-l md:border-t-0 col-span-1 group w-full text-left truncate h-14 bg-white active:bg-grey-200"
+							className="hidden w-full col-span-1 text-left truncate bg-white border-t md:inline-block md:border-l md:border-t-0 group h-14 active:bg-grey-200"
 						>
-							<span className="flex justify-start m-auto items-center 2xl:p-2 z-20 2xl:hover:bg-grey-200 2xl:rounded-md">
-								<span className="flex flex-col pl-4 relative w-full truncate">
+							<span className="z-20 flex items-center justify-start m-auto 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
+								<span className="relative flex flex-col w-full pl-4 truncate">
 									<span
-										className="leading-tight text-grey-700 truncate text-xs"
+										className="text-xs leading-tight truncate text-grey-700"
 										data-testid="search-form-calendar-label"
 									>
 										Trả phòng
 									</span>
 									<span
-										className="text-sm leading-normal font-bold truncate text-grey-900"
+										className="text-sm font-bold leading-normal truncate text-grey-900"
 										data-testid="search-form-calendar-value"
 									>
 										<input
 											type="date"
 											name="end"
-											className="text-sm block w-full outline-0"
+											className="block w-full text-sm outline-0"
 											value={endDate}
 											onChange={handleEndDateChange}
 											disabled={!startDateSelected}
@@ -190,55 +203,18 @@ export default function SearchBarLayout({
 							</span>
 						</button>
 						{/* Số khách và phòng */}
-						<button
-							type="button"
-							data-testid="search-form-guest-selector"
-							className="border-t md:border-l md:border-t-0 col-span-1 group w-full text-left truncate h-14 px-5 bg-white active:bg-grey-200"
-						>
-							<span className="flex items-center 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
-								<span
-									className="leading-none inline-flex transform flex-shrink-0 mr-3 "
-									aria-hidden="true"
-								>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width={24}
-										height={24}
-										viewBox="0 0 24 24"
-										className="pointer-events-none max-h-full max-w-full"
-									>
-										<path
-											d="M21 12a3.1 3.1 0 00-1-2.31V6a1 1 0 00-1-1H5a1 1 0 00-1 1v3.69A3.1 3.1 0 003 12a1 1 0 00-1 1v4a2 2 0 002 2h16a2 2 0 002-2v-4a1 1 0 00-1-1zm-7.76-1a1.72 1.72 0 011.51-1h3.5a1.5 1.5 0 01.75.2 1.87 1.87 0 01.91 1.21A1.87 1.87 0 0120 12h-7a2.2 2.2 0 01.24-1zM5 6h14v3.12a2.36 2.36 0 00-.75-.12h-3.5a2.78 2.78 0 00-2.59 2 3.27 3.27 0 00-.16 1 3.27 3.27 0 00-.16-1 2.78 2.78 0 00-2.59-2h-3.5a2.36 2.36 0 00-.75.12zm-.91 5.41A1.87 1.87 0 015 10.2a1.5 1.5 0 01.75-.2h3.5a1.72 1.72 0 011.51 1 2.2 2.2 0 01.24 1H4a1.87 1.87 0 01.09-.59zM21 17a1 1 0 01-1 1H4a1 1 0 01-1-1v-4h18z"
-											fill="currentColor"
-										/>
-									</svg>
-								</span>
-								<span className="flex flex-col relative w-full truncate">
-									<span
-										className="text-xs leading-tight text-grey-700 truncate"
-										data-testid="search-form-guest-selector-label"
-									>
-										Số khách và phòng
-									</span>
-									<span
-										className="text-sm leading-normal font-bold truncate text-grey-900"
-										data-testid="search-form-guest-selector-value"
-									>
-										2 khách, 1 phòng
-									</span>
-								</span>
-							</span>
-						</button>
 
-						<Link
-							to="/booking"
-							className="col-span-1 flex items-center justify-end"
-						>
+						{/*Fiter */}
+						<Filter></Filter>
+						{/* end Fiter */}
+
+						<span className="flex items-center justify-end col-span-1">
 							<button
+								onClick={handleSearch}
 								type="button"
 								className={`
 									flex items-center justify-center px-12 py-2
-									h-full rounded-vchh md:rounded-vchh text-white 
+									h-full rounded-b-lg md:rounded-md text-white
 									text-md font-semibold
 									bg-blue-600 hover:bg-blue-700 w-full md:w-20
 								`}
@@ -246,10 +222,33 @@ export default function SearchBarLayout({
 							>
 								<span className="text-center">Tìm</span>
 							</button>
-						</Link>
+						</span>
 					</div>
 				</div>
 			</div>
+			{showNotification && (
+				<div className="backdrop-blur-sm bg-white/30  absolute z-50 w-full h-full ">
+					<div
+						id="alert-1"
+						className="w-1/2 h-14 m-auto flex items-center p-4 mb-4 text-black rounded-lg bg-white border-primary-vang border-solid border-2 "
+						role="alert"
+					>
+						<i className="fa-regular fa-circle-exclamation text-primary-vang"></i>
+						<span className="sr-only">Info</span>
+						<div className="ms-3 text-sm font-medium">Vui lòng chọn địa chỉ trước khi tìm kiếm.</div>
+						<button
+							type="button"
+							className="ms-auto -mx-1.5 -my-1.5 text-white rounded-lg focus:ring-2  p-1.5  inline-flex items-center justify-center h-8 w-8 bg-primary-do"
+							data-dismiss-target="#alert-1"
+							aria-label="Close"
+							onClick={hideNotification}
+						>
+							<span className="sr-only">Close</span>
+							<i className="fa-regular fa-xmark"></i>
+						</button>
+					</div>
+				</div>
+			)}
 		</>
 	);
 }

@@ -55,6 +55,9 @@ export default {
 				do: '#ED2B22',
 				vang: '#FCBA5D',
 			},
+			scale: {
+				103: '1.03',
+			},
 			translate: {
 				10: '10%',
 				18: '18%',

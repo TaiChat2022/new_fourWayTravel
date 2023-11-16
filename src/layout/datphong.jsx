@@ -1,4 +1,11 @@
-const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors, }) => {
+const DatphongLayout = ({
+	data,
+	handleChange,
+	handleSubmit,
+	formData,
+	formErrors,
+	// emailData, handleChangeMail, handleSubmitMail
+}) => {
 	return (
 		<>
 			<div className="container w-3/4 m-auto">
@@ -188,7 +195,7 @@ const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors
 								<div className="rounded-sm px-3">
 									<div className="flex justify-start items-center my-2 gap-3 ">
 										<i className="fa-light fa-file-lines text-lg"></i>
-										<span className="font-semibold text-sm tracking-wide">Phòng Superior Twin</span>
+										<span className="font-semibold text-sm tracking-wide">Phòng {data.title}</span>
 									</div>
 									<div className="flex flex-wrap justify-start items-center my-2 gap-2 p-26px">
 										<span className="font-semibold text-sm">Hủy đặt phòng:</span>
@@ -267,7 +274,9 @@ const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors
 								/>
 								<div className="Title">
 									<h1 className="text-lg md:text-base font-bold">{data.title}</h1>
-									<p className="text-sm md:text-xs font-semibold mt-3 tracking-wide">Phòng Grand Ocean View</p>
+									<p className="text-sm md:text-xs font-semibold mt-3 tracking-wide">
+										Phòng Grand Ocean View
+									</p>
 								</div>
 							</div>
 							<div className="flex justify-between mt-4">
@@ -308,16 +317,14 @@ const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors
 								<span className="text-sm font-medium">-1,674,000 VND</span>
 							</div> */}
 							<div className="flex justify-between mt-4">
-								<span className="text-blue-500 font-semibold text-sm tracking-wide">
-									Phí dịch vụ
-								</span>
+								<span className="text-blue-500 font-semibold text-sm tracking-wide">Phí dịch vụ</span>
 								<span className="flex text-sm text-blue-500 font-semibold">MIỄN PHÍ</span>
 							</div>
 
 							<div className="mt-4 flex justify-between items-center">
 								<span className="text-base font-semibold">Tổng tiền</span>
 								<p className="text-base font-semibold text-orange-400">
-									{(data.price).toLocaleString('vi')} VND
+									{data.price.toLocaleString('vi')} VND
 								</p>
 							</div>
 							<div className="w-full p-6 text-sm bg-gray-100 border-none rounded-md mt-6">
@@ -334,6 +341,32 @@ const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors
 					</div>
 				</div>
 			</div>
+
+			{/* <div className="container w-3/4 mx-auto">
+				<form onSubmit={handleSubmitMail}>
+					<input
+						type="email"
+						name="recipient"
+						value={emailData.recipient}
+						onChange={handleChangeMail}
+						placeholder="Recipient's Email"
+					/>
+					<input
+						type="text"
+						name="subject"
+						value={emailData.subject}
+						onChange={handleChangeMail}
+						placeholder="Subject"
+					/>
+					<textarea
+						name="message"
+						value={emailData.message}
+						onChange={handleChangeMail}
+						placeholder="Your Message"
+					/>
+					<button type="submit">Send Email</button>
+				</form>
+			</div> */}
 		</>
 	);
 };

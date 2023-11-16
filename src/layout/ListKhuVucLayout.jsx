@@ -1,8 +1,7 @@
-
 const ListKhuVucLayout = ({
     luuTru, Link, mienBacLuuTru,
-    mienNamLuuTru,mienTrungLuuTru,
-    handleToggleMienNam    
+    mienNamLuuTru, mienTrungLuuTru,
+    handleToggleMienNam
 }) => {
     return (
         <>
@@ -29,10 +28,10 @@ const ListKhuVucLayout = ({
                     )
                     }
                     {mienNamLuuTru.length > 3 && (
-            <div onClick={handleToggleMienNam} className="text-sm text-blue-300 cursor-pointer">
-              {showAllMienNam ? 'Ẩn bớt' : 'Xem thêm'}
-            </div>
-          )}
+                        <div onClick={handleToggleMienNam} className="text-sm text-blue-300 cursor-pointer">
+                            {showAllMienNam ? 'Ẩn bớt' : 'Xem thêm'}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="mx-auto mb-7 w-3/4 mt-10 px-2 py-5">
@@ -60,12 +59,14 @@ const ListKhuVucLayout = ({
                 </div>
             </div>
             <div className="mx-auto mb-7 w-3/4 mt-10 px-2 py-5">
-                <div><h3
+
+                <h3
                     className="text-heading-l text-xl font-bold mb-3 px-0 l:px-4 2xl:px-0"
                     id="more-popular-searches"
                 >
                     Tìm kiếm ở miền bắc
-                </h3></div>
+                </h3>
+
                 <div className="grid grid-cols-3 gap-2">
                     {luuTru ? (
                         <>

@@ -1,7 +1,7 @@
+import '@/assets/css/hotTab.css';
 import { useDocsQuery } from '@/hooks/useFirestore';
 import ProductLayout from '@/layout/Product';
 import { Link } from 'react-router-dom';
-
 const Product = () => {
 	const { data: luuTru } = useDocsQuery('luuTru');
 	const renderStars = (soSao) => {

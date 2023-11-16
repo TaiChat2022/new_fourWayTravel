@@ -36,7 +36,7 @@ const ChiTietLayout = ({ data, renderStars, Link, luuTru, checkIcon }) => {
 							<span className="text-2xl text-orange-600 font-bold">
 								{data.price.toLocaleString('vi')} VND
 							</span>
-							<button className="w-full md:w-64 h-11 rounded-md bg-orange-600 text-white font-semibold">
+							<button className="w-full md:w-64 h-11 rounded-md bg-primary-do hover:scale-95 transition ease-in-out delay-50 duration-200 text-white font-semibold">
 								<Link to={`/datphong/${data.id}`}>Đặt phòng</Link>
 							</button>
 						</div>
@@ -51,48 +51,17 @@ const ChiTietLayout = ({ data, renderStars, Link, luuTru, checkIcon }) => {
 							/>
 						</div>
 						<div className="grid grid-cols-3 md:grid-cols-2 gap-2 col-span-1  md:col-span-2 max-h-96 overflow-hidden">
-							<div className="col-span-1">
-								<img
-									className="w-full rounded-lg h-32 object-cover "
-									src={data.img}
-									alt={data.title}
-								/>
-							</div>
-							<div className="col-span-1">
-								<img
-									className="w-full rounded-lg object-cover h-32"
-									src={data.img}
-									alt={data.title}
-								/>
-							</div>
-							<div className="col-span-1">
-								<img
-									className="w-full rounded-lg object-cover h-32"
-									src={data.img}
-									alt={data.title}
-								/>
-							</div>
-							<div className="col-span-1">
-								<img
-									className="w-full rounded-lg object-cover h-32"
-									src={data.img}
-									alt={data.title}
-								/>
-							</div>
-							<div className="col-span-1">
-								<img
-									className="w-full rounded-lg object-cover h-32"
-									src={data.img}
-									alt={data.title}
-								/>
-							</div>
-							<div className="col-span-1">
-								<img
-									className="w-full rounded-lg object-cover h-32"
-									src={data.img}
-									alt={data.title}
-								/>
-							</div>
+							{data.imgPhu.map((image) => (
+								<>
+									<div className="col-span-1">
+										<img
+											className="w-full rounded-lg h-32 object-cover "
+											src={image}
+											alt={data.title}
+										/>
+									</div>
+								</>
+							))}
 						</div>
 					</div>
 					{/* end images */}
@@ -115,11 +84,7 @@ const ChiTietLayout = ({ data, renderStars, Link, luuTru, checkIcon }) => {
 									</div>
 								</div>
 								<div className="">
-									<p className="text-sm font-normal leading-relaxed">
-										Muong Thanh Hanoi Centre Hotel là một khách sạn nằm trong khu vực an ninh, toạ
-										lạc tại Trần Hưng Đạo. Quầy tiếp tân 24 giờ luôn sẵn sàng phục vụ quý khách từ
-										thủ tục nhận phòng đến trả phòng hay bất
-									</p>
+									<p className="text-sm font-normal leading-relaxed">{data.detail}</p>
 								</div>
 							</div>
 						</div>
@@ -477,7 +442,21 @@ const ChiTietLayout = ({ data, renderStars, Link, luuTru, checkIcon }) => {
 												<div className="w-11/12 h-0.5 bg-gray-100 m-auto mb-4 hidden"></div> */}
 
 												<div className="px-6 xl:flex xl:justify-between">
-													<div className="">
+													<div className="flex flex-col">
+														{item.tienich.slice(0, 3).map((tienIch) => (
+															<div
+																className="flex gap-3 justify-start items-center mb-3 font-medium text-xm text-primary-vang tracking-wider"
+																key={tienIch}
+															>
+																<i
+																	className={`fa-light ${checkIcon(tienIch)}`}
+																	style={{ color: '#FCBA5D' }}
+																></i>
+																<span>{tienIch}</span>
+															</div>
+														))}
+													</div>
+													{/* <div className="flex flex-col">
 														<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm text-primary-vang tracking-wider">
 															<i
 																className="fa-solid fa-utensils"
@@ -499,7 +478,7 @@ const ChiTietLayout = ({ data, renderStars, Link, luuTru, checkIcon }) => {
 															></i>
 															<span>Không hút thuốc</span>
 														</div>
-													</div>
+													</div> */}
 													<div className="">
 														<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm text-gray-500 tracking-wider">
 															<i

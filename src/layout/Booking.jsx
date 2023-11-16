@@ -10,11 +10,11 @@ const BookingLayout = ({
 	labelFavorite,
 	userFavorites,
 	handleAddToRecentlyViewed,
-	Modal,
-	handleClose,
-	handleOpen,
-	open,
-	selectedAmenity,
+	// Modal,
+	// handleClose,
+	// handleOpen,
+	// open,
+	// selectedAmenity,
 }) => {
 	return (
 		<>
@@ -26,7 +26,7 @@ const BookingLayout = ({
 					<>
 						{luuTru.map((item) => (
 							<>
-								<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product">
+								<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
 									<div
 										key={item.id}
 										className="grid grid-cols-1 md:grid-cols-5 gap-8"
@@ -130,7 +130,7 @@ const BookingLayout = ({
 											</div>
 											{/* <span className="text-sm font-semibold">Tiện ích:</span> */}
 											<div className="flex flex-wrap gap-2 mb-2">
-												{item.tienich.map((value, index) => (
+												{item.tienich.slice(0, 4).map((value, index) => (
 													<div
 														key={index}
 														className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
@@ -141,12 +141,12 @@ const BookingLayout = ({
 													</div>
 												))}
 											</div>
-											<button onClick={handleOpen}>Tiện ích</button>
+											{/* <button onClick={handleOpen}>Tiện ích</button> */}
 										</div>
 										<div className="block m-2 col-span-1 md:col-span-2 relative">
 											<div className="w-full rounded-lg  border-none bg-stone-300">
-												<div className="absolute top-2 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-primary-do pt-2">
-													<span className="bg-primary-do text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
+												<div className="absolute top-2 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-red-600 pt-2">
+													<span className="bg-red-600 text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
 														18%
 													</span>
 													<span className="bg-white w-auto border-solid border-2 rounded-vchh border-red-600 px-1.5 py-0.5 text-black h-full ">
@@ -166,7 +166,7 @@ const BookingLayout = ({
 													</span>
 												</div>
 											</div>
-											<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do hover:opacity-70 transition-opacity">
+											<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">
 												<Link
 													to={`/booking/${item.id}`}
 													className="w-full flex items-center justify-center h-11 rounded-md"
@@ -186,7 +186,7 @@ const BookingLayout = ({
 					</>
 				)}
 			</div>
-			<Modal
+			{/* <Modal
 				open={open}
 				onClose={handleClose}
 				className="bg-white backdrop-1 opacity-90"
@@ -203,7 +203,7 @@ const BookingLayout = ({
 										<div
 											key={index}
 											className={`w-auto h-8 border-none rounded-lg mt-1 cursor-pointer ${
-												selectedAmenity === value ? 'bg-primary-vang' : ''
+												selectedAmenity === value ? 'bg-yellow-500' : ''
 											}`}
 											onClick={() => handleOpen(value)}
 										>
@@ -223,7 +223,7 @@ const BookingLayout = ({
 						</div>
 					</div>
 				</div>
-			</Modal>
+			</Modal> */}
 		</>
 	);
 };

@@ -28,30 +28,30 @@ const AboutFTW = () => {
 											nghìn khách sạn và các loại hình nơi lưu trú khác tại hơn 50 tỉnh thành. Mỗi
 											năm, chúng tôi hỗ trợ hàng triệu khách du lịch so sánh giá tốt của khách sạn
 											và các nơi lưu trú khác. Chuẩn bị ngay cho kỳ nghỉ cuối tuần của bạn tại các
-											thành phố như {''}
+											thành phố như
 											<Link
 												to="https://www.trivago.vn/vi/odr/kh%C3%A1ch-s%E1%BA%A1n-h%C3%A0-n%E1%BB%99i-vi%E1%BB%87t-nam?search=200-68088"
 												title="Tìm khách sạn tại Hà Nội trên trivago"
 												className="font-bold underline"
 											>
-												Hà Nội {''}
+												Hà Nội
 											</Link>
-											hay {''}
+											hay
 											<Link
 												to="https://www.trivago.vn/vi/odr/kh%C3%A1ch-s%E1%BA%A1n-nha-trang-vi%E1%BB%87t-nam?search=200-68091"
 												title="Tìm khách sạn tại Nha Trang trên trivago"
 												className="font-bold underline"
 											>
-												Nha Trang {''}
+												Nha Trang
 											</Link>
 											và bạn có thể dễ dàng tìm thấy khách sạn mong muốn tại fourwaytravel. Khu
-											vực {''}
+											vực
 											<Link
 												to="https://www.trivago.vn/vi/odr/kh%C3%A1ch-s%E1%BA%A1n-%C4%91%C3%A0-n%E1%BA%B5ng-vi%E1%BB%87t-nam?search=200-68104"
 												title="Tìm khách sạn tại Đà Nẵng trên trivago"
 												className="font-bold underline"
 											>
-												Đà Nẵng {''}
+												Đà Nẵng
 											</Link>
 											và vùng phụ cận cũng rất phù hợp cho một chuyến du lịch cuối tuần với rất
 											nhiều khách sạn còn phòng trống.
@@ -62,7 +62,7 @@ const AboutFTW = () => {
 											Tìm khách sạn giá rẻ với fourwaytravel
 										</h3>
 										<p className="text-m text-xm overflow-hidden leading-loose ">
-											Với fourwaytravel bạn có thể dễ dàng {''}
+											Với fourwaytravel bạn có thể dễ dàng
 											<b>
 												so sánh giá phòng trên các website khác nhau và tìm được khách sạn phù
 												hợp nhất
@@ -73,21 +73,21 @@ const AboutFTW = () => {
 											tiện nghi và các tiêu chuẩn khác. fourwaytravel giúp bạn dễ dàng đặt phòng
 											trực tuyến ngay cả tại các nhà nghỉ vừa túi tiền hay các khách sạn sang
 											trọng. Bạn có thể tìm trong số hàng ngàn khách sạn tại Việt Nam và Đông Nam
-											Á, như {''}
+											Á, như
 											<Link
 												to="https://www.trivago.vn/vi/odr/kh%C3%A1ch-s%E1%BA%A1n-singapore-singapore?search=200-25025"
 												title="Tìm khách sạn tại Singapore với trivago"
 												className="font-bold underline"
 											>
-												Singapore {''}
+												Singapore
 											</Link>
-											và {''}
+											và
 											<Link
 												to="https://www.trivago.vn/vi/odr/kh%C3%A1ch-s%E1%BA%A1n-bangkok-th%C3%A1i-lan?search=200-15893"
 												title="Tìm khách sạn tại Bangkok trên trivago"
 												className="font-bold underline"
 											>
-												Bangkok {''}
+												Bangkok
 											</Link>
 											đến các thành phố nổi tiếng và các điểm đến hấp dẫn trên toàn thế giới!
 										</p>
@@ -102,13 +102,13 @@ const AboutFTW = () => {
 											được cái nhìn tổng quan về cơ sở vật chất của khách sạn, chúng tôi hiển thị
 											mức xếp hạng trung bình và các nhận xét từ các website đặt phòng như
 											Hotels.com, Expedia, Agoda hay các khách sạn hàng đầu khác. fourwaytravel
-											giúp bạn dễ dàng tìm thông tin cho các chuyến du lịch cuối tuần tới {''}
+											giúp bạn dễ dàng tìm thông tin cho các chuyến du lịch cuối tuần tới
 											<Link
 												to="https://www.trivago.vn/vi/odr/kh%C3%A1ch-s%E1%BA%A1n-tp-h%E1%BB%93-ch%C3%AD-minh-vi%E1%BB%87t-nam?search=200-68089"
 												title="Tìm khách sạn tại thành phố Hồ Chí Minh trên trivago"
 												className="font-bold underline"
 											>
-												Thành phố Hồ Chí Minh {''}
+												Thành phố Hồ Chí Minh
 											</Link>
 											và chọn khách sạn theo yêu cầu riêng của bạn.
 										</p>
@@ -121,7 +121,7 @@ const AboutFTW = () => {
 											phòng. Điều này đồng nghĩa với việc khi người dùng quyết định chọn khách sạn
 											nào trên fourwaytravel, thủ tục đặt phòng sẽ được thực hiện bởi công ty cung
 											cấp (được kết nối tới fourwaytravel). Bằng cách nhấn vào nút
-											<b className="text-xm underline"> Xem Giá tốt</b>, bạn sẽ được chuyển tiếp
+											<b className="text-xm underline">Xem Giá tốt</b>, bạn sẽ được chuyển tiếp
 											đến trang web đặt phòng, tại đây bạn có thể kiểm tra và đặt phòng như ý
 											muốn.
 										</p>

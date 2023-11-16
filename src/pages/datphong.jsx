@@ -1,12 +1,11 @@
-import { useEmail } from '@/hooks/callbackMail';
 import { useDocQuery } from '@/hooks/useFirestore';
 import DatphongLayout from '@/layout/datphong';
 import Footer from '@/pages/Footer';
 import { auth, firestore } from '@/utils/firebase.config';
-
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+
 import Header from './Header';
 const Datphong = () => {
 	const { id } = useParams();
@@ -24,7 +23,7 @@ const Datphong = () => {
 
 	const db = getFirestore();
 	// Add the useEmail hook
-	const { sendEmail } = useEmail();
+
 
 	const [formData, setFormData] = React.useState({
 		title: '',
@@ -153,6 +152,26 @@ const Datphong = () => {
 	// 		});
 	// };
 
+	////////////////////////////////////////////////////////////////
+	/////////////	         Test send mail			////////////////
+	////////////////////////////////////////////////////////////////
+	// const { sendEmail } = useEmail();
+	// const [emailData, setEmailData] = useState({
+	// 	recipient: '',
+	// 	subject: '',
+	// 	message: ''
+	// });
+
+	// const handleChangeMail = (e) => {
+	// 	setEmailData({ ...emailData, [e.target.name]: e.target.value });
+	// };
+
+	// const handleSubmitMail = async (e) => {
+	// 	e.preventDefault();
+	// 	const responseMessage = await sendEmail(emailData);
+	// 	console.log(responseMessage);
+	// };
+
 	return (
 		<>
 			<Header />
@@ -164,6 +183,10 @@ const Datphong = () => {
 				formData={formData}
 				formErrors={formErrors}
 				updateFirebaseWithSelectedValue={updateFirebaseWithSelectedValue}
+
+			// emailData={emailData}
+			// handleChangeMail={handleChangeMail}
+			// handleSubmitMail={handleSubmitMail}
 			/>
 			<Footer />
 		</>
