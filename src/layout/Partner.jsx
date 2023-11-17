@@ -3,7 +3,7 @@
 const Partner = () => {
 	return (
 		<>
-			<div className="partner-container fresnel-container fresnel-greaterThanOrEqual-l w-78 m-auto ">
+			<div className="partner-container fresnel-container fresnel-greaterThanOrEqual-l w-3/4 mx-auto m-30 mb-1 ">
 				<section className="bg-grey-100 max-w-screen overflow-hidden relative py-3 bg-opacity-50">
 					<div className="mx-auto Wrapper_box__4K_5d px-4 2xs:px-5 l:px-10 2xl:px-5">
 						<ul className="list-partner flex items-center list-none justify-between">

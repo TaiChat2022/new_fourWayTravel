@@ -1,15 +1,16 @@
+import { Tabs } from '@mui/material';
 import { Outlet } from 'react-router-dom';
+import AboutFTW from './AboutFTW';
 import Footer from './Footer';
 import Header from './Header';
-import SearchBar from './SearchBar';
-import { Tabs } from '@mui/material';
 import Partner from './Partner';
 import QRcode from './QRcode';
-import AboutFTW from './AboutFTW';
+import SearchBar from './SearchBar';
 import SearchList from './SearchList';
 export default function Layout() {
 	return (
 		<>
+		<div className='relative'>
 			<Header />
 			<Outlet />
 			<Partner />
@@ -19,6 +20,7 @@ export default function Layout() {
 			<SearchList />
 			<Footer />
 			<SearchBar />
+		</div>
 		</>
 	);
 }

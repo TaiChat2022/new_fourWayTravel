@@ -18,7 +18,7 @@ const AboutFTW = () => {
 						<div className="bg-grey-200">
 							<div className="mx-auto pb-6 Wrapper_content__FmHBo px-7 2xs:px-8 l:px-14 2xl:px-5">
 								<div className="space-y-3 2xl:space-y-0 2xl:grid 2xl:grid-cols-2 2xl:gap-4">
-									{/* <div className="bg-white rounded-md p-4">
+									<div className="bg-white rounded-md p-4">
 										<h3 className="text-heading-m font-bold mb-3 text-lg">
 											Fourwaytravel - công cụ tìm kiếm khách sạn khắp cả nước
 										</h3>
@@ -56,8 +56,8 @@ const AboutFTW = () => {
 											và vùng phụ cận cũng rất phù hợp cho một chuyến du lịch cuối tuần với rất
 											nhiều khách sạn còn phòng trống.
 										</p>
-									</div> */}
-									<div className="bg-white rounded-md p-4">
+									</div>
+									{/* <div className="bg-white rounded-md p-4">
 										<h3 className="text-heading-m font-bold mb-3 text-lg">
 											Tìm khách sạn giá rẻ với fourwaytravel
 										</h3>
@@ -92,7 +92,7 @@ const AboutFTW = () => {
 											đến các thành phố nổi tiếng và các điểm đến hấp dẫn trên toàn thế giới!
 										</p>
 									</div>
-									{/* <div className="bg-white rounded-md p-4">
+									<div className="bg-white rounded-md p-4">
 										<h3 className="text-heading-m font-bold mb-3 text-lg">
 											Đánh giá khách sạn giúp bạn tìm nơi dừng chân lý tưởng
 										</h3>

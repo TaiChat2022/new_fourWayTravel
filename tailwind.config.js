@@ -43,6 +43,9 @@ export default {
 				4: '#E8E2DD',
 				5: '#0A1121',
 			},
+			margin: {
+				30 : '5rem',
+			},
 			colors: {
 				primary: {
 					100: '#cce5f3',

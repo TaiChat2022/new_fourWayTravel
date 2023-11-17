@@ -11,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import { collection, doc, updateDoc } from "firebase/firestore";
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import Loc from '@/layout/Loc'
 
 const styleModal = {
 	position: 'absolute',
@@ -81,36 +80,6 @@ const Header = () => {
 		}
 	};
 
-	// const [anchorELoc, setAnchorELoc] = React.useState(null);
-    // const handleClickLoc = (event) => {
-    //     setAnchorELoc(event.currentTarget);
-    // };
-    // const handleCloseLoc = () => {
-    //     setAnchorELoc(null);
-    // };
-    // const openloc = Boolean(anchorELoc);
-    // const idloc = open ? 'simple-popover' : undefined;
-    // // hang sao 
-    // const [anchorEHangSao, setAnchorEHangSao] = React.useState(null);
-    // const handleClickHangSao = (event) => {
-    //     setAnchorEHangSao(event.currentTarget);
-    // };
-    // const handleCloseHangSao = () => {
-    //     setAnchorEHangSao(null);
-    // };
-    // const openhangsao = Boolean(anchorEHangSao);
-    // const idhangsao = open ? 'simple-popover' : undefined;
-    // //luu tru
-    // const [anchorELuutru, setAnchorELuuTru] = React.useState(null);
-    // const handleClickLuuTru = (event) => {
-    //     setAnchorELuuTru(event.currentTarget);
-    // };
-    // const handleCloseLuuTru = () => {
-    //     setAnchorELuuTru(null);
-    // };
-    // const openluutru = Boolean(anchorELuutru);
-    // const idluutru = open ? 'simple-popover' : undefined;
-
 	return (
 		<MenuLayOut
 			Logo={Logo}
@@ -138,8 +107,9 @@ const Header = () => {
 			open4={open4}
 			handleClick4={handleClick4}
 			handleClose4={handleClose4}
+
 		/>
-		);
+	);
 };
 
 export default Header;
