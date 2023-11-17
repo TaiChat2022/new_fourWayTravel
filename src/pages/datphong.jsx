@@ -2,11 +2,13 @@ import { useDocQuery } from '@/hooks/useFirestore';
 import DatphongLayout from '@/layout/datphong';
 import Footer from '@/pages/Footer';
 import { auth, firestore } from '@/utils/firebase.config';
+import axios from 'axios';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
+import logo from '../assets/img/logo1.jpg';
 import Header from './Header';
+
 const Datphong = () => {
 	const { id } = useParams();
 	const { data } = useDocQuery('luuTru', id);
@@ -22,8 +24,6 @@ const Datphong = () => {
 	}, []);
 
 	const db = getFirestore();
-	// Add the useEmail hook
-
 
 	const [formData, setFormData] = React.useState({
 		title: '',
@@ -108,16 +108,112 @@ const Datphong = () => {
 				additionalRequest: '',
 			});
 
-			// Code send email
-			sendEmail({
-				email: formData.email,
-				bookingDetails: formData,
-			}).then(() => {
-				alert('Thông tin đặt phòng đã được gửi qua email.');
-			}).catch((error) => {
-				console.error('Error sending email: ', error);
-				alert('Lỗi khi gửi email.');
-			});
+			const { firstName, lastName } = formData;
+			// Chuẩn bị dữ liệu email
+			const emailData = {
+				to: formData.email,
+				subject: `Thông tin đặt phòng FourWayTravel`,
+				html: `
+					<!doctype html>
+					<html lang="en">
+						<head>
+							<meta charset="UTF-8" />
+							<meta
+								name="viewport"
+								content="width=device-width, initial-scale=1.0"
+							/>
+							<title>Mail from FourWayTravel</title>
+							<link
+								rel="stylesheet"
+							/>
+						</head>
+						<body>
+							<div class="container">
+								<div class="header">
+									<div class="logo">
+										<img src=${logo} />
+									</div>
+								</div>
+								<div class="title">
+									<h3>Kính gửi: Quý khách hàng ${firstName} ${lastName}</h3>
+									<h3>Cám ơn Quý khách đã sử dụng dịch vụ của hệ thống Cổng thanh toán - Ví điện tử MOMO.</h3>
+									<h3>
+										Quý khách vừa thực hiện thanh toán thành công cho booking phòng
+										<b class="inDam">FourWayTravel</b>
+									</h3>
+					
+									<h3 class="ttdh">Thông tin đơn hàng:</h3>
+									<table>
+										<tr>
+											<td colspan="2">
+												<img
+													src=${logo}
+													width="450px"
+													height="150px"
+												/>
+											</td>
+										</tr>
+										<tr>
+											<td>Mã giao dịch</td>
+											<td>0901234567</td>
+										</tr>
+					
+										<tr>
+											<td>Khu vực</td>
+											<td>Miền Nam</td>
+										</tr>
+										<tr>
+											<td>Địa chỉ</td>
+											<td>47B Đường Nguyễn Trãi 11, Quận 1, TP. Hồ Chí Minh</td>
+										</tr>
+										<tr>
+											<td>Tên khách sạn</td>
+											<td>Cabana Hotel HaNoi</td>
+										</tr>
+										<tr>
+											<td>Thời gian giao dịch</td>
+											<td>17/11/2023</td>
+										</tr>
+										<tr>
+											<td>Mã giảm giá</td>
+											<td></td>
+										</tr>
+										<tr>
+											<td>Phí giao dịch</td>
+											<td>0 vnđ</td>
+										</tr>
+									</table>
+								</div>
+								<div class="footer">
+									<div class="title-footer">
+										<h3>Mọi chi tiết xin liên hệ: Trung tâm thanh toán điện tử - MOMO</h3>
+										<h3>Địa chỉ: Tầng 14, tòa nhà VTC, số 23, Lạc Trung, Hai Bà Trưng, Hà Nội</h3>
+										<h3>
+											Email:
+											<a href="#">support.vtcpay@vtc.vn</a>
+										</h3>
+										<h3>Số điện thoại: 1900 1530 hoặc 08.9999.1530</h3>
+										<h3>
+											Website:
+											<a href="#">https://vtcpay..vn</a>
+										</h3>
+									</div>
+								</div>
+							</div>
+						</body>
+					</html>
+					
+
+				`,
+			};
+
+			// Gửi yêu cầu POST đến server
+			try {
+				const response = await axios.post('http://localhost:3000/sendmail', emailData);
+				console.log(response.data); // Xử lý phản hồi từ server
+			} catch (error) {
+				console.error('Error sending email:', error);
+			}
 
 		} catch (error) {
 			console.error('Error updating document: ', error);
@@ -142,35 +238,6 @@ const Datphong = () => {
 				console.error('Error updating document:', error);
 			});
 	};
-	// 	e.preventDefault();
-
-	// 	emailjs.sendForm('service_c57dqtq', 'template_gikqirl', form.current, 'MtljPIWSZB6Q63NJX')
-	// 		.then((result) => {
-	// 			console.log(result.text);
-	// 		}, (error) => {
-	// 			console.log(error.text);
-	// 		});
-	// };
-
-	////////////////////////////////////////////////////////////////
-	/////////////	         Test send mail			////////////////
-	////////////////////////////////////////////////////////////////
-	// const { sendEmail } = useEmail();
-	// const [emailData, setEmailData] = useState({
-	// 	recipient: '',
-	// 	subject: '',
-	// 	message: ''
-	// });
-
-	// const handleChangeMail = (e) => {
-	// 	setEmailData({ ...emailData, [e.target.name]: e.target.value });
-	// };
-
-	// const handleSubmitMail = async (e) => {
-	// 	e.preventDefault();
-	// 	const responseMessage = await sendEmail(emailData);
-	// 	console.log(responseMessage);
-	// };
 
 	return (
 		<>
@@ -184,9 +251,6 @@ const Datphong = () => {
 				formErrors={formErrors}
 				updateFirebaseWithSelectedValue={updateFirebaseWithSelectedValue}
 
-			// emailData={emailData}
-			// handleChangeMail={handleChangeMail}
-			// handleSubmitMail={handleSubmitMail}
 			/>
 			<Footer />
 		</>

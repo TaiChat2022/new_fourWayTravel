@@ -1,6 +1,5 @@
 const DatphongLayout = ({
 	data, handleChange, handleSubmit, formData, formErrors,
-	emailData, handleChangeMail, handleSubmitMail
 }) => {
 	return (
 		<>
@@ -337,32 +336,6 @@ const DatphongLayout = ({
 					</div>
 				</div>
 			</div>
-
-			{/* <div className="container w-3/4 mx-auto">
-				<form onSubmit={handleSubmitMail}>
-					<input
-						type="email"
-						name="recipient"
-						value={emailData.recipient}
-						onChange={handleChangeMail}
-						placeholder="Recipient's Email"
-					/>
-					<input
-						type="text"
-						name="subject"
-						value={emailData.subject}
-						onChange={handleChangeMail}
-						placeholder="Subject"
-					/>
-					<textarea
-						name="message"
-						value={emailData.message}
-						onChange={handleChangeMail}
-						placeholder="Your Message"
-					/>
-					<button type="submit">Send Email</button>
-				</form>
-			</div> */}
 		</>
 	);
 };
