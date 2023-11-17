@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import Checkbox from '@mui/material/Checkbox';
 const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, collection, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import Footer from '@/pages/Footer';
 import Header from './Header';
 import Rating1 from '../components/rating1';
@@ -109,25 +109,49 @@ const Booking = () => {
 	const [xemGanDay, setXemGanDay] = React.useState([]);
 
 	const handleAddToRecentlyViewed = async (itemId, danhMuc, title, img) => {
-		// Kiểm tra xem itemId đã tồn tại trong xemGanDay chưa
-		const itemIndex = xemGanDay.findIndex((item) => item.id === itemId);
-		if (itemIndex !== -1) {
-			// Nếu đã tồn tại, thì tăng số lần xem lên 1
-			const updatedXemGanDay = [...xemGanDay];
-			updatedXemGanDay[itemIndex].views += 1;
-			setXemGanDay(updatedXemGanDay);
-		} else {
-			// Nếu itemId chưa có trong mảng, thêm itemId vào mảng với số lần xem là 1
-			const newItem = { id: itemId, danhMuc, title, img, views: 1 };
-			setXemGanDay([...xemGanDay, newItem]);
-		}
-
 		if (currentUser) {
-			// Nếu có người dùng đăng nhập, bạn có thể lưu xemGanDay vào Firestore
 			const userRef = doc(firestore, 'users', currentUser.uid);
-			await updateDoc(userRef, { xemGanDay: xemGanDay });
+			const xemGanDayRef = collection(userRef, 'xemGanDay');
+			const itemDoc = await getDoc(doc(xemGanDayRef, itemId));
+	
+			try {
+				if (itemDoc.exists()) {
+					// If the item exists, update the 'views' field only
+					const currentViews = itemDoc.data().views || 0;
+					await updateDoc(doc(xemGanDayRef, itemId), { views: currentViews + 1 });
+				} else {
+					// If the item doesn't exist, setDoc to create a new document
+					await setDoc(doc(xemGanDayRef, itemId), { id: itemId, danhMuc, title, img, views: 1 });
+				}
+	
+				// Perform any other actions needed when a user views details
+				console.log(`User is viewing details for item with ID: ${itemId}`);
+			} catch (error) {
+				console.error('Error handling recently viewed:', error);
+			}
 		}
 	};
+// const handleClickViewDetails = async (itemId, danhMuc, title, img) => {
+//     if (currentUser) {
+//         const userRef = doc(firestore, 'users', currentUser.uid);
+//         const xemGanDayRef = collection(userRef, 'xemGanDay');
+//         const itemDoc = await getDoc(doc(xemGanDayRef, itemId));
+
+//         if (itemDoc.exists()) {
+//             // If the item exists, update the 'views' field only
+//             const currentViews = itemDoc.data().views || 0;
+//             await updateDoc(doc(xemGanDayRef, itemId), { views: currentViews + 1 });
+//         } else {
+//             // If the item doesn't exist, add it to xemGanDay with initial values
+//             await addDoc(xemGanDayRef, { id: itemId, danhMuc, title, img, views: 1 });
+//         }
+
+//         // Perform any other actions needed when a user views details
+//         console.log(`User is viewing details for item with ID: ${itemId}`);
+//     }
+// };
+
+// Use handleClickViewDetails in your component's JSX where you handle the click event
 
 	return (
 		<>

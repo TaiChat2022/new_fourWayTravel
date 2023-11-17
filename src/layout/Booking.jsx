@@ -164,10 +164,9 @@ const BookingLayout = ({
 												<Link
 													to={`/booking/${item.id}`}
 													className="w-full flex items-center justify-center h-11 rounded-md"
+													onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img)}
 												>
-													<p className="text-white font-light text-base">
-														Xem chi tiết
-													</p>
+													<p className="text-white font-light text-base">Xem chi tiết</p>
 												</Link>
 											</div>
 										</div>

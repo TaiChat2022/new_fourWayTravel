@@ -25,11 +25,12 @@ function TabPanel(props) {
   );
 }
 
-export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3,luuTruCountByDanhMuc }) {
+export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleChange = async (event, newValue) => {
+    setValue(newValue); 
+
   };
 
 
@@ -74,7 +75,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3,luuTruCou
                       <div className="box-content">
                         <h3 className="name-travel">{item.text}</h3>
                         <h3 className="total-room">
-                          <span className="total-number">{luuTruCountByDanhMuc[item.text] || 0}</span> Khách sạn
+                          <span className="total-number">29</span> Khách sạn
                         </h3>
                       </div>
                       <img

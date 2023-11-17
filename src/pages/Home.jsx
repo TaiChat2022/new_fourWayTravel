@@ -6,7 +6,7 @@ import Footer from '@/pages/Footer';
 import Tabs from '@/pages/Tabs';
 import Product from './Product';
 import SearchBar from './SearchBar';
-import XemGanDay from './xemGanDay';
+import XemGanDay from '@/pages/xemGanDay';
 const Home = () => {
 	return (
 		<>
@@ -18,6 +18,7 @@ const Home = () => {
 			<SearchBar />
 			<Partner />
 			<XemGanDay />
+		
 			<Tabs />
 			<QRcode />
 			<Product />
