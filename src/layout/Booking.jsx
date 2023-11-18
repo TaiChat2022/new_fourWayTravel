@@ -44,14 +44,7 @@ const BookingLayout = ({
 													<Link
 														to={`/booking/${item.id}`}
 														className="font-semibold text-lg"
-														onClick={() =>
-															handleAddToRecentlyViewed(
-																item.id,
-																item.danhmuc,
-																item.title,
-																item.img,
-															)
-														}
+														onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img)}
 													>
 														{item.title}
 													</Link>

@@ -1,12 +1,12 @@
-import AboutFTW from '@/layout/AboutFTW';
+
 import Partner from '@/layout/Partner';
 import QRcode from '@/layout/QRcode';
-import SearchList from '@/layout/SearchList';
+
 import Footer from '@/pages/Footer';
 import Tabs from '@/pages/Tabs';
+import XemGanDay from '@/pages/xemGanDay';
 import Product from './Product';
 import SearchBar from './SearchBar';
-import XemGanDay from '@/pages/xemGanDay';
 const Home = () => {
 	return (
 		<>
@@ -16,14 +16,13 @@ const Home = () => {
 				</h1>
 			</div>
 			<SearchBar />
-			<Partner />
 			<XemGanDay />
-		
+
 			<Tabs />
 			<QRcode />
 			<Product />
-			<AboutFTW />
-			<SearchList />
+
+			<Partner />
 			<Footer />
 		</>
 	);
