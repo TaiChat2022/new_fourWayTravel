@@ -4,15 +4,20 @@ import { auth, firestore } from '@/utils/firebase.config';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import Checkbox from '@mui/material/Checkbox';
-const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
-import { doc, collection, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc,setDoc,collection } from 'firebase/firestore';
+
 import Footer from '@/pages/Footer';
 import Header from './Header';
-import Rating1 from '../components/rating1';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
 const Booking = () => {
 	const { data: luuTru } = useDocsQuery('luuTru');
 	const getRatingText = (star) => {
@@ -131,28 +136,18 @@ const Booking = () => {
 			}
 		}
 	};
-// const handleClickViewDetails = async (itemId, danhMuc, title, img) => {
-//     if (currentUser) {
-//         const userRef = doc(firestore, 'users', currentUser.uid);
-//         const xemGanDayRef = collection(userRef, 'xemGanDay');
-//         const itemDoc = await getDoc(doc(xemGanDayRef, itemId));
+	const [open, setOpen] = useState(false);
+	const [selectedAmenity, setSelectedAmenity] = useState(null);
 
-//         if (itemDoc.exists()) {
-//             // If the item exists, update the 'views' field only
-//             const currentViews = itemDoc.data().views || 0;
-//             await updateDoc(doc(xemGanDayRef, itemId), { views: currentViews + 1 });
-//         } else {
-//             // If the item doesn't exist, add it to xemGanDay with initial values
-//             await addDoc(xemGanDayRef, { id: itemId, danhMuc, title, img, views: 1 });
-//         }
+	const handleOpen = (amenity) => {
+		setSelectedAmenity(amenity);
+		setOpen(true);
+	};
 
-//         // Perform any other actions needed when a user views details
-//         console.log(`User is viewing details for item with ID: ${itemId}`);
-//     }
-// };
-
-// Use handleClickViewDetails in your component's JSX where you handle the click event
-
+	const handleClose = () => {
+		setSelectedAmenity(null);
+		setOpen(false);
+	};
 	return (
 		<>
 			<Header />
@@ -171,7 +166,22 @@ const Booking = () => {
 				labelFavorite={labelFavorite}
 				userFavorites={userFavorites}
 				handleAddToRecentlyViewed={handleAddToRecentlyViewed}
-				Rating1={Rating1}
+				//start modal
+				open={open}
+				handleClose={handleClose}
+				handleOpen={handleOpen}
+				Box={Box}
+				Button={Button}
+				Typography={Typography}
+				Modal={Modal}
+				selectedAmenity={selectedAmenity}
+				//end modal
+
+				// showAll={showAll}
+				// setShowAll={setShowAll}
+				// expandedBox={expandedBox}
+				// setExpandedBox={setExpandedBox}
+				// Rating1={Rating1}
 			/>
 
 			<Footer />

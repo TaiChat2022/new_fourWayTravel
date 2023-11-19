@@ -1,13 +1,12 @@
 import { useDocQuery } from '@/hooks/useFirestore';
 import DatphongLayout from '@/layout/datphong';
 import Footer from '@/pages/Footer';
-import { auth } from '@/utils/firebase.config';
+import { auth, firestore } from '@/utils/firebase.config';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import Header from './Header';
 
-// import SearchBar from './SearchBar';
+import Header from './Header';
 const Datphong = () => {
 	const { id } = useParams();
 	const { data } = useDocQuery('luuTru', id);
@@ -16,14 +15,15 @@ const Datphong = () => {
 		auth.onAuthStateChanged((user) => {
 			if (user) {
 				setUser(user);
-			}
-			else {
+			} else {
 				setUser(null);
 			}
 		});
 	}, []);
 
 	const db = getFirestore();
+	// Add the useEmail hook
+
 
 	const [formData, setFormData] = React.useState({
 		title: '',
@@ -41,6 +41,8 @@ const Datphong = () => {
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
+		const selectedValue = e.target.value; // Get the selected value
+		updateFirebaseWithSelectedValue(selectedValue); // Call the function to update Firebase
 	};
 
 	const validateForm = () => {
@@ -68,7 +70,7 @@ const Datphong = () => {
 		}
 
 		// Generate a unique ID for the booking, here we're using a timestamp
-		const bookingId = `booking_${Date.now()}`;
+		const bookingId = `${Date.now()}`;
 
 		try {
 			// Reference the user's document in the 'users' collection
@@ -83,10 +85,9 @@ const Datphong = () => {
 				const userData = userDoc.data();
 				newDatphongArray = userData.datphong ? [...userData.datphong] : [];
 			}
-
 			// Append the new booking with a unique ID to the datphong array
 			newDatphongArray.push({
-				id: bookingId,
+				uid: bookingId,
 				luuTruId: id,
 				bookingDetails: formData,
 			});
@@ -106,11 +107,71 @@ const Datphong = () => {
 				region: '',
 				additionalRequest: '',
 			});
+
+			// Code send email
+			sendEmail({
+				email: formData.email,
+				bookingDetails: formData,
+			}).then(() => {
+				alert('Thông tin đặt phòng đã được gửi qua email.');
+			}).catch((error) => {
+				console.error('Error sending email: ', error);
+				alert('Lỗi khi gửi email.');
+			});
+
 		} catch (error) {
 			console.error('Error updating document: ', error);
 			alert('Lỗi khi lưu thông tin đặt phòng.');
 		}
 	};
+
+	const updateFirebaseWithSelectedValue = (selectedValue) => {
+		// Define the collection and document where you want to update the value
+		const collectionRef = firestore.collection('thanhtoan'); // Change to your collection name
+		const documentRef = collectionRef.doc('YOUR_DOCUMENT_ID'); // Replace with the document ID you want to update
+
+		// Update the 'tieuDe' field with the selected value
+		documentRef
+			.update({
+				tieuDe: selectedValue,
+			})
+			.then(() => {
+				console.log(`Document updated with value: ${selectedValue}`);
+			})
+			.catch((error) => {
+				console.error('Error updating document:', error);
+			});
+	};
+	// 	e.preventDefault();
+
+	// 	emailjs.sendForm('service_c57dqtq', 'template_gikqirl', form.current, 'MtljPIWSZB6Q63NJX')
+	// 		.then((result) => {
+	// 			console.log(result.text);
+	// 		}, (error) => {
+	// 			console.log(error.text);
+	// 		});
+	// };
+
+	////////////////////////////////////////////////////////////////
+	/////////////	         Test send mail			////////////////
+	////////////////////////////////////////////////////////////////
+	// const { sendEmail } = useEmail();
+	// const [emailData, setEmailData] = useState({
+	// 	recipient: '',
+	// 	subject: '',
+	// 	message: ''
+	// });
+
+	// const handleChangeMail = (e) => {
+	// 	setEmailData({ ...emailData, [e.target.name]: e.target.value });
+	// };
+
+	// const handleSubmitMail = async (e) => {
+	// 	e.preventDefault();
+	// 	const responseMessage = await sendEmail(emailData);
+	// 	console.log(responseMessage);
+	// };
+
 	return (
 		<>
 			<Header />
@@ -121,6 +182,11 @@ const Datphong = () => {
 				handleSubmit={handleSubmit}
 				formData={formData}
 				formErrors={formErrors}
+				updateFirebaseWithSelectedValue={updateFirebaseWithSelectedValue}
+
+			// emailData={emailData}
+			// handleChangeMail={handleChangeMail}
+			// handleSubmitMail={handleSubmitMail}
 			/>
 			<Footer />
 		</>

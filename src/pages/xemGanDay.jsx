@@ -8,6 +8,9 @@ const XemGanDay = () => {
   const [currentUser, setCurrentUser] = React.useState(null);
   const { data: luuTru } = useDocsQuery('luuTru');
   const [userXemGanDay, setUserXemGanDay] = React.useState([]);
+ 
+
+
 
   React.useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
@@ -37,7 +40,6 @@ const XemGanDay = () => {
     });
   }, []);
 
-  console.log('User Xem Gan Day:', userXemGanDay);
 
   return (
     <>

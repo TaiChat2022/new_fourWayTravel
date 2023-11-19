@@ -1,5 +1,7 @@
+import 'flowbite';
+
 const BookingLayout = ({
-	renderStars,
+	// renderStars,
 	luuTru,
 	getRatingText,
 	Link,
@@ -8,7 +10,11 @@ const BookingLayout = ({
 	labelFavorite,
 	userFavorites,
 	handleAddToRecentlyViewed,
-	Rating1,
+	Modal,
+	handleClose,
+	handleOpen,
+	open,
+	selectedAmenity,
 }) => {
 	return (
 		<>
@@ -80,7 +86,7 @@ const BookingLayout = ({
 													)}
 												</div>
 												<p className="text-xm text-gray-300 flex items-center">
-													<Rating1></Rating1>
+													{/* <Rating1></Rating1> */}
 													{/* {renderStars(item.star)} */}
 													<span className="text-xm ml-2 font-light text-slate-950">
 														Khách sạn
@@ -122,7 +128,7 @@ const BookingLayout = ({
 													{item.diaChi}
 												</span>
 											</div>
-											<span className="text-sm font-semibold">Tiện ích:</span>
+											{/* <span className="text-sm font-semibold">Tiện ích:</span> */}
 											<div className="flex flex-wrap gap-2 mb-2">
 												{item.tienich.map((value, index) => (
 													<div
@@ -135,6 +141,7 @@ const BookingLayout = ({
 													</div>
 												))}
 											</div>
+											<button onClick={handleOpen}>Tiện ích</button>
 										</div>
 										<div className="block m-2 col-span-1 md:col-span-2 relative">
 											<div className="w-full rounded-lg  border-none bg-stone-300">
@@ -156,8 +163,7 @@ const BookingLayout = ({
 												<div className="flex flex-wrap justify-between ml-3 mr-2 mb-2 pb-2 ">
 													<span className="flex text-lg md:text-md mt-1 font-semibold ">
 														{item.price.toLocaleString('vi')}đ
-													</span>
-
+													</span>	
 												</div>
 											</div>
 											<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-orange-600 hover:bg-orange-700">
@@ -181,6 +187,44 @@ const BookingLayout = ({
 					</>
 				)}
 			</div>
+			<Modal
+				open={open}
+				onClose={handleClose}
+				className="bg-white backdrop-1 opacity-90"
+			>
+				<div className="bg-white w-1/3 m-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  border-none rounded-md p-6 opacity-100">
+					<h1 className="text-2xl font-bold">
+						{selectedAmenity ? `Tất cả các tiện ích:` : 'Chọn một tiện ích'}
+					</h1>
+					<div className="mt-2">
+						<div className="flex flex-wrap gap-2 mb-2">
+							{luuTru.map((item) => (
+								<div key={item.id}>
+									{item.tienich.map((value, index) => (
+										<div
+											key={index}
+											className={`w-auto h-8 border-none rounded-lg mt-1 cursor-pointer ${
+												selectedAmenity === value ? 'bg-yellow-500' : ''
+											}`}
+											onClick={() => handleOpen(value)}
+										>
+											<div className="flex justify-start items-center  pt-1 text-mm gap-1">
+												<div
+													className={`p-1 ${
+														selectedAmenity === value ? 'text-white' : 'text-black'
+													}`}
+												>
+													{value}
+												</div>
+											</div>
+										</div>
+									))}
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
+			</Modal>
 		</>
 	);
 };
