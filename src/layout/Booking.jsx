@@ -1,8 +1,8 @@
 import 'flowbite';
 
 const BookingLayout = ({
-	// renderStars,
 	luuTru,
+	filterLuuTru,
 	getRatingText,
 	Link,
 	handleFavoriteChange,
@@ -10,21 +10,16 @@ const BookingLayout = ({
 	labelFavorite,
 	userFavorites,
 	handleAddToRecentlyViewed,
-	// Modal,
-	// handleClose,
-	// handleOpen,
-	// open,
-	// selectedAmenity,
 }) => {
 	return (
 		<>
-			<div className="mt-2 w-3/4 mx-auto">
+			<div className="mt-2 w-3/4 mx-auto mt-20">
 				<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
 					Khách sạn tại Đà Lạt <span>(Tỉnh Lâm Đồng, Việt Nam)</span>
 				</h1>
 				{luuTru ? (
 					<>
-						{luuTru.map((item) => (
+						{filterLuuTru.map((item) => (
 							<>
 								<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
 									<div
@@ -161,7 +156,7 @@ const BookingLayout = ({
 											</div>
 											<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">
 												<Link
-													to={`/booking/${item.id}`}
+													to={`/booking/chitiet/${item.id}`}
 													className="w-full flex items-center justify-center h-11 rounded-md"
 												>
 													<p className="text-white font-light text-base">Xem chi tiết</p>
@@ -179,44 +174,6 @@ const BookingLayout = ({
 					</>
 				)}
 			</div>
-			{/* <Modal
-				open={open}
-				onClose={handleClose}
-				className="bg-white backdrop-1 opacity-90"
-			>
-				<div className="bg-white w-1/3 m-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  border-none rounded-md p-6 opacity-100">
-					<h1 className="text-2xl font-bold">
-						{selectedAmenity ? `Tất cả các tiện ích:` : 'Chọn một tiện ích'}
-					</h1>
-					<div className="mt-2">
-						<div className="flex flex-wrap gap-2 mb-2">
-							{luuTru.map((item) => (
-								<div key={item.id}>
-									{item.tienich.map((value, index) => (
-										<div
-											key={index}
-											className={`w-auto h-8 border-none rounded-lg mt-1 cursor-pointer ${
-												selectedAmenity === value ? 'bg-yellow-500' : ''
-											}`}
-											onClick={() => handleOpen(value)}
-										>
-											<div className="flex justify-start items-center  pt-1 text-mm gap-1">
-												<div
-													className={`p-1 ${
-														selectedAmenity === value ? 'text-white' : 'text-black'
-													}`}
-												>
-													{value}
-												</div>
-											</div>
-										</div>
-									))}
-								</div>
-							))}
-						</div>
-					</div>
-				</div>
-			</Modal> */}
 		</>
 	);
 };

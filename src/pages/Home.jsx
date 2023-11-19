@@ -10,14 +10,13 @@ import SearchBar from './SearchBar';
 const Home = () => {
 	return (
 		<>
-			<div className="mx-auto mb-7 w-3/4 mt-10">
+			<div className="mx-auto mb-7 w-3/4 my-24">
 				<h1 className="text-2xl font-semibold leading-tight font-poppins">
 					<span>Chúng tôi so sánh giá phòng từ nhiều trang</span>
 				</h1>
 			</div>
 			<SearchBar />
 			<XemGanDay />
-
 			<Tabs />
 			<QRcode />
 			<Product />

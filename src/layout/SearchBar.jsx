@@ -1,10 +1,11 @@
 export default function SearchBarLayout({
-	handleSearch, Box,
+	handleSearch, Box, Link,
 	FormControl, NativeSelect, diadanh,
 	startDate, endDate, handleStartDateChange, handleEndDateChange,
 	startDateSelected,
 	onAddressChange,
-	Filter, location, isBookingPage, SearchAddress, filterAddress, setFilterAddress
+	Filter, location, isBookingPage, SearchAddress, filterAddress, setFilterAddress,
+	address
 }) {
 
 	return (
@@ -197,19 +198,19 @@ export default function SearchBarLayout({
 						{/* end Fiter */}
 
 						<span className="flex items-center justify-end col-span-1">
-							<button
-								onClick={handleSearch}
+							<Link
+								to={`/booking/${address}`}
 								type="button"
 								className={`
 									flex items-center justify-center px-12 py-2
-									h-full rounded-b-lg md:rounded-md text-white
-									text-md font-semibold
+									h-full rounded-b-lg md:rounded-md 
+									text-md font-semibold text-white
 									bg-blue-600 hover:bg-blue-700 w-full md:w-20
 								`}
 								data-testid="search-button"
 							>
 								<span className="text-center">Tìm</span>
-							</button>
+							</Link>
 						</span>
 					</div>
 				</div>

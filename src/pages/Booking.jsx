@@ -12,13 +12,16 @@ import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Header from './Header';
 import SearchBar from './SearchBar';
 const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const Booking = () => {
+	const { address } = useParams();
 	const { data: luuTru } = useDocsQuery('luuTru');
+	const filterLuuTru = luuTru.filter((item) => item.danhmuc === address);
+
 	const getRatingText = (star) => {
 		if (star > 4) return 'Xuất sắc';
 		if (star > 3) return 'Tuyệt vời';
@@ -163,17 +166,19 @@ const Booking = () => {
 		setSelectedAmenity(null);
 		setOpen(false);
 	};
+
 	return (
 		<>
 			<Header />
 			<SearchBar />
 			<BookingLayout
+				luuTru={luuTru}
+				filterLuuTru={filterLuuTru}
 				React={React}
 				FormControl={FormControl}
 				renderStars={renderStars}
 				MenuItem={MenuItem}
 				Select={Select}
-				luuTru={luuTru}
 				getRatingText={getRatingText}
 				Link={Link}
 				handleFavoriteChange={handleFavoriteChange}
@@ -190,13 +195,8 @@ const Booking = () => {
 				Typography={Typography}
 				Modal={Modal}
 				selectedAmenity={selectedAmenity}
-			//end modal
 
-			// showAll={showAll}
-			// setShowAll={setShowAll}
-			// expandedBox={expandedBox}
-			// setExpandedBox={setExpandedBox}
-			// Rating1={Rating1}
+
 			/>
 
 			<Footer />
