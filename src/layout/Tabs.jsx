@@ -71,7 +71,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, luuTruCo
                 {tinhthanh1.map((item) => (
                   <Link to="/booking" key={item.id}>
                     <div className="box-img">
-                      <div className="box-content">
+                      <div className="box-content backdrop-blur-sm w-48 mb-5 bg-black/30">
                         <h3 className="name-travel">{item.text}</h3>
                         <h3 className="total-room">
                           <span className="total-number">{luuTruCountByDanhMuc[item.text] || 0}</span> Khách sạn

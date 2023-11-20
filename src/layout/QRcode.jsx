@@ -13,7 +13,7 @@ const QRcode = () => {
 							className="relative pt-8 bg-2 overflow-hidden px-14 rounded-sm flex h-300"
 						>
 							<div className="w-3/6">
-								<h2 className="text-heading-l font-bold text-2xl mb-1">Tải app fourwaytravel</h2>
+								<h2 className="text-heading-l font-bold text-2xl mb-1">Trải nghiệm website</h2>
 								<h3 className="text-heading-s font-semibold AppInstall_desktopHeadingVerticalSpace__YHPGw">
 									Dễ dàng so sánh giá phòng để tiết kiệm mọi lúc, mọi nơi.
 								</h3>

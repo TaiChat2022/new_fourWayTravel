@@ -12,11 +12,11 @@ const Home = () => {
 	return (
 		<>
 			<SearchBar />
-			<Partner />
 			<XemGanDay />
 			<Tabs />
 			<QRcode />
 			<Product />
+			<Partner />
 			<ListKhuVuc />
 			<Footer />
 		</>
