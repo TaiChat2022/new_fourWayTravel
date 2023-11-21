@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import Checkbox from '@mui/material/Checkbox';
 import { doc, getDoc, updateDoc,setDoc,collection } from 'firebase/firestore';
+import { serverTimestamp } from 'firebase/firestore';
 
 import Footer from '@/pages/Footer';
 import Header from './Header';
@@ -113,29 +114,43 @@ const Booking = () => {
 
 	const [xemGanDay, setXemGanDay] = React.useState([]);
 
-	const handleAddToRecentlyViewed = async (itemId, danhMuc, title, img) => {
-		if (currentUser) {
-			const userRef = doc(firestore, 'users', currentUser.uid);
-			const xemGanDayRef = collection(userRef, 'xemGanDay');
-			const itemDoc = await getDoc(doc(xemGanDayRef, itemId));
+
+const handleAddToRecentlyViewed = async (itemId, danhMuc, title, img, price) => {
+    if (currentUser) {
+        const userRef = doc(firestore, 'users', currentUser.uid);
+        const xemGanDayRef = collection(userRef, 'xemGanDay');
+        const itemDoc = await getDoc(doc(xemGanDayRef, itemId));
+
+        try {
+            if (itemDoc.exists()) {
+                // If the item exists, update the 'views' and 'lastViewed' fields
+                const currentViews = itemDoc.data().views || 0;
+                await updateDoc(doc(xemGanDayRef, itemId), {
+                    views: currentViews + 1,
+                    lastViewed: serverTimestamp(),
+                });
+            } else {
+                // If the item doesn't exist, setDoc to create a new document
+                await setDoc(doc(xemGanDayRef, itemId), {
+                    id: itemId,
+                    danhMuc,
+                    title,
+                    img,
+                    price,
+                    views: 1,
+                    lastViewed: serverTimestamp(),
+                });
+            }
+
+            // Perform any other actions needed when a user views details
+            console.log(`User is viewing details for item with ID: ${itemId}`);
+        } catch (error) {
+            console.error('Error handling recently viewed:', error);
+        }
+    }
+};
+
 	
-			try {
-				if (itemDoc.exists()) {
-					// If the item exists, update the 'views' field only
-					const currentViews = itemDoc.data().views || 0;
-					await updateDoc(doc(xemGanDayRef, itemId), { views: currentViews + 1 });
-				} else {
-					// If the item doesn't exist, setDoc to create a new document
-					await setDoc(doc(xemGanDayRef, itemId), { id: itemId, danhMuc, title, img, views: 1 });
-				}
-	
-				// Perform any other actions needed when a user views details
-				console.log(`User is viewing details for item with ID: ${itemId}`);
-			} catch (error) {
-				console.error('Error handling recently viewed:', error);
-			}
-		}
-	};
 	const [open, setOpen] = useState(false);
 	const [selectedAmenity, setSelectedAmenity] = useState(null);
 

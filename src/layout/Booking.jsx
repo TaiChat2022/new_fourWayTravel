@@ -162,7 +162,6 @@ const BookingLayout = ({
 												</div>
 												<div className="flex flex-wrap justify-between ml-3 mr-2 mb-2 pb-2 ">
 													<span className="flex text-lg md:text-md mt-1 font-semibold ">
-														{item.price.toLocaleString('vi')}đ
 													</span>	
 												</div>
 											</div>
@@ -170,7 +169,7 @@ const BookingLayout = ({
 												<Link
 													to={`/booking/${item.id}`}
 													className="w-full flex items-center justify-center h-11 rounded-md"
-													onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img)}
+													onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img,item.price,item.lastViewed)}
 												>
 													<p className="text-white font-light text-base">Xem chi tiết</p>
 												</Link>
