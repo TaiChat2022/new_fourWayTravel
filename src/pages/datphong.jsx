@@ -6,7 +6,6 @@ import axios from 'axios';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import logo from '../assets/img/logo1.jpg';
 import Header from './Header';
 
 const Datphong = () => {
@@ -109,6 +108,7 @@ const Datphong = () => {
 			});
 
 			const { firstName, lastName } = formData;
+			const { danhmuc, diaChi, img, title, price } = data;
 			// Chuẩn bị dữ liệu email
 			const emailData = {
 				to: formData.email,
@@ -129,9 +129,15 @@ const Datphong = () => {
 						</head>
 						<body>
 							<div class="container">
-								<div class="header">
-									<div class="logo">
-										<img src=${logo} />
+								<div class="header" style="width: 100%;display: flex;justify-content: start;border-bottom: 1px solid #999;">
+									<div
+										class="logo"
+										style="width: 75%; display: flex; justify-content: start; align-items: center;"
+									>
+										<img
+											src="https://scontent.fsgn6-1.fna.fbcdn.net/v/t39.30808-6/404055892_3701745123483688_926822836482026852_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DUHHfGZaiwQAX9rsAFa&_nc_ht=scontent.fsgn6-1.fna&oh=00_AfAt3yuTOyJhMLBFF-PfEAvB0sA18JagGPNFNfVPcoJWmA&oe=655FBC67"
+											style="width: 250px; height: 100px; object-fit: contain;"
+										/>
 									</div>
 								</div>
 								<div class="title">
@@ -143,49 +149,45 @@ const Datphong = () => {
 									</h3>
 					
 									<h3 class="ttdh">Thông tin đơn hàng:</h3>
-									<table>
-										<tr>
-											<td colspan="2">
+									<table style="border-collapse: collapse;width: 100%;">
+										<tr >
+											<td colspan="2" style="padding: 10px 10px 10px 0;">
 												<img
-													src=${logo}
-													width="450px"
-													height="150px"
+													src=${img}
+													style="width: 250px;height: 250px; object-fit: contain;"
 												/>
 											</td>
 										</tr>
 										<tr>
-											<td>Mã giao dịch</td>
-											<td>0901234567</td>
+											<td style="padding: 10px 10px 10px 0;">Mã giao dịch</td>
+											<td style="padding: 10px 10px 10px 0;">${bookingId}</td>
 										</tr>
 					
 										<tr>
-											<td>Khu vực</td>
-											<td>Miền Nam</td>
+											<td style="padding: 10px 10px 10px 0;">Khu vực</td>
+											<td style="padding: 10px 10px 10px 0;">${danhmuc}</td>
 										</tr>
 										<tr>
-											<td>Địa chỉ</td>
-											<td>47B Đường Nguyễn Trãi 11, Quận 1, TP. Hồ Chí Minh</td>
+											<td style="padding: 10px 10px 10px 0;">Địa chỉ</td>
+											<td style="padding: 10px 10px 10px 0;">${diaChi}</td>
 										</tr>
 										<tr>
-											<td>Tên khách sạn</td>
-											<td>Cabana Hotel HaNoi</td>
+											<td style="padding: 10px 10px 10px 0;">Tên khách sạn</td>
+											<td style="padding: 10px 10px 10px 0;">${title}</td>
 										</tr>
 										<tr>
-											<td>Thời gian giao dịch</td>
-											<td>17/11/2023</td>
+											<td style="padding: 10px 10px 10px 0;">Thời gian giao dịch</td>
+											<td style="padding: 10px 10px 10px 0;">17/11/2023</td>
 										</tr>
+										
 										<tr>
-											<td>Mã giảm giá</td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>Phí giao dịch</td>
-											<td>0 vnđ</td>
+											<td style="padding: 10px 10px 10px 0;">Phí giao dịch</td>
+											<td style="padding: 10px 10px 10px 0;">${price.toLocaleString('vi')} VND</td>
 										</tr>
 									</table>
 								</div>
-								<div class="footer">
-									<div class="title-footer">
+								<div class="footer" style="margin-top: 1rem;width: 100%;border-top: 1px solid #999;">
+									<div class="title-footer" style="margin-top: 1.5rem;">
 										<h3>Mọi chi tiết xin liên hệ: Trung tâm thanh toán điện tử - MOMO</h3>
 										<h3>Địa chỉ: Tầng 14, tòa nhà VTC, số 23, Lạc Trung, Hai Bà Trưng, Hà Nội</h3>
 										<h3>

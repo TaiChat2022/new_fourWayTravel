@@ -195,10 +195,7 @@ const Booking = () => {
 				Typography={Typography}
 				Modal={Modal}
 				selectedAmenity={selectedAmenity}
-
-
 			/>
-
 			<Footer />
 		</>
 	);

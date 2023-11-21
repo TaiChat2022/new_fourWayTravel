@@ -1,7 +1,7 @@
 const ChiTietLayout = ({ data, renderStars, Link, luuTru, checkIcon }) => {
 	return (
 		<>
-			<div className="container-details w-full h-auto mt-24">
+			<div className="container-details w-full h-auto">
 				<div className="w-3/4 mx-auto mt-2">
 					<div className="flex flex-wrap md:flex-nowrap justify-between">
 						<div

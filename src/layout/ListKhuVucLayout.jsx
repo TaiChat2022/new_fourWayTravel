@@ -10,7 +10,7 @@ const ListKhuVucLayout = ({
                     className="text-heading-l text-xl font-bold mb-3 px-0 l:px-4 2xl:px-0"
                     id="more-popular-searches"
                 >
-                    Tìm kiếm phổ biến ở Hồ Chí Minh 
+                    Tìm kiếm phổ biến ở Hồ Chí Minh
                 </h2></div>
                 <div className="grid grid-cols-3 gap-2">
                     {luuTru ? (
