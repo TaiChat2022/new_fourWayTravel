@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Modal from '@mui/material/Modal';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from './Header';

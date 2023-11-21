@@ -71,7 +71,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
               <div className="grid grid-cols-4 gap-4 w-full h-300">
                 {tinhthanh1.map((item) => (
                   <Link to={`/booking/${item.text}`} key={item.id}>
-                    <div className="box-img relative">
+                    <div className="box-img relative ">
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h4 className="name-travel">{item.text}</h4>
                         <h4 className="total-room">
@@ -102,7 +102,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
               <div className="grid grid-cols-4 gap-4 w-full h-300">
                 {tinhthanh3.slice(0, 4).map((item) => (
                   <Link to="/booking" key={item.id}>
-                    <div className="box-img">
+                    <div className="box-img relative">
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h3 className="name-travel">{item.text}</h3>
                         <h3 className="total-room">
@@ -132,7 +132,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
               <div className="grid grid-cols-4 gap-4 w-full h-300">
                 {tinhthanh2.slice(0, 4).map((item) => (
                   <Link to="/booking" key={item.id}>
-                    <div className="box-img">
+                    <div className="box-img relative">
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h3 className="name-travel">{item.text}</h3>
                         <h3 className="total-room">

@@ -13,39 +13,39 @@ const XemGanDayLayout = ({ currentUser, userXemGanDay }) => {
                 const formattedDate =
                   item.lastViewed && typeof item.lastViewed.toDate === "function"
                     ? item.lastViewed.toDate().toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "2-digit",
-                        day: "2-digit",
-                      })
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })
                     : "";
 
                 return (
                   <div
-                  key={item.id}
-                  className="border border-gray-300 p-0 rounded-md relative "
-                >
-                  <p className="text-lg text-gray-900 font-bold absolute top-0 right-0">
-                    {formattedDate}{" "}
-                  </p>
-                
-                  <img
-                    src={item.img}
-                    alt=""
-                    className="mb-2 rounded-md"
-                  />
-                  <p className="text-ms font-semibold absolute top-0 left-0 text-white bg-gray-700 p-2 rounded-md">
-                    {item.danhMuc}
-                  </p>
-                  <div className="flex flex-col">
-                    <Link to={`/booking/${item.id}`}>
-                      <p className="text-base">{item.title}</p>
-                    </Link>
+                    key={item.id}
+                    className="border border-gray-300 p-0 rounded-md relative "
+                  >
+                    <p className="text-lg text-gray-900 font-bold absolute top-0 right-0">
+                      {formattedDate}{" "}
+                    </p>
+
+                    <img
+                      src={item.img}
+                      alt=""
+                      className="mb-2 rounded-md"
+                    />
+                    <p className="text-ms font-semibold absolute top-0 left-0 text-white bg-gray-700 p-2 rounded-md">
+                      {item.danhMuc}
+                    </p>
+                    <div className="flex flex-col">
+                      <Link to={`/booking/${item.id}`}>
+                        <p className="text-base">{item.title}</p>
+                      </Link>
+                    </div>
+                    <p className="mt-auto text-base text-green-600">
+                      {/* {(item.price).toLocaleString('vi')} VND */}
+                    </p>
                   </div>
-                  <p className="mt-auto text-base text-green-600">
-                    {item.price.toLocaleString("vi")} VND
-                  </p>
-                </div>
-                
+
                 );
               })
             ) : (
