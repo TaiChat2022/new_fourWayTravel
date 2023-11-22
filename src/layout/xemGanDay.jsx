@@ -28,16 +28,16 @@ const XemGanDayLayout = ({ currentUser, userXemGanDay }) => {
                         {formattedDate}{" "}
                       </p>
                       <div className="flex items-center col-span-1 relative">
-                        <div className="p-2">
+                        <div className="p-2 w-20 h-20">
                           <img
                             src={item.img}
                             alt={item.title}
-                            className="rounded-lg w-20 h-20 object-cover"
+                            className="rounded-lg w-full h-full  object-cover"
                           />
                         </div>
-                        <div className="flex flex-col truncate">
-                          <p className="text-base font-semibold">{item.title}</p>
-                          <p className="text-base">{item.danhMuc}</p>
+                        <div className="flex flex-col truncatee">
+                          <p className="text-base font-semibold text-sm">{item.title}</p>
+                          <p className="text-base text-sm ">{item.danhMuc}</p>
                         </div>
                       </div>
                     </div>

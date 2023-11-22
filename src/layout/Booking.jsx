@@ -37,7 +37,7 @@ const BookingLayout = ({
 											<div className="mt-2">
 												<div className="flex items-center justify-between">
 													<Link
-														to={`/booking/${item.id}`}
+														to={`/booking/chitiet/${item.id}`}
 														className="font-semibold text-lg"
 														onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img, item.price, item.lastViewed)}
 													>
