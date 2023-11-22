@@ -115,7 +115,7 @@ const Booking = () => {
 
 	const [xemGanDay, setXemGanDay] = React.useState([]);
 
-	const handleAddToRecentlyViewed = async (itemId, danhMuc, title, img) => {
+	const handleAddToRecentlyViewed = async (itemId, danhMuc, title, img, price) => {
 		// Kiểm tra xem itemId đã tồn tại trong xemGanDay chưa
 		const itemIndex = xemGanDay.findIndex((item) => item.id === itemId);
 		if (itemIndex !== -1) {
@@ -125,7 +125,7 @@ const Booking = () => {
 			setXemGanDay(updatedXemGanDay);
 		} else {
 			// Nếu itemId chưa có trong mảng, thêm itemId vào mảng với số lần xem là 1
-			const newItem = { id: itemId, danhMuc, title, img, views: 1 };
+			const newItem = { id: itemId, danhMuc, title, img, price, views: 1 };
 			setXemGanDay([...xemGanDay, newItem]);
 		}
 
@@ -143,7 +143,7 @@ const Booking = () => {
 					await updateDoc(doc(xemGanDayRef, itemId), { views: currentViews + 1 });
 				} else {
 					// If the item doesn't exist, setDoc to create a new document
-					await setDoc(doc(xemGanDayRef, itemId), { id: itemId, danhMuc, title, img, views: 1 });
+					await setDoc(doc(xemGanDayRef, itemId), { id: itemId, danhMuc, title, img, price, views: 1 });
 				}
 
 				// Perform any other actions needed when a user views details

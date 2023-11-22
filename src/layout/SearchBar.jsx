@@ -72,6 +72,7 @@ export default function SearchBarLayout({
 											>
 												{diadanh ? (
 													<>
+														<option value="" selected >Chọn khu vực</option>
 														{diadanh.map((khuvuc) => (
 															<option
 																key={khuvuc.id}
