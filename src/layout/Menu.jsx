@@ -1,18 +1,34 @@
 export default function MenuLayOut({
-	Logo, Link,
-	Button, Menu, MenuItem, Box, Typography,
-	anchorEl, open, handleClick, handleClose,
+	Logo,
+	Link,
+	Button,
+	Menu,
+	MenuItem,
+	Box,
+	Typography,
+	anchorEl,
+	open,
+	handleClick,
+	handleClose,
 
 	ITEM_HEIGHT,
 
-	styleModal, Modal, openModal, handleOpenModal, handleCloseModal,
+	styleModal,
+	Modal,
+	openModal,
+	handleOpenModal,
+	handleCloseModal,
 
-	Login, user, signOut, anchorE4, open4, handleClick4, handleClose4,
-
+	Login,
+	user,
+	signOut,
+	anchorE4,
+	open4,
+	handleClick4,
+	handleClose4,
 }) {
 	return (
 		<>
-
 			<div className="mx-auto border-2 w-full relative">
 				<div className="fresnel-container fresnel-lessThan-2xl w-3/4 mx-auto">
 					<header className="flex justify-evenly items-center h-14 -mx-3">
@@ -56,8 +72,11 @@ export default function MenuLayOut({
 													onClick={handleClick4}
 												>
 													<div className="flex items-center justify-center py-2">
-														<img className="flex items-center h-8 w-8 rounded-full ring-2"
-															src={user.photoURL} alt={user.displayName} />
+														<img
+															className="flex items-center h-8 w-8 rounded-full ring-2"
+															src={user.photoURL}
+															alt={user.displayName}
+														/>
 													</div>
 												</Button>
 											</div>
@@ -80,13 +99,14 @@ export default function MenuLayOut({
 													{user.displayName}
 												</span>
 												<MenuItem>
-													<Button onClick={signOut}
-														className="border-t mt-2 border-2 border-gray-900 flex items-center justify-center w-full">
+													<Button
+														onClick={signOut}
+														className="border-t mt-2 border-2 border-gray-900 flex items-center justify-center w-full"
+													>
 														<span>Đăng xuất</span>
 													</Button>
 												</MenuItem>
 											</Menu>
-
 										</li>
 									</>
 								) : (
@@ -166,7 +186,7 @@ export default function MenuLayOut({
 																	htmlFor="remember"
 																	className="ml-2 text-sm font-medium text-gray-900"
 																>
-																	Remember me
+																	Ghi nhớ đăng nhập
 																</label>
 															</div>
 															<button
@@ -183,8 +203,7 @@ export default function MenuLayOut({
 											</Modal>
 										</li>
 									</>
-								)
-								}
+								)}
 								{/* Menu */}
 								<li className="h-full list-none flex relative">
 									<Button
@@ -215,20 +234,18 @@ export default function MenuLayOut({
 											>
 												Xem gần đây
 											</button>
-											{user ?
-												(
-													<>
-														<button
-															onClick={handleClose}
-															className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
-														>
-															Lịch sử đặt hàng
-														</button>
-													</>
-												) : (
-													<></>
-												)
-											}
+											{user ? (
+												<>
+													<button
+														onClick={handleClose}
+														className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
+													>
+														Lịch sử đặt hàng
+													</button>
+												</>
+											) : (
+												<></>
+											)}
 
 											<button
 												onClick={handleClose}
@@ -244,7 +261,6 @@ export default function MenuLayOut({
 					</header>
 				</div>
 			</div>
-
 		</>
 	);
 }

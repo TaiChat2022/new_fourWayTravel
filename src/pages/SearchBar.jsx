@@ -39,22 +39,14 @@ const SearchBar = () => {
 		}
 	};
 
-	const [showNotification, setShowNotification] = useState(false); //
-	const hideNotification = () => {
-		setShowNotification(false);
-	};
-
-	const handleSearch = () => {
-		if (!address) {
-			// alert( 'Vui lòng chọn địa chỉ trước khi tìm kiếm.' );
-			setShowNotification(true);
-			return;
-		}
-
-		navigate(`/booking?address=${address}&startDate=${startDate}&endDate=${endDate}`);
-		setShowNotification(false);
-		// Thực hiện xử lý tìm kiếm với startDate và endDate ở đây
-	};
+	// const handleSearch = () => {
+	// 	if (!address) {
+	// 		alert('Vui lòng chọn địa chỉ trước khi tìm kiếm.');
+	// 		return;
+	// 	}
+	// 	navigate(`/booking?${address}&startDate=${startDate}&endDate=${endDate}`);
+	// 	navigate(`/booking/${address}`);
+	// };
 
 	const location = useLocation();
 	const isBookingPage = location.pathname === '/booking';
@@ -79,18 +71,18 @@ const SearchBar = () => {
 				handleStartDateChange={handleStartDateChange}
 				handleEndDateChange={handleEndDateChange}
 				startDateSelected={startDateSelected}
-				handleSearch={handleSearch}
+				// handleSearch={handleSearch}
 				onAddressChange={(e) => setAddress(e?.target?.value)}
 				useLocation={useLocation}
+
 				Filter={Filter}
 				location={location}
 				isBookingPage={isBookingPage}
 				SearchAddress={SearchAddress}
 				filterAddress={filterAddress}
 				setFilterAddress={setFilterAddress}
-				showNotification={showNotification}
-				setShowNotification={setShowNotification}
-				hideNotification={hideNotification}
+
+				address={address}
 			/>
 		</>
 	);

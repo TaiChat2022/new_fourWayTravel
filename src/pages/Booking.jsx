@@ -1,24 +1,27 @@
 import { useDocsQuery } from '@/hooks/useFirestore';
 import BookingLayout from '@/layout/Booking';
-import { auth, firestore } from '@/utils/firebase.config';
-import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import SearchBar from './SearchBar';
-import Checkbox from '@mui/material/Checkbox';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import Footer from '@/pages/Footer';
-import Header from './Header';
+import { auth, firestore } from '@/utils/firebase.config';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
 import Modal from '@mui/material/Modal';
+import Select from '@mui/material/Select';
+import Typography from '@mui/material/Typography';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import React, { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import Header from './Header';
+import SearchBar from './SearchBar';
 const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const Booking = () => {
+	const { address } = useParams();
 	const { data: luuTru } = useDocsQuery('luuTru');
+	const filterLuuTru = luuTru.filter((item) => item.danhmuc === address);
+
 	const getRatingText = (star) => {
 		if (star > 4) return 'Xuất sắc';
 		if (star > 3) return 'Tuyệt vời';
@@ -130,8 +133,27 @@ const Booking = () => {
 			// Nếu có người dùng đăng nhập, bạn có thể lưu xemGanDay vào Firestore
 			const userRef = doc(firestore, 'users', currentUser.uid);
 			await updateDoc(userRef, { xemGanDay: xemGanDay });
+			const xemGanDayRef = collection(userRef, 'xemGanDay');
+			const itemDoc = await getDoc(doc(xemGanDayRef, itemId));
+
+			try {
+				if (itemDoc.exists()) {
+					// If the item exists, update the 'views' field only
+					const currentViews = itemDoc.data().views || 0;
+					await updateDoc(doc(xemGanDayRef, itemId), { views: currentViews + 1 });
+				} else {
+					// If the item doesn't exist, setDoc to create a new document
+					await setDoc(doc(xemGanDayRef, itemId), { id: itemId, danhMuc, title, img, views: 1 });
+				}
+
+				// Perform any other actions needed when a user views details
+				console.log(`User is viewing details for item with ID: ${itemId}`);
+			} catch (error) {
+				console.error('Error handling recently viewed:', error);
+			}
 		}
 	};
+
 	const [open, setOpen] = useState(false);
 	const [selectedAmenity, setSelectedAmenity] = useState(null);
 
@@ -144,17 +166,19 @@ const Booking = () => {
 		setSelectedAmenity(null);
 		setOpen(false);
 	};
+
 	return (
 		<>
 			<Header />
 			<SearchBar />
 			<BookingLayout
+				luuTru={luuTru}
+				filterLuuTru={filterLuuTru}
 				React={React}
 				FormControl={FormControl}
 				renderStars={renderStars}
 				MenuItem={MenuItem}
 				Select={Select}
-				luuTru={luuTru}
 				getRatingText={getRatingText}
 				Link={Link}
 				handleFavoriteChange={handleFavoriteChange}
@@ -171,13 +195,8 @@ const Booking = () => {
 				Typography={Typography}
 				Modal={Modal}
 				selectedAmenity={selectedAmenity}
-				//end modal
 
-				// showAll={showAll}
-				// setShowAll={setShowAll}
-				// expandedBox={expandedBox}
-				// setExpandedBox={setExpandedBox}
-				// Rating1={Rating1}
+
 			/>
 
 			<Footer />

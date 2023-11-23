@@ -1,27 +1,16 @@
 export default function SearchBarLayout({
-	handleSearch,
-	Box,
-	FormControl,
-	NativeSelect,
-	diadanh,
-	startDate,
-	endDate,
-	handleStartDateChange,
-	handleEndDateChange,
+	handleSearch, Box, Link,
+	FormControl, NativeSelect, diadanh,
+	startDate, endDate, handleStartDateChange, handleEndDateChange,
 	startDateSelected,
 	onAddressChange,
-	Filter,
-	location,
-	isBookingPage,
-	SearchAddress,
-	filterAddress,
-	setFilterAddress,
-	showNotification,
-	hideNotification,
+	Filter, location, isBookingPage, SearchAddress, filterAddress, setFilterAddress,
+	address
 }) {
+
 	return (
 		<>
-			<div className="w-3/4 mx-auto mt-4 border-none rounded-lg shadow-2xl mb-7">
+			<div className="w-3/4 mx-auto mt-20 border-none rounded-lg shadow-2xl mb-7 z-50 fixed top-0 left-0 right-0">
 				<div
 					className="flex flex-wrap w-full overflow-hidden bg-white rounded-lg 2xl:flex-nowrap "
 					data-testid="search-form"
@@ -209,46 +198,23 @@ export default function SearchBarLayout({
 						{/* end Fiter */}
 
 						<span className="flex items-center justify-end col-span-1">
-							<button
-								onClick={handleSearch}
+							<Link
+								to={`/booking/${address}`}
 								type="button"
 								className={`
 									flex items-center justify-center px-12 py-2
-									h-full rounded-b-lg md:rounded-md text-white
-									text-md font-semibold
+									h-full rounded-b-lg md:rounded-md 
+									text-md font-semibold text-white
 									bg-blue-600 hover:bg-blue-700 w-full md:w-20
 								`}
 								data-testid="search-button"
 							>
 								<span className="text-center">Tìm</span>
-							</button>
+							</Link>
 						</span>
 					</div>
 				</div>
 			</div>
-			{showNotification && (
-				<div className="backdrop-blur-sm bg-white/30  absolute z-50 w-full h-full ">
-					<div
-						id="alert-1"
-						className="w-1/2 h-14 m-auto flex items-center p-4 mb-4 text-black rounded-lg bg-white border-primary-vang border-solid border-2 "
-						role="alert"
-					>
-						<i className="fa-regular fa-circle-exclamation text-primary-vang"></i>
-						<span className="sr-only">Info</span>
-						<div className="ms-3 text-sm font-medium">Vui lòng chọn địa chỉ trước khi tìm kiếm.</div>
-						<button
-							type="button"
-							className="ms-auto -mx-1.5 -my-1.5 text-white rounded-lg focus:ring-2  p-1.5  inline-flex items-center justify-center h-8 w-8 bg-primary-do"
-							data-dismiss-target="#alert-1"
-							aria-label="Close"
-							onClick={hideNotification}
-						>
-							<span className="sr-only">Close</span>
-							<i className="fa-regular fa-xmark"></i>
-						</button>
-					</div>
-				</div>
-			)}
 		</>
 	);
 }

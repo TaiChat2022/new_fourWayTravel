@@ -17,10 +17,12 @@ const Product = () => {
 		return stars;
 	};
 	const hotLuuTru = luuTru.filter((item) => item.hot === true);
+	const khachSanVip = luuTru.filter((item) => item.star >= 4);
 	return (
 		<>
 			<ProductLayout
 				luuTru={luuTru}
+				khachSanVip={khachSanVip}
 				hotLuuTru={hotLuuTru}
 				renderStars={renderStars}
 				Link={Link}

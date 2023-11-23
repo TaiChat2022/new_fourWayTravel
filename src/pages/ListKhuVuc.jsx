@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 
 const List = () => {
     const { data: luuTru } = useDocsQuery('luuTru');
-    const mienNamLuuTru = luuTru.filter((item) => item.khuvuc === "Miền Nam");
-    const mienTrungLuuTru = luuTru.filter((item) => item.khuvuc === "Miền Trung");
-    const mienBacLuuTru = luuTru.filter((item) => item.khuvuc === "Miền Bắc");
+    const mienNamLuuTru = luuTru.filter((item) => item.danhmuc === "Tp Hồ Chí Minh");
+    const mienTrungLuuTru = luuTru.filter((item) => item.danhmuc === "Hà Nội");
+    const mienBacLuuTru = luuTru.filter((item) => item.danhmuc === "Tp Đà Nẵng");
     const [showAllMienNam, setShowAllMienNam] = useState(false);
     const handleToggleMienNam = () => {
         setShowAllMienNam(!showAllMienNam);

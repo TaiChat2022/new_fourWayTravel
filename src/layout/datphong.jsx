@@ -1,15 +1,8 @@
-const DatphongLayout = ({
-	data,
-	handleChange,
-	handleSubmit,
-	formData,
-	formErrors,
-	// emailData, handleChangeMail, handleSubmitMail
-}) => {
+const DatphongLayout = ({ data, handleChange, handleSubmit, formData, formErrors }) => {
 	return (
 		<>
 			<div className="container w-3/4 m-auto">
-				{Object.keys(formErrors).length > 0 && (
+				{/* {Object.keys(formErrors).length > 0 && (
 					<div
 						className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 mt-2"
 						role="alert"
@@ -21,7 +14,7 @@ const DatphongLayout = ({
 							})}
 						</ul>
 					</div>
-				)}
+				)} */}
 				<div className="flex flex-col-reverse md:flex-row  md:gap-4 md:justify-between ">
 					<div className="w-full md:w-4/6 drop-shadow">
 						<form onSubmit={handleSubmit}>
@@ -69,6 +62,9 @@ const DatphongLayout = ({
 												onChange={handleChange}
 												placeholder=""
 											/>
+											{formErrors.firstName && (
+												<p className="text-red-500 text-xs italic">{formErrors.firstName}</p>
+											)}
 										</div>
 									</div>
 									<div className="md:w-1/2 px-3">
@@ -87,6 +83,9 @@ const DatphongLayout = ({
 											onChange={handleChange}
 											placeholder=""
 										/>
+										{formErrors.lastName && (
+											<p className="text-red-500 text-xs italic">{formErrors.lastName}</p>
+										)}
 									</div>
 								</div>
 								<div className="-mx-3 flex flex-col md:flex-row mb-4">
@@ -106,6 +105,9 @@ const DatphongLayout = ({
 											onChange={handleChange}
 											placeholder=""
 										/>
+										{formErrors.email && (
+											<p className="text-red-500 text-xs italic">{formErrors.email}</p>
+										)}
 									</div>
 									<div className="w-full md:w-1/2 px-3">
 										<label
@@ -123,6 +125,9 @@ const DatphongLayout = ({
 											onChange={handleChange}
 											placeholder=""
 										/>
+										{formErrors.email && (
+											<p className="text-red-500 text-xs italic">{formErrors.email}</p>
+										)}
 									</div>
 								</div>
 								<div className="-mx-3 flex mb-2">
@@ -142,6 +147,9 @@ const DatphongLayout = ({
 											onChange={handleChange}
 											placeholder="+84"
 										/>
+										{formErrors.phone && (
+											<p className="text-red-500 text-xs italic">{formErrors.phone}</p>
+										)}
 									</div>
 									<div className="w-full md:w-1/2 px-3">
 										<label
@@ -195,7 +203,7 @@ const DatphongLayout = ({
 								<div className="rounded-sm px-3">
 									<div className="flex justify-start items-center my-2 gap-3 ">
 										<i className="fa-light fa-file-lines text-lg"></i>
-										<span className="font-semibold text-sm tracking-wide">Phòng {data.title}</span>
+										<span className="font-semibold text-sm tracking-wide">Phòng Superior Twin</span>
 									</div>
 									<div className="flex flex-wrap justify-start items-center my-2 gap-2 p-26px">
 										<span className="font-semibold text-sm">Hủy đặt phòng:</span>
@@ -341,32 +349,6 @@ const DatphongLayout = ({
 					</div>
 				</div>
 			</div>
-
-			{/* <div className="container w-3/4 mx-auto">
-				<form onSubmit={handleSubmitMail}>
-					<input
-						type="email"
-						name="recipient"
-						value={emailData.recipient}
-						onChange={handleChangeMail}
-						placeholder="Recipient's Email"
-					/>
-					<input
-						type="text"
-						name="subject"
-						value={emailData.subject}
-						onChange={handleChangeMail}
-						placeholder="Subject"
-					/>
-					<textarea
-						name="message"
-						value={emailData.message}
-						onChange={handleChangeMail}
-						placeholder="Your Message"
-					/>
-					<button type="submit">Send Email</button>
-				</form>
-			</div> */}
 		</>
 	);
 };
