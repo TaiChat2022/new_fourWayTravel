@@ -13,7 +13,7 @@ const ProductLayout = ({
                                 <>
                                     {hotLuuTru.map((item) =>
                                         <>
-                                            <Link to={`/booking/${item.danhmuc}`}>
+                                            <Link to={`/booking/chitiet/${item.id}`}>
                                                 <div className='col-span-1 relative w-60 h-60'>
                                                     <img src={item.img} alt={item.title} className=' rounded-md w-full h-full' />
                                                     <div className='content absolute bottom-0 text-white backdrop-blur-sm w-full bg-black/30 p-2'>
@@ -42,7 +42,7 @@ const ProductLayout = ({
                                 <>
                                     {khachSanVip.map((item) =>
                                         <>
-                                            <Link to={`/booking/${item.id}`}>
+                                            <Link to={`/booking/chitiet/${item.id}`}>
                                                 <div className='col-span-1 relative w-60 h-60'>
                                                     <img src={item.img} alt={item.title} className='rounded-md w-full h-full' />
                                                     <div className='content absolute bottom-0 text-white  backdrop-blur-sm w-full bg-black/30 p-2'>
