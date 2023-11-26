@@ -39,6 +39,10 @@ export default function App() {
 					element={<Booking />}
 				/>
 				<Route
+					path={routes.FILTERLUUTRU}
+					element={<Booking />}
+				/>
+				<Route
 					path={routes.CHITIET}
 					element={<ChiTiet />}
 				/>

@@ -1,8 +1,8 @@
 import 'flowbite';
 
 const BookingLayout = ({
-	// renderStars,
 	luuTru,
+	filterLuuTru,
 	getRatingText,
 	Link,
 	handleFavoriteChange,
@@ -10,23 +10,18 @@ const BookingLayout = ({
 	labelFavorite,
 	userFavorites,
 	handleAddToRecentlyViewed,
-	Modal,
-	handleClose,
-	handleOpen,
-	open,
-	selectedAmenity,
 }) => {
 	return (
 		<>
-			<div className="mt-2 w-3/4 mx-auto">
+			<div className="mt-2 w-3/4 mx-auto mt-4">
 				<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
 					Khách sạn tại Đà Lạt <span>(Tỉnh Lâm Đồng, Việt Nam)</span>
 				</h1>
 				{luuTru ? (
 					<>
-						{luuTru.map((item) => (
+						{filterLuuTru.map((item) => (
 							<>
-								<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product">
+								<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
 									<div
 										key={item.id}
 										className="grid grid-cols-1 md:grid-cols-5 gap-8"
@@ -42,16 +37,9 @@ const BookingLayout = ({
 											<div className="mt-2">
 												<div className="flex items-center justify-between">
 													<Link
-														to={`/booking/${item.id}`}
+														to={`/booking/chitiet/${item.id}`}
 														className="font-semibold text-lg"
-														onClick={() =>
-															handleAddToRecentlyViewed(
-																item.id,
-																item.danhmuc,
-																item.title,
-																item.img,
-															)
-														}
+														onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img, item.price, item.lastViewed)}
 													>
 														{item.title}
 													</Link>
@@ -130,7 +118,7 @@ const BookingLayout = ({
 											</div>
 											{/* <span className="text-sm font-semibold">Tiện ích:</span> */}
 											<div className="flex flex-wrap gap-2 mb-2">
-												{item.tienich.map((value, index) => (
+												{item.tienich.slice(0, 4).map((value, index) => (
 													<div
 														key={index}
 														className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
@@ -141,7 +129,7 @@ const BookingLayout = ({
 													</div>
 												))}
 											</div>
-											<button onClick={handleOpen}>Tiện ích</button>
+											{/* <button onClick={handleOpen}>Tiện ích</button> */}
 										</div>
 										<div className="block m-2 col-span-1 md:col-span-2 relative">
 											<div className="w-full rounded-lg  border-none bg-stone-300">
@@ -162,14 +150,15 @@ const BookingLayout = ({
 												</div>
 												<div className="flex flex-wrap justify-between ml-3 mr-2 mb-2 pb-2 ">
 													<span className="flex text-lg md:text-md mt-1 font-semibold ">
-													</span>	
+														{item.price.toLocaleString('vi')}đ
+													</span>
 												</div>
 											</div>
-											<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-orange-600 hover:bg-orange-700">
+											<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">
 												<Link
-													to={`/booking/${item.id}`}
+													to={`/booking/chitiet/${item.id}`}
 													className="w-full flex items-center justify-center h-11 rounded-md"
-													onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img,item.price,item.lastViewed)}
+													onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img, item.price, item.lastViewed)}
 												>
 													<p className="text-white font-light text-base">Xem chi tiết</p>
 												</Link>
@@ -186,44 +175,6 @@ const BookingLayout = ({
 					</>
 				)}
 			</div>
-			<Modal
-				open={open}
-				onClose={handleClose}
-				className="bg-white backdrop-1 opacity-90"
-			>
-				<div className="bg-white w-1/3 m-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  border-none rounded-md p-6 opacity-100">
-					<h1 className="text-2xl font-bold">
-						{selectedAmenity ? `Tất cả các tiện ích:` : 'Chọn một tiện ích'}
-					</h1>
-					<div className="mt-2">
-						<div className="flex flex-wrap gap-2 mb-2">
-							{luuTru.map((item) => (
-								<div key={item.id}>
-									{item.tienich.map((value, index) => (
-										<div
-											key={index}
-											className={`w-auto h-8 border-none rounded-lg mt-1 cursor-pointer ${
-												selectedAmenity === value ? 'bg-yellow-500' : ''
-											}`}
-											onClick={() => handleOpen(value)}
-										>
-											<div className="flex justify-start items-center  pt-1 text-mm gap-1">
-												<div
-													className={`p-1 ${
-														selectedAmenity === value ? 'text-white' : 'text-black'
-													}`}
-												>
-													{value}
-												</div>
-											</div>
-										</div>
-									))}
-								</div>
-							))}
-						</div>
-					</div>
-				</div>
-			</Modal>
 		</>
 	);
 };

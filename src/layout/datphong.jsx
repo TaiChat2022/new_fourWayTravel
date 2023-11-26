@@ -1,6 +1,5 @@
 const DatphongLayout = ({
 	data, handleChange, handleSubmit, formData, formErrors,
-	emailData, handleChangeMail, handleSubmitMail
 }) => {
 	return (
 		<>
@@ -18,7 +17,7 @@ const DatphongLayout = ({
 						</ul>
 					</div>
 				)}
-				<div className="flex flex-col-reverse md:flex-row  md:gap-4 md:justify-between ">
+				<div className="flex flex-col-reverse md:flex-row  md:gap-4 md:justify-between">
 					<div className="w-full md:w-4/6 drop-shadow">
 						<form onSubmit={handleSubmit}>
 							<div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
@@ -26,7 +25,7 @@ const DatphongLayout = ({
 									<div className="flex w-full">
 										<div className="w-3/6 lg:w-2/6 px-3">
 											<label
-												className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+												className="block tracking-wide text-grey-darker text-base  mb-2"
 												htmlFor="grid-state"
 											>
 												Tiêu đề
@@ -39,7 +38,7 @@ const DatphongLayout = ({
 													value={formData.title} // Control the input with formData state
 													onChange={handleChange} // Set the event handler
 												>
-													<option value="Ông">Ông</option>
+													<option value="Ông" selected>Ông</option>
 													<option value="Bà">Bà</option>
 													<option value="Anh">Anh</option>
 													<option value="Chị">Chị</option>
@@ -51,10 +50,10 @@ const DatphongLayout = ({
 										</div>
 										<div className="w-3/6 lg:w-4/6 px-3 mb-2 md:mb-0">
 											<label
-												className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+												className="block tracking-wide text-grey-darker text-base mb-2"
 												htmlFor="grid-first-name"
 											>
-												Tên *
+												Tên <span className="text-red-500">*</span>
 											</label>
 											<input
 												className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
@@ -69,10 +68,10 @@ const DatphongLayout = ({
 									</div>
 									<div className="md:w-1/2 px-3">
 										<label
-											className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+											className="block tracking-wide text-grey-darker text-base mb-2"
 											htmlFor="grid-last-name"
 										>
-											Họ *
+											Họ <span className="text-red-500">*</span>
 										</label>
 										<input
 											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
@@ -88,10 +87,10 @@ const DatphongLayout = ({
 								<div className="-mx-3 flex flex-col md:flex-row mb-4">
 									<div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
 										<label
-											className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+											className="block tracking-wide text-grey-darker text-base mb-2"
 											htmlFor="grid-email"
 										>
-											Email *
+											Email <span className="text-red-500">*</span>
 										</label>
 										<input
 											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
@@ -105,10 +104,10 @@ const DatphongLayout = ({
 									</div>
 									<div className="w-full md:w-1/2 px-3">
 										<label
-											className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+											className="block tracking-wide text-grey-darker text-base mb-2"
 											htmlFor="grid-email"
 										>
-											Nhập lại email *
+											Nhập lại email <span className="text-red-500">*</span>
 										</label>
 										<input
 											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
@@ -124,10 +123,10 @@ const DatphongLayout = ({
 								<div className="-mx-3 flex mb-2">
 									<div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
 										<label
-											className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+											className="block tracking-wide text-grey-darker text-base mb-2"
 											htmlFor="grid-phone"
 										>
-											Số điện thoại *
+											Số điện thoại <span className="text-red-500">*</span>
 										</label>
 										<input
 											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
@@ -136,15 +135,15 @@ const DatphongLayout = ({
 											name="phone"
 											value={formData.phone}
 											onChange={handleChange}
-											placeholder="+84"
+											placeholder="+84 |"
 										/>
 									</div>
 									<div className="w-full md:w-1/2 px-3">
 										<label
-											className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+											className="block tracking-wide text-grey-darker text-base mb-2"
 											htmlFor="grid-state"
 										>
-											Khu vực *
+											Khu vực
 										</label>
 
 										<div className="relative">
@@ -168,7 +167,7 @@ const DatphongLayout = ({
 								<div className="-mx-3 flex mb-2">
 									<div className="w-full px-3 mb-6 md:mb-0">
 										<label
-											className="block tracking-wide text-grey-darker text-base font-bold mb-2"
+											className="block tracking-wide text-grey-darker text-base mb-2"
 											htmlFor="grid-phone"
 										>
 											Yêu cầu thêm
@@ -176,7 +175,6 @@ const DatphongLayout = ({
 										<textarea
 											name="additionalRequest" // Add 'name' attribute to link with formData
 											className="w-full border p-3 outline-none rounded-sm text-sm"
-											id=""
 											cols="30"
 											rows="10"
 											placeholder="Ví dụ: Sở thích về Giường, địa điểm đón hoặc trả khách"
@@ -337,32 +335,6 @@ const DatphongLayout = ({
 					</div>
 				</div>
 			</div>
-
-			{/* <div className="container w-3/4 mx-auto">
-				<form onSubmit={handleSubmitMail}>
-					<input
-						type="email"
-						name="recipient"
-						value={emailData.recipient}
-						onChange={handleChangeMail}
-						placeholder="Recipient's Email"
-					/>
-					<input
-						type="text"
-						name="subject"
-						value={emailData.subject}
-						onChange={handleChangeMail}
-						placeholder="Subject"
-					/>
-					<textarea
-						name="message"
-						value={emailData.message}
-						onChange={handleChangeMail}
-						placeholder="Your Message"
-					/>
-					<button type="submit">Send Email</button>
-				</form>
-			</div> */}
 		</>
 	);
 };

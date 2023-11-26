@@ -25,11 +25,12 @@ function TabPanel(props) {
   );
 }
 
-export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, luuTruCountByDanhMuc }) {
+export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = async (event, newValue) => {
     setValue(newValue);
+
   };
 
 
@@ -68,18 +69,18 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, luuTruCo
           <>
             <TabPanel value={value} index={0} className="p-0">
               <div className="grid grid-cols-4 gap-4 w-full h-300">
-                {tinhthanh1.map((item) => (
-                  <Link to="/booking" key={item.id}>
-                    <div className="box-img">
-                      <div className="box-content">
-                        <h3 className="name-travel">{item.text}</h3>
-                        <h3 className="total-room">
-                          <span className="total-number">{luuTruCountByDanhMuc[item.text] || 0}</span> Khách sạn
-                        </h3>
+                {tinhthanh1.slice(0, 4).map((item) => (
+                  <Link to={`/booking/${item.text}`} key={item.id}>
+                    <div className="box-img relative ">
+                      <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
+                        <h4 className="name-travel">{item.text}</h4>
+                        <h4 className="total-room">
+                          <span className="total-number">29</span> Khách sạn
+                        </h4>
                       </div>
                       <img
                         src={item.img}
-                        alt=""
+                        alt={item.title}
                         className="image"
                       />
                     </div>
@@ -101,8 +102,8 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, luuTruCo
               <div className="grid grid-cols-4 gap-4 w-full h-300">
                 {tinhthanh3.slice(0, 4).map((item) => (
                   <Link to="/booking" key={item.id}>
-                    <div className="box-img">
-                      <div className="box-content">
+                    <div className="box-img relative">
+                      <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h3 className="name-travel">{item.text}</h3>
                         <h3 className="total-room">
                           <span className="total-number">1.615</span> Khách sạn
@@ -131,8 +132,8 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, luuTruCo
               <div className="grid grid-cols-4 gap-4 w-full h-300">
                 {tinhthanh2.slice(0, 4).map((item) => (
                   <Link to="/booking" key={item.id}>
-                    <div className="box-img">
-                      <div className="box-content">
+                    <div className="box-img relative">
+                      <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h3 className="name-travel">{item.text}</h3>
                         <h3 className="total-room">
                           <span className="total-number">1.615</span> Khách sạn

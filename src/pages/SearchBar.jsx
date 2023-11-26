@@ -6,10 +6,10 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const SearchBar = () => {
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const { data: diadanh } = useDocsQuery('danhmuc');
 	const [startDate, setStartDate] = React.useState('');
@@ -39,16 +39,14 @@ const SearchBar = () => {
 		}
 	};
 
-	const handleSearch = () => {
-		if (!address) {
-			alert('Vui lòng chọn địa chỉ trước khi tìm kiếm.');
-			return;
-		}
-
-		navigate(`/booking?address=${address}&startDate=${startDate}&endDate=${endDate}`);
-
-		// Thực hiện xử lý tìm kiếm với startDate và endDate ở đây
-	};
+	// const handleSearch = () => {
+	// 	if (!address) {
+	// 		alert('Vui lòng chọn địa chỉ trước khi tìm kiếm.');
+	// 		return;
+	// 	}
+	// 	navigate(`/booking?${address}&startDate=${startDate}&endDate=${endDate}`);
+	// 	navigate(`/booking/${address}`);
+	// };
 
 	const location = useLocation();
 	const isBookingPage = location.pathname === '/booking';
@@ -73,7 +71,7 @@ const SearchBar = () => {
 				handleStartDateChange={handleStartDateChange}
 				handleEndDateChange={handleEndDateChange}
 				startDateSelected={startDateSelected}
-				handleSearch={handleSearch}
+				// handleSearch={handleSearch}
 				onAddressChange={(e) => setAddress(e?.target?.value)}
 				useLocation={useLocation}
 
@@ -83,6 +81,8 @@ const SearchBar = () => {
 				SearchAddress={SearchAddress}
 				filterAddress={filterAddress}
 				setFilterAddress={setFilterAddress}
+
+				address={address}
 			/>
 		</>
 	);
