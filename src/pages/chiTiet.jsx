@@ -1,10 +1,9 @@
 import { useDocQuery, useDocsQuery } from '@/hooks/useFirestore';
 import ChiTietLayout from '@/layout/chiTiet';
 import Footer from '@/pages/Footer';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import SearchBar from './SearchBar';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const chiTiet = () => {
@@ -14,7 +13,6 @@ const chiTiet = () => {
 
 	const { data: luuTru } = useDocsQuery('luuTru');
 
-	//không lặp trùng id chi tiết
 	const shuffleArrayWithoutDuplicates = (array, currentItems) => {
 		const remainingItems = array.filter((item) => !currentItems.includes(item.id));
 		const shuffledArray = [...remainingItems];
@@ -115,10 +113,12 @@ const chiTiet = () => {
 				Link={Link}
 				luuTru={luuTru}
 				checkIcon={checkIcon}
+				//lặp trung id
 				navigate={navigate}
 				shuffleArrayWithoutDuplicates={shuffleArrayWithoutDuplicates}
 				currentItemIds={currentItemIds}
 				setCurrentItemIds={setCurrentItemIds}
+				//lặp trung id
 			/>
 			<Footer />
 		</>

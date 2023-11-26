@@ -1,16 +1,16 @@
 export default function SearchBarLayout({
-	handleSearch, Box, Link,
+	Box, Link,
 	FormControl, NativeSelect, diadanh,
 	startDate, endDate, handleStartDateChange, handleEndDateChange,
 	startDateSelected,
 	onAddressChange,
-	Filter, location, isBookingPage, SearchAddress, filterAddress, setFilterAddress,
+	Filter, isBookingPage, filterAddress, setFilterAddress,
 	address
 }) {
 
 	return (
 		<>
-			<div className="w-3/4 mx-auto mt-20 border-none rounded-lg shadow-2xl mb-7 z-50 fixed top-0 left-0 right-0">
+			<div className="w-3/4 mx-auto mt-2 border-none rounded-lg shadow-2xl mb-2 z-50 sticky top-0 left-0 right-0">
 				<div
 					className="flex flex-wrap w-full overflow-hidden bg-white rounded-lg 2xl:flex-nowrap "
 					data-testid="search-form"
@@ -72,6 +72,7 @@ export default function SearchBarLayout({
 											>
 												{diadanh ? (
 													<>
+														<option value="" selected >Chọn khu vực</option>
 														{diadanh.map((khuvuc) => (
 															<option
 																key={khuvuc.id}

@@ -13,7 +13,7 @@ const BookingLayout = ({
 }) => {
 	return (
 		<>
-			<div className="mt-2 w-3/4 mx-auto mt-20">
+			<div className="mt-2 w-3/4 mx-auto mt-4">
 				<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
 					Khách sạn tại Đà Lạt <span>(Tỉnh Lâm Đồng, Việt Nam)</span>
 				</h1>
@@ -37,9 +37,9 @@ const BookingLayout = ({
 											<div className="mt-2">
 												<div className="flex items-center justify-between">
 													<Link
-														to={`/booking/${item.id}`}
+														to={`/booking/chitiet/${item.id}`}
 														className="font-semibold text-lg"
-														onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img)}
+														onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img, item.price, item.lastViewed)}
 													>
 														{item.title}
 													</Link>
@@ -158,6 +158,7 @@ const BookingLayout = ({
 												<Link
 													to={`/booking/chitiet/${item.id}`}
 													className="w-full flex items-center justify-center h-11 rounded-md"
+													onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img, item.price, item.lastViewed)}
 												>
 													<p className="text-white font-light text-base">Xem chi tiết</p>
 												</Link>

@@ -6,10 +6,10 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const SearchBar = () => {
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const { data: diadanh } = useDocsQuery('danhmuc');
 	const [startDate, setStartDate] = React.useState('');

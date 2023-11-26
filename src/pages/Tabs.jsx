@@ -1,10 +1,9 @@
 import { useDocsQuery } from '@/hooks/useFirestore';
 import BasicTabs from '@/layout/Tabs';
-import React, { useState, useEffect } from 'react';
 
 const Tabs = () => {
-    // const [luutruCountByDanhMuc, setLuutruCountByDanhMuc] = useState({});
-    const { data: tinhthanh1 } = useDocsQuery('danhmuc');
+  // const [luutruCountByDanhMuc, setLuutruCountByDanhMuc] = useState({});
+  const { data: tinhthanh1 } = useDocsQuery('danhmuc');
   const { data: tinhthanh2 } = useDocsQuery('danhmuc');
   const { data: tinhthanh3 } = useDocsQuery('danhmuc');
 

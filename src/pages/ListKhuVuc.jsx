@@ -9,11 +9,12 @@ const List = () => {
     const mienNamLuuTru = luuTru.filter((item) => item.danhmuc === "Tp Hồ Chí Minh");
     const mienTrungLuuTru = luuTru.filter((item) => item.danhmuc === "Hà Nội");
     const mienBacLuuTru = luuTru.filter((item) => item.danhmuc === "Tp Đà Nẵng");
-    const [showAllMienNam, setShowAllMienNam] = useState(false);
-    const handleToggleMienNam = () => {
-        setShowAllMienNam(!showAllMienNam);
-    };
+    const [isExpanded, setIsExpanded] = useState(false);
 
+    const displayedMienNam = isExpanded ? mienNamLuuTru : mienNamLuuTru.slice(0, 3);
+    const handleToggleMienNam = () => {
+        setIsExpanded(!isExpanded);
+    };
     return (
         <>
             <ListKhuVucLayout
@@ -23,8 +24,8 @@ const List = () => {
                 Link={Link}
                 luuTru={luuTru}
                 handleToggleMienNam={handleToggleMienNam}
-            // showAllTitle={showAllTitle}
-            // setShowTitle={setShowTitle}
+                displayedMienNam={displayedMienNam}
+                isExpanded={isExpanded}
             />
         </>
     );

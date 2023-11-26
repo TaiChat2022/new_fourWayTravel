@@ -5,14 +5,13 @@ const ChiTietLayout = ({
 	luuTru,
 	checkIcon,
 	navigate,
-
 	setCurrentItemIds,
 	currentItemIds,
 	shuffleArrayWithoutDuplicates,
 }) => {
 	return (
 		<>
-			<div className="container-details w-full h-auto mt-24">
+			<div className="container-details w-full h-auto">
 				<div className="w-3/4 mx-auto mt-2">
 					<div className="flex flex-wrap md:flex-nowrap justify-between">
 						<div
@@ -343,7 +342,7 @@ const ChiTietLayout = ({
 				<div className="bg-blue-100 w-3/4 mx-auto mt-2 rounded-md px-3 py-6">
 					<div className="mb-4">
 						<h1 className="text-black text-xl -tracking-normal font-semibold">
-							Những phòng còn trống tại Vinpearl Wonderworld Phu Quoc
+							Những phòng còn trống tại Four Way Travel
 						</h1>
 					</div>
 					<div className="flex justify-start gap-3 items-center bg-blue-950 p-3 rounded-md">
@@ -356,46 +355,13 @@ const ChiTietLayout = ({
 							Phải đặt phòng trong thời điểm không chắc chắn này? Hãy chọn phòng có thể hủy miễn phí!
 						</span>
 					</div>
-					<div className="bg-white mt-3 p-6 rounded-md">
-						<div className="">
-							<h1 className="font-sm font-semibold tracking-wider mb-3">
-								Tìm kiếm nhanh hơn bằng cách chọn những tiện nghi bạn cần
-							</h1>
-							<div className="xl:flex xl:gap-32">
-								{data.tienich.slice(0, 4).map((amenity, index) => (
-									<>
-										<div
-											className="xl:flex xl:items-center xl:gap-2 flex items-center mb-2"
-											key={index}
-										>
-											<input
-												id="inline-checkbox"
-												type="checkbox"
-												defaultValue=""
-												className="w-5 h-5 text-primary-xanh bg-gray-100 border-gray-300 rounded"
-											/>
-											<label
-												htmlFor="inline-checkbox"
-												className="ml-2 text-sm font-medium text-gray-900"
-											>
-												{amenity}
-											</label>
-										</div>
-									</>
-								))}
-							</div>
-						</div>
-					</div>
 					{luuTru ? (
 						<>
 							{shuffleArrayWithoutDuplicates(luuTru, currentItemIds)
 								.slice(0, 3)
 								.map((item) => (
 									<>
-										<div
-											key={item.id}
-											className="bg-white mt-3 px-6 py-3 rounded-md"
-										>
+										<div className="bg-white mt-3 px-6 py-3 rounded-md">
 											<div className="mb-3">
 												<h1 className="text-xl font-extrabold">{item.title}</h1>
 											</div>
@@ -439,24 +405,6 @@ const ChiTietLayout = ({
 												</div>
 
 												<div className="md:w-4/6 xl:h-80 shadow-2xl rounded-lg mt-4">
-													{/* <div className="xl:px-6 px-6 pt-5 hidden">
-													<h1 className="font-semibold text-red-800">Deluxe Twin</h1>
-													<div className="flex justify-between mt-3">
-														<div className="flex gap-3 justify-start items-center mb-3 font-semibold text-sm tracking-wider">
-															<i className="fa-light fa-bed"></i>
-															<span>2 Giường Đơn</span>
-														</div>
-														<div className="flex gap-3 justify-start items-center mb-3 font-semibold text-sm tracking-wider">
-															<i className="fa-duotone fa-user-group"></i>
-															<span>2 khách</span>
-														</div>
-														<p className="font-semibold text-sm tracking-wider">
-															Chỉ còn 1 phòng
-														</p>
-													</div>
-												</div>
-												<div className="w-11/12 h-0.5 bg-gray-100 m-auto mb-4 hidden"></div> */}
-
 													<div className="px-6 xl:flex xl:justify-between">
 														<div className="flex flex-col">
 															{item.tienich.slice(0, 3).map((tienIch) => (
@@ -472,29 +420,7 @@ const ChiTietLayout = ({
 																</div>
 															))}
 														</div>
-														{/* <div className="flex flex-col">
-														<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm text-primary-vang tracking-wider">
-															<i
-																className="fa-solid fa-utensils"
-																style={{ color: '#FCBA5D' }}
-															></i>
-															<span>Miễn phí bữa sáng</span>
-														</div>
-														<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm text-primary-vang tracking-wider">
-															<i
-																className="fa-solid fa-wifi"
-																style={{ color: '#FCBA5D' }}
-															></i>
-															<span>WiFi miễn phí</span>
-														</div>
-														<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm text-primary-vang tracking-wider">
-															<i
-																className="fa-solid fa-smoking"
-																style={{ color: '#FCBA5D' }}
-															></i>
-															<span>Không hút thuốc</span>
-														</div>
-													</div> */}
+
 														<div className="">
 															<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm text-gray-500 tracking-wider">
 																<i
