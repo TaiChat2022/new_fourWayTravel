@@ -1,15 +1,29 @@
 import { useDocQuery, useDocsQuery } from '@/hooks/useFirestore';
 import ChiTietLayout from '@/layout/chiTiet';
 import Footer from '@/pages/Footer';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import SearchBar from './SearchBar';
+import { useState } from 'react';
 
 const chiTiet = () => {
 	const { id } = useParams();
 	const { data } = useDocQuery('luuTru', id);
+	const navigate = useNavigate();
 
 	const { data: luuTru } = useDocsQuery('luuTru');
+
+	const shuffleArrayWithoutDuplicates = (array, currentItems) => {
+		const remainingItems = array.filter((item) => !currentItems.includes(item.id));
+		const shuffledArray = [...remainingItems];
+		for (let i = shuffledArray.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+		}
+		return shuffledArray;
+	};
+	const [currentItemIds, setCurrentItemIds] = useState([]);
+	//không lặp trùng id chi tiết
 
 	const getRatingText = (star) => {
 		if (star > 4) return 'Xuất sắc';
@@ -99,6 +113,12 @@ const chiTiet = () => {
 				Link={Link}
 				luuTru={luuTru}
 				checkIcon={checkIcon}
+				//lặp trung id
+				navigate={navigate}
+				shuffleArrayWithoutDuplicates={shuffleArrayWithoutDuplicates}
+				currentItemIds={currentItemIds}
+				setCurrentItemIds={setCurrentItemIds}
+				//lặp trung id
 			/>
 			<Footer />
 		</>

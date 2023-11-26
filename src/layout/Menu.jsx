@@ -14,7 +14,7 @@ export default function MenuLayOut({
 		<>
 			<div className="mx-auto border-2 w-full relative">
 				<div className="fresnel-container fresnel-lessThan-2xl w-3/4 mx-auto">
-					<header className="flex justify-evenly items-center h-14 -mx-3">
+					<header className="flex justify-evenly items-center h-14 ">
 						<Link to="/">
 							<img
 								src={Logo}

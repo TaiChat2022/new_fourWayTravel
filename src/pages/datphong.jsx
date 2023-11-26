@@ -3,7 +3,7 @@ import DatphongLayout from '@/layout/datphong';
 import Footer from '@/pages/Footer';
 import { auth, firestore } from '@/utils/firebase.config';
 import axios from 'axios';
-import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Header from './Header';
@@ -60,6 +60,37 @@ const Datphong = () => {
 		return Object.keys(errors).length === 0;
 	};
 
+	// cập nhật 2 hàm này để sài được thống kê 
+	const handleBookingSuccess = async (luuTruId) => {
+		try {
+			// Get the luuTru document
+			const luuTruDocRef = doc(db, 'luuTru', luuTruId);
+			const luuTruDoc = await getDoc(luuTruDocRef);
+
+			if (luuTruDoc.exists()) {
+				// If the luuTru document exists, get the 'price' field
+				const price = luuTruDoc.data().price || 0;
+
+				// Update the 'bookingCount' and 'totalRevenue' fields
+				const currentCount = luuTruDoc.data().bookingCount || 0;
+				const currentRevenue = luuTruDoc.data().totalRevenue || 0;
+
+				// Calculate the new total revenue based on the retrieved price
+				const newRevenue = currentRevenue + parseFloat(price);
+
+				await updateDoc(luuTruDocRef, {
+					bookingCount: currentCount + 1,
+					totalRevenue: newRevenue
+				});
+
+				console.log('Booking count and total revenue incremented successfully.');
+			} else {
+				console.error('LuuTru document does not exist.');
+			}
+		} catch (error) {
+			console.error('Error updating booking count and total revenue:', error);
+		}
+	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -93,6 +124,9 @@ const Datphong = () => {
 
 			// Update the document with the new datphong array
 			await setDoc(userDocRef, { datphong: newDatphongArray }, { merge: true });
+			//cập nhật cái này để sài được thống kê
+			handleBookingSuccess(id);
+
 
 			alert('Thông tin đặt phòng đã được lưu thành công!');
 			// Clear the form

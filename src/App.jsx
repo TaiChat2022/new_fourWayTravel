@@ -58,6 +58,10 @@ export default function App() {
 					path={routes.DATPHONG}
 					element={<Datphong />}
 				/>
+				<Route
+					path="/chitiet/:id"
+					element={<ChiTiet />}
+				/>
 			</Routes>
 		</Suspense>
 	);
