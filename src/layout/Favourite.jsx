@@ -8,7 +8,7 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChang
 							<main className="flex justify-start w-3/4 mx-auto pt-9 max-w-screen-2xl">
 								<span className="self-start mr-10">
 									<Link
-										to="/booking"
+										to="/"
 										className="flex items-center text-blue-500 text-md hover:text-blue-700"
 									>
 										<i className="fa-solid fa-chevron-left"></i>
@@ -101,7 +101,7 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChang
 																												onChange={() =>
 																													handleFavoriteChange(
 																														(item.id,
-																														item),
+																															item),
 																													)
 																												}
 																												icon={
@@ -119,7 +119,7 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChang
 																												onChange={() =>
 																													handleFavoriteChange(
 																														(item.id,
-																														item),
+																															item),
 																													)
 																												}
 																												icon={

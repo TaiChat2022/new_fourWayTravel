@@ -208,21 +208,23 @@ export default function MenuLayOut({
 										}}
 									>
 										<div className="flex flex-col justify-start">
-											<button
-												onClick={handleClose}
+											<Link
+												// onClick={handleClose}
+												to='/xemganday'
 												className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
 											>
 												Xem gần đây
-											</button>
+											</Link>
 											{user ?
 												(
 													<>
-														<button
-															onClick={handleClose}
+														<Link
+															// onClick={handleClose}
+															to='/lichsudatphong'
 															className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
 														>
 															Lịch sử đặt hàng
-														</button>
+														</Link>
 													</>
 												) : (
 													<></>

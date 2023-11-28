@@ -3,6 +3,7 @@ import XemGanDayLayout from '@/layout/xemGanDay';
 import { auth, firestore } from '@/utils/firebase.config';
 import { collection, doc, getDocs } from 'firebase/firestore';
 import React from 'react';
+import { Link } from "react-router-dom";
 
 const XemGanDay = () => {
   const [currentUser, setCurrentUser] = React.useState(null);
@@ -88,6 +89,7 @@ const XemGanDay = () => {
         currentUser={currentUser}
         luuTru={luuTru}
         userXemGanDay={userXemGanDay}
+        Link={Link}
       />
     </>
   );

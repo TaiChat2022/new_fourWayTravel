@@ -11,6 +11,9 @@ const ChiTiet = lazy(() => import('@/pages/chiTiet'))
 const ListLuutru = lazy(() => import('@/pages/ListLuutru'))
 const Favourite = lazy(() => import('@/pages/Favourite'))
 const Datphong = lazy(() => import('@/pages/Datphong'));
+const UserXemGanDay = lazy(() => import('@/pages/userXemGanDay'));
+const LichSuDP = lazy(() => import('@/pages/lichSuDP'));
+
 
 const Login = lazy(() => import('@/auth/Login'));
 
@@ -61,6 +64,14 @@ export default function App() {
 				<Route
 					path="/chitiet/:id"
 					element={<ChiTiet />}
+				/>
+				<Route
+					path={routes.USERXEMGANDAY}
+					element={<UserXemGanDay />}
+				/>
+				<Route
+					path={routes.LICHSUDP}
+					element={<LichSuDP />}
 				/>
 			</Routes>
 		</Suspense>

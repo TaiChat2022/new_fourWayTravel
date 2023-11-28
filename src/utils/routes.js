@@ -7,6 +7,8 @@ export const routes = {
 	FILTERLUUTRU: '/booking/:address',
 	CHITIET: '/booking/chitiet/:id',
 	DATPHONG: '/datphong/:id',
+	USERXEMGANDAY: '/xemganday',
+	LICHSUDP: '/lichsudatphong',
 	LOGIN: '/auth/login',
 	REGISTER: '/auth/register',
 };

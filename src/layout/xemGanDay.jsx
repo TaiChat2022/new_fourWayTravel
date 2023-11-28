@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
-
-const XemGanDayLayout = ({ currentUser, userXemGanDay }) => {
+const XemGanDayLayout = ({ currentUser, userXemGanDay, Link }) => {
   return (
     <>
       <div className="w-3/4 mx-auto">
@@ -19,7 +17,7 @@ const XemGanDayLayout = ({ currentUser, userXemGanDay }) => {
                     : "";
 
                 return (
-                  <Link to={`/booking/${item.danhMuc}`}>
+                  <Link to={`/booking/chitiet/${item.id}`}>
                     <div
                       key={item.id}
                       className="border border-gray-300 p-0 rounded-md relative grid grid-col-4"
