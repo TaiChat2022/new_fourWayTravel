@@ -8,6 +8,9 @@ const ChiTietLayout = ({
 	setCurrentItemIds,
 	currentItemIds,
 	shuffleArrayWithoutDuplicates,
+
+	Box, Button, Modal,
+	styleModal, openModal, handleOpenModal, handleCloseModal
 }) => {
 	return (
 		<>
@@ -83,14 +86,28 @@ const ChiTietLayout = ({
 								<div className="flex justify-between items-center mb-4">
 									<h2 className="font-semibold text-base">Giới thiệu cơ sở lưu trú</h2>
 									<div className="">
-										<a
-											href=""
-											className=""
+										<Button
+											onClick={handleOpenModal}
+											className="text-primary-xanh font-medium text-base"
 										>
-											<span className="text-primary-xanh font-medium text-base">
-												Xem thêm <i className="fa-regular fa-chevron-right text-mm"></i>
-											</span>
-										</a>
+											Xem thêm <i className="fa-regular fa-chevron-right text-mm"></i>
+										</Button>
+
+										<Modal
+											open={openModal}
+											onClose={handleCloseModal}
+											aria-labelledby="modal-modal-title"
+											aria-describedby="modal-modal-description"
+										>
+											<Box sx={styleModal}>
+												<div id="modal-modal-title" variant="h6" component="h2">
+													Text in a modal
+												</div>
+												<div id="modal-modal-description" sx={{ mt: 2 }}>
+													Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+												</div>
+											</Box>
+										</Modal>
 									</div>
 								</div>
 								<div className="">

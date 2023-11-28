@@ -8,40 +8,54 @@ import { Link } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
 const LichSuDP = () => {
-    const { data: luuTru } = useDocsQuery('luuTru');
-    const [currentUser, setCurrentUser] = React.useState(null);
+	const { data: luuTru } = useDocsQuery('luuTru');
+	const [currentUser, setCurrentUser] = React.useState(null);
 
-    React.useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user);
-            if (user) {
-                fetchUserDatPhong(user.uid);
-            }
-        });
+	React.useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged((user) => {
+			setCurrentUser(user);
+			if (user) {
+				fetchUserDatPhong(user.uid);
+			}
+		});
 
-        return () => unsubscribe();
-    }, []);
-    const [userDatPhong, setUserDatPhong] = React.useState([]);
+		return () => unsubscribe();
+	}, []);
+	const [userDatPhong, setUserDatPhong] = React.useState([]);
 
-    const fetchUserDatPhong = async (userId) => {
-        const userRef = doc(firestore, 'users', userId);
-        const userDoc = await getDoc(userRef);
-        if (userDoc.exists()) {
-            setUserDatPhong(userDoc.data().datphong || []);
-        }
-    };
-    return (
-        <>
-            <Header />
-            <LichSuDPLayout
-                Link={Link}
-                currentUser={currentUser}
-                userDatPhong={userDatPhong}
-                luuTru={luuTru}
-            />
-            <Footer />
-        </>
-    );
+	const fetchUserDatPhong = async (userId) => {
+		const userRef = doc(firestore, 'users', userId);
+		const userDoc = await getDoc(userRef);
+		if (userDoc.exists()) {
+			setUserDatPhong(userDoc.data().datphong || []);
+		}
+	};
+
+	const renderStars = (soSao) => {
+		let stars = [];
+		for (let i = 0; i < soSao; i++) {
+			stars.push(
+				<i
+					key={i}
+					className="fa-solid fa-star text-white-100"
+				></i>,
+			);
+		}
+		return stars;
+	};
+	return (
+		<>
+			<Header />
+			<LichSuDPLayout
+				Link={Link}
+				currentUser={currentUser}
+				userDatPhong={userDatPhong}
+				luuTru={luuTru}
+				renderStars={renderStars}
+			/>
+			<Footer />
+		</>
+	);
 };
 
 export default LichSuDP;
