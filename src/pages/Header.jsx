@@ -1,4 +1,4 @@
-import Logo from '@/assets/img/logo1.jpg';
+import Logo from '@/assets/img/fourwaytravel.svg';
 import Login from '@/auth/Login';
 import MenuLayOut from '@/layout/Menu';
 import { auth, firestore } from '@/utils/firebase.config';

@@ -10,12 +10,13 @@ const BookingLayout = ({
 	labelFavorite,
 	userFavorites,
 	handleAddToRecentlyViewed,
+	address
 }) => {
 	return (
 		<>
 			<div className="mt-2 w-3/4 mx-auto mt-4">
 				<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
-					Khách sạn tại Đà Lạt <span>(Tỉnh Lâm Đồng, Việt Nam)</span>
+					Khách sạn tại {address}
 				</h1>
 				{luuTru ? (
 					<>

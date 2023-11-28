@@ -14,7 +14,7 @@ export default function MenuLayOut({
 		<>
 			<div className="mx-auto border-2 w-full relative">
 				<div className="fresnel-container fresnel-lessThan-2xl w-3/4 mx-auto">
-					<header className="flex justify-evenly items-center h-14 -mx-3">
+					<header className="flex justify-evenly items-center h-14 ">
 						<Link to="/">
 							<img
 								src={Logo}
@@ -208,21 +208,23 @@ export default function MenuLayOut({
 										}}
 									>
 										<div className="flex flex-col justify-start">
-											<button
-												onClick={handleClose}
+											<Link
+												// onClick={handleClose}
+												to='/xemganday'
 												className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
 											>
 												Xem gần đây
-											</button>
+											</Link>
 											{user ?
 												(
 													<>
-														<button
-															onClick={handleClose}
+														<Link
+															// onClick={handleClose}
+															to='/lichsudatphong'
 															className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
 														>
 															Lịch sử đặt hàng
-														</button>
+														</Link>
 													</>
 												) : (
 													<></>

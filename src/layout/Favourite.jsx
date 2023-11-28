@@ -1,4 +1,12 @@
-const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChange, Checkbox, labelFavorite }) => {
+const FavouriteLayout = ({
+	Link,
+	userFavorites,
+	currentUser,
+	handleFavoriteChange,
+	Checkbox,
+	labelFavorite,
+	renderStars,
+}) => {
 	return (
 		<>
 			{currentUser ? (
@@ -8,7 +16,7 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChang
 							<main className="flex justify-start w-3/4 mx-auto pt-9 max-w-screen-2xl">
 								<span className="self-start mr-10">
 									<Link
-										to="/booking"
+										to="/"
 										className="flex items-center text-blue-500 text-md hover:text-blue-700"
 									>
 										<i className="fa-solid fa-chevron-left"></i>
@@ -147,43 +155,10 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChang
 																							className="cursor-auto focus:outline-none"
 																						>
 																							<span className="flex items-center">
-																								<span
-																									itemProp="starRating"
-																									itemScope=""
-																									itemType="https://schema.org/Rating"
-																									data-testid="star-rating"
-																									className="text-s text-gray-500 flex"
-																								>
-																									<span
-																										className="inline-flex leading-none transform w-3 h-3 mr-px"
-																										data-testid="star"
-																									>
-																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
-																									</span>
-																									<span
-																										className="inline-flex leading-none transform w-3 h-3 mr-px"
-																										data-testid="star"
-																									>
-																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
-																									</span>
-																									<span
-																										className="inline-flex leading-none transform w-3 h-3 mr-px"
-																										data-testid="star"
-																									>
-																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
-																									</span>
-																									<span
-																										className="inline-flex leading-none transform w-3 h-3 mr-px"
-																										data-testid="star"
-																									>
-																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
-																									</span>
-																									<span
-																										className="inline-flex leading-none transform w-3 h-3 mr-px"
-																										data-testid="star"
-																									>
-																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
-																									</span>
+																								<span className="text-xs ml-2 text-primary-vang">
+																									{renderStars(
+																										item.star,
+																									)}
 																								</span>
 																								<span className="whitespace-nowrap text-xs ml-2">
 																									Khách sạn

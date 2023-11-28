@@ -10,6 +10,19 @@ const Favourite = () => {
 	const [currentUser, setCurrentUser] = React.useState(null);
 	const [userFavorites, setUserFavorites] = React.useState([]);
 
+	const renderStars = (soSao) => {
+		let stars = [];
+		for (let i = 0; i < soSao; i++) {
+			stars.push(
+				<i
+					key={i}
+					className="fa-solid fa-star text-white-100"
+				></i>,
+			);
+		}
+		return stars;
+	};
+
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
 			if (user) {
@@ -76,6 +89,7 @@ const Favourite = () => {
 				currentUser={currentUser}
 				handleFavoriteChange={handleFavoriteChange}
 				Checkbox={Checkbox}
+				renderStars={renderStars}
 			/>
 		</>
 	);

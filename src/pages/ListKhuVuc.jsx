@@ -9,10 +9,12 @@ const List = () => {
     const mienNamLuuTru = luuTru.filter((item) => item.danhmuc === "Tp Hồ Chí Minh");
     const mienTrungLuuTru = luuTru.filter((item) => item.danhmuc === "Hà Nội");
     const mienBacLuuTru = luuTru.filter((item) => item.danhmuc === "Tp Đà Nẵng");
-    const [isExpanded, setIsExpanded] = useState(false);
 
-    const displayedMienNam = isExpanded ? mienNamLuuTru : mienNamLuuTru.slice(0, 3);
-    const handleToggleMienNam = () => {
+    const [isExpanded, setIsExpanded] = useState(false); // button lưu ẩn bớt và hiện
+
+    const displayedMienNam = isExpanded ? mienNamLuuTru : mienNamLuuTru.slice(0, 3); // sự kiện lộc ra
+
+    const handleToggleMienNam = () => { // button để click 
         setIsExpanded(!isExpanded);
     };
     return (
