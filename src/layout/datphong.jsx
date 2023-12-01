@@ -84,6 +84,43 @@ const DatphongLayout = ({
 										/>
 									</div>
 								</div>
+								
+								<div className="-mx-3 flex justify-between mb-4">
+									<div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+										<label
+											className="block tracking-wide text-grey-darker text-base mb-2"
+											htmlFor="checkin-time"
+										>
+											Thời gian nhận phòng <span className="text-red-500">*</span>
+										</label>
+										<input
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+											id="checkin-time"
+											type="datetime-local"
+											name="checkinTime"
+											value={formData.checkinTime}
+											onChange={handleChange}
+										/>
+									</div>
+									<div className="w-full md:w-1/2 px-3">
+										<label
+											className="block tracking-wide text-grey-darker text-base mb-2"
+											htmlFor="checkout-time"
+										>
+											Thời gian trả phòng <span className="text-red-500">*</span>
+										</label>
+										<input
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+											id="checkout-time"
+											type="datetime-local"
+											name="checkoutTime"
+											value={formData.checkoutTime}
+											onChange={handleChange}
+										/>
+									</div>
+								</div>
+
+
 								<div className="-mx-3 flex flex-col md:flex-row mb-4">
 									<div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
 										<label
@@ -271,20 +308,7 @@ const DatphongLayout = ({
 									<p className="text-sm md:text-xs font-semibold mt-3 tracking-wide">Phòng Grand Ocean View</p>
 								</div>
 							</div>
-							<div className="flex justify-between mt-4">
-								<div className="flex justify-start items-center gap-3">
-									<i className="fa-light fa-calendar-day text-gray-400"></i>
-									<span className="text-gray-400 text-sm tracking-wide">Ngày nhận phòng</span>
-								</div>
-								<span className="text-sm font-medium">05/11/2023</span>
-							</div>
-							<div className="flex justify-between mt-4">
-								<div className="flex justify-start items-center gap-3">
-									<i className="fa-light fa-calendar-day text-gray-400"></i>
-									<span className="text-gray-400 text-sm tracking-wide">Ngày trả phòng</span>
-								</div>
-								<span className="text-sm font-medium">09/11/2023</span>
-							</div>
+							
 							<div className="flex justify-between mt-4">
 								<div className="flex justify-start items-center gap-2">
 									<i className="fa-regular fa-user-pen text-gray-400"> </i>
