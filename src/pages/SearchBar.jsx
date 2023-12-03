@@ -74,14 +74,12 @@ const SearchBar = () => {
 				// handleSearch={handleSearch}
 				onAddressChange={(e) => setAddress(e?.target?.value)}
 				useLocation={useLocation}
-
 				Filter={Filter}
 				location={location}
 				isBookingPage={isBookingPage}
 				SearchAddress={SearchAddress}
 				filterAddress={filterAddress}
 				setFilterAddress={setFilterAddress}
-
 				address={address}
 			/>
 		</>

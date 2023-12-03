@@ -1,12 +1,4 @@
-const FavouriteLayout = ({
-	Link,
-	userFavorites,
-	currentUser,
-	handleFavoriteChange,
-	Checkbox,
-	labelFavorite,
-	renderStars,
-}) => {
+const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChange, Checkbox, labelFavorite }) => {
 	return (
 		<>
 			{currentUser ? (
@@ -109,7 +101,7 @@ const FavouriteLayout = ({
 																												onChange={() =>
 																													handleFavoriteChange(
 																														(item.id,
-																														item),
+																															item),
 																													)
 																												}
 																												icon={
@@ -127,7 +119,7 @@ const FavouriteLayout = ({
 																												onChange={() =>
 																													handleFavoriteChange(
 																														(item.id,
-																														item),
+																															item),
 																													)
 																												}
 																												icon={
@@ -155,10 +147,43 @@ const FavouriteLayout = ({
 																							className="cursor-auto focus:outline-none"
 																						>
 																							<span className="flex items-center">
-																								<span className="text-xs ml-2 text-primary-vang">
-																									{renderStars(
-																										item.star,
-																									)}
+																								<span
+																									itemProp="starRating"
+																									itemScope=""
+																									itemType="https://schema.org/Rating"
+																									data-testid="star-rating"
+																									className="text-s text-gray-500 flex"
+																								>
+																									<span
+																										className="inline-flex leading-none transform w-3 h-3 mr-px"
+																										data-testid="star"
+																									>
+																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
+																									</span>
+																									<span
+																										className="inline-flex leading-none transform w-3 h-3 mr-px"
+																										data-testid="star"
+																									>
+																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
+																									</span>
+																									<span
+																										className="inline-flex leading-none transform w-3 h-3 mr-px"
+																										data-testid="star"
+																									>
+																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
+																									</span>
+																									<span
+																										className="inline-flex leading-none transform w-3 h-3 mr-px"
+																										data-testid="star"
+																									>
+																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
+																									</span>
+																									<span
+																										className="inline-flex leading-none transform w-3 h-3 mr-px"
+																										data-testid="star"
+																									>
+																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
+																									</span>
 																								</span>
 																								<span className="whitespace-nowrap text-xs ml-2">
 																									Khách sạn

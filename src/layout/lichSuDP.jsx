@@ -17,71 +17,72 @@ const LichSuDPLayout = ({ Link, currentUser, userDatPhong, luuTru, renderStars }
 								Trước
 							</Link>
 						</span>
-						<div className="w-full">
+
+						<div className="px-2 w-full m-auto flex flex-col gap-1 items-start">
 							{filteredLuuTru.length > 0 ? (
 								<>
-									<div className="px-2 w-3/4 m-auto flex gap-1 justify-start items-center">
-										{filteredLuuTru.map((item, index) => (
-											<div
-												key={index}
-												className="w-full"
-											>
-												<div className="rounded-sm border p-3 flex justify-start gap-5">
+									{filteredLuuTru.map((item, index) => (
+										<div
+											key={index}
+											className="w-full"
+										>
+											<div className="rounded-sm border p-3 flex flex-col md:flex-row justify-between item gap-5">
+												<div className="w-full md:w-1/5">
+													<img
+														className="w-full md:w-32 h-32 rounded-lg object-cover"
+														src={item.img}
+														alt={item.title}
+													/>
+												</div>
+												<div className="w-full md:w-3/5">
 													<div className="">
-														<img
-															className="w-32 h-32 rounded-lg"
-															src={item.img}
-															alt={item.title}
-														/>
+														<h1 className="font-semibold text-xl">{item.title}</h1>
 													</div>
-													<div className="">
-														<div className="">
-															<h1 className="font-semibold text-xl">{item.title}</h1>
-														</div>
 
-														<div className="">
-															<p className="render text-xm font-normal text-primary-xanh flex items-center">
-																Khách Sạn
-																<span className="text-sm ml-2 text-primary-vang">
-																	{renderStars(item.star)}
-																</span>
-															</p>
-														</div>
-														<div className="flex items-center justify-start mt-2 text-sm">
-															<span className="font-semibold text-sm mr-1">
-																<i className="fa-solid fa-location-dot text-primary-do"></i>
-															</span>
-															<p className="text-sm font-medium ">{item.diaChi} </p>
-														</div>
-														<div className="flex flex-wrap gap-2 mb-2">
-															{item.tienich.slice(0, 4).map((value, index) => (
-																<div
-																	key={index}
-																	className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
-																>
-																	<div className="flex justify-start items-center  pt-1 text-mm gap-1">
-																		<div className="p-1">{value} </div>
-																	</div>
-																</div>
-															))}
-														</div>
-													</div>
 													<div className="">
-														<div className="bg-primary-do w-full rounded-md">
-															<p className="font-semibold text-white tracking-wider text-center py-3 w-full px-5 text-sm">
-																{item.price.toLocaleString('vi')} VND
-															</p>
-														</div>
-														<div className="mt-5 w-full">
-															<button className="rounded-lg bg-primary-xanh py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
-																<Link to="">Đặt lại phòng</Link>
-															</button>
-														</div>
+														<p className="render text-xm font-normal text-primary-xanh flex items-center">
+															Khách Sạn
+															<span className="text-sm ml-2 text-primary-vang">
+																{renderStars(item.star)}
+															</span>
+														</p>
+													</div>
+													<div className="flex items-center justify-start mt-2 text-sm">
+														<span className="font-semibold text-sm mr-1">
+															<i className="fa-solid fa-location-dot text-primary-do"></i>
+														</span>
+														<p className="text-sm font-medium ">{item.diaChi} </p>
+													</div>
+													<div className="flex flex-wrap gap-2 mb-2">
+														{item.tienich.slice(0, 4).map((value, index) => (
+															<div
+																key={index}
+																className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
+															>
+																<div className="flex justify-start items-center  pt-1 text-mm gap-1">
+																	<div className="p-1">{value} </div>
+																</div>
+															</div>
+														))}
+													</div>
+												</div>
+												<div className="w-full md:w-1/5 flex flex-row md:flex-col justify-between">
+													<div className="bg-primary-do w-full rounded-md mt-5 mr-1 md:mr-0">
+														<p className="font-semibold text-white tracking-wider text-center py-3 w-full px-5 text-sm">
+															{item.price.toLocaleString('vi')} VND
+														</p>
+													</div>
+													<div className="mt-5 w-full">
+														<button className="rounded-lg bg-primary-xanh py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
+															<Link to={`/booking/chitiet/${item.id}`}>
+																Đặt lại phòng
+															</Link>
+														</button>
 													</div>
 												</div>
 											</div>
-										))}
-									</div>
+										</div>
+									))}
 								</>
 							) : (
 								<>Bạn chưa có đặt phòng nào !</>

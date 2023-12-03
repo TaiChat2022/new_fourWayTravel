@@ -1,13 +1,21 @@
 export default function SearchBarLayout({
-	Box, Link,
-	FormControl, NativeSelect, diadanh,
-	startDate, endDate, handleStartDateChange, handleEndDateChange,
+	Box,
+	Link,
+	FormControl,
+	NativeSelect,
+	diadanh,
+	startDate,
+	endDate,
+	handleStartDateChange,
+	handleEndDateChange,
 	startDateSelected,
 	onAddressChange,
-	Filter, isBookingPage, filterAddress, setFilterAddress,
-	address
+	Filter,
+	isBookingPage,
+	filterAddress,
+	setFilterAddress,
+	address,
 }) {
-
 	return (
 		<>
 			<div className="w-3/4 mx-auto mt-2 border-none rounded-lg shadow-2xl mb-2 z-50 sticky top-0 left-0 right-0">
@@ -72,7 +80,12 @@ export default function SearchBarLayout({
 											>
 												{diadanh ? (
 													<>
-														<option value="" selected >Chọn khu vực</option>
+														<option
+															value=""
+															selected
+														>
+															Chọn khu vực
+														</option>
 														{diadanh.map((khuvuc) => (
 															<option
 																key={khuvuc.id}

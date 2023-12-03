@@ -51,6 +51,7 @@ const Header = () => {
 	const handleClose4 = () => {
 		setAnchorE4(null);
 	};
+
 	const [user, setUser] = React.useState(null);
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -107,7 +108,6 @@ const Header = () => {
 			open4={open4}
 			handleClick4={handleClick4}
 			handleClose4={handleClose4}
-
 		/>
 	);
 };

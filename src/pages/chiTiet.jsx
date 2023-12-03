@@ -1,10 +1,25 @@
 import { useDocQuery, useDocsQuery } from '@/hooks/useFirestore';
 import ChiTietLayout from '@/layout/chiTiet';
 import Footer from '@/pages/Footer';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import React, { useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from './Header';
 import SearchBar from './SearchBar';
-import { useState } from 'react';
+
+const styleModal = {
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: 400,
+	bgcolor: 'background.paper',
+	border: '2px solid #000',
+	boxShadow: 24,
+	p: 4,
+};
 
 const chiTiet = () => {
 	const { id } = useParams();
@@ -12,6 +27,13 @@ const chiTiet = () => {
 	const navigate = useNavigate();
 
 	const { data: luuTru } = useDocsQuery('luuTru');
+
+	const styles = {
+		display: '-webkit-box',
+		WebkitLineClamp: 3,
+		WebkitBoxOrient: 'vertical',
+		overflow: 'hidden',
+	};
 
 	const shuffleArrayWithoutDuplicates = (array, currentItems) => {
 		const remainingItems = array.filter((item) => !currentItems.includes(item.id));
@@ -102,6 +124,11 @@ const chiTiet = () => {
 		return null;
 	};
 
+	// Modal xem thêm
+	const [openModal, setOpenModal] = React.useState(false);
+	const handleOpenModal = () => setOpenModal(true);
+	const handleCloseModal = () => setOpenModal(false);
+
 	return (
 		<>
 			<Header />
@@ -119,6 +146,16 @@ const chiTiet = () => {
 				currentItemIds={currentItemIds}
 				setCurrentItemIds={setCurrentItemIds}
 				//lặp trung id
+
+				//modal xem thêm
+				Box={Box}
+				Button={Button}
+				Modal={Modal}
+				styleModal={styleModal}
+				openModal={openModal}
+				handleOpenModal={handleOpenModal}
+				handleCloseModal={handleCloseModal}
+				styles={styles}
 			/>
 			<Footer />
 		</>
