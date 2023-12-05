@@ -3,13 +3,13 @@ const ListKhuVucLayout = ({
     mienNamLuuTru, mienTrungLuuTru,
     handleToggleMienNam,
     displayedMienNam, isExpanded,
-    handleToggleMienTrung,isExpandedTrung,
-    displayedMienTrung,isExpandedBac,
-    displayedMienBac,handleToggleMienBac
+    handleToggleMienTrung, isExpandedTrung,
+    displayedMienTrung, isExpandedBac,
+    displayedMienBac, handleToggleMienBac
 }) => {
     return (
         <>
-            <div className="mx-auto mb-7 w-3/4 mt-10 px-2 py-5">
+            <div className="mx-auto w-3/4 mt-5 pr-2 mb-2">
                 <div>
                     <h2
                         className="text-heading-l text-xl font-bold mb-3 px-0 l:px-4 2xl:px-0"
@@ -37,7 +37,7 @@ const ListKhuVucLayout = ({
                     }
 
                 </div>
-                <div className="mt-2">
+                <div className="mt-1">
                     {mienNamLuuTru.length >= 3 && (
                         <button
                             onClick={handleToggleMienNam}
@@ -48,7 +48,7 @@ const ListKhuVucLayout = ({
                     )}
                 </div>
             </div>
-            <div className="mx-auto mb-7 w-3/4 mt-10 px-2 py-5">
+            <div className="mx-auto w-3/4 pr-2 mb-2">
                 <div><h2
                     className="text-heading-l text-xl font-bold mb-3 px-0 l:px-4 2xl:px-0"
                     id="more-popular-searches"
@@ -71,7 +71,7 @@ const ListKhuVucLayout = ({
                     )
                     }
                 </div>
-                <div className="mt-2">
+                <div className="mt-1">
                     {mienBacLuuTru.length >= 3 && (
                         <button
                             onClick={handleToggleMienBac}
@@ -82,7 +82,7 @@ const ListKhuVucLayout = ({
                     )}
                 </div>
             </div>
-            <div className="mx-auto mb-7 w-3/4 mt-10 px-2 py-5">
+            <div className="mx-auto w-3/4 pr-2 mb-2">
 
                 <h3
                     className="text-heading-l text-xl font-bold mb-3 px-0 l:px-4 2xl:px-0"
@@ -107,7 +107,7 @@ const ListKhuVucLayout = ({
                     )
                     }
                 </div>
-                <div className="mt-2">
+                <div className="mt-1">
                     {mienTrungLuuTru.length >= 3 && (
                         <button
                             onClick={handleToggleMienTrung}

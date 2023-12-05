@@ -8,6 +8,14 @@ const ChiTietLayout = ({
 	setCurrentItemIds,
 	currentItemIds,
 	shuffleArrayWithoutDuplicates,
+
+	Box,
+	Modal,
+	styleModal,
+	openModal,
+	handleOpenModal,
+	handleCloseModal,
+	styles,
 }) => {
 	return (
 		<>
@@ -29,7 +37,7 @@ const ChiTietLayout = ({
 									<i className="fa-solid fa-location-dot"></i>
 								</span>
 								<p className="text-sm font-medium ">
-									{data.diaChi}{' '}
+									78 Thợ Nhuộm, Trần Hưng Đạo, Quận Hoàn Kiếm, Hà Nội, Việt Nam, 100000{' '}
 									<span className="">
 										<a
 											className="text-primary-xanh font-semibold"
@@ -83,18 +91,33 @@ const ChiTietLayout = ({
 								<div className="flex justify-between items-center mb-4">
 									<h2 className="font-semibold text-base">Giới thiệu cơ sở lưu trú</h2>
 									<div className="">
-										<a
-											href=""
-											className=""
+										<button
+											onClick={handleOpenModal}
+											className="text-primary-xanh font-medium text-base"
 										>
-											<span className="text-primary-xanh font-medium text-base">
-												Xem thêm <i className="fa-regular fa-chevron-right text-mm"></i>
-											</span>
-										</a>
+											Xem thêm <i className="fa-regular fa-chevron-right text-mm"></i>
+										</button>
+
+										<Modal
+											open={openModal}
+											onClose={handleCloseModal}
+										>
+											<Box sx={styleModal}>
+												<h1 className="text-3xl font-bold">{data.title}</h1>
+												<div className="w-full h-0.5 bg-gray-300 mb-6"></div>
+
+												<div id="modal-modal-description">{data.detail}</div>
+											</Box>
+										</Modal>
 									</div>
 								</div>
 								<div className="">
-									<p className="text-sm font-normal leading-relaxed">{data.detail}</p>
+									<p
+										className="text-sm font-normal leading-relaxed"
+										style={styles}
+									>
+										{data.detail}
+									</p>
 								</div>
 							</div>
 						</div>
@@ -179,11 +202,6 @@ const ChiTietLayout = ({
 							<div className="p-3">
 								<div className="flex justify-between items-center mb-4">
 									<h2 className="text-base font-semibold">Tiện ích chính</h2>
-									<a>
-										<span className="text-primary-xanh font-medium text-base">
-											Xem thêm <i className="fa-regular fa-chevron-right text-mm"></i>
-										</span>
-									</a>
 								</div>
 								<div className="grid grid-cols-3 md:grid-cols-1">
 									{data.tienich.map((tienIch) => (
@@ -206,17 +224,6 @@ const ChiTietLayout = ({
 							<div className="p-3">
 								<div className="flex justify-between items-center mb-4">
 									<h2 className="text-base font-semibold">Khách nói gì về kỳ nghỉ của họ</h2>
-									<div className="">
-										<a
-											href=""
-											className=""
-										>
-											<span className="text-primary-xanh font-medium text-base">
-												Xem tất cả đánh giá{' '}
-												<i className="fa-regular fa-chevron-right text-mm"></i>
-											</span>
-										</a>
-									</div>
 								</div>
 								<div className="">
 									<div className="flex items-center mb-5">

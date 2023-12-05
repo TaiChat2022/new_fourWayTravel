@@ -14,7 +14,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 
 const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 0;
+const ITEM_PADDING_TOP = 2;
 const MenuProps = {
 	PaperProps: {
 		style: {

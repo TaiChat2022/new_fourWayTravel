@@ -17,7 +17,7 @@ const ProductLayout = ({
                                                 <div className='col-span-1 relative w-60 h-60'>
                                                     <img src={item.img} alt={item.title} className=' rounded-md w-full h-full' />
                                                     <div className='content absolute bottom-0 text-white backdrop-blur-sm w-full bg-black/30 p-2'>
-                                                        <h2 className=''>{item.title}</h2>
+                                                        <h2>{item.title}</h2>
                                                         <div>{renderStars(item.star)}</div>
                                                         <div>{(item.price).toLocaleString('vi')} Vnd</div>
                                                     </div>
