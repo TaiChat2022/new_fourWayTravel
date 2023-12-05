@@ -8,9 +8,6 @@ const ChiTietLayout = ({
 	setCurrentItemIds,
 	currentItemIds,
 	shuffleArrayWithoutDuplicates,
-
-	Box, Button, Modal,
-	styleModal, openModal, handleOpenModal, handleCloseModal
 }) => {
 	return (
 		<>
@@ -32,7 +29,7 @@ const ChiTietLayout = ({
 									<i className="fa-solid fa-location-dot"></i>
 								</span>
 								<p className="text-sm font-medium ">
-									78 Thợ Nhuộm, Trần Hưng Đạo, Quận Hoàn Kiếm, Hà Nội, Việt Nam, 100000{' '}
+									{data.diaChi}{' '}
 									<span className="">
 										<a
 											className="text-primary-xanh font-semibold"
@@ -86,28 +83,14 @@ const ChiTietLayout = ({
 								<div className="flex justify-between items-center mb-4">
 									<h2 className="font-semibold text-base">Giới thiệu cơ sở lưu trú</h2>
 									<div className="">
-										<Button
-											onClick={handleOpenModal}
-											className="text-primary-xanh font-medium text-base"
+										<a
+											href=""
+											className=""
 										>
-											Xem thêm <i className="fa-regular fa-chevron-right text-mm"></i>
-										</Button>
-
-										<Modal
-											open={openModal}
-											onClose={handleCloseModal}
-											aria-labelledby="modal-modal-title"
-											aria-describedby="modal-modal-description"
-										>
-											<Box sx={styleModal}>
-												<div id="modal-modal-title" variant="h6" component="h2">
-													Text in a modal
-												</div>
-												<div id="modal-modal-description" sx={{ mt: 2 }}>
-													Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-												</div>
-											</Box>
-										</Modal>
+											<span className="text-primary-xanh font-medium text-base">
+												Xem thêm <i className="fa-regular fa-chevron-right text-mm"></i>
+											</span>
+										</a>
 									</div>
 								</div>
 								<div className="">

@@ -5,7 +5,7 @@ const ProductLayout = ({
     return (
         <>
             <div className="mx-auto mb-7 w-3/4 mt-10 px-0 py-0 ">
-                <h1 className='py-5 search-title pt-2'>Top khách sạn hot </h1>
+                <h1 className='py-5 search-title pt-2'><i className="fa-solid fa-fire"></i> Top khách sạn hot </h1>
                 <div className="overflow-y-hidden overflow-x-auto">
                     <div className='flex w-screen mb-4 gap-4'>
                         {luuTru ?
@@ -34,7 +34,7 @@ const ProductLayout = ({
                 </div>
             </div>
             <div className="mx-auto mb-7 w-3/4 mt-10 px-0 py-0 ">
-                <h1 className='py-5 search-title pt-2'>Top khách sạn sang trọng </h1>
+                <h1 className='py-5 search-title pt-2'><i className="fa-regular fa-crown"></i> Top khách sạn sang trọng </h1>
                 <div className="overflow-y-hidden overflow-x-auto">
                     <div className='flex w-screen mb-4 gap-4'>
                         {luuTru ?

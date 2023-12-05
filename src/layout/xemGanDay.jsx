@@ -2,7 +2,9 @@ const XemGanDayLayout = ({ currentUser, userXemGanDay, Link }) => {
   return (
     <>
       <div className="w-3/4 mx-auto">
-        <h1 className="mt-4 mb-2 text-2xl font-semibold leading-tight font-poppins">Xem gần đây</h1>
+        <h1 className="mt-4 mb-2 text-2xl font-semibold leading-tight font-poppins">
+          <i className="fa-solid fa-clock-rotate-left"></i> Xem gần đây
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {currentUser ? (
             userXemGanDay && userXemGanDay.length ? (

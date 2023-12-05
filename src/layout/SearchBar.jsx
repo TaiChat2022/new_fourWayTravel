@@ -5,7 +5,7 @@ export default function SearchBarLayout({
 	startDateSelected,
 	onAddressChange,
 	Filter, isBookingPage, filterAddress, setFilterAddress,
-	address
+	address, Select, MenuItem, OutlinedInput, MenuProps, getStyles, theme
 }) {
 
 	return (
@@ -15,16 +15,16 @@ export default function SearchBarLayout({
 					className="flex flex-wrap w-full overflow-hidden bg-white rounded-lg 2xl:flex-nowrap "
 					data-testid="search-form"
 				>
-					<div className="grid w-full grid-cols-1 rounded-lg md:grid-cols-5">
+					<div className="grid w-full grid-cols-1 rounded-lg md:h-12 md:grid-cols-5">
 						{/* Địa danh */}
 						<button
 							type="button"
 							data-testid="search-form-destination"
-							className="w-full col-span-1 px-5 text-left truncate bg-white group h-14 active:bg-grey-200"
+							className="w-full col-span-1  px-5 text-left truncate bg-white group h-12 active:bg-grey-200"
 						>
-							<span className="flex items-center 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
+							<span className="flex items-center justify-center h-12  2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span
-									className="inline-flex flex-shrink-0 mr-3 leading-none transform "
+									className="inline-flex flex-shrink-0 mr-1 leading-none transform "
 									aria-hidden="true"
 								>
 									<svg
@@ -48,16 +48,16 @@ export default function SearchBarLayout({
 										</g>
 									</svg>
 								</span>
-								<span className="relative flex flex-col w-full truncate">
-									<Box sx={{ minWidth: 150 }}>
-										<FormControl fullWidth>
-											<span
+								<span className="relative flex flex-col justify-center w-full truncate">
+									<Box fullWidth>
+										<FormControl fullWidth sx={{ m: 1 }}>
+											{/* <span
 												className="text-xs leading-tight truncate text-grey-700"
 												data-testid="search-form-destination-label"
 											>
 												Địa danh
-											</span>
-											<NativeSelect
+											</span> */}
+											{/* <NativeSelect
 												value={isBookingPage ? filterAddress : undefined}
 												defaultValue={30}
 												inputProps={{
@@ -87,7 +87,42 @@ export default function SearchBarLayout({
 														<p>Không lấy được dữ liệu địa danh</p>
 													</>
 												)}
-											</NativeSelect>
+											</NativeSelect> */}
+											<Select
+												// multiple
+												displayEmpty
+												value={isBookingPage ? filterAddress : undefined}
+												defaultValue={[]}
+												onChange={
+													isBookingPage
+														? (e) => setFilterAddress(e.target.value)
+														: onAddressChange
+												}
+												input={<OutlinedInput />}
+												// renderValue={(selected) => {
+												// 	if (!Array.isArray(selected) || selected.length === 0) {
+												// 		return <em>Chọn khu vực</em>;
+												// 	}
+												// 	return selected.join(', ');
+												// }}
+
+												MenuProps={MenuProps}
+												inputProps={{ 'aria-label': 'Without label' }}
+											>
+												<MenuItem disabled value="">
+													<em>Chọn khu vực</em>
+												</MenuItem>
+
+												{diadanh.map((khuvuc) => (
+													<MenuItem
+														key={khuvuc.id}
+														value={`${khuvuc.text}`}
+														style={getStyles(khuvuc.text, khuvuc.text, theme)}
+													>
+														{khuvuc.text}
+													</MenuItem>
+												))}
+											</Select>
 										</FormControl>
 									</Box>
 								</span>
@@ -97,7 +132,7 @@ export default function SearchBarLayout({
 						<button
 							type="button"
 							data-testid="search-form-calendar"
-							className="w-full col-span-1 px-5 text-left truncate bg-white border-t md:border-l md:border-t-0 group h-14 active:bg-grey-200"
+							className="w-full col-span-1 px-5 text-left truncate bg-white border-t md:border-l md:border-t-0 group h-12 active:bg-grey-200"
 						>
 							<span className="flex items-center md:p-2 md:hover:bg-grey-200 md:rounded-md">
 								<span
@@ -166,7 +201,7 @@ export default function SearchBarLayout({
 						<button
 							type="button"
 							data-testid="search-form-guest-selector"
-							className="hidden w-full col-span-1 text-left truncate bg-white border-t md:inline-block md:border-l md:border-t-0 group h-14 active:bg-grey-200"
+							className="hidden w-full col-span-1 text-left truncate bg-white border-t md:inline-block md:border-l md:border-t-0 group h-12 active:bg-grey-200"
 						>
 							<span className="z-20 flex items-center justify-start m-auto 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span className="relative flex flex-col w-full pl-4 truncate">
@@ -204,7 +239,7 @@ export default function SearchBarLayout({
 								type="button"
 								className={`
 									flex items-center justify-center px-12 py-2
-									h-full rounded-b-lg md:rounded-md 
+									h-auto rounded-b-lg md:rounded-md 
 									text-md font-semibold text-white
 									bg-blue-600 hover:bg-blue-700 w-full md:w-20
 								`}
@@ -215,7 +250,7 @@ export default function SearchBarLayout({
 						</span>
 					</div>
 				</div>
-			</div>
+			</div >
 		</>
 	);
 }

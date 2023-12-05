@@ -2,7 +2,10 @@ const ListKhuVucLayout = ({
     luuTru, Link, mienBacLuuTru,
     mienNamLuuTru, mienTrungLuuTru,
     handleToggleMienNam,
-    displayedMienNam, isExpanded
+    displayedMienNam, isExpanded,
+    handleToggleMienTrung,isExpandedTrung,
+    displayedMienTrung,isExpandedBac,
+    displayedMienBac,handleToggleMienBac
 }) => {
     return (
         <>
@@ -55,7 +58,7 @@ const ListKhuVucLayout = ({
                 <div className="grid grid-cols-3 gap-2">
                     {luuTru ? (
                         <>
-                            {mienTrungLuuTru.map((item) =>
+                            {displayedMienBac.map((item) =>
                                 <>
                                     <Link>
                                         <div className="text-sm text-blue-300">Khách sạn {item.title}</div>
@@ -67,6 +70,16 @@ const ListKhuVucLayout = ({
                         <>Chưa lấy được dữ liệu</>
                     )
                     }
+                </div>
+                <div className="mt-2">
+                    {mienBacLuuTru.length >= 3 && (
+                        <button
+                            onClick={handleToggleMienBac}
+                            className="px-4 py-2 text-sm text-white cursor-pointer bg-blue-500 hover:bg-blue-400 rounded"
+                        >
+                            {isExpandedBac ? 'Ẩn bớt' : 'Xem thêm'}
+                        </button>
+                    )}
                 </div>
             </div>
             <div className="mx-auto mb-7 w-3/4 mt-10 px-2 py-5">
@@ -81,7 +94,7 @@ const ListKhuVucLayout = ({
                 <div className="grid grid-cols-3 gap-2">
                     {luuTru ? (
                         <>
-                            {mienBacLuuTru.map((item) =>
+                            {displayedMienTrung.map((item) =>
                                 <>
                                     <Link>
                                         <div className="text-sm text-blue-300">Khách sạn {item.title}</div>
@@ -93,6 +106,16 @@ const ListKhuVucLayout = ({
                         <>Chưa lấy được dữ liệu</>
                     )
                     }
+                </div>
+                <div className="mt-2">
+                    {mienTrungLuuTru.length >= 3 && (
+                        <button
+                            onClick={handleToggleMienTrung}
+                            className="px-4 py-2 text-sm text-white cursor-pointer bg-blue-500 hover:bg-blue-400 rounded"
+                        >
+                            {isExpandedTrung ? 'Ẩn bớt' : 'Xem thêm'}
+                        </button>
+                    )}
                 </div>
             </div>
         </>

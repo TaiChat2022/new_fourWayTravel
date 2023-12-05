@@ -37,7 +37,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
   return (
     <>
       <Box className="container mt-0 bg-2 py-0 px-3 rounded-lg">
-        <Box className="search-title pt-2">Tìm kiếm phổ biến</Box>
+        <Box className="search-title pt-2"><i className="fa-brands fa-searchengin"></i> Tìm kiếm phổ biến</Box>
         <Box className="search-tabs">
           <Tabs
             value={value}

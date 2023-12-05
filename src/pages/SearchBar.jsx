@@ -4,9 +4,33 @@ import SearchBarLayout from '@/layout/SearchBar';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 import NativeSelect from '@mui/material/NativeSelect';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Select from '@mui/material/Select';
+import { useTheme } from '@mui/material/styles';
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 0;
+const MenuProps = {
+	PaperProps: {
+		style: {
+			maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+			width: 250,
+		},
+	},
+};
+function getStyles(name, isBookingPage, theme) {
+	return {
+		fontWeight:
+			isBookingPage.indexOf(name) === -1
+				? theme.typography.fontWeightRegular
+				: theme.typography.fontWeightMedium,
+	};
+}
 
 const SearchBar = () => {
 	// const navigate = useNavigate();
@@ -39,15 +63,6 @@ const SearchBar = () => {
 		}
 	};
 
-	// const handleSearch = () => {
-	// 	if (!address) {
-	// 		alert('Vui lòng chọn địa chỉ trước khi tìm kiếm.');
-	// 		return;
-	// 	}
-	// 	navigate(`/booking?${address}&startDate=${startDate}&endDate=${endDate}`);
-	// 	navigate(`/booking/${address}`);
-	// };
-
 	const location = useLocation();
 	const isBookingPage = location.pathname === '/booking';
 
@@ -57,6 +72,7 @@ const SearchBar = () => {
 
 	const [filterAddress, setFilterAddress] = useState(address);
 
+	const theme = useTheme();
 	return (
 		<>
 			<SearchBarLayout
@@ -64,7 +80,15 @@ const SearchBar = () => {
 				Box={Box}
 				InputLabel={InputLabel}
 				FormControl={FormControl}
+				// selection
 				NativeSelect={NativeSelect}
+				Select={Select}
+				MenuItem={MenuItem}
+				OutlinedInput={OutlinedInput}
+				MenuProps={MenuProps}
+				getStyles={getStyles}
+				theme={theme}
+
 				diadanh={diadanh}
 				startDate={startDate}
 				endDate={endDate}

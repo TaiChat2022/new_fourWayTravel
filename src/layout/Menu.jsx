@@ -213,7 +213,7 @@ export default function MenuLayOut({
 												to='/xemganday'
 												className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
 											>
-												Xem gần đây
+												<i className="fa-solid fa-clock-rotate-left"></i> Xem gần đây
 											</Link>
 											{user ?
 												(
@@ -223,7 +223,7 @@ export default function MenuLayOut({
 															to='/lichsudatphong'
 															className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
 														>
-															Lịch sử đặt hàng
+															<i className="fa-regular fa-bookmark"></i> Lịch sử đặt hàng
 														</Link>
 													</>
 												) : (
@@ -235,7 +235,7 @@ export default function MenuLayOut({
 												onClick={handleClose}
 												className="w-full py-2 px-4 text-left hover:text-blue-500"
 											>
-												Hỗ trợ và trợ giúp
+												<i className="fa-light fa-life-ring"></i> Hỗ trợ và trợ giúp
 											</button>
 										</div>
 									</Menu>

@@ -1,9 +1,12 @@
+import Login from '@/auth/Login';
 import { useDocQuery, useDocsQuery } from '@/hooks/useFirestore';
 import ChiTietLayout from '@/layout/chiTiet';
 import Footer from '@/pages/Footer';
+import { auth } from '@/utils/firebase.config';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from './Header';
@@ -24,6 +27,17 @@ const styleModal = {
 const chiTiet = () => {
 	const { id } = useParams();
 	const { data } = useDocQuery('luuTru', id);
+	const [user, setUser] = React.useState(null);
+	React.useEffect(() => {
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				setUser(user);
+			}
+			else {
+				setUser(null);
+			}
+		});
+	}, []);
 	const navigate = useNavigate();
 
 	const { data: luuTru } = useDocsQuery('luuTru');
@@ -122,6 +136,9 @@ const chiTiet = () => {
 	const handleOpenModal = () => setOpenModal(true);
 	const handleCloseModal = () => setOpenModal(false);
 
+	const [openModalLogin, setOpenModalLogin] = React.useState(false);
+	const handleOpenModalLogin = () => setOpenModalLogin(true);
+	const handleCloseModalLogin = () => setOpenModalLogin(false);
 
 	return (
 		<>
@@ -150,6 +167,14 @@ const chiTiet = () => {
 				openModal={openModal}
 				handleOpenModal={handleOpenModal}
 				handleCloseModal={handleCloseModal}
+
+				Typography={Typography}
+				openModalLogin={openModalLogin}
+				handleOpenModalLogin={handleOpenModalLogin}
+				handleCloseModalLogin={handleCloseModalLogin}
+				Login={Login}
+
+				user={user}
 			/>
 			<Footer />
 		</>
