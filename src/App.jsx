@@ -14,6 +14,11 @@ const Datphong = lazy(() => import('@/pages/Datphong'));
 const UserXemGanDay = lazy(() => import('@/pages/userXemGanDay'));
 const LichSuDP = lazy(() => import('@/pages/lichSuDP'));
 
+const DieuKhoan = lazy(() => import('@/layout/Dieukhoan'));
+const TimHieu = lazy(() => import('@/layout/Timhieu'));
+const ThongTin = lazy(() => import('@/layout/Thongtin'));
+
+
 
 const Login = lazy(() => import('@/auth/Login'));
 
@@ -72,6 +77,19 @@ export default function App() {
 				<Route
 					path={routes.LICHSUDP}
 					element={<LichSuDP />}
+				/>
+
+				<Route
+					path={routes.TIMHIEU}
+					element={<TimHieu />}
+				/>
+				<Route
+					path={routes.DIEUKHOAN}
+					element={<DieuKhoan />}
+				/>
+				<Route
+					path={routes.THONGTIN}
+					element={<ThongTin />}
 				/>
 			</Routes>
 		</Suspense>
