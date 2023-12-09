@@ -405,9 +405,12 @@ const ChiTietLayout = ({
 														</p>
 													</div>
 													<div className="bg-gray-50 text-center w-4/5 py-1 m-auto rounded-md ">
-														<button className="text-primary-xanh font-semibold tracking-wide text-sm">
+														<Link
+															to={`/booking/chitiet/${item.id}`}
+															className="text-primary-xanh font-semibold tracking-wide text-sm"
+														>
 															Xem chi tiết phòng
-														</button>
+														</Link>
 													</div>
 												</div>
 
@@ -480,7 +483,7 @@ const ChiTietLayout = ({
 																		...prevItemIds,
 																		item.id,
 																	]);
-																	navigate(`/chitiet/${item.id}`);
+																	navigate(`/booking/chitiet/${item.id}`);
 																}}
 															>
 																Xem chi tiết

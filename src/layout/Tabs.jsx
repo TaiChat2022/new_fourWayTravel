@@ -36,8 +36,10 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
 
   return (
     <>
-      <Box className="container mt-0 bg-2 py-0 px-3 rounded-lg">
-        <Box className="search-title pt-2"><i className="fa-brands fa-searchengin"></i> Tìm kiếm phổ biến</Box>
+      <Box className="container mt-4 bg-2 py-0 px-3 rounded-lg">
+        <div className="mt-4 pt-2 font-medium text-xl">
+          <i className="fa-brands fa-searchengin"></i> Tìm kiếm phổ biến
+        </div>
         <Box className="search-tabs">
           <Tabs
             value={value}
@@ -68,10 +70,10 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
         {tinhthanh1 ? (
           <>
             <TabPanel value={value} index={0} className="p-0">
-              <div className="grid grid-cols-4 gap-4 w-full h-300">
+              <div className="grid grid-cols-4 gap-4 w-full md:h-300">
                 {tinhthanh1.slice(0, 4).map((item) => (
-                  <Link to={`/booking/${item.text}`} key={item.id}>
-                    <div className="box-img relative ">
+                  <Link to={`/booking/${item.text}`} key={item.id} className='col-span-4 sm:col-span-2 md:col-span-1'>
+                    <div className="box-img relative">
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h4 className="name-travel">{item.text}</h4>
                         <h4 className="total-room">
@@ -98,10 +100,10 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
 
         {tinhthanh3 ? (
           <>
-            <TabPanel value={value} index={1}>
-              <div className="grid grid-cols-4 gap-4 w-full h-300">
+            <TabPanel value={value} index={1} >
+              <div className="grid grid-cols-4 gap-4 w-full md:h-300">
                 {tinhthanh3.slice(0, 4).map((item) => (
-                  <Link to="/booking" key={item.id}>
+                  <Link to="/booking" key={item.id} className='col-span-4 sm:col-span-2 md:col-span-1'>
                     <div className="box-img relative">
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h3 className="name-travel">{item.text}</h3>
@@ -128,10 +130,10 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
 
         {tinhthanh2 ? (
           <>
-            <TabPanel value={value} index={2} className="">
-              <div className="grid grid-cols-4 gap-4 w-full h-300">
+            <TabPanel value={value} index={2}>
+              <div className="grid grid-cols-4 gap-4 w-full md:h-300">
                 {tinhthanh2.slice(0, 4).map((item) => (
-                  <Link to="/booking" key={item.id}>
+                  <Link to="/booking" key={item.id} className='col-span-4 sm:col-span-2 md:col-span-1'>
                     <div className="box-img relative">
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h3 className="name-travel">{item.text}</h3>

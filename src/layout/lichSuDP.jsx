@@ -8,7 +8,7 @@ const LichSuDPLayout = ({ Link, currentUser, userDatPhong, luuTru, renderStars }
 			{currentUser ? (
 				<>
 					<main className="flex justify-start w-3/4 mx-auto pt-9 max-w-screen-2xl">
-						<span className="self-start mr-10">
+						<span className="self-start mr-4">
 							<Link
 								to="/"
 								className="flex items-center text-blue-500 text-md hover:text-blue-700"
@@ -19,6 +19,15 @@ const LichSuDPLayout = ({ Link, currentUser, userDatPhong, luuTru, renderStars }
 						</span>
 
 						<div className="px-2 w-full m-auto flex flex-col gap-1 items-start">
+							<div className="px-2 w-full m-auto flex flex-wrap md:flex-nowrap gap-1 justify-start items-center">
+								<h1
+									className="text-xl font-semibold  text-heading-xl text-gray-900"
+									data-testid="favorites-page-headline"
+								>
+									Lịch sử đặt phòng
+								</h1>
+
+							</div>
 							{filteredLuuTru.length > 0 ? (
 								<>
 									{filteredLuuTru.map((item, index) => (

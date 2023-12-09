@@ -1,9 +1,9 @@
 import { useDocQuery } from '@/hooks/useFirestore';
 import DatphongLayout from '@/layout/datphong';
 import Footer from '@/pages/Footer';
-import { auth,firestore } from '@/utils/firebase.config';
+import { auth, firestore } from '@/utils/firebase.config';
 import axios from 'axios';
-import { doc, getDoc, getFirestore, setDoc,updateDoc,collection,getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Header from './Header';
@@ -60,121 +60,121 @@ const Datphong = () => {
 		return Object.keys(errors).length === 0;
 	};
 	//Hàm này để lấy thông tin user đã đặt phòng
-	
-const getAllUsersBookings = async () => {
-    const usersCollectionRef = collection(db, 'users');
-    const usersSnapshot = await getDocs(usersCollectionRef);
 
-    const allUsersBookings = [];
+	const getAllUsersBookings = async () => {
+		const usersCollectionRef = collection(db, 'users');
+		const usersSnapshot = await getDocs(usersCollectionRef);
 
-    usersSnapshot.forEach((userDoc) => {
-        const userData = userDoc.data();
-        const userBookings = userData.datphong || [];
-        allUsersBookings.push(...userBookings);
-    });
+		const allUsersBookings = [];
 
-    return allUsersBookings;
-};
+		usersSnapshot.forEach((userDoc) => {
+			const userData = userDoc.data();
+			const userBookings = userData.datphong || [];
+			allUsersBookings.push(...userBookings);
+		});
+
+		return allUsersBookings;
+	};
 	// cập nhật 2 hàm này để sài được thống kê 
 	const handleBookingSuccess = async (luuTruId) => {
 		try {
-		  const luuTruDocRef = doc(db, 'luuTru', luuTruId);
-		  const luuTruDoc = await getDoc(luuTruDocRef);
-	
-		  if (luuTruDoc.exists()) {
-			const price = luuTruDoc.data().price || 0;
-			const currentCount = luuTruDoc.data().bookingCount || 0;
-			const currentRevenue = luuTruDoc.data().totalRevenue || 0;
-			const newRevenue = currentRevenue + parseFloat(price);
-	
-			await updateDoc(luuTruDocRef, {
-			  bookingCount: currentCount + 1,
-			  totalRevenue: newRevenue,
-			});
-	
-			console.log('Booking count and total revenue incremented successfully.');
-		  } else {
-			console.error('LuuTru document does not exist.');
-		  }
-		} catch (error) {
-		  console.error('Error updating booking count and total revenue:', error);
-		}
-	  };
-	  const handleSubmit = async (e) => {
-		e.preventDefault();
-	  
-		if (!validateForm()) {
-		  alert('Vui lòng sửa các lỗi trước khi đặt phòng.');
-		  return;
-		}
-	  
-		try {
-		  // Lấy thông tin đặt phòng của tất cả người dùng
-		  const allUsersBookings = await getAllUsersBookings();
-	  
-		  // Kiểm tra xung đột với thông tin đặt phòng của tất cả người dùng
-		  const hasConflict = allUsersBookings.some((booking) => {
-			const bookingCheckinTime = new Date(booking.bookingDetails.checkinTime);
-			const bookingCheckoutTime = new Date(booking.bookingDetails.checkoutTime);
-			const newCheckinTime = new Date(formData.checkinTime);
-			const newCheckoutTime = new Date(formData.checkoutTime);
-	  
-			return (
-			  (newCheckinTime >= bookingCheckinTime && newCheckinTime < bookingCheckoutTime) ||
-			  (newCheckoutTime > bookingCheckinTime && newCheckoutTime <= bookingCheckoutTime) ||
-			  (newCheckinTime <= bookingCheckinTime && newCheckoutTime >= bookingCheckoutTime)
-			);
-		  });
-	  
-		  if (hasConflict) {
-			alert('Phòng đã được đặt trong khoảng thời gian này. Vui lòng chọn thời gian khác.');
-			return;
-		  }
-	  
-		  // Tiếp tục với quá trình lưu thông tin đặt phòng nếu không có xung đột
-		  const bookingId = `${Date.now()}`;
-	  
-		  // Reference the user's document in the 'users' collection
-		  const userDocRef = doc(db, 'users', user.uid);
-	  
-		  // Get the current user's document
-		  const userDoc = await getDoc(userDocRef);
-	  
-		  // If the document exists, retrieve the current datphong array and append the new booking
-		  let newDatphongArray = [];
-		  if (userDoc.exists()) {
-			const userData = userDoc.data();
-			newDatphongArray = userData.datphong ? [...userData.datphong] : [];
-		  }
-		  // Append the new booking with a unique ID to the datphong array
-		  newDatphongArray.push({
-			uid: bookingId,
-			luuTruId: id,
-			bookingDetails: { ...formData, checkinTime: formData.checkinTime, checkoutTime: formData.checkoutTime },
-		  });
-	  
-		  // Update the document with the new datphong array
-		  await setDoc(userDocRef, { datphong: newDatphongArray }, { merge: true });
-		  // Cập nhật cái này để sử dụng được thống kê
-		  handleBookingSuccess(id);
-	  
-		  alert('Thông tin đặt phòng đã được lưu thành công!');
-		  // Clear the form
-		  setFormData({
-			title: '',
-			firstName: '',
-			lastName: '',
-			email: '',
-			confirmEmail: '',
-			phone: '',
-			region: '',
-			additionalRequest: '',
-			checkinTime: '',
-			checkoutTime: '',
-		  });
-	  
+			const luuTruDocRef = doc(db, 'luuTru', luuTruId);
+			const luuTruDoc = await getDoc(luuTruDocRef);
 
-			const { firstName, lastName, checkinTime, checkoutTime} = formData;
+			if (luuTruDoc.exists()) {
+				const price = luuTruDoc.data().price || 0;
+				const currentCount = luuTruDoc.data().bookingCount || 0;
+				const currentRevenue = luuTruDoc.data().totalRevenue || 0;
+				const newRevenue = currentRevenue + parseFloat(price);
+
+				await updateDoc(luuTruDocRef, {
+					bookingCount: currentCount + 1,
+					totalRevenue: newRevenue,
+				});
+
+				console.log('Booking count and total revenue incremented successfully.');
+			} else {
+				console.error('LuuTru document does not exist.');
+			}
+		} catch (error) {
+			console.error('Error updating booking count and total revenue:', error);
+		}
+	};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		if (!validateForm()) {
+			alert('Vui lòng sửa các lỗi trước khi đặt phòng.');
+			return;
+		}
+
+		try {
+			// Lấy thông tin đặt phòng của tất cả người dùng
+			const allUsersBookings = await getAllUsersBookings();
+
+			// Kiểm tra xung đột với thông tin đặt phòng của tất cả người dùng
+			const hasConflict = allUsersBookings.some((booking) => {
+				const bookingCheckinTime = new Date(booking.bookingDetails.checkinTime);
+				const bookingCheckoutTime = new Date(booking.bookingDetails.checkoutTime);
+				const newCheckinTime = new Date(formData.checkinTime);
+				const newCheckoutTime = new Date(formData.checkoutTime);
+
+				return (
+					(newCheckinTime >= bookingCheckinTime && newCheckinTime < bookingCheckoutTime) ||
+					(newCheckoutTime > bookingCheckinTime && newCheckoutTime <= bookingCheckoutTime) ||
+					(newCheckinTime <= bookingCheckinTime && newCheckoutTime >= bookingCheckoutTime)
+				);
+			});
+
+			if (hasConflict) {
+				alert('Phòng đã được đặt trong khoảng thời gian này. Vui lòng chọn thời gian khác.');
+				return;
+			}
+
+			// Tiếp tục với quá trình lưu thông tin đặt phòng nếu không có xung đột
+			const bookingId = `${Date.now()}`;
+
+			// Reference the user's document in the 'users' collection
+			const userDocRef = doc(db, 'users', user.uid);
+
+			// Get the current user's document
+			const userDoc = await getDoc(userDocRef);
+
+			// If the document exists, retrieve the current datphong array and append the new booking
+			let newDatphongArray = [];
+			if (userDoc.exists()) {
+				const userData = userDoc.data();
+				newDatphongArray = userData.datphong ? [...userData.datphong] : [];
+			}
+			// Append the new booking with a unique ID to the datphong array
+			newDatphongArray.push({
+				uid: bookingId,
+				luuTruId: id,
+				bookingDetails: { ...formData, checkinTime: formData.checkinTime, checkoutTime: formData.checkoutTime },
+			});
+
+			// Update the document with the new datphong array
+			await setDoc(userDocRef, { datphong: newDatphongArray }, { merge: true });
+			// Cập nhật cái này để sử dụng được thống kê
+			handleBookingSuccess(id);
+
+			alert('Thông tin đặt phòng đã được lưu thành công!');
+			// Clear the form
+			setFormData({
+				title: '',
+				firstName: '',
+				lastName: '',
+				email: '',
+				confirmEmail: '',
+				phone: '',
+				region: '',
+				additionalRequest: '',
+				checkinTime: '',
+				checkoutTime: '',
+			});
+
+
+			const { firstName, lastName, checkinTime, checkoutTime } = formData;
 			const { danhmuc, diaChi, img, title, price } = data;
 			// Chuẩn bị dữ liệu email
 			const emailData = {
@@ -311,7 +311,7 @@ const getAllUsersBookings = async () => {
 
 			// Gửi yêu cầu POST đến server
 			try {
-				const response = await axios.post('http://localhost:3000/sendmail', emailData);
+				const response = await axios.post('http://14.225.198.206:2020/sendmail', emailData);
 				console.log(response.data); // Xử lý phản hồi từ server
 			} catch (error) {
 				console.error('Error sending email:', error);
