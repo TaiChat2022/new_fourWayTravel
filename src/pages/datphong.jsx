@@ -119,10 +119,24 @@ const Datphong = () => {
 				const newCheckinTime = new Date(formData.checkinTime);
 				const newCheckoutTime = new Date(formData.checkoutTime);
 
+				// Format dates to only include day, month, and year
+				const formatToDateOnly = (dateString) => {
+					const date = new Date(dateString);
+					const day = ('0' + date.getDate()).slice(-2);
+					const month = ('0' + (date.getMonth() + 1)).slice(-2);
+					const year = date.getFullYear();
+					return `${day}/${month}/${year}`;
+				};
+
+				const formattedBookingCheckin = formatToDateOnly(bookingCheckinTime);
+				const formattedBookingCheckout = formatToDateOnly(bookingCheckoutTime);
+				const formattedNewCheckin = formatToDateOnly(newCheckinTime);
+				const formattedNewCheckout = formatToDateOnly(newCheckoutTime);
+
 				return (
-					(newCheckinTime >= bookingCheckinTime && newCheckinTime < bookingCheckoutTime) ||
-					(newCheckoutTime > bookingCheckinTime && newCheckoutTime <= bookingCheckoutTime) ||
-					(newCheckinTime <= bookingCheckinTime && newCheckoutTime >= bookingCheckoutTime)
+					(formattedNewCheckin >= formattedBookingCheckin && formattedNewCheckin < formattedBookingCheckout) ||
+					(formattedNewCheckout > formattedBookingCheckin && formattedNewCheckout <= formattedBookingCheckout) ||
+					(formattedNewCheckin <= formattedBookingCheckin && formattedNewCheckout >= formattedBookingCheckout)
 				);
 			});
 
@@ -161,7 +175,7 @@ const Datphong = () => {
 			alert('Thông tin đặt phòng đã được lưu thành công!');
 			// Clear the form
 			setFormData({
-				title: '',
+				tieuDe: '',
 				firstName: '',
 				lastName: '',
 				email: '',
@@ -174,7 +188,7 @@ const Datphong = () => {
 			});
 
 
-			const { firstName, lastName, checkinTime, checkoutTime } = formData;
+			const { tieuDe, firstName, lastName, checkinTime, checkoutTime, additionalRequest } = formData;
 			const { danhmuc, diaChi, img, title, price } = data;
 			// Chuẩn bị dữ liệu email
 			const emailData = {
@@ -196,27 +210,26 @@ const Datphong = () => {
 							<div class="container">
 								<div
 									class="header"
-									style="width: 100%; display: flex; justify-content: start; border-bottom: 1px solid #999"
+									style="width: 100%;background-color: #000; display: flex; justify-content: center; border-bottom: 1px solid #999"
 								>
 									<div
 										class="logo"
 										style="
 											width: 75%;
 											display: flex;
-											justify-content: start;
+											justify-content: center;
 											align-items: center;
-											margin: 1.5rem 0 1.5rem 0;
-											background-color: #fff;
+											margin: 0 auto;
 										"
 									>
 										<img
-										src="https://scontent.fhan3-5.fna.fbcdn.net/v/t39.30808-6/406902357_3707518782906322_2256089287442522594_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=3635dc&_nc_ohc=IysY9PTJ6CAAX-3u_8u&_nc_ht=scontent.fhan3-5.fna&oh=00_AfCge3mMNAnQmrNiEQO5he1IHacx6aefmpEUwCXLxXpUng&oe=656D3B8E"
+										src="https://lh3.googleusercontent.com/pw/ADCreHcfWVev3IBhYFwKaTWslmu0eJayFXDvoUT8YbzlpWawaklVkRQryr0Dh_4GdB96loRyM4h03fdCEu5WUudjhiZTnQxpAe5RsdVnIUr0acMEqyKeDrtEsoMRmgiiQ808CDGlFCJ8-JSy5I7FlhtoKdIj=w1024-h132-s-no-gm?authuser=0"
 											style="width: 250px; height: 100px; object-fit: contain"
 										/>
 									</div>
 								</div>
 								<div class="title">
-									<h3>Kính gửi: Quý khách hàng ${firstName} ${lastName}</h3>
+									<h3>Kính gửi: Quý ${tieuDe ? (tieuDe) : (`khách hàng`)} ${lastName} ${firstName}</h3>
 									<h3>Cám ơn Quý khách đã sử dụng dịch vụ của hệ thống Cổng thanh toán - Ví điện tử MOMO.</h3>
 									<h3>
 										Quý khách vừa thực hiện thanh toán thành công cho booking phòng
@@ -266,6 +279,13 @@ const Datphong = () => {
 											<td style="padding: 10px 10px 10px 0">Phí giao dịch</td>
 											<td style="padding: 10px 10px 10px 0">${price.toLocaleString('vi')} VND</td>
 										</tr>
+
+										${additionalRequest == '' ? (``) : (`
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Yêu cầu thêm</td>
+											<td style="padding: 10px 10px 10px 0">${additionalRequest}</td>
+										</tr>
+										`)}
 									</table>
 								</div>
 								<div
@@ -276,14 +296,14 @@ const Datphong = () => {
 									margin-top: 1rem;
 									width: 100%;
 									border-top: 1px solid #999;
-									background-color: #fff;
-									color: #333;
+									background-color: #000;
+									color: #f1f1f1;
 									flex-wrap: wrap;
 								"
 							>
 								<img
-									src="https://scontent.fhan3-5.fna.fbcdn.net/v/t39.30808-6/406902357_3707518782906322_2256089287442522594_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=3635dc&_nc_ohc=IysY9PTJ6CAAX-3u_8u&_nc_ht=scontent.fhan3-5.fna&oh=00_AfCge3mMNAnQmrNiEQO5he1IHacx6aefmpEUwCXLxXpUng&oe=656D3B8E"
-									style="width: 250px; height: 100px; object-fit: contain; margin-top: 1.5rem"
+									src="https://lh3.googleusercontent.com/pw/ADCreHcfWVev3IBhYFwKaTWslmu0eJayFXDvoUT8YbzlpWawaklVkRQryr0Dh_4GdB96loRyM4h03fdCEu5WUudjhiZTnQxpAe5RsdVnIUr0acMEqyKeDrtEsoMRmgiiQ808CDGlFCJ8-JSy5I7FlhtoKdIj=w1024-h132-s-no-gm?authuser=0"
+									style="width: 250px; height: 100px; object-fit: contain; margin-top: 1.5rem; margin-right:1.5rem"
 								/>
 								<div
 									class="title-footer"
