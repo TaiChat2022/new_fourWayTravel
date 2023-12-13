@@ -1,11 +1,12 @@
 const ListKhuVucLayout = ({
-    luuTru, Link, mienBacLuuTru,
-    mienNamLuuTru, mienTrungLuuTru,
-    handleToggleMienNam,
-    displayedMienNam, isExpanded,
-    handleToggleMienTrung, isExpandedTrung,
-    displayedMienTrung, isExpandedBac,
-    displayedMienBac, handleToggleMienBac
+    luuTru, Link,
+    LuuTruHCM, LuuTruHaNoi, LuuTruDaNang,
+
+    isExpanded, displayedHCM, handleToggleHCM,
+
+    isExpandedHaNoi, displayedHaNoi, handleToggleHaNoi,
+
+    isExpandedDaNang, displayedDaNang, handleToggleDaNang,
 }) => {
     return (
         <>
@@ -22,7 +23,7 @@ const ListKhuVucLayout = ({
                 <div className="grid grid-cols-3 gap-2">
                     {luuTru ? (
                         <>
-                            {displayedMienNam.map((item) =>
+                            {displayedHCM.map((item) =>
                                 <Link to={`/booking/chitiet/${item.id}`} >
                                     <>
                                         <div className="text-sm text-blue-300">Khách sạn {item.title}</div>
@@ -38,9 +39,9 @@ const ListKhuVucLayout = ({
 
                 </div>
                 <div className="mt-1">
-                    {mienNamLuuTru.length >= 3 && (
+                    {LuuTruHCM.length >= 3 && (
                         <button
-                            onClick={handleToggleMienNam}
+                            onClick={handleToggleHCM}
                             className="px-4 py-2 text-sm text-white cursor-pointer bg-blue-500 hover:bg-blue-400 rounded"
                         >
                             {isExpanded ? 'Ẩn bớt' : 'Xem thêm'}
@@ -48,6 +49,7 @@ const ListKhuVucLayout = ({
                     )}
                 </div>
             </div>
+
             <div className="mx-auto w-3/4 pr-2 mb-2">
                 <div><h2
                     className="text-heading-l text-xl font-bold mb-3 px-0 l:px-4 2xl:px-0"
@@ -58,7 +60,7 @@ const ListKhuVucLayout = ({
                 <div className="grid grid-cols-3 gap-2">
                     {luuTru ? (
                         <>
-                            {displayedMienBac.map((item) =>
+                            {displayedHaNoi.map((item) =>
                                 <>
                                     <Link>
                                         <div className="text-sm text-blue-300">Khách sạn {item.title}</div>
@@ -72,18 +74,18 @@ const ListKhuVucLayout = ({
                     }
                 </div>
                 <div className="mt-1">
-                    {mienBacLuuTru.length >= 3 && (
+                    {LuuTruHaNoi.length >= 3 && (
                         <button
-                            onClick={handleToggleMienBac}
+                            onClick={handleToggleHaNoi}
                             className="px-4 py-2 text-sm text-white cursor-pointer bg-blue-500 hover:bg-blue-400 rounded"
                         >
-                            {isExpandedBac ? 'Ẩn bớt' : 'Xem thêm'}
+                            {isExpandedHaNoi ? 'Ẩn bớt' : 'Xem thêm'}
                         </button>
                     )}
                 </div>
             </div>
-            <div className="mx-auto w-3/4 pr-2 mb-2">
 
+            <div className="mx-auto w-3/4 pr-2 mb-2">
                 <h3
                     className="text-heading-l text-xl font-bold mb-3 px-0 l:px-4 2xl:px-0"
                     id="more-popular-searches"
@@ -94,7 +96,7 @@ const ListKhuVucLayout = ({
                 <div className="grid grid-cols-3 gap-2">
                     {luuTru ? (
                         <>
-                            {displayedMienTrung.map((item) =>
+                            {displayedDaNang.map((item) =>
                                 <>
                                     <Link>
                                         <div className="text-sm text-blue-300">Khách sạn {item.title}</div>
@@ -108,12 +110,12 @@ const ListKhuVucLayout = ({
                     }
                 </div>
                 <div className="mt-1">
-                    {mienTrungLuuTru.length >= 3 && (
+                    {LuuTruDaNang.length >= 3 && (
                         <button
-                            onClick={handleToggleMienTrung}
+                            onClick={handleToggleDaNang}
                             className="px-4 py-2 text-sm text-white cursor-pointer bg-blue-500 hover:bg-blue-400 rounded"
                         >
-                            {isExpandedTrung ? 'Ẩn bớt' : 'Xem thêm'}
+                            {isExpandedDaNang ? 'Ẩn bớt' : 'Xem thêm'}
                         </button>
                     )}
                 </div>

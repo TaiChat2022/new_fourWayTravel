@@ -6,50 +6,53 @@ import { Link } from 'react-router-dom';
 
 const List = () => {
     const { data: luuTru } = useDocsQuery('luuTru');
-    const mienNamLuuTru = luuTru.filter((item) => item.danhmuc === "Tp Hồ Chí Minh");
-    const mienTrungLuuTru = luuTru.filter((item) => item.danhmuc === "Hà Nội");
-    const mienBacLuuTru = luuTru.filter((item) => item.danhmuc === "Tp Đà Nẵng");
+    const LuuTruHCM = luuTru.filter((item) => item.danhmuc === "Tp Hồ Chí Minh");
+    const LuuTruHaNoi = luuTru.filter((item) => item.danhmuc === "Hà Nội");
+    const LuuTruDaNang = luuTru.filter((item) => item.danhmuc === "Tp Đà Nẵng");
     // nam
     const [isExpanded, setIsExpanded] = useState(false); // button lưu ẩn bớt và hiện
 
-    const displayedMienNam = isExpanded ? mienNamLuuTru : mienNamLuuTru.slice(0, 3); // sự kiện lộc ra
+    const displayedHCM = isExpanded ? LuuTruHCM : LuuTruHCM.slice(0, 3); // sự kiện lộc ra
 
-    const handleToggleMienNam = () => { // button để click 
+    const handleToggleHCM = () => { // button để click 
         setIsExpanded(!isExpanded);
     };
-    // Trung
-    const [isExpandedTrung, setIsExpandedTrung] = useState(false); // button lưu ẩn bớt và hiện
+    // Hà Nội
+    const [isExpandedHaNoi, setIsExpandedHaNoi] = useState(false); // button lưu ẩn bớt và hiện
 
-    const displayedMienTrung = isExpandedTrung ? mienTrungLuuTru : mienTrungLuuTru.slice(0, 3); // sự kiện lộc ra
+    const displayedHaNoi = isExpandedHaNoi ? LuuTruHaNoi : LuuTruHaNoi.slice(0, 3); // sự kiện lộc ra
 
-    const handleToggleMienTrung = () => { // button để click 
-        setIsExpandedTrung(!isExpandedTrung);
+    const handleToggleHaNoi = () => { // button để click 
+        setIsExpandedHaNoi(!isExpandedHaNoi);
     };
-    // Bắc
-    const [isExpandedBac, setIsExpandedBac] = useState(false); // button lưu ẩn bớt và hiện
+    // Đà Nẵng
+    const [isExpandedDaNang, setIsExpandedDaNang] = useState(false); // button lưu ẩn bớt và hiện
 
-    const displayedMienBac = isExpandedBac ? mienBacLuuTru : mienBacLuuTru.slice(0, 3); // sự kiện lộc ra
+    const displayedDaNang = isExpandedDaNang ? LuuTruDaNang : LuuTruDaNang.slice(0, 3); // sự kiện lộc ra
 
-    const handleToggleMienBac = () => { // button để click 
-        setIsExpandedBac(!isExpandedBac);
+    const isExpahandleToggleDaNang = () => { // button để click 
+        setIsExpandedDaNang(!isExpandedDaNang);
     };
     return (
         <>
             <ListKhuVucLayout
-                mienNamLuuTru={mienNamLuuTru}
-                mienTrungLuuTru={mienTrungLuuTru}
-                mienBacLuuTru={mienBacLuuTru}
+                LuuTruHCM={LuuTruHCM}
+                LuuTruHaNoi={LuuTruHaNoi}
+                LuuTruDaNang={LuuTruDaNang}
                 Link={Link}
                 luuTru={luuTru}
-                handleToggleMienNam={handleToggleMienNam}
-                displayedMienNam={displayedMienNam}
+
+                handleToggleHCM={handleToggleHCM}
+                displayedHCM={displayedHCM}
                 isExpanded={isExpanded}
-                handleToggleMienTrung={handleToggleMienTrung}
-                displayedMienTrung={displayedMienTrung}
-                isExpandedTrung={isExpandedTrung}
-                handleToggleMienBac={handleToggleMienBac}
-                displayedMienBac={displayedMienBac}
-                isExpandedBac={isExpandedBac}
+
+                handleToggleHaNoi={handleToggleHaNoi}
+                displayedHaNoi={displayedHaNoi}
+                isExpandedHaNoi={isExpandedHaNoi}
+
+                isExpahandleToggleDaNang={isExpahandleToggleDaNang}
+                displayedDaNang={displayedDaNang}
+                isExpandedDaNang={isExpandedDaNang}
             />
         </>
     );

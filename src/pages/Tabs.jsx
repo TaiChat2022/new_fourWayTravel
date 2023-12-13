@@ -63,8 +63,8 @@ const Tabs = () => {
     let count = 0;
     allUserXemGanDay.forEach(user => {
       user.xemGanDay.forEach(xemGanDayItem => {
-        if (tinhthanh1.some(danhmuc =>
-          danhmuc.id === xemGanDayItem.id && danhmuc.danhmuc === xemGanDayItem.danhmuc)) {
+        if (filteredDanhmucMienBac.some(item =>
+          item.id === xemGanDayItem.id && item.danhmuc === xemGanDayItem.danhmuc)) {
           count++;
         }
       });
@@ -75,7 +75,7 @@ const Tabs = () => {
   React.useEffect(() => {
     const count = countMatchingIDsAndDanhmuc();
     setMatchCount(count);
-  }, [allUserXemGanDay, tinhthanh1]);
+  }, [allUserXemGanDay, filteredDanhmucMienBac]);
 
   return (
     <>
