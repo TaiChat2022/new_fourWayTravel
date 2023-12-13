@@ -15,7 +15,7 @@ const ListKhuVucLayout = ({
                         className="text-heading-l text-xl font-bold mb-3 px-0 l:px-4 2xl:px-0"
                         id="more-popular-searches"
                     >
-                        Tìm kiếm phổ biến ở Hồ Chí Minh
+                        Tìm kiếm tại TP.Hồ Chí Minh
                     </h2>
 
                 </div>
@@ -53,7 +53,7 @@ const ListKhuVucLayout = ({
                     className="text-heading-l text-xl font-bold mb-3 px-0 l:px-4 2xl:px-0"
                     id="more-popular-searches"
                 >
-                    Tìm kiếm ở phổ Hà Nội
+                    Tìm kiếm tại TP.Hà Nội
                 </h2></div>
                 <div className="grid grid-cols-3 gap-2">
                     {luuTru ? (
@@ -88,7 +88,7 @@ const ListKhuVucLayout = ({
                     className="text-heading-l text-xl font-bold mb-3 px-0 l:px-4 2xl:px-0"
                     id="more-popular-searches"
                 >
-                    Tìm kiếm phổ biến ở Đà Nẵng
+                    Tìm kiếm tại TP.Đà Nẵng
                 </h3>
 
                 <div className="grid grid-cols-3 gap-2">

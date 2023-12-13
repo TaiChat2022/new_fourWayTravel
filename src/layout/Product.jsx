@@ -19,7 +19,7 @@ const ProductLayout = ({
                                                     <div className='content absolute bottom-0 text-white backdrop-blur-sm w-full bg-black/30 p-2'>
                                                         <h2>{item.title}</h2>
                                                         <div>{renderStars(item.star)}</div>
-                                                        <div>{(item.price).toLocaleString('vi')} Vnd</div>
+                                                        <div>{(item.price).toLocaleString('vi')} VND</div>
                                                     </div>
                                                 </div>
                                             </Link>
@@ -48,7 +48,7 @@ const ProductLayout = ({
                                                     <div className='content absolute bottom-0 text-white  backdrop-blur-sm w-full bg-black/30 p-2'>
                                                         <h2 className=''>{item.title}</h2>
                                                         <div>{renderStars(item.star)}</div>
-                                                        <div>{(item.price).toLocaleString('vi')} Vnd</div>
+                                                        <div>{(item.price).toLocaleString('vi')} VND</div>
                                                     </div>
                                                 </div>
                                             </Link>

@@ -25,14 +25,12 @@ function TabPanel(props) {
   );
 }
 
-export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
+export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, matchCount, allUserXemGanDay }) {
   const [value, setValue] = useState(0);
 
   const handleChange = async (event, newValue) => {
     setValue(newValue);
-
   };
-
 
   return (
     <>
@@ -66,7 +64,13 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
             />
           </Tabs>
         </Box>
-
+        {allUserXemGanDay.map((item, index) => {
+          <>
+            <div key={index}>
+              <p>{item.id}</p>
+            </div>
+          </>
+        })}
         {tinhthanh1 ? (
           <>
             <TabPanel value={value} index={0} className="p-0">
@@ -77,7 +81,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h4 className="name-travel">{item.text}</h4>
                         <h4 className="total-room">
-                          <span className="total-number">29</span> Khách sạn
+                          <span className="total-number">{matchCount}</span> views
                         </h4>
                       </div>
                       <img
@@ -138,7 +142,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3 }) {
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h3 className="name-travel">{item.text}</h3>
                         <h3 className="total-room">
-                          <span className="total-number">1.615</span> Khách sạn
+                          {/* <div>Số lượng người dùng đã xem gần đây khu vực Miền Nam: {matchingUsersCount}</div> */}
                         </h3>
                       </div>
                       <img
