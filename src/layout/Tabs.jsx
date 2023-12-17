@@ -25,12 +25,13 @@ function TabPanel(props) {
   );
 }
 
-export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, matchCount, allUserXemGanDay }) {
+export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, countsArray }) {
   const [value, setValue] = useState(0);
 
   const handleChange = async (event, newValue) => {
     setValue(newValue);
   };
+
 
   return (
     <>
@@ -64,24 +65,18 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, matchCou
             />
           </Tabs>
         </Box>
-        {allUserXemGanDay.map((item, index) => {
-          <>
-            <div key={index}>
-              <p>{item.id}</p>
-            </div>
-          </>
-        })}
+
         {tinhthanh1 ? (
           <>
             <TabPanel value={value} index={0} className="p-0">
               <div className="grid grid-cols-4 gap-4 w-full md:h-300">
-                {tinhthanh1.slice(0, 4).map((item) => (
+                {tinhthanh1.slice(0, 4).map((item, index) => (
                   <Link to={`/booking/${item.text}`} key={item.id} className='col-span-4 sm:col-span-2 md:col-span-1'>
                     <div className="box-img relative">
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h4 className="name-travel">{item.text}</h4>
                         <h4 className="total-room">
-                          <span className="total-number">{matchCount}</span> views
+                          <span className="total-number">{countsArray[0][index]}</span> Khách sạn
                         </h4>
                       </div>
                       <img
@@ -106,13 +101,13 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, matchCou
           <>
             <TabPanel value={value} index={1} >
               <div className="grid grid-cols-4 gap-4 w-full md:h-300">
-                {tinhthanh3.slice(0, 4).map((item) => (
+                {tinhthanh3.slice(0, 4).map((item, index) => (
                   <Link to="/booking" key={item.id} className='col-span-4 sm:col-span-2 md:col-span-1'>
                     <div className="box-img relative">
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h3 className="name-travel">{item.text}</h3>
                         <h3 className="total-room">
-                          <span className="total-number">1.615</span> Khách sạn
+                          <span className="total-number">{countsArray[2][index]}</span> Khách sạn
                         </h3>
                       </div>
                       <img
@@ -136,18 +131,18 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, matchCou
           <>
             <TabPanel value={value} index={2}>
               <div className="grid grid-cols-4 gap-4 w-full md:h-300">
-                {tinhthanh2.slice(0, 4).map((item) => (
+                {tinhthanh2.slice(0, 4).map((item, index) => (
                   <Link to="/booking" key={item.id} className='col-span-4 sm:col-span-2 md:col-span-1'>
                     <div className="box-img relative">
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h3 className="name-travel">{item.text}</h3>
                         <h3 className="total-room">
-                          {/* <div>Số lượng người dùng đã xem gần đây khu vực Miền Nam: {matchingUsersCount}</div> */}
+                          <span className="total-number">{countsArray[1][index]}</span> Khách sạn
                         </h3>
                       </div>
                       <img
                         src={item.img}
-                        alt=""
+                        alt={item.title}
                         className="image"
                       />
                     </div>

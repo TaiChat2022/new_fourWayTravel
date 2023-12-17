@@ -37,7 +37,7 @@ const ChiTietLayout = ({
 									<i className="fa-solid fa-location-dot"></i>
 								</span>
 								<p className="text-sm font-medium ">
-									78 Thợ Nhuộm, Trần Hưng Đạo, Quận Hoàn Kiếm, Hà Nội, Việt Nam, 100000{' '}
+									{data.diaChi}{' '}
 									<span className="">
 										<a
 											className="text-primary-xanh font-semibold"

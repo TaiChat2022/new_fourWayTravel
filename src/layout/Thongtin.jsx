@@ -1,10 +1,10 @@
-import Header from '@/pages/Header';
 import Footer from '@/pages/Footer';
+import Header from '@/pages/Header';
 const Thongtin = () => {
 	return (
 		<div>
 			<Header></Header>
-			<div className="w-3/5 m-auto mt-40 rounded shadow-xl">
+			<div className="w-3/4 m-auto mt-4 rounded shadow-xl">
 				<div className="py-8 text-3xl font-bold text-center">Thông tin pháp lý</div>
 				<div className="flex justify-around py-8 ">
 					<div className="action1">

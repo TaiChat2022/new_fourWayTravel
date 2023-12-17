@@ -4,8 +4,8 @@ const Dieukhoan = () => {
 	return (
 		<>
 			<Header />
-			<main className="flex-grow px-3 py-4 w-5/7 ">
-				<article className="w-4/6 p-4 m-auto my-16 rounded-md shadow-2xl Content_article__DTtPE">
+			<main className="flex w-3/4 mx-auto mt-4">
+				<article className="w-full p-4 m-auto rounded-md shadow-2xl">
 					<h1 className="mb-6 text-2xl font-bold text-center text-heading-l">Điều khoản và Điều kiện</h1>
 					<div className="Content_staticContent__IXgjN">
 						<p>

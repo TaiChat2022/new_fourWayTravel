@@ -48,8 +48,8 @@ const UserXemGanDayLayout = ({ currentUser, userXemGanDay, Link }) => {
 																/>
 															</div>
 															<div className="flex flex-col truncatee">
-																<p className="text-base font-semibold text-sm">{item.title}</p>
-																<p className="text-base text-sm ">{item.danhMuc}</p>
+																<p className="text-base font-semibold md:text-sm">{item.title}</p>
+																<p className="text-base md:text-sm ">{item.danhmuc}</p>
 															</div>
 														</div>
 													</div>

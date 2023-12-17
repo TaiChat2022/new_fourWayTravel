@@ -1,11 +1,11 @@
-import Header from '@/pages/Header';
 import Footer from '@/pages/Footer';
+import Header from '@/pages/Header';
 
 const Timhieu = () => {
 	return (
 		<>
 			<Header></Header>
-			<div className="text-center pt-28">
+			<div className="text-center mt-2 w-3/4 mx-auto">
 				<div className="text-4xl font-bold text-sky-500">XIN CHÀO, TÔI CÓ THỂ GIÚP GÌ CHO BẠN ?</div>
 				<input
 					type="search"

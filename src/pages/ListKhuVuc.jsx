@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 
 const List = () => {
     const { data: luuTru } = useDocsQuery('luuTru');
-    const LuuTruHCM = luuTru.filter((item) => item.danhmuc === "Tp Hồ Chí Minh");
+    const LuuTruHCM = luuTru.filter((item) => item.danhmuc === "TP. Hồ Chí Minh");
     const LuuTruHaNoi = luuTru.filter((item) => item.danhmuc === "Hà Nội");
-    const LuuTruDaNang = luuTru.filter((item) => item.danhmuc === "Tp Đà Nẵng");
+    const LuuTruDaNang = luuTru.filter((item) => item.danhmuc === "Đà Nẵng");
     // nam
     const [isExpanded, setIsExpanded] = useState(false); // button lưu ẩn bớt và hiện
 
@@ -26,11 +26,11 @@ const List = () => {
         setIsExpandedHaNoi(!isExpandedHaNoi);
     };
     // Đà Nẵng
-    const [isExpandedDaNang, setIsExpandedDaNang] = useState(false); // button lưu ẩn bớt và hiện
+    const [isExpandedDaNang, setIsExpandedDaNang] = useState(false); // button to show more or less
 
-    const displayedDaNang = isExpandedDaNang ? LuuTruDaNang : LuuTruDaNang.slice(0, 3); // sự kiện lộc ra
+    const displayedDaNang = isExpandedDaNang ? LuuTruDaNang : LuuTruDaNang.slice(0, 3); // slicing the list
 
-    const isExpahandleToggleDaNang = () => { // button để click 
+    const handleToggleDaNang = () => { // button click handler
         setIsExpandedDaNang(!isExpandedDaNang);
     };
     return (
@@ -50,7 +50,7 @@ const List = () => {
                 displayedHaNoi={displayedHaNoi}
                 isExpandedHaNoi={isExpandedHaNoi}
 
-                isExpahandleToggleDaNang={isExpahandleToggleDaNang}
+                handleToggleDaNang={handleToggleDaNang}
                 displayedDaNang={displayedDaNang}
                 isExpandedDaNang={isExpandedDaNang}
             />
