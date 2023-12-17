@@ -16,6 +16,8 @@ const ChiTietLayout = ({
 	handleOpenModal,
 	handleCloseModal,
 	styles,
+	dataForBox1,
+	dataForBox2,
 }) => {
 	return (
 		<>
@@ -37,7 +39,7 @@ const ChiTietLayout = ({
 									<i className="fa-solid fa-location-dot"></i>
 								</span>
 								<p className="text-sm font-medium ">
-									78 Thợ Nhuộm, Trần Hưng Đạo, Quận Hoàn Kiếm, Hà Nội, Việt Nam, 100000{' '}
+									{data.diaChi}{' '}
 									<span className="">
 										<a
 											className="text-primary-xanh font-semibold"
@@ -129,70 +131,32 @@ const ChiTietLayout = ({
 								</div>
 								<div className="flex justify-between w-full gap-3">
 									<div className="w-1/2">
-										<div className="flex justify-start items-center gap-2 mb-2">
-											<i
-												className="fa-regular fa-bag-shopping"
-												style={{ color: ' #8B56F3' }}
-											></i>
-											<span className="text-sm font-medium">Khu mua sắm</span>
-										</div>
-										<div className="flex justify-between items-center mb-2">
-											<div className="flex justify-start items-center gap-2">
+										{dataForBox1.map((diaDiemGanDay) => (
+											<div
+												key={diaDiemGanDay}
+												className="flex justify-start items-center gap-2 mb-4"
+											>
 												<i
 													className="fa-solid fa-location-dot"
 													style={{ color: ' #ED2B22' }}
 												></i>
-												<span className="text-sm font-medium">Nhà thờ Lớn Hà Nội</span>
+												<span className="text-sm font-medium">{diaDiemGanDay}</span>
 											</div>
-											<div className="">
-												<p className="text-xs font-semibold text-gray-400">575 m</p>
-											</div>
-										</div>
-										<div className="flex justify-between items-center mb-2">
-											<div className="flex justify-start items-center gap-2">
-												<i
-													className="fa-solid fa-location-dot"
-													style={{ color: ' #ED2B22' }}
-												></i>
-												<span className="text-sm font-medium">Hanoi Railway Station</span>
-											</div>
-											<div className="">
-												<p className="text-xs font-semibold text-gray-400">687 m</p>
-											</div>
-										</div>
+										))}
 									</div>
 									<div className="w-1/2">
-										<div className="flex justify-start items-center gap-2 mb-2">
-											<i
-												className="fa-solid fa-location-dot"
-												style={{ color: ' #ED2B22' }}
-											></i>
-											<span className="text-sm font-medium">Khu mua sắm</span>
-										</div>
-										<div className="flex justify-between items-center mb-2">
-											<div className="flex justify-start items-center gap-2">
+										{dataForBox2.map((diaDiemGanDay) => (
+											<div
+												key={diaDiemGanDay}
+												className="flex justify-start items-center gap-2 mb-4"
+											>
 												<i
 													className="fa-solid fa-location-dot"
 													style={{ color: ' #ED2B22' }}
 												></i>
-												<span className="text-sm font-medium">Nhà thờ Lớn Hà Nội</span>
+												<span className="text-sm font-medium">{diaDiemGanDay}</span>
 											</div>
-											<div className="">
-												<p className="text-xs font-semibold text-gray-400">575 m</p>
-											</div>
-										</div>
-										<div className="flex justify-between items-center mb-2">
-											<div className="flex justify-start items-center gap-2">
-												<i
-													className="fa-solid fa-location-dot"
-													style={{ color: ' #ED2B22' }}
-												></i>
-												<span className="text-sm font-medium">Hanoi Railway Station</span>
-											</div>
-											<div className="">
-												<p className="text-xs font-semibold text-gray-400">687 m</p>
-											</div>
-										</div>
+										))}
 									</div>
 								</div>
 							</div>
@@ -405,9 +369,12 @@ const ChiTietLayout = ({
 														</p>
 													</div>
 													<div className="bg-gray-50 text-center w-4/5 py-1 m-auto rounded-md ">
-														<button className="text-primary-xanh font-semibold tracking-wide text-sm">
+														<Link
+															to={`/booking/chitiet/${item.id}`}
+															className="text-primary-xanh font-semibold tracking-wide text-sm"
+														>
 															Xem chi tiết phòng
-														</button>
+														</Link>
 													</div>
 												</div>
 
@@ -480,7 +447,7 @@ const ChiTietLayout = ({
 																		...prevItemIds,
 																		item.id,
 																	]);
-																	navigate(`/chitiet/${item.id}`);
+																	navigate(`/booking/chitiet/${item.id}`);
 																}}
 															>
 																Xem chi tiết

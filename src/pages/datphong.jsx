@@ -3,7 +3,7 @@ import DatphongLayout from '@/layout/datphong';
 import Footer from '@/pages/Footer';
 import { auth, firestore } from '@/utils/firebase.config';
 import axios from 'axios';
-import { doc, getDoc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Header from './Header';
@@ -59,28 +59,37 @@ const Datphong = () => {
 		setFormErrors(errors);
 		return Object.keys(errors).length === 0;
 	};
+	//Hàm này để lấy thông tin user đã đặt phòng
 
+	const getAllUsersBookings = async () => {
+		const usersCollectionRef = collection(db, 'users');
+		const usersSnapshot = await getDocs(usersCollectionRef);
+
+		const allUsersBookings = [];
+
+		usersSnapshot.forEach((userDoc) => {
+			const userData = userDoc.data();
+			const userBookings = userData.datphong || [];
+			allUsersBookings.push(...userBookings);
+		});
+
+		return allUsersBookings;
+	};
 	// cập nhật 2 hàm này để sài được thống kê 
 	const handleBookingSuccess = async (luuTruId) => {
 		try {
-			// Get the luuTru document
 			const luuTruDocRef = doc(db, 'luuTru', luuTruId);
 			const luuTruDoc = await getDoc(luuTruDocRef);
 
 			if (luuTruDoc.exists()) {
-				// If the luuTru document exists, get the 'price' field
 				const price = luuTruDoc.data().price || 0;
-
-				// Update the 'bookingCount' and 'totalRevenue' fields
 				const currentCount = luuTruDoc.data().bookingCount || 0;
 				const currentRevenue = luuTruDoc.data().totalRevenue || 0;
-
-				// Calculate the new total revenue based on the retrieved price
 				const newRevenue = currentRevenue + parseFloat(price);
 
 				await updateDoc(luuTruDocRef, {
 					bookingCount: currentCount + 1,
-					totalRevenue: newRevenue
+					totalRevenue: newRevenue,
 				});
 
 				console.log('Booking count and total revenue incremented successfully.');
@@ -99,10 +108,46 @@ const Datphong = () => {
 			return;
 		}
 
-		// Generate a unique ID for the booking, here we're using a timestamp
-		const bookingId = `${Date.now()}`;
-
 		try {
+			// Lấy thông tin đặt phòng của tất cả người dùng
+			const allUsersBookings = await getAllUsersBookings();
+
+			// Kiểm tra xung đột với thông tin đặt phòng của tất cả người dùng
+			const hasConflict = allUsersBookings.some((booking) => {
+				const bookingCheckinTime = new Date(booking.bookingDetails.checkinTime);
+				const bookingCheckoutTime = new Date(booking.bookingDetails.checkoutTime);
+				const newCheckinTime = new Date(formData.checkinTime);
+				const newCheckoutTime = new Date(formData.checkoutTime);
+
+				// Format dates to only include day, month, and year
+				const formatToDateOnly = (dateString) => {
+					const date = new Date(dateString);
+					const day = ('0' + date.getDate()).slice(-2);
+					const month = ('0' + (date.getMonth() + 1)).slice(-2);
+					const year = date.getFullYear();
+					return `${day}/${month}/${year}`;
+				};
+
+				const formattedBookingCheckin = formatToDateOnly(bookingCheckinTime);
+				const formattedBookingCheckout = formatToDateOnly(bookingCheckoutTime);
+				const formattedNewCheckin = formatToDateOnly(newCheckinTime);
+				const formattedNewCheckout = formatToDateOnly(newCheckoutTime);
+
+				return (
+					(formattedNewCheckin >= formattedBookingCheckin && formattedNewCheckin < formattedBookingCheckout) ||
+					(formattedNewCheckout > formattedBookingCheckin && formattedNewCheckout <= formattedBookingCheckout) ||
+					(formattedNewCheckin <= formattedBookingCheckin && formattedNewCheckout >= formattedBookingCheckout)
+				);
+			});
+
+			if (hasConflict) {
+				alert('Phòng đã được đặt trong khoảng thời gian này. Vui lòng chọn thời gian khác.');
+				return;
+			}
+
+			// Tiếp tục với quá trình lưu thông tin đặt phòng nếu không có xung đột
+			const bookingId = `${Date.now()}`;
+
 			// Reference the user's document in the 'users' collection
 			const userDocRef = doc(db, 'users', user.uid);
 
@@ -119,19 +164,18 @@ const Datphong = () => {
 			newDatphongArray.push({
 				uid: bookingId,
 				luuTruId: id,
-				bookingDetails: formData,
+				bookingDetails: { ...formData, checkinTime: formData.checkinTime, checkoutTime: formData.checkoutTime },
 			});
 
 			// Update the document with the new datphong array
 			await setDoc(userDocRef, { datphong: newDatphongArray }, { merge: true });
-			//cập nhật cái này để sài được thống kê
+			// Cập nhật cái này để sử dụng được thống kê
 			handleBookingSuccess(id);
-
 
 			alert('Thông tin đặt phòng đã được lưu thành công!');
 			// Clear the form
 			setFormData({
-				title: '',
+				tieuDe: '',
 				firstName: '',
 				lastName: '',
 				email: '',
@@ -139,115 +183,127 @@ const Datphong = () => {
 				phone: '',
 				region: '',
 				additionalRequest: '',
+				checkinTime: '',
+				checkoutTime: '',
 			});
 
-			const { firstName, lastName } = formData;
+
+			const { tieuDe, firstName, lastName, checkinTime, checkoutTime, additionalRequest } = formData;
 			const { danhmuc, diaChi, img, title, price } = data;
 			// Chuẩn bị dữ liệu email
 			const emailData = {
 				to: formData.email,
 				subject: `Thông tin đặt phòng FourWayTravel`,
 				html: `
-				<!doctype html>
-				<html lang="en">
-					<head>
-						<meta charset="UTF-8" />
-						<meta
-							name="viewport"
-							content="width=device-width, initial-scale=1.0"
-						/>
-						<title>Mail from FourWayTravel</title>
-						<link rel="stylesheet" />
-					</head>
-					<body>
-						<div class="container">
-							<div
-								class="header"
-								style="width: 100%; display: flex; justify-content: start; border-bottom: 1px solid #999"
-							>
+					<!doctype html>
+					<html lang="en">
+						<head>
+							<meta charset="UTF-8" />
+							<meta
+								name="viewport"
+								content="width=device-width, initial-scale=1.0"
+							/>
+							<title>Mail from FourWayTravel</title>
+							<link rel="stylesheet" />
+						</head>
+						<body>
+							<div class="container">
 								<div
-									class="logo"
-									style="
-										width: 75%;
-										display: flex;
-										justify-content: start;
-										align-items: center;
-										margin: 1.5rem 0 1.5rem 0;
-										background-color: #fff;
-									"
+									class="header"
+									style="width: 100%;background-color: #000; display: flex; justify-content: center; border-bottom: 1px solid #999"
 								>
-									<img
-									src="https://scontent.fsgn21-1.fna.fbcdn.net/v/t39.30808-6/404055892_3701745123483688_926822836482026852_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=z8SmlJz9RbkAX_wpbOf&_nc_ht=scontent.fsgn21-1.fna&oh=00_AfCCsNHg9l-29iqf85VfwUHwgzN_1SHJvifGtMtmyYMQww&oe=6567A567"
-										style="width: 250px; height: 100px; object-fit: contain"
-									/>
+									<div
+										class="logo"
+										style="
+											width: 75%;
+											display: flex;
+											justify-content: center;
+											align-items: center;
+											margin: 0 auto;
+										"
+									>
+										<img
+										src="https://lh3.googleusercontent.com/pw/ADCreHcfWVev3IBhYFwKaTWslmu0eJayFXDvoUT8YbzlpWawaklVkRQryr0Dh_4GdB96loRyM4h03fdCEu5WUudjhiZTnQxpAe5RsdVnIUr0acMEqyKeDrtEsoMRmgiiQ808CDGlFCJ8-JSy5I7FlhtoKdIj=w1024-h132-s-no-gm?authuser=0"
+											style="width: 250px; height: 100px; object-fit: contain"
+										/>
+									</div>
 								</div>
-							</div>
-							<div class="title">
-								<h3>Kính gửi: Quý khách hàng ${firstName} ${lastName}</h3>
-								<h3>Cám ơn Quý khách đã sử dụng dịch vụ của hệ thống Cổng thanh toán - Ví điện tử MOMO.</h3>
-								<h3>
-									Quý khách vừa thực hiện thanh toán thành công cho booking phòng
-									<b class="inDam">FourWayTravel</b>
-								</h3>
-				
-								<h3 class="ttdh">Thông tin đơn hàng:</h3>
-								<table style="border-collapse: collapse; width: 100%">
-									<tr>
-										<td
-											colspan="2"
-											style="padding: 10px 10px 10px 0"
-										>
-											<img
-												src="${img}"
-												style="width: 250px; height: 250px; object-fit: contain"
-											/>
-										</td>
-									</tr>
-									<tr>
-										<td style="padding: 10px 10px 10px 0">Mã giao dịch</td>
-										<td style="padding: 10px 10px 10px 0">${bookingId}</td>
-									</tr>
-				
-									<tr>
-										<td style="padding: 10px 10px 10px 0">Khu vực</td>
-										<td style="padding: 10px 10px 10px 0">${danhmuc}</td>
-									</tr>
-									<tr>
-										<td style="padding: 10px 10px 10px 0">Địa chỉ</td>
-										<td style="padding: 10px 10px 10px 0">${diaChi}</td>
-									</tr>
-									<tr>
-										<td style="padding: 10px 10px 10px 0">Tên khách sạn</td>
-										<td style="padding: 10px 10px 10px 0">${title}</td>
-									</tr>
-									<tr>
-										<td style="padding: 10px 10px 10px 0">Thời gian giao dịch</td>
-										<td style="padding: 10px 10px 10px 0">17/11/2023</td>
-									</tr>
-				
-									<tr>
-										<td style="padding: 10px 10px 10px 0">Phí giao dịch</td>
-										<td style="padding: 10px 10px 10px 0">${price.toLocaleString('vi')} VND</td>
-									</tr>
-								</table>
-							</div>
-							<div
-								class="footer"
-								style="
-									display: flex;
+								<div class="title">
+									<h3>Kính gửi: Quý ${tieuDe ? (tieuDe) : (`khách hàng`)} ${lastName} ${firstName}</h3>
+									<h3>Cám ơn Quý khách đã sử dụng dịch vụ của hệ thống Cổng thanh toán - Ví điện tử MOMO.</h3>
+									<h3>
+										Quý khách vừa thực hiện thanh toán thành công cho booking phòng
+										<b class="inDam">FourWayTravel</b>
+									</h3>
+					
+									<h3 class="ttdh">Thông tin đơn hàng:</h3>
+									<table style="border-collapse: collapse; width: 100%">
+										<tr>
+											<td
+												colspan="2"
+												style="padding: 10px 10px 10px 0"
+											>
+												<img
+													src="${img}"
+													style="width: 250px; height: 250px; object-fit: contain"
+												/>
+											</td>
+										</tr>
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Mã giao dịch</td>
+											<td style="padding: 10px 10px 10px 0">${bookingId}</td>
+										</tr>
+					
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Khu vực</td>
+											<td style="padding: 10px 10px 10px 0">${danhmuc}</td>
+										</tr>
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Địa chỉ</td>
+											<td style="padding: 10px 10px 10px 0">${diaChi}</td>
+										</tr>
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Tên khách sạn</td>
+											<td style="padding: 10px 10px 10px 0">${title}</td>
+										</tr>
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Thời gian nhận phòng</td>
+											<td style="padding: 10px 10px 10px 0">${checkinTime}</td>
+										</tr>
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Thời gian trả phòng</td>
+											<td style="padding: 10px 10px 10px 0">${checkoutTime}</td>
+										</tr>
+					
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Phí giao dịch</td>
+											<td style="padding: 10px 10px 10px 0">${price.toLocaleString('vi')} VND</td>
+										</tr>
+
+										${additionalRequest == '' ? (``) : (`
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Yêu cầu thêm</td>
+											<td style="padding: 10px 10px 10px 0">${additionalRequest}</td>
+										</tr>
+										`)}
+									</table>
+								</div>
+								<div
+									class="footer"
+									style="display: flex;
 									justify-content: space-around;
 									align-items: start;
 									margin-top: 1rem;
 									width: 100%;
 									border-top: 1px solid #999;
-									background-color: #fff;
-									color: #333;
+									background-color: #000;
+									color: #f1f1f1;
 									flex-wrap: wrap;
 								"
 							>
 								<img
-									src="https://scontent.fsgn21-1.fna.fbcdn.net/v/t39.30808-6/404055892_3701745123483688_926822836482026852_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=z8SmlJz9RbkAX_wpbOf&_nc_ht=scontent.fsgn21-1.fna&oh=00_AfCCsNHg9l-29iqf85VfwUHwgzN_1SHJvifGtMtmyYMQww&oe=6567A567"
-									style="width: 250px; height: 100px; object-fit: contain; margin-top: 1.5rem"
+									src="https://lh3.googleusercontent.com/pw/ADCreHcfWVev3IBhYFwKaTWslmu0eJayFXDvoUT8YbzlpWawaklVkRQryr0Dh_4GdB96loRyM4h03fdCEu5WUudjhiZTnQxpAe5RsdVnIUr0acMEqyKeDrtEsoMRmgiiQ808CDGlFCJ8-JSy5I7FlhtoKdIj=w1024-h132-s-no-gm?authuser=0"
+									style="width: 250px; height: 100px; object-fit: contain; margin-top: 1.5rem; margin-right:1.5rem"
 								/>
 								<div
 									class="title-footer"
@@ -275,7 +331,7 @@ const Datphong = () => {
 
 			// Gửi yêu cầu POST đến server
 			try {
-				const response = await axios.post('http://localhost:3000/sendmail', emailData);
+				const response = await axios.post('http://14.225.198.206:2020/sendmail', emailData);
 				console.log(response.data); // Xử lý phản hồi từ server
 			} catch (error) {
 				console.error('Error sending email:', error);

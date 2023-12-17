@@ -1,38 +1,30 @@
 export default function SearchBarLayout({
-	Box,
-	Link,
-	FormControl,
-	NativeSelect,
-	diadanh,
-	startDate,
-	endDate,
-	handleStartDateChange,
-	handleEndDateChange,
+	Box, Link,
+	FormControl, NativeSelect, diadanh,
+	startDate, endDate, handleStartDateChange, handleEndDateChange,
 	startDateSelected,
 	onAddressChange,
-	Filter,
-	isBookingPage,
-	filterAddress,
-	setFilterAddress,
-	address,
+	Filter, isBookingPage, filterAddress, setFilterAddress,
+	address, Select, MenuItem, OutlinedInput, MenuProps, getStyles, theme
 }) {
+
 	return (
 		<>
-			<div className="w-3/4 mx-auto mt-2 border-none rounded-lg shadow-2xl mb-2 z-50 sticky top-0 left-0 right-0">
+			<div className="w-3/4 mx-auto mt-2 border-none rounded-lg shadow-2xl mb-2 z-50 md:sticky top-0 left-0 right-0">
 				<div
-					className="flex flex-wrap w-full overflow-hidden bg-white rounded-lg 2xl:flex-nowrap "
+					className="flex flex-wrap w-full overflow-hidden bg-white rounded-lg 2xl:flex-nowrap"
 					data-testid="search-form"
 				>
-					<div className="grid w-full grid-cols-1 rounded-lg md:grid-cols-5">
+					<div className="grid w-full grid-cols-1 rounded-lg md:h-14 md:grid-cols-5">
 						{/* Địa danh */}
 						<button
 							type="button"
 							data-testid="search-form-destination"
-							className="w-full col-span-1 px-5 text-left truncate bg-white group h-14 active:bg-grey-200"
+							className="w-full col-span-1  px-5 text-left truncate bg-white group h-14 active:bg-grey-200"
 						>
-							<span className="flex items-center 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
+							<span className="flex items-center justify-center h-14  2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span
-									className="inline-flex flex-shrink-0 mr-3 leading-none transform "
+									className="inline-flex flex-shrink-0 mr-1 leading-none transform "
 									aria-hidden="true"
 								>
 									<svg
@@ -56,16 +48,16 @@ export default function SearchBarLayout({
 										</g>
 									</svg>
 								</span>
-								<span className="relative flex flex-col w-full truncate">
-									<Box sx={{ minWidth: 150 }}>
-										<FormControl fullWidth>
-											<span
+								<span className="relative flex flex-col justify-center w-full truncate">
+									<Box fullWidth>
+										<FormControl fullWidth sx={{ m: 1 }}>
+											{/* <span
 												className="text-xs leading-tight truncate text-grey-700"
 												data-testid="search-form-destination-label"
 											>
 												Địa danh
-											</span>
-											<NativeSelect
+											</span> */}
+											{/* <NativeSelect
 												value={isBookingPage ? filterAddress : undefined}
 												defaultValue={30}
 												inputProps={{
@@ -80,12 +72,7 @@ export default function SearchBarLayout({
 											>
 												{diadanh ? (
 													<>
-														<option
-															value=""
-															selected
-														>
-															Chọn khu vực
-														</option>
+														<option value="" selected >Chọn khu vực</option>
 														{diadanh.map((khuvuc) => (
 															<option
 																key={khuvuc.id}
@@ -100,7 +87,36 @@ export default function SearchBarLayout({
 														<p>Không lấy được dữ liệu địa danh</p>
 													</>
 												)}
-											</NativeSelect>
+											</NativeSelect> */}
+											<Select
+												// multiple
+												displayEmpty
+												value={isBookingPage ? filterAddress : undefined}
+												defaultValue={[]}
+												onChange={
+													isBookingPage
+														? (e) => setFilterAddress(e.target.value)
+														: onAddressChange
+												}
+												input={<OutlinedInput />}
+												sx={{ py: 2 }}
+												MenuProps={MenuProps}
+												inputProps={{ 'aria-label': 'Without label' }}
+											>
+												<MenuItem disabled value="">
+													<em>Chọn khu vực</em>
+												</MenuItem>
+
+												{diadanh.map((khuvuc) => (
+													<MenuItem
+														key={khuvuc.id}
+														value={`${khuvuc.text}`}
+														style={getStyles(khuvuc.text, khuvuc.text, theme)}
+													>
+														{khuvuc.text}
+													</MenuItem>
+												))}
+											</Select>
 										</FormControl>
 									</Box>
 								</span>
@@ -228,7 +244,7 @@ export default function SearchBarLayout({
 						</span>
 					</div>
 				</div>
-			</div>
+			</div >
 		</>
 	);
 }

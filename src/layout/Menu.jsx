@@ -208,22 +208,22 @@ export default function MenuLayOut({
 										}}
 									>
 										<div className="flex flex-col justify-start">
-											<Link
-												// onClick={handleClose}
-												to='/xemganday'
-												className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
-											>
-												Xem gần đây
-											</Link>
 											{user ?
 												(
 													<>
 														<Link
 															// onClick={handleClose}
+															to='/xemganday'
+															className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
+														>
+															<i className="fa-solid fa-clock-rotate-left"></i> Xem gần đây
+														</Link>
+														<Link
+															// onClick={handleClose}
 															to='/lichsudatphong'
 															className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
 														>
-															Lịch sử đặt hàng
+															<i className="fa-regular fa-bookmark"></i> Lịch sử đặt hàng
 														</Link>
 													</>
 												) : (
@@ -235,7 +235,7 @@ export default function MenuLayOut({
 												onClick={handleClose}
 												className="w-full py-2 px-4 text-left hover:text-blue-500"
 											>
-												Hỗ trợ và trợ giúp
+												<i className="fa-light fa-life-ring"></i> Hỗ trợ và trợ giúp
 											</button>
 										</div>
 									</Menu>

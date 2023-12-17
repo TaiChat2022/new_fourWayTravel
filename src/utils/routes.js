@@ -11,4 +11,8 @@ export const routes = {
 	LICHSUDP: '/lichsudatphong',
 	LOGIN: '/auth/login',
 	REGISTER: '/auth/register',
+
+	TIMHIEU: '/timhieu',
+	DIEUKHOAN: '/dieukhoan',
+	THONGTIN: '/thongtin',
 };

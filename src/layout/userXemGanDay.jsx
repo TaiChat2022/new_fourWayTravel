@@ -2,7 +2,7 @@ const UserXemGanDayLayout = ({ currentUser, userXemGanDay, Link }) => {
 	return (
 		<>
 			<main className="flex justify-start w-3/4 mx-auto pt-9 max-w-screen-2xl">
-				<span className="self-start mr-10">
+				<span className="self-start mr-4">
 					<Link
 						to="/"
 						className="flex items-center text-blue-500 text-md hover:text-blue-700"
@@ -12,7 +12,7 @@ const UserXemGanDayLayout = ({ currentUser, userXemGanDay, Link }) => {
 					</Link>
 				</span>
 				<div className="w-full">
-					<h1 className=" mb-2 text-2xl font-semibold leading-tight font-poppins">Xem gần đây</h1>
+					<h1 className=" mb-2 text-xl font-semibold leading-tight font-poppins">Xem gần đây</h1>
 					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
 						{currentUser ? (
 							userXemGanDay && userXemGanDay.length ? (
@@ -48,8 +48,8 @@ const UserXemGanDayLayout = ({ currentUser, userXemGanDay, Link }) => {
 																/>
 															</div>
 															<div className="flex flex-col truncatee">
-																<p className="text-base font-semibold text-sm">{item.title}</p>
-																<p className="text-base text-sm ">{item.danhMuc}</p>
+																<p className="text-base font-semibold md:text-sm">{item.title}</p>
+																<p className="text-base md:text-sm ">{item.danhmuc}</p>
 															</div>
 														</div>
 													</div>

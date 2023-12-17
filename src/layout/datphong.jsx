@@ -21,9 +21,9 @@ const DatphongLayout = ({
 					<div className="w-full md:w-4/6 drop-shadow">
 						<form onSubmit={handleSubmit}>
 							<div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
-								<div className="-mx-3 flex md:mb-4">
-									<div className="flex w-full">
-										<div className="w-3/6 lg:w-2/6 px-3">
+								<div className="-mx-3 grid grid-cols-4 md:mb-4">
+									<div className="flex w-full mb-2 sm:mb-0 col-span-4 sm:col-span-1">
+										<div className="px-3 w-full">
 											<label
 												className="block tracking-wide text-grey-darker text-base  mb-2"
 												htmlFor="grid-state"
@@ -32,41 +32,25 @@ const DatphongLayout = ({
 											</label>
 											<div className="relative">
 												<select
-													name="title" // Add the 'name' attribute to link with formData
+													name="tieuDe" // Add the 'name' attribute to link with formData
 													className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
 													id="grid-state"
-													value={formData.title} // Control the input with formData state
+													value={formData.tieuDe} // Control the input with formData state
 													onChange={handleChange} // Set the event handler
 												>
-													<option value="Ông" selected>Ông</option>
-													<option value="Bà">Bà</option>
-													<option value="Anh">Anh</option>
-													<option value="Chị">Chị</option>
+													<option name="tieuDe" value={``} selected disabled>Chọn tiêu đề</option>
+													<option name="tieuDe" value={`Ông`}>Ông</option>
+													<option name="tieuDe" value={`Bà`}>Bà</option>
+													<option name="tieuDe" value={`Anh`}>Anh</option>
+													<option name="tieuDe" value={`Chị`}>Chị</option>
 												</select>
 												<div className="pointer-events-none absolute inset-y-1/2 right-0 -translate-y-1/4 flex items-center px-2 text-grey-darker">
 													<i className="fa-regular fa-chevron-down"></i>
 												</div>
 											</div>
 										</div>
-										<div className="w-3/6 lg:w-4/6 px-3 mb-2 md:mb-0">
-											<label
-												className="block tracking-wide text-grey-darker text-base mb-2"
-												htmlFor="grid-first-name"
-											>
-												Tên <span className="text-red-500">*</span>
-											</label>
-											<input
-												className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-												id="grid-first-name"
-												type="text"
-												name="firstName"
-												value={formData.firstName}
-												onChange={handleChange}
-												placeholder=""
-											/>
-										</div>
 									</div>
-									<div className="md:w-1/2 px-3">
+									<div className="w-full px-3 col-span-2 sm:col-span-1">
 										<label
 											className="block tracking-wide text-grey-darker text-base mb-2"
 											htmlFor="grid-last-name"
@@ -83,7 +67,61 @@ const DatphongLayout = ({
 											placeholder=""
 										/>
 									</div>
+									<div className="w-full px-3 mb-2 md:mb-0 col-span-2 sm:col-span-2">
+										<label
+											className="block tracking-wide text-grey-darker text-base mb-2"
+											htmlFor="grid-first-name"
+										>
+											Tên <span className="text-red-500">*</span>
+										</label>
+										<input
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+											id="grid-first-name"
+											type="text"
+											name="firstName"
+											value={formData.firstName}
+											onChange={handleChange}
+											placeholder=""
+										/>
+									</div>
 								</div>
+
+								<div className="-mx-3 flex flex-wrap justify-between mb-4 relative">
+									<div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+										<label
+											className="block tracking-wide text-grey-darker text-base mb-2"
+											htmlFor="checkin-time"
+										>
+											Thời gian nhận phòng <pr className="text-red-500">*</pr>
+										</label>
+										<input
+											className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
+											id="checkin-time"
+											type="datetime-local"
+											name="checkinTime"
+											value={formData.checkinTime}
+											onChange={handleChange}
+										/>
+									</div>
+
+									<div className="w-full md:w-1/2 px-3">
+										<label
+											className="block tracking-wide text-grey-darker text-base mb-2"
+											htmlFor="checkout-time"
+										>
+											Thời gian trả phòng <pr className="text-red-500">*</pr>
+										</label>
+										<input
+											className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
+											id="checkout-time"
+											type="datetime-local"
+											name="checkoutTime"
+											value={formData.checkoutTime}
+											onChange={handleChange}
+										/>
+									</div>
+								</div>
+
 								<div className="-mx-3 flex flex-col md:flex-row mb-4">
 									<div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
 										<label
@@ -120,7 +158,7 @@ const DatphongLayout = ({
 										/>
 									</div>
 								</div>
-								<div className="-mx-3 flex mb-2">
+								<div className="-mx-3 flex flex-wrap mb-2">
 									<div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
 										<label
 											className="block tracking-wide text-grey-darker text-base mb-2"
@@ -148,17 +186,18 @@ const DatphongLayout = ({
 
 										<div className="relative">
 											<select
-												name="khuvuc" // Add the 'name' attribute to link with formData
+												name="region" // Add the 'name' attribute to link with formData
 												className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
 												id="grid-state"
 												value={formData.region} // Control the input with formData state
 												onChange={handleChange} // Set the event handler
 											>
-												<option value="Miền Bắc">Miền Bắc</option>
-												<option value="Miền Trung">Miền Trung</option>
-												<option value="Miền Nam">Miền Nam</option>
+												<option name="region" value="" disabled>Chọn vùng miền</option>
+												<option name="region" value="Miền Bắc">Miền Bắc</option>
+												<option name="region" value="Miền Trung">Miền Trung</option>
+												<option name="region" value="Miền Nam">Miền Nam</option>
 											</select>
-											<div className="pointer-events-none absolute top-1/2 right-0 -translate-y-1/4 flex items-center px-2 text-grey-darker">
+											<div className="pointer-events-none absolute inset-y-1/2 right-0 -translate-y-1/4 flex items-center px-2 text-grey-darker">
 												<i className="fa-regular fa-chevron-down"></i>
 											</div>
 										</div>
@@ -271,60 +310,47 @@ const DatphongLayout = ({
 									<p className="text-sm md:text-xs font-semibold mt-3 tracking-wide">Phòng Grand Ocean View</p>
 								</div>
 							</div>
-							<div className="flex justify-between mt-4">
-								<div className="flex justify-start items-center gap-3">
-									<i className="fa-light fa-calendar-day text-gray-400"></i>
-									<span className="text-gray-400 text-sm tracking-wide">Ngày nhận phòng</span>
-								</div>
-								<span className="text-sm font-medium">05/11/2023</span>
-							</div>
-							<div className="flex justify-between mt-4">
-								<div className="flex justify-start items-center gap-3">
-									<i className="fa-light fa-calendar-day text-gray-400"></i>
-									<span className="text-gray-400 text-sm tracking-wide">Ngày trả phòng</span>
-								</div>
-								<span className="text-sm font-medium">09/11/2023</span>
-							</div>
+
 							<div className="flex justify-between mt-4">
 								<div className="flex justify-start items-center gap-2">
-									<i className="fa-regular fa-user-pen text-gray-400"> </i>
-									<span className="text-gray-400 text-sm tracking-wide">Số khách phòng</span>
+									<i className="fa-regular fa-user-pen text-gray-400 text-sm md:text-xs"> </i>
+									<span className="text-gray-400 text-sm md:text-xs tracking-wide">Số khách phòng</span>
 								</div>
-								<span className="flex flex-nowrap justify-end md:flex-wrap text-sm">
+								<span className="flex flex-nowrap justify-end md:flex-wrap text-sm md:text-xs">
 									<p>2 khách,</p>
 									<p>1 phòng</p>
 								</span>
 							</div>
 							<div className="flex justify-between mt-4">
-								<span className="flex gap-1 text-gray-400 text-sm tracking-wide">
+								<span className="flex gap-1 text-gray-400 text-sm md:text-xs tracking-wide ">
 									<p className="">2 khách </p>
 									<p className="">x </p>
 									<p className="">1 phòng</p>
 								</span>
 
-								<span className="text-sm font-medium">{data.price.toLocaleString('vi')}</span>
+								<span className="text-sm md:text-xs font-medium">{data.price.toLocaleString('vi')}</span>
 							</div>
 							{/* <div className="flex justify-between mt-4">
 								<span className="text-gray-400 text-sm tracking-wide">Promo giảm 40%</span>
 								<span className="text-sm font-medium">-1,674,000 VND</span>
 							</div> */}
 							<div className="flex justify-between mt-4">
-								<span className="text-blue-500 font-semibold text-sm tracking-wide">
+								<span className="text-blue-500 font-semibold text-sm md:text-xs tracking-wide">
 									Phí dịch vụ
 								</span>
-								<span className="flex text-sm text-blue-500 font-semibold">MIỄN PHÍ</span>
+								<span className="flex text-sm md:text-xs text-blue-500 font-semibold">MIỄN PHÍ</span>
 							</div>
 
 							<div className="mt-4 flex justify-between items-center">
-								<span className="text-base font-semibold">Tổng tiền</span>
-								<p className="text-base font-semibold text-orange-400">
+								<span className="font-semibold text-lg md:text-base">Tổng tiền</span>
+								<p className="text-lg md:text-base font-semibold text-orange-400">
 									{(data.price).toLocaleString('vi')} VND
 								</p>
 							</div>
-							<div className="w-full p-6 text-sm bg-gray-100 border-none rounded-md mt-6">
+							<div className="w-full p-6 text-sm md:text-xs bg-gray-100 border-none rounded-md mt-6">
 								Booking của bạn đang được chờ xác nhận. Tư vấn viên sẽ sớm liên hệ với bạn
 							</div>
-							<div className="flex gap-4 items-center bg-gray-100 p-3 mt-4 border-none rounded-md w-full">
+							<div className="flex gap-4 items-center bg-gray-100 p-3 mt-4 border-none rounded-md w-full text-lg md:text-base">
 								<i className="fa-regular fa-phone text-gray-400"></i>
 								<span className="flex flex-wrap gap-1 items-center text-sm">
 									Gọi <b className="font-semibold">1900 1011</b>
