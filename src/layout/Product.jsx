@@ -1,6 +1,7 @@
 const ProductLayout = ({
     luuTru, renderStars, Link,
-    hotLuuTru, khachSanVip
+    hotLuuTru, khachSanVip,
+    handleAddToRecentlyViewed
 }) => {
     return (
         <>
@@ -11,10 +12,12 @@ const ProductLayout = ({
                         {luuTru ?
                             (
                                 <>
-                                    {hotLuuTru.map((item) =>
+                                    {hotLuuTru.map((item, index) =>
                                         <>
-                                            <Link to={`/booking/chitiet/${item.id}`}>
-                                                <div className='relative w-60 h-60'>
+                                            <Link to={`/booking/chitiet/${item.id}`}
+                                                onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img, item.price, item.lastViewed)}
+                                            >
+                                                <div key={index} className='relative w-60 h-60'>
                                                     <img src={item.img} alt={item.title} className=' rounded-md w-full h-full' />
                                                     <div className='content absolute bottom-0 text-white backdrop-blur-sm w-full bg-black/30 p-2'>
                                                         <h2>{item.title}</h2>
@@ -40,10 +43,12 @@ const ProductLayout = ({
                         {luuTru ?
                             (
                                 <>
-                                    {khachSanVip.map((item) =>
+                                    {khachSanVip.map((item, index) =>
                                         <>
-                                            <Link to={`/booking/chitiet/${item.id}`}>
-                                                <div className='relative w-60 h-60'>
+                                            <Link to={`/booking/chitiet/${item.id}`}
+                                                onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img, item.price, item.lastViewed)}
+                                            >
+                                                <div key={index} className='relative w-60 h-60'>
                                                     <img src={item.img} alt={item.title} className='rounded-md w-full h-full' />
                                                     <div className='content absolute bottom-0 text-white  backdrop-blur-sm w-full bg-black/30 p-2'>
                                                         <h2 className=''>{item.title}</h2>
