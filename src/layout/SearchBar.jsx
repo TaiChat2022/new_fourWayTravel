@@ -51,43 +51,7 @@ export default function SearchBarLayout({
 								<span className="relative flex flex-col justify-center w-full truncate">
 									<Box fullWidth>
 										<FormControl fullWidth sx={{ m: 1 }}>
-											{/* <span
-												className="text-xs leading-tight truncate text-grey-700"
-												data-testid="search-form-destination-label"
-											>
-												Địa danh
-											</span> */}
-											{/* <NativeSelect
-												value={isBookingPage ? filterAddress : undefined}
-												defaultValue={30}
-												inputProps={{
-													name: 'diadanh',
-													id: 'uncontrolled-native',
-												}}
-												onChange={
-													isBookingPage
-														? (e) => setFilterAddress(e.target.value)
-														: onAddressChange
-												}
-											>
-												{diadanh ? (
-													<>
-														<option value="" selected >Chọn khu vực</option>
-														{diadanh.map((khuvuc) => (
-															<option
-																key={khuvuc.id}
-																value={`${khuvuc.text}`}
-															>
-																{khuvuc.text}
-															</option>
-														))}
-													</>
-												) : (
-													<>
-														<p>Không lấy được dữ liệu địa danh</p>
-													</>
-												)}
-											</NativeSelect> */}
+
 											<Select
 												// multiple
 												displayEmpty
@@ -105,6 +69,11 @@ export default function SearchBarLayout({
 											>
 												<MenuItem disabled value="">
 													<em>Chọn khu vực</em>
+												</MenuItem>
+												<MenuItem
+													value=""
+												>
+													Xem tất cả
 												</MenuItem>
 
 												{diadanh.map((khuvuc) => (

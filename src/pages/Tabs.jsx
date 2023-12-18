@@ -8,9 +8,19 @@ const Tabs = () => {
   const { data: tinhthanh2 } = useDocsQuery('danhmuc');
   const { data: tinhthanh3 } = useDocsQuery('danhmuc');
 
-  const filteredDanhmucMienBac = tinhthanh1.filter((danhmuc) => danhmuc.khuvuc === 'Miền Bắc');
-  const filteredDanhmucMienNam = tinhthanh2.filter((danhmuc) => danhmuc.khuvuc === 'Miền Nam');
-  const filteredDanhmucMienTrung = tinhthanh3.filter((danhmuc) => danhmuc.khuvuc === 'Miền Trung');
+  const filteredDanhmucMienBac = React.useMemo(() =>
+    tinhthanh1.filter((danhmuc) => danhmuc.khuvuc === 'Miền Bắc'),
+    [tinhthanh1]
+  );
+  const filteredDanhmucMienNam = React.useMemo(() =>
+    tinhthanh2.filter((danhmuc) => danhmuc.khuvuc === 'Miền Nam'),
+    [tinhthanh2]
+  );
+  const filteredDanhmucMienTrung = React.useMemo(() =>
+    tinhthanh3.filter((danhmuc) => danhmuc.khuvuc === 'Miền Trung'),
+    [tinhthanh3]
+  );
+
 
   const getCounts = (tinhthanh) => {
     return tinhthanh.map((danhmuc) => {

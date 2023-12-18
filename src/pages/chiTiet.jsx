@@ -4,7 +4,7 @@ import Footer from '@/pages/Footer';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from './Header';
 import SearchBar from './SearchBar';
@@ -45,6 +45,26 @@ const chiTiet = () => {
 		return shuffledArray;
 	};
 	const [currentItemIds, setCurrentItemIds] = useState([]);
+
+	//địa điểm gần đây
+	const [dataForBox1, setDataForBox1] = useState([]);
+	const [dataForBox2, setDataForBox2] = useState([]);
+
+	useEffect(() => {
+		// Assuming you have some data source like diaDiemGanDayList
+		const diaDiemGanDayList = data.diaDiemGanDay;
+
+		// Take the first 3 items for box1
+		const dataForBox1 = diaDiemGanDayList.slice(0, 3);
+
+		// Take the remaining items for box2
+		const dataForBox2 = diaDiemGanDayList.slice(3);
+
+		// Update state with the data for each box
+		setDataForBox1(dataForBox1);
+		setDataForBox2(dataForBox2);
+	}, [data.diaDiemGanDay]);
+
 	//không lặp trùng id chi tiết
 
 	const getRatingText = (star) => {
@@ -146,6 +166,11 @@ const chiTiet = () => {
 				currentItemIds={currentItemIds}
 				setCurrentItemIds={setCurrentItemIds}
 				//lặp trung id
+
+				//địa điểm gần đây
+				dataForBox1={dataForBox1}
+				dataForBox2={dataForBox2}
+				//địa điểm gần đây
 
 				//modal xem thêm
 				Box={Box}

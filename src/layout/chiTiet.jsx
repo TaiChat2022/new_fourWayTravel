@@ -16,6 +16,8 @@ const ChiTietLayout = ({
 	handleOpenModal,
 	handleCloseModal,
 	styles,
+	dataForBox1,
+	dataForBox2,
 }) => {
 	return (
 		<>
@@ -26,13 +28,12 @@ const ChiTietLayout = ({
 							key={data.id}
 							className="flex flex-col items-start justify-center"
 						>
-							<h1 className="text-3xl font-bold">{data.title}</h1>
-							<p className="text-sm mt-1 text-gray-600 font-bold">{data.title}</p>
+							<h1 className="text-3xl font-bold my-2">{data.title}</h1>
 							<p className="render text-xm font-normal text-primary-xanh flex items-center">
 								Khách Sạn
 								<span className="text-sm ml-2 text-primary-vang">{renderStars(data.star)}</span>
 							</p>
-							<div className="flex items-center justify-start mt-2 text-sm">
+							<div className="flex items-center justify-start my-2 text-sm">
 								<span className="font-semibold text-sm mr-1">
 									<i className="fa-solid fa-location-dot"></i>
 								</span>
@@ -68,7 +69,7 @@ const ChiTietLayout = ({
 								alt={data.title}
 							/>
 						</div>
-						<div className="grid grid-cols-3 md:grid-cols-2 gap-2 col-span-1  md:col-span-2 max-h-96 overflow-hidden">
+						<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-2 col-span-1 md:col-span-2 h-auto md:max-h-96 overflow-hidden">
 							{data.imgPhu.map((image) => (
 								<>
 									<div className="col-span-1">
@@ -129,70 +130,32 @@ const ChiTietLayout = ({
 								</div>
 								<div className="flex justify-between w-full gap-3">
 									<div className="w-1/2">
-										<div className="flex justify-start items-center gap-2 mb-2">
-											<i
-												className="fa-regular fa-bag-shopping"
-												style={{ color: ' #8B56F3' }}
-											></i>
-											<span className="text-sm font-medium">Khu mua sắm</span>
-										</div>
-										<div className="flex justify-between items-center mb-2">
-											<div className="flex justify-start items-center gap-2">
+										{dataForBox1.map((diaDiemGanDay) => (
+											<div
+												key={diaDiemGanDay}
+												className="flex justify-start items-center gap-2 mb-4"
+											>
 												<i
 													className="fa-solid fa-location-dot"
 													style={{ color: ' #ED2B22' }}
 												></i>
-												<span className="text-sm font-medium">Nhà thờ Lớn Hà Nội</span>
+												<span className="text-sm font-medium">{diaDiemGanDay}</span>
 											</div>
-											<div className="">
-												<p className="text-xs font-semibold text-gray-400">575 m</p>
-											</div>
-										</div>
-										<div className="flex justify-between items-center mb-2">
-											<div className="flex justify-start items-center gap-2">
-												<i
-													className="fa-solid fa-location-dot"
-													style={{ color: ' #ED2B22' }}
-												></i>
-												<span className="text-sm font-medium">Hanoi Railway Station</span>
-											</div>
-											<div className="">
-												<p className="text-xs font-semibold text-gray-400">687 m</p>
-											</div>
-										</div>
+										))}
 									</div>
 									<div className="w-1/2">
-										<div className="flex justify-start items-center gap-2 mb-2">
-											<i
-												className="fa-solid fa-location-dot"
-												style={{ color: ' #ED2B22' }}
-											></i>
-											<span className="text-sm font-medium">Khu mua sắm</span>
-										</div>
-										<div className="flex justify-between items-center mb-2">
-											<div className="flex justify-start items-center gap-2">
+										{dataForBox2.map((diaDiemGanDay) => (
+											<div
+												key={diaDiemGanDay}
+												className="flex justify-start items-center gap-2 mb-4"
+											>
 												<i
 													className="fa-solid fa-location-dot"
 													style={{ color: ' #ED2B22' }}
 												></i>
-												<span className="text-sm font-medium">Nhà thờ Lớn Hà Nội</span>
+												<span className="text-sm font-medium">{diaDiemGanDay}</span>
 											</div>
-											<div className="">
-												<p className="text-xs font-semibold text-gray-400">575 m</p>
-											</div>
-										</div>
-										<div className="flex justify-between items-center mb-2">
-											<div className="flex justify-start items-center gap-2">
-												<i
-													className="fa-solid fa-location-dot"
-													style={{ color: ' #ED2B22' }}
-												></i>
-												<span className="text-sm font-medium">Hanoi Railway Station</span>
-											</div>
-											<div className="">
-												<p className="text-xs font-semibold text-gray-400">687 m</p>
-											</div>
-										</div>
+										))}
 									</div>
 								</div>
 							</div>
