@@ -77,7 +77,7 @@ const Header = () => {
 			// Thực hiện chuyển trang sau khi đăng xuất
 			window.location.href = '/';
 		} catch (error) {
-			console.error('Sign out error:', error);
+			// console.error('Sign out error:', error);
 		}
 	};
 

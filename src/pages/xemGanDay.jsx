@@ -28,7 +28,7 @@ const XemGanDay = () => {
             fetchedUserXemGanDay.push(doc.data());
           });
 
-          console.log('Fetched User Xem Gan Day:', fetchedUserXemGanDay);
+          // console.log('Fetched User Xem Gan Day:', fetchedUserXemGanDay);
           setUserXemGanDay(fetchedUserXemGanDay);
         } catch (error) {
           console.error('Error fetching user Xem Gan Day:', error);
@@ -66,9 +66,9 @@ const XemGanDay = () => {
         // Chờ cho tất cả các hành động xóa hoàn thành
         await Promise.all(deletePromises);
 
-        console.log(`Xóa xem gần đây sau 30s  thành công.`);
+        // console.log(`Xóa xem gần đây sau 30s  thành công.`);
       } catch (error) {
-        console.error('Lỗi không thể nào xóa xem gần đây sau 30s được:', error);
+        // console.error('Lỗi không thể nào xóa xem gần đây sau 30s được:', error);
       }
     }
   };

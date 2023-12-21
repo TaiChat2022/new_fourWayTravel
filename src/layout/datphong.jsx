@@ -99,7 +99,7 @@ const DatphongLayout = ({
 											id="checkin-time"
 											type="datetime-local"
 											name="checkinTime"
-											value={formData.checkinTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
+											value={formData.checkinTime}
 											onChange={handleChange}
 										/>
 									</div>
@@ -116,7 +116,7 @@ const DatphongLayout = ({
 											id="checkout-time"
 											type="datetime-local"
 											name="checkoutTime"
-											value={formData.checkoutTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
+											value={formData.checkoutTime}
 											onChange={handleChange}
 										/>
 									</div>

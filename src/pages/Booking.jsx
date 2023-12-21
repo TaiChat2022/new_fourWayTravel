@@ -147,9 +147,9 @@ const Booking = () => {
 				}
 
 				// Perform any other actions needed when a user views details
-				console.log(`User is viewing details for item with ID: ${itemId}`);
+				// console.log(`User is viewing details for item with ID: ${itemId}`);
 			} catch (error) {
-				console.error('Error handling recently viewed:', error);
+				// console.error('Error handling recently viewed:', error);
 			}
 		}
 	};

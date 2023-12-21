@@ -91,12 +91,12 @@ const Datphong = () => {
 					totalRevenue: newRevenue,
 				});
 
-				console.log('Booking count and total revenue incremented successfully.');
+				// console.log('Booking count and total revenue incremented successfully.');
 			} else {
-				console.error('LuuTru document does not exist.');
+				// console.error('LuuTru document does not exist.');
 			}
 		} catch (error) {
-			console.error('Error updating booking count and total revenue:', error);
+			// console.error('Error updating booking count and total revenue:', error);
 		}
 	};
 	const handleSubmit = async (e) => {
@@ -273,11 +273,11 @@ const Datphong = () => {
 										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Thời gian nhận</td>
-											<td style="padding: 10px 10px 10px 0">${checkinTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}</td>
+											<td style="padding: 10px 10px 10px 0">${checkinTime}</td>
 										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Thời gian trả</td>
-											<td style="padding: 10px 10px 10px 0">${checkoutTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}</td>
+											<td style="padding: 10px 10px 10px 0">${checkoutTime}</td>
 										</tr>
 					
 										<tr>
@@ -346,13 +346,13 @@ const Datphong = () => {
 			try {
 				const response = await axios.post('http://14.225.198.206:2020/sendmail', emailData);
 				// const response = await axios.post('http://localhost:3000/sendmail', emailData);
-				console.log(response.data); // Xử lý phản hồi từ server
+				// console.log(response.data); // Xử lý phản hồi từ server
 			} catch (error) {
-				console.error('Error sending email:', error);
+				// console.error('Error sending email:', error);
 			}
 
 		} catch (error) {
-			console.error('Error updating document: ', error);
+			// console.error('Error updating document: ', error);
 			alert('Lỗi khi lưu thông tin đặt phòng.');
 		}
 	};
@@ -368,10 +368,10 @@ const Datphong = () => {
 				tieuDe: selectedValue,
 			})
 			.then(() => {
-				console.log(`Document updated with value: ${selectedValue}`);
+				// console.log(`Document updated with value: ${selectedValue}`);
 			})
 			.catch((error) => {
-				console.error('Error updating document:', error);
+				// console.error('Error updating document:', error);
 			});
 	};
 

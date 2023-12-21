@@ -2,6 +2,7 @@ import '@/assets/css/hotTab.css';
 import { useDocsQuery } from '@/hooks/useFirestore';
 import ProductLayout from '@/layout/Product';
 import { auth, firestore } from '@/utils/firebase.config';
+
 import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { Link } from 'react-router-dom';

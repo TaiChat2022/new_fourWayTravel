@@ -1,8 +1,9 @@
+import banner1 from '../assets/img/HOTELVIETANH.jpg';
 const ProductLayout = ({
     luuTru, renderStars, Link,
     hotLuuTru, khachSanVip,
     handleAddToRecentlyViewed,
-    LuuTruGiamGia, topDiscountedLuuTru
+    topDiscountedLuuTru,
 }) => {
     return (
         <>
@@ -68,6 +69,9 @@ const ProductLayout = ({
                     </div>
                 </div>
             </div>
+            <img src={banner1} alt="Banner FourWay Travel"
+                className='w-3/4 mt-2 object-contain mx-auto'
+            />
             <div className="mx-auto w-3/4 mt-4 px-0 py-0 ">
                 <h1 className='py-2 text-lg font-semibold leading-tight font-poppins tracking-wide'><i class="fa-regular fa-house-fire"></i> Siêu giảm giá</h1>
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mb-4 gap-4'>
@@ -101,7 +105,6 @@ const ProductLayout = ({
                     }
                 </div>
             </div>
-
         </>
     );
 };
