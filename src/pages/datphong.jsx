@@ -29,10 +29,11 @@ const Datphong = () => {
 		firstName: '',
 		lastName: '',
 		email: '',
-		confirmEmail: '',
 		phone: '',
-		region: '',
 		additionalRequest: '',
+		checkinTime: '',
+		checkoutTime: '',
+		totalPrice: 0,
 	});
 
 	const [formErrors, setFormErrors] = React.useState({});
@@ -53,14 +54,13 @@ const Datphong = () => {
 		} else if (!/\S+@\S+\.\S+/.test(formData.email)) {
 			errors.email = 'Email không hợp lệ';
 		}
-		if (formData.email !== formData.confirmEmail) errors.confirmEmail = 'Email không khớp';
+		// if (formData.email !== formData.confirmEmail) errors.confirmEmail = 'Email không khớp';
 		if (!formData.phone.trim()) errors.phone = 'Số điện thoại không được để trống';
 
 		setFormErrors(errors);
 		return Object.keys(errors).length === 0;
 	};
 	//Hàm này để lấy thông tin user đã đặt phòng
-
 	const getAllUsersBookings = async () => {
 		const usersCollectionRef = collection(db, 'users');
 		const usersSnapshot = await getDocs(usersCollectionRef);
@@ -145,6 +145,9 @@ const Datphong = () => {
 				return;
 			}
 
+			const submissionTime = new Date();
+			const formattedSubmissionTime = submissionTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+
 			// Tiếp tục với quá trình lưu thông tin đặt phòng nếu không có xung đột
 			const bookingId = `${Date.now()}`;
 
@@ -164,6 +167,7 @@ const Datphong = () => {
 			newDatphongArray.push({
 				uid: bookingId,
 				luuTruId: id,
+				ngayThanhToan: formattedSubmissionTime,
 				bookingDetails: { ...formData, checkinTime: formData.checkinTime, checkoutTime: formData.checkoutTime },
 			});
 
@@ -179,21 +183,18 @@ const Datphong = () => {
 				firstName: '',
 				lastName: '',
 				email: '',
-				confirmEmail: '',
 				phone: '',
-				region: '',
 				additionalRequest: '',
 				checkinTime: '',
 				checkoutTime: '',
 			});
-
 
 			const { tieuDe, firstName, lastName, checkinTime, checkoutTime, additionalRequest } = formData;
 			const { danhmuc, diaChi, img, title, price } = data;
 			// Chuẩn bị dữ liệu email
 			const emailData = {
 				to: formData.email,
-				subject: `Thông tin đặt phòng FourWayTravel`,
+				subject: `Thông tin booking FourWayTravel`,
 				html: `
 					<!doctype html>
 					<html lang="en">
@@ -232,7 +233,7 @@ const Datphong = () => {
 									<h3>Kính gửi: Quý ${tieuDe ? (tieuDe) : (`khách hàng`)} ${lastName} ${firstName}</h3>
 									<h3>Cám ơn Quý khách đã sử dụng dịch vụ của hệ thống Cổng thanh toán - Ví điện tử MOMO.</h3>
 									<h3>
-										Quý khách vừa thực hiện thanh toán thành công cho booking phòng
+										Quý khách vừa thực hiện thanh toán thành công cho booking
 										<b class="inDam">FourWayTravel</b>
 									</h3>
 					
@@ -253,7 +254,10 @@ const Datphong = () => {
 											<td style="padding: 10px 10px 10px 0">Mã giao dịch</td>
 											<td style="padding: 10px 10px 10px 0">${bookingId}</td>
 										</tr>
-					
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Thời gian thanh toán</td>
+											<td style="padding: 10px 10px 10px 0">${formattedSubmissionTime}</td>
+										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Khu vực</td>
 											<td style="padding: 10px 10px 10px 0">${danhmuc}</td>
@@ -267,17 +271,25 @@ const Datphong = () => {
 											<td style="padding: 10px 10px 10px 0">${title}</td>
 										</tr>
 										<tr>
-											<td style="padding: 10px 10px 10px 0">Thời gian nhận phòng</td>
-											<td style="padding: 10px 10px 10px 0">${checkinTime}</td>
+											<td style="padding: 10px 10px 10px 0">Thời gian nhận</td>
+											<td style="padding: 10px 10px 10px 0">${checkinTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}</td>
 										</tr>
 										<tr>
-											<td style="padding: 10px 10px 10px 0">Thời gian trả phòng</td>
-											<td style="padding: 10px 10px 10px 0">${checkoutTime}</td>
+											<td style="padding: 10px 10px 10px 0">Thời gian trả</td>
+											<td style="padding: 10px 10px 10px 0">${checkoutTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}</td>
 										</tr>
 					
 										<tr>
-											<td style="padding: 10px 10px 10px 0">Phí giao dịch</td>
+											<td style="padding: 10px 10px 10px 0">Tổng số ngày bạn ở</td>
+											<td style="padding: 10px 10px 10px 0">${numberOfDaysStayed} ngày</td>
+										</tr>
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Giá thuê Homestay / 1 ngày</td>
 											<td style="padding: 10px 10px 10px 0">${price.toLocaleString('vi')} VND</td>
+										</tr>
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Tổng cộng của quý khách là:</td>
+											<td style="padding: 10px 10px 10px 0">${(price * numberOfDaysStayed).toLocaleString('vi')} VND</td>
 										</tr>
 
 										${additionalRequest == '' ? (``) : (`
@@ -332,6 +344,7 @@ const Datphong = () => {
 			// Gửi yêu cầu POST đến server
 			try {
 				const response = await axios.post('http://14.225.198.206:2020/sendmail', emailData);
+				// const response = await axios.post('http://localhost:3000/sendmail', emailData);
 				console.log(response.data); // Xử lý phản hồi từ server
 			} catch (error) {
 				console.error('Error sending email:', error);
@@ -361,6 +374,28 @@ const Datphong = () => {
 			});
 	};
 
+	const [numberOfDaysStayed, setNumberOfDaysStayed] = React.useState(1);
+
+	// Function to calculate total price and number of days stayed
+	const calculateTotalPriceAndDays = () => {
+		const checkinDate = new Date(formData.checkinTime);
+		const checkoutDate = new Date(formData.checkoutTime);
+		const diffTime = Math.abs(checkoutDate - checkinDate);
+		const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+		setNumberOfDaysStayed(diffDays);
+		const totalPrice = diffDays * data.price;
+		setFormData({ ...formData, totalPrice });
+	};
+
+	// Effect to update total price and number of days when dates change
+	React.useEffect(() => {
+		if (formData.checkinTime && formData.checkoutTime) {
+			calculateTotalPriceAndDays();
+		}
+	}, [formData.checkinTime, formData.checkoutTime]);
+
+
 	return (
 		<>
 			<Header />
@@ -372,7 +407,7 @@ const Datphong = () => {
 				formData={formData}
 				formErrors={formErrors}
 				updateFirebaseWithSelectedValue={updateFirebaseWithSelectedValue}
-
+				numberOfDaysStayed={numberOfDaysStayed}
 			/>
 			<Footer />
 		</>

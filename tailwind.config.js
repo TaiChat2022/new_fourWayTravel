@@ -58,6 +58,7 @@ export default {
 				xanh: '#48B4F0',
 				do: '#FF6D43',
 				vang: '#FFCC43',
+				cam: '#ff6d43',
 			},
 			scale: {
 				103: '1.03',
@@ -85,6 +86,7 @@ export default {
 					xanh: '#48B4F0',
 					do: '#FF6D43',
 					vang: '#FFCC43',
+					cam: '#ff6d43',
 				},
 			},
 		},

@@ -87,42 +87,15 @@ const BookingLayout = ({
 																	</>
 																)}
 															</div>
-															{/* <p className="text-xm text-gray-300 flex items-center">
-																<Rating1></Rating1>
-																{renderStars(item.star)}
-																<span className="text-xm font-light text-slate-950">
-																	Khách sạn
-																</span>
-															</p> */}
+
 														</div>
-														<div className="flex justify-between mt-2 text-sm">
-															<p className="text-sm font-200">
-																Cách trung tâm thành phố <span>0.0km</span>
-															</p>
-															<div className="pr-2">
-																<svg
-																	className="w-4 h-4 text-gray-800 dark:text-white mt-1 "
-																	aria-hidden="true"
-																	xmlns="http://www.w3.org/2000/svg"
-																	fill="none"
-																	viewBox="0 0 10 6"
-																>
-																	<path
-																		stroke="currentColor"
-																		strokeLinecap="round"
-																		strokeLinejoin="round"
-																		strokeWidth="2"
-																		d="m1 1 4 4 4-4"
-																	/>
-																</svg>
-															</div>
-														</div>
+
 														<div className="flex items-center justify-start mt-2 text-sm">
 															<span className="font-semibold text-sm mr-1">
 																<i className="fa-solid fa-star mb-1 mr-1 text-gray-300"></i>
 																{item.star} - {getRatingText(item.star)}
 															</span>
-															<p className="text-sm">(30 đánh giá)</p>
+															{/* <p className="text-sm">(30 đánh giá)</p> */}
 														</div>
 														<div className="flex items-center justify-start mt-2 text-sm">
 															<span className=" text-sm mr-1">
@@ -146,26 +119,50 @@ const BookingLayout = ({
 														{/* <button onClick={handleOpen}>Tiện ích</button> */}
 													</div>
 													<div className="block m-2 col-span-1 md:col-span-2 relative">
-														<div className="w-full rounded-lg  border-none bg-stone-300">
-															<div className="absolute top-2 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-red-600 pt-2">
-																<span className="bg-red-600 text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
-																	18%
-																</span>
-																<span className="bg-white w-auto border-solid border-2 rounded-vchh border-red-600 px-1.5 py-0.5 text-black h-full ">
-																	Rẻ hơn mọi khi
-																</span>
+														<div className="flex flex-col w-auto rounded-lg border-none bg-stone-200">
+															<div className="flex flex-wrap items-center gap-1 mt-1 ml-3 text-xs">
+																<p className='border-none rounded-lg mt-1'>Gần đây:</p>
+																{item.diaDiemGanDay.slice(0, 2).map((value, index) => (
+																	<div
+																		key={index}
+																		className="w-auto border-none rounded-lg"
+																	>
+																		<div className="flex justify-start items-center pt-1 text-mm truncate">
+																			{/* Kiểm tra nếu không phải là mục đầu tiên, thêm dấu phẩy */}
+																			{index > 0 && <span>,</span>}
+																			<div className="p-1">{value}</div>
+																		</div>
+																	</div>
+																))}
 															</div>
-															<div className="flex items-center w-full mt-2 pt-2 ml-2">
-																<span className="text-mm ml-1 font-bold">Agoda</span>
-															</div>
-															<div className="service flex gap-2 justify-start items-center ml-1 mt-1">
-																<i className="fa-solid fa-check text-mm  ml-2"></i>
-																<span className="text-mm  font-semibold">Gồm bữa sáng</span>
-															</div>
-															<div className="flex flex-wrap justify-between ml-3 mr-2 mb-2 pb-2 ">
-																<span className="flex text-lg md:text-md mt-1 font-semibold ">
-																	{item.price.toLocaleString('vi')}đ
+															{item.voucher ? (
+																<>
+																	<div className="absolute -top-4 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-red-600 pt-2">
+																		<span className="bg-red-600 text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
+																			{item.voucher} %
+																		</span>
+																		<span className="bg-white w-auto border-solid border-2 rounded-vchh border-red-600 px-1.5 py-0.5 text-black h-full ">
+																			Rẻ hơn mọi khi
+																		</span>
+																	</div>
+																</>
+															) : (
+																<></>
+															)}
+
+															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2 pb-2 ">
+																<span className="flex text-lg md:text-md mt-1 font-semibold mr-4">
+																	{item.price.toLocaleString('vi')} VND
 																</span>
+																{item.OldPrice ?
+																	(
+																		<>
+																			<span className="flex text-sm md:text-md mt-1 font-semibold text-red-500 line-through mr-3">
+																				{item.OldPrice.toLocaleString('vi')} VND
+																			</span>
+																		</>
+																	)
+																	: (<></>)}
 															</div>
 														</div>
 														<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">
@@ -210,8 +207,7 @@ const BookingLayout = ({
 																>
 																	{item.title}
 																</Link>
-																{/* <button
-											
+
 																{/* Yêu thích */}
 																{userFavorites.some((favorite) => favorite.id === item.id) ? (
 																	<>
@@ -237,42 +233,15 @@ const BookingLayout = ({
 																	</>
 																)}
 															</div>
-															{/* <p className="text-xm text-gray-300 flex items-center">
-																<Rating1></Rating1>
-																{renderStars(item.star)}
-																<span className="text-xm ml-2 font-light text-slate-950">
-																	Khách sạn
-																</span>
-															</p> */}
+
 														</div>
-														<div className="flex justify-between mt-2 text-sm">
-															<p className="text-sm font-200">
-																Cách trung tâm thành phố <span>0.0km</span>
-															</p>
-															<div className="pr-2">
-																<svg
-																	className="w-4 h-4 text-gray-800 dark:text-white mt-1 "
-																	aria-hidden="true"
-																	xmlns="http://www.w3.org/2000/svg"
-																	fill="none"
-																	viewBox="0 0 10 6"
-																>
-																	<path
-																		stroke="currentColor"
-																		strokeLinecap="round"
-																		strokeLinejoin="round"
-																		strokeWidth="2"
-																		d="m1 1 4 4 4-4"
-																	/>
-																</svg>
-															</div>
-														</div>
+
 														<div className="flex items-center justify-start mt-2 text-sm">
 															<span className="font-semibold text-sm mr-1">
 																<i className="fa-solid fa-star mb-1 mr-1 text-gray-300"></i>
 																{item.star} - {getRatingText(item.star)}
 															</span>
-															<p className="text-sm">(30 đánh giá)</p>
+															{/* <p className="text-sm">(30 đánh giá)</p> */}
 														</div>
 														<div className="flex items-center justify-start mt-2 text-sm">
 															<span className=" text-sm mr-1">
@@ -296,26 +265,50 @@ const BookingLayout = ({
 														{/* <button onClick={handleOpen}>Tiện ích</button> */}
 													</div>
 													<div className="block m-2 col-span-1 md:col-span-2 relative">
-														<div className="w-full rounded-lg  border-none bg-stone-300">
-															<div className="absolute top-2 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-red-600 pt-2">
-																<span className="bg-red-600 text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
-																	18%
-																</span>
-																<span className="bg-white w-auto border-solid border-2 rounded-vchh border-red-600 px-1.5 py-0.5 text-black h-full ">
-																	Rẻ hơn mọi khi
-																</span>
+														<div className="flex flex-col w-auto rounded-lg border-none bg-stone-200">
+															<div className="flex flex-wrap items-center gap-1 mt-1 ml-3 text-xs">
+																<p className='border-none rounded-lg mt-1'>Gần đây:</p>
+																{item.diaDiemGanDay.slice(0, 2).map((value, index) => (
+																	<div
+																		key={index}
+																		className="w-auto border-none rounded-lg"
+																	>
+																		<div className="flex justify-start items-center pt-1 text-mm truncate">
+																			{/* Kiểm tra nếu không phải là mục đầu tiên, thêm dấu phẩy */}
+																			{index > 0 && <span>,</span>}
+																			<div className="p-1">{value}</div>
+																		</div>
+																	</div>
+																))}
 															</div>
-															<div className="flex items-center w-full mt-2 pt-2 ml-2">
-																<span className="text-mm ml-1 font-bold">Agoda</span>
-															</div>
-															<div className="service flex gap-2 justify-start items-center ml-1 mt-1">
-																<i className="fa-solid fa-check text-mm  ml-2"></i>
-																<span className="text-mm  font-semibold">Gồm bữa sáng</span>
-															</div>
-															<div className="flex flex-wrap justify-between ml-3 mr-2 mb-2 pb-2 ">
-																<span className="flex text-lg md:text-md mt-1 font-semibold ">
-																	{item.price.toLocaleString('vi')}đ
+															{item.voucher ? (
+																<>
+																	<div className="absolute -top-4 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-red-600 pt-2">
+																		<span className="bg-red-600 text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
+																			{item.voucher} %
+																		</span>
+																		<span className="bg-white w-auto border-solid border-2 rounded-vchh border-red-600 px-1.5 py-0.5 text-black h-full ">
+																			Rẻ hơn mọi khi
+																		</span>
+																	</div>
+																</>
+															) : (
+																<></>
+															)}
+
+															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2 pb-2 ">
+																<span className="flex text-lg md:text-md mt-1 font-semibold mr-4">
+																	{item.price.toLocaleString('vi')} VND
 																</span>
+																{item.OldPrice ?
+																	(
+																		<>
+																			<span className="flex text-sm md:text-md mt-1 font-semibold text-red-500 line-through mr-3">
+																				{item.OldPrice.toLocaleString('vi')} VND
+																			</span>
+																		</>
+																	)
+																	: (<></>)}
 															</div>
 														</div>
 														<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">

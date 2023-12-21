@@ -76,7 +76,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, countsAr
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h4 className="name-travel">{item.text}</h4>
                         <h4 className="total-room">
-                          <span className="total-number">{countsArray[0][index]}</span> Khách sạn
+                          <span className="total-number">{countsArray[0][index]}</span> lưu trú
                         </h4>
                       </div>
                       <img
@@ -107,7 +107,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, countsAr
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h3 className="name-travel">{item.text}</h3>
                         <h3 className="total-room">
-                          <span className="total-number">{countsArray[2][index]}</span> Khách sạn
+                          <span className="total-number">{countsArray[2][index]}</span> lưu trú
                         </h3>
                       </div>
                       <img
@@ -137,7 +137,7 @@ export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, countsAr
                       <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
                         <h3 className="name-travel">{item.text}</h3>
                         <h3 className="total-room">
-                          <span className="total-number">{countsArray[1][index]}</span> Khách sạn
+                          <span className="total-number">{countsArray[1][index]}</span> lưu trú
                         </h3>
                       </div>
                       <img

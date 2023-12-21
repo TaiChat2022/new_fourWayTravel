@@ -6,7 +6,7 @@ const ProductLayout = ({
     return (
         <>
             <div className="mx-auto w-3/4 mt-4 px-0 py-0 ">
-                <h1 className='py-2 text-lg font-medium leading-tight font-poppins'><i className="fa-solid fa-fire"></i> Top khách sạn hot </h1>
+                <h1 className='py-2 text-lg font-semibold leading-tight font-poppins tracking-wide'><i className="fa-solid fa-fire"></i> Top Homestay hot </h1>
                 <div className="overflow-y-hidden overflow-x-auto">
                     <div className='flex w-screen mb-4 gap-4'>
                         {luuTru ?
@@ -37,7 +37,7 @@ const ProductLayout = ({
                 </div>
             </div>
             <div className="mx-auto w-3/4 mt-4 px-0 py-0 ">
-                <h1 className='py-2 text-lg font-medium leading-tight font-poppins'><i className="fa-regular fa-crown"></i> Top khách sạn sang trọng </h1>
+                <h1 className='py-2 text-lg font-semibold leading-tight font-poppins tracking-wide'><i className="fa-regular fa-crown"></i> Homestay sang trọng</h1>
                 <div className="overflow-y-hidden overflow-x-auto">
                     <div className='flex w-screen mb-4 gap-4'>
                         {luuTru ?

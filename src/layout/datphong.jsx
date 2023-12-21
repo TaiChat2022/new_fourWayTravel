@@ -1,5 +1,5 @@
 const DatphongLayout = ({
-	data, handleChange, handleSubmit, formData, formErrors,
+	data, handleChange, handleSubmit, formData, formErrors, numberOfDaysStayed
 }) => {
 	return (
 		<>
@@ -99,7 +99,7 @@ const DatphongLayout = ({
 											id="checkin-time"
 											type="datetime-local"
 											name="checkinTime"
-											value={formData.checkinTime}
+											value={formData.checkinTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
 											onChange={handleChange}
 										/>
 									</div>
@@ -116,14 +116,14 @@ const DatphongLayout = ({
 											id="checkout-time"
 											type="datetime-local"
 											name="checkoutTime"
-											value={formData.checkoutTime}
+											value={formData.checkoutTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
 											onChange={handleChange}
 										/>
 									</div>
 								</div>
 
 								<div className="-mx-3 flex flex-col md:flex-row mb-4">
-									<div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+									<div className="w-full px-3 mb-6 md:mb-0">
 										<label
 											className="block tracking-wide text-grey-darker text-base mb-2"
 											htmlFor="grid-email"
@@ -140,26 +140,10 @@ const DatphongLayout = ({
 											placeholder=""
 										/>
 									</div>
-									<div className="w-full md:w-1/2 px-3">
-										<label
-											className="block tracking-wide text-grey-darker text-base mb-2"
-											htmlFor="grid-email"
-										>
-											Nhập lại email <span className="text-red-500">*</span>
-										</label>
-										<input
-											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-											id="grid-email"
-											type="email"
-											name="confirmEmail"
-											value={formData.confirmEmail}
-											onChange={handleChange}
-											placeholder=""
-										/>
-									</div>
+
 								</div>
 								<div className="-mx-3 flex flex-wrap mb-2">
-									<div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+									<div className="w-full px-3 mb-6 md:mb-0">
 										<label
 											className="block tracking-wide text-grey-darker text-base mb-2"
 											htmlFor="grid-phone"
@@ -176,7 +160,7 @@ const DatphongLayout = ({
 											placeholder="+84 |"
 										/>
 									</div>
-									<div className="w-full md:w-1/2 px-3">
+									{/* <div className="w-full md:w-1/2 px-3">
 										<label
 											className="block tracking-wide text-grey-darker text-base mb-2"
 											htmlFor="grid-state"
@@ -201,7 +185,7 @@ const DatphongLayout = ({
 												<i className="fa-regular fa-chevron-down"></i>
 											</div>
 										</div>
-									</div>
+									</div> */}
 								</div>
 								<div className="-mx-3 flex mb-2">
 									<div className="w-full px-3 mb-6 md:mb-0">
@@ -224,11 +208,11 @@ const DatphongLayout = ({
 								</div>
 							</div>
 							<div className="bg-white px-3 py-4 mb-4">
-								<h1 className="text-lg font-semibold tracking-wide px-3">Chính sách đặt phòng</h1>
+								<h1 className="text-lg font-semibold tracking-wide px-3">Chính sách Homestay</h1>
 								<div className="rounded-sm px-3">
 									<div className="flex justify-start items-center my-2 gap-3 ">
 										<i className="fa-light fa-file-lines text-lg"></i>
-										<span className="font-semibold text-sm tracking-wide">Phòng Superior Twin</span>
+										<span className="font-semibold text-sm tracking-wide">Homestay {data.title}</span>
 									</div>
 									<div className="flex flex-wrap justify-start items-center my-2 gap-2 p-26px">
 										<span className="font-semibold text-sm">Hủy đặt phòng:</span>
@@ -313,29 +297,22 @@ const DatphongLayout = ({
 
 							<div className="flex justify-between mt-4">
 								<div className="flex justify-start items-center gap-2">
-									<i className="fa-regular fa-user-pen text-gray-400 text-sm md:text-xs"> </i>
-									<span className="text-gray-400 text-sm md:text-xs tracking-wide">Số khách phòng</span>
+									<span className="text-gray-400 text-sm md:text-xs tracking-wide">Thời gian ở:</span>
 								</div>
 								<span className="flex flex-nowrap justify-end md:flex-wrap text-sm md:text-xs">
-									<p>2 khách,</p>
-									<p>1 phòng</p>
+									{numberOfDaysStayed} ngày
 								</span>
 							</div>
 							<div className="flex justify-between mt-4">
 								<span className="flex gap-1 text-gray-400 text-sm md:text-xs tracking-wide ">
-									<p className="">2 khách </p>
-									<p className="">x </p>
-									<p className="">1 phòng</p>
+									Giá ngày:
 								</span>
 
 								<span className="text-sm md:text-xs font-medium">{data.price.toLocaleString('vi')}</span>
 							</div>
-							{/* <div className="flex justify-between mt-4">
-								<span className="text-gray-400 text-sm tracking-wide">Promo giảm 40%</span>
-								<span className="text-sm font-medium">-1,674,000 VND</span>
-							</div> */}
+
 							<div className="flex justify-between mt-4">
-								<span className="text-blue-500 font-semibold text-sm md:text-xs tracking-wide">
+								<span className="text-blue-500 font-semibold text-sm md:text-xs">
 									Phí dịch vụ
 								</span>
 								<span className="flex text-sm md:text-xs text-blue-500 font-semibold">MIỄN PHÍ</span>
@@ -344,7 +321,10 @@ const DatphongLayout = ({
 							<div className="mt-4 flex justify-between items-center">
 								<span className="font-semibold text-lg md:text-base">Tổng tiền</span>
 								<p className="text-lg md:text-base font-semibold text-orange-400">
-									{(data.price).toLocaleString('vi')} VND
+									{(
+										((data.price) * numberOfDaysStayed)
+									).toLocaleString('vi')
+									} VND
 								</p>
 							</div>
 							<div className="w-full p-6 text-sm md:text-xs bg-gray-100 border-none rounded-md mt-6">

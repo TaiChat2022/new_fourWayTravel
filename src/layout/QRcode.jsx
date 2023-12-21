@@ -11,7 +11,7 @@ const QRcode = () => {
 					<div className="w-full mb-4 -mt-52 mr-11 md:mt-0 md:w-3/6">
 						<h2 className="text-heading-l font-bold text-md md:text-2xl mb-1 truncate">Trải nghiệm website fourWayTravel</h2>
 						<h3 className="text-heading-s font-semibold text-md truncate">
-							Dễ dàng so sánh giá phòng để tiết kiệm mọi lúc, mọi nơi.
+							Dễ dàng so sánh giá để tiết kiệm mọi lúc, mọi nơi.
 						</h3>
 						<div className="flex justify-center md:justify-start mt-4">
 							<img
