@@ -42,7 +42,7 @@ const ChiTietLayout = ({
 							</div>
 						</div>
 						<div className="flex flex-auto flex-col items-end justify-center">
-							<p className="text-xs font-medium">Giá homestay mỗi tháng</p>
+							<p className="text-xs font-medium">Giá Homestay</p>
 							<span className="text-2xl text-orange-600 font-bold">
 								{data.price.toLocaleString('vi')} VND
 							</span>

@@ -33,7 +33,6 @@ const Datphong = () => {
 		additionalRequest: '',
 		checkinTime: '',
 		checkoutTime: '',
-		totalPrice: 0,
 	});
 
 	const [formErrors, setFormErrors] = React.useState({});
@@ -168,6 +167,8 @@ const Datphong = () => {
 				uid: bookingId,
 				luuTruId: id,
 				ngayThanhToan: formattedSubmissionTime,
+				tongTien: data.price * numberOfDaysStayed,
+				giaGoc: data.price,
 				bookingDetails: { ...formData, checkinTime: formData.checkinTime, checkoutTime: formData.checkoutTime },
 			});
 
@@ -377,21 +378,21 @@ const Datphong = () => {
 	const [numberOfDaysStayed, setNumberOfDaysStayed] = React.useState(1);
 
 	// Function to calculate total price and number of days stayed
-	const calculateTotalPriceAndDays = () => {
+	const calculateOriginPriceAndDays = () => {
 		const checkinDate = new Date(formData.checkinTime);
 		const checkoutDate = new Date(formData.checkoutTime);
 		const diffTime = Math.abs(checkoutDate - checkinDate);
 		const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
 		setNumberOfDaysStayed(diffDays);
-		const totalPrice = diffDays * data.price;
-		setFormData({ ...formData, totalPrice });
+		// const OriginPrice = diffDays * data.price;
+		// setFormData({ ...formData, OriginPrice });
 	};
 
 	// Effect to update total price and number of days when dates change
 	React.useEffect(() => {
 		if (formData.checkinTime && formData.checkoutTime) {
-			calculateTotalPriceAndDays();
+			calculateOriginPriceAndDays();
 		}
 	}, [formData.checkinTime, formData.checkoutTime]);
 
