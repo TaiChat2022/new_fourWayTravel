@@ -21,6 +21,7 @@ const Product = () => {
 	};
 	const hotLuuTru = luuTru.filter((item) => item.hot === true);
 	const khachSanVip = luuTru.filter((item) => item.star === 5);
+	const LuuTruGiamGia = luuTru.filter((item) => item.voucher > 0);
 
 	const [currentUser, setCurrentUser] = React.useState(null);
 
@@ -73,6 +74,9 @@ const Product = () => {
 			}
 		}
 	};
+	const topDiscountedLuuTru = [...LuuTruGiamGia]
+		.sort((a, b) => b.voucher - a.voucher)
+		.slice(0, 4);
 
 	return (
 		<>
@@ -83,6 +87,8 @@ const Product = () => {
 				renderStars={renderStars}
 				Link={Link}
 				handleAddToRecentlyViewed={handleAddToRecentlyViewed}
+				LuuTruGiamGia={LuuTruGiamGia}
+				topDiscountedLuuTru={topDiscountedLuuTru}
 			/>
 		</>
 	);
