@@ -157,7 +157,7 @@ const Datphong = () => {
 			// Get the current user's document
 			const userDoc = await getDoc(userDocRef);
 
-			// If the document exists, retrieve the current datphong array and append the new booking
+			// If the document exists, retrieve the current datphong formarray and append the new booking
 			let newDatphongArray = [];
 			if (userDoc.exists()) {
 				const userData = userDoc.data();
@@ -280,7 +280,7 @@ const Datphong = () => {
 										</tr>
 					
 										<tr>
-											<td style="padding: 10px 10px 10px 0">Tổng số ngày bạn ở</td>
+											<td style="padding: 10px 10px 10px 0">Tổng số ngày khách ở</td>
 											<td style="padding: 10px 10px 10px 0">${numberOfDaysStayed} ngày</td>
 										</tr>
 										<tr>
@@ -288,7 +288,7 @@ const Datphong = () => {
 											<td style="padding: 10px 10px 10px 0">${price.toLocaleString('vi')} VND</td>
 										</tr>
 										<tr>
-											<td style="padding: 10px 10px 10px 0">Tổng cộng của quý khách là:</td>
+											<td style="padding: 10px 10px 10px 0">Tổng cộng của quý khách là</td>
 											<td style="padding: 10px 10px 10px 0">${(price * numberOfDaysStayed).toLocaleString('vi')} VND</td>
 										</tr>
 
