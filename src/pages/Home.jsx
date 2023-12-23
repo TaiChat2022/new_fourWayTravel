@@ -1,5 +1,3 @@
-
-
 import Footer from '@/pages/Footer';
 import Tabs from '@/pages/Tabs';
 import XemGanDay from '@/pages/xemGanDay';
@@ -20,7 +18,6 @@ const Home = () => {
 			<Product />
 			{/* <Partner /> */}
 			{/* <ListKhuVuc /> */}
-
 			<Footer />
 		</>
 	);

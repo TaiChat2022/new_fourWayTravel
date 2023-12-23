@@ -45,10 +45,10 @@ const XemGanDayLayout = ({ currentUser, userXemGanDay, Link }) => {
                 );
               })
             ) : (
-              <p>Không có mục nào trong danh sách xem gần đây.</p>
+              <p className="w-full col-span-2 md:col-span-4">Không có mục nào trong danh sách xem gần đây.</p>
             )
           ) : (
-            <p>Vui lòng đăng nhập để xem danh sách xem gần đây.</p>
+            <p className="w-full col-span-2 md:col-span-4">Vui lòng đăng nhập để xem danh sách xem gần đây.</p>
           )}
         </div>
       </div >

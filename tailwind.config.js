@@ -7,9 +7,13 @@ export default {
 				'3xl': 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;',
 				product: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;',
 				zz: 'rgba(0, 0, 0, 0.16) 0px 1px 4px;',
+				vv: 'rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;',
 			},
 			lineHeight: {
 				128: '128px',
+			},
+			scale: {
+				98: '98',
 			},
 			fontFamily: {
 				poppins: ['Poppins', 'sans-serif'],
@@ -27,6 +31,7 @@ export default {
 				10: '10%',
 				100: '100px',
 				300: '300px',
+				w24: '24%',
 			},
 			height: {
 				400: '400px',
@@ -60,9 +65,6 @@ export default {
 				vang: '#FFCC43',
 				cam: '#ff6d43',
 			},
-			scale: {
-				103: '1.03',
-			},
 			translate: {
 				10: '10%',
 				18: '18%',
@@ -88,6 +90,9 @@ export default {
 					vang: '#FFCC43',
 					cam: '#ff6d43',
 				},
+			},
+			scale: {
+				98: '.98',
 			},
 		},
 	},
