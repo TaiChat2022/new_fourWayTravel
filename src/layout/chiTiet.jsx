@@ -46,9 +46,11 @@ const ChiTietLayout = ({
 							<span className="text-2xl text-orange-600 font-bold">
 								{data.price.toLocaleString('vi')} VND
 							</span>
-							<button className="w-full md:w-64 h-11 rounded-md bg-primary-do hover:scale-95 transition ease-in-out delay-50 duration-200 text-white font-semibold">
-								<Link to={`/datphong/${data.id}`}>Đặt ngay</Link>
-							</button>
+							<Link to={`/datphong/${data.id}`}>
+								<button className="w-full md:w-64 h-11 rounded-md bg-primary-do hover:scale-95 transition ease-in-out delay-50 duration-200 text-white font-semibold">
+									Đặt ngay
+								</button>
+							</Link>
 						</div>
 					</div>
 					{/* start images */}

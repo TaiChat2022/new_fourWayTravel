@@ -25,9 +25,11 @@ const BookingLayout = ({
 					) :
 					(
 						<>
-							<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
-								Khách sạn tại {address}
-							</h1>
+							{filterLuuTru.length > 0 && (
+								<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
+									Khách sạn tại {filterLuuTru[0].danhmuc}
+								</h1>
+							)}
 						</>
 					)
 				}

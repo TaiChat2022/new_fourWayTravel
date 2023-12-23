@@ -99,6 +99,7 @@ const DatphongLayout = ({
 											id="checkin-time"
 											type="datetime-local"
 											name="checkinTime"
+											min={new Date().toISOString().split("T")[0]}
 											value={formData.checkinTime}
 											onChange={handleChange}
 										/>
@@ -116,6 +117,7 @@ const DatphongLayout = ({
 											id="checkout-time"
 											type="datetime-local"
 											name="checkoutTime"
+											min={formData.checkinTime ? new Date(formData.checkinTime).toISOString().split("T")[0] : undefined}
 											value={formData.checkoutTime}
 											onChange={handleChange}
 										/>
@@ -186,6 +188,27 @@ const DatphongLayout = ({
 											</div>
 										</div>
 									</div> */}
+								</div>
+
+								<div className="-mx-3 flex flex-wrap mb-2">
+									<div className="w-full px-3 mb-6 md:mb-0">
+										<label
+											className="block tracking-wide text-grey-darker text-base mb-2"
+											htmlFor="grid-phone"
+										>
+											Số cccd <span className="text-red-500">*</span>
+										</label>
+										<input
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+											id="grid-city"
+											type="text"
+											name="cccd"
+											value={formData.cccd}
+											onChange={handleChange}
+											placeholder=""
+										/>
+									</div>
+
 								</div>
 								<div className="-mx-3 flex mb-2">
 									<div className="w-full px-3 mb-6 md:mb-0">

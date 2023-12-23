@@ -33,6 +33,7 @@ const Datphong = () => {
 		additionalRequest: '',
 		checkinTime: '',
 		checkoutTime: '',
+		cccd: ''
 	});
 
 	const [formErrors, setFormErrors] = React.useState({});
@@ -53,8 +54,37 @@ const Datphong = () => {
 		} else if (!/\S+@\S+\.\S+/.test(formData.email)) {
 			errors.email = 'Email không hợp lệ';
 		}
-		// if (formData.email !== formData.confirmEmail) errors.confirmEmail = 'Email không khớp';
-		if (!formData.phone.trim()) errors.phone = 'Số điện thoại không được để trống';
+
+		if (!formData.phone.trim()) {
+			errors.phone = 'Số điện thoại không được để trống';
+		} else if (formData.phone.trim().length !== 10 || !/^\d{10}$/.test(formData.phone.trim())) {
+			errors.phone = 'Số điện thoại phải có đúng 10 số';
+		}
+
+		const currentDate = new Date();
+		currentDate.setHours(0, 0, 0, 0); // Reset time to 00:00:00 for comparison
+		// Validate CCCD
+		if (!formData.cccd.trim()) {
+			errors.cccd = 'CCCD không được để trống';
+		} else if (formData.cccd.trim().length !== 12 || !/^\d{12}$/.test(formData.cccd.trim())) {
+			errors.cccd = 'CCCD phải có đúng 12 số';
+		}
+
+		// Validate checkinTime
+		if (!formData.checkinTime) {
+			errors.checkinTime = 'Vui lòng chọn ngày nhận phòng';
+		} else if (new Date(formData.checkinTime) < currentDate) {
+			errors.checkinTime = 'Ngày nhận phòng không thể trước ngày hiện tại';
+		}
+
+		// Validate checkoutTime
+		if (!formData.checkoutTime) {
+			errors.checkoutTime = 'Vui lòng chọn ngày trả phòng';
+		} else if (new Date(formData.checkoutTime) < new Date(formData.checkinTime)) {
+			errors.checkoutTime = 'Ngày trả phòng không thể trước ngày nhận phòng';
+		} else if (new Date(formData.checkoutTime).getMonth() > currentDate.getMonth()) {
+			errors.checkoutTime = 'Không chọn ngày trả phòng qua tháng hiện tại';
+		}
 
 		setFormErrors(errors);
 		return Object.keys(errors).length === 0;
@@ -106,6 +136,31 @@ const Datphong = () => {
 			alert('Vui lòng sửa các lỗi trước khi đặt phòng.');
 			return;
 		}
+
+		// Cài đặt thời gian nhận phòng là 2h chiều còn thời gian trả phòng là 12h trưa hôm trả phòng sau
+		const { name, value } = e.target;
+		let updatedFormData = { ...formData };
+		if (name === 'checkinTime') {
+			// Set check-in time to 2 PM (14:00) on the selected date
+			const checkinDate = new Date(value);
+			checkinDate.setHours(14, 0, 0); // Set to 14:00:00
+			updatedFormData.checkinTime = checkinDate.toISOString().split("T")[0];
+
+			// Automatically set checkout time to 12 PM (12:00) the next day
+			const checkoutDate = new Date(checkinDate);
+			checkoutDate.setDate(checkoutDate.getDate() + 1); // Add one day
+			checkoutDate.setHours(12, 0, 0); // Set to 12:00:00
+			updatedFormData.checkoutTime = checkoutDate.toISOString().split("T")[0];
+
+		} else if (name === 'checkoutTime') {
+			// Set checkout time to 12 PM (12:00) on the selected date
+			const checkoutDate = new Date(value);
+			checkoutDate.setHours(12, 0, 0); // Set to 12:00:00
+			updatedFormData.checkoutTime = checkoutDate.toISOString().split("T")[0];
+		} else {
+			updatedFormData[name] = value;
+		}
+		setFormData(updatedFormData);
 
 		try {
 			// Lấy thông tin đặt phòng của tất cả người dùng
@@ -162,6 +217,9 @@ const Datphong = () => {
 				const userData = userDoc.data();
 				newDatphongArray = userData.datphong ? [...userData.datphong] : [];
 			}
+			// Format checkinTime and checkoutTime
+			const formattedCheckinTime = new Date(formData.checkinTime).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', year: 'numeric', month: '2-digit', day: '2-digit' }).split(', ')[0];
+			const formattedCheckoutTime = new Date(formData.checkoutTime).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', year: 'numeric', month: '2-digit', day: '2-digit' }).split(', ')[0];
 			// Append the new booking with a unique ID to the datphong array
 			newDatphongArray.push({
 				uid: bookingId,
@@ -169,7 +227,10 @@ const Datphong = () => {
 				ngayThanhToan: formattedSubmissionTime,
 				tongTien: data.price * numberOfDaysStayed,
 				giaGoc: data.price,
-				bookingDetails: { ...formData, checkinTime: formData.checkinTime, checkoutTime: formData.checkoutTime },
+				bookingDetails: {
+					...formData, checkinTime: formattedCheckinTime
+					, checkoutTime: formattedCheckoutTime
+				},
 			});
 
 			// Update the document with the new datphong array
@@ -188,9 +249,10 @@ const Datphong = () => {
 				additionalRequest: '',
 				checkinTime: '',
 				checkoutTime: '',
+				cccd: '',
 			});
 
-			const { tieuDe, firstName, lastName, checkinTime, checkoutTime, additionalRequest } = formData;
+			const { tieuDe, firstName, lastName, additionalRequest, cccd } = formData;
 			const { danhmuc, diaChi, img, title, price } = data;
 			// Chuẩn bị dữ liệu email
 			const emailData = {
@@ -260,6 +322,10 @@ const Datphong = () => {
 											<td style="padding: 10px 10px 10px 0">${formattedSubmissionTime}</td>
 										</tr>
 										<tr>
+											<td style="padding: 10px 10px 10px 0">Số CCCD của khách</td>
+											<td style="padding: 10px 10px 10px 0">${cccd}</td>
+										</tr>
+										<tr>
 											<td style="padding: 10px 10px 10px 0">Khu vực</td>
 											<td style="padding: 10px 10px 10px 0">${danhmuc}</td>
 										</tr>
@@ -273,11 +339,11 @@ const Datphong = () => {
 										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Thời gian nhận</td>
-											<td style="padding: 10px 10px 10px 0">${checkinTime}</td>
+											<td style="padding: 10px 10px 10px 0">${formattedCheckinTime}</td>
 										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Thời gian trả</td>
-											<td style="padding: 10px 10px 10px 0">${checkoutTime}</td>
+											<td style="padding: 10px 10px 10px 0">${formattedCheckoutTime}</td>
 										</tr>
 					
 										<tr>
@@ -346,7 +412,6 @@ const Datphong = () => {
 			try {
 				const response = await axios.post('http://14.225.198.206:2020/sendmail', emailData);
 				// const response = await axios.post('http://localhost:3000/sendmail', emailData);
-				// console.log(response.data); // Xử lý phản hồi từ server
 			} catch (error) {
 				// console.error('Error sending email:', error);
 			}

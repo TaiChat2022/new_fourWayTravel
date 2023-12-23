@@ -31,6 +31,16 @@ function getStyles(name, isBookingPage, theme) {
 				: theme.typography.fontWeightMedium,
 	};
 }
+function sanitizeAddress(address) {
+	if (address === undefined || address === null) {
+		return '';
+	}
+	// Normalize and remove diacritics
+	let cleanAddress = address.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+	// Remove spaces
+	cleanAddress = cleanAddress.replace(/\s+/g, '');
+	return cleanAddress;
+}
 
 const SearchBar = () => {
 	// const navigate = useNavigate();
@@ -39,7 +49,7 @@ const SearchBar = () => {
 	const [startDate, setStartDate] = React.useState('');
 	const [endDate, setEndDate] = React.useState('');
 	const [startDateSelected, setStartDateSelected] = React.useState(false);
-	const [address, setAddress] = useState(undefined);
+	const [address, setAddress] = useState('');
 
 	const handleStartDateChange = (event) => {
 		setStartDate(event.target.value);
@@ -107,6 +117,7 @@ const SearchBar = () => {
 				setFilterAddress={setFilterAddress}
 
 				address={address}
+				sanitizeAddress={sanitizeAddress}
 			/>
 		</>
 	);

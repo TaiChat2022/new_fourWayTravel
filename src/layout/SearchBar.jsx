@@ -5,7 +5,8 @@ export default function SearchBarLayout({
 	startDateSelected,
 	onAddressChange,
 	Filter, isBookingPage, filterAddress, setFilterAddress,
-	address, Select, MenuItem, OutlinedInput, MenuProps, getStyles, theme
+	address, Select, MenuItem, OutlinedInput, MenuProps, getStyles, theme,
+	sanitizeAddress
 }) {
 
 	return (
@@ -187,7 +188,7 @@ export default function SearchBarLayout({
 
 						<span className="flex items-center justify-end col-span-1">
 							<Link
-								to={`/booking/${address}`}
+								to={`/booking/${sanitizeAddress(address)}`}
 								type="button"
 								className={`
 									flex items-center justify-center px-12 py-2

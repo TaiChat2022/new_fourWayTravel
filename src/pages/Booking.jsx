@@ -16,11 +16,21 @@ import { Link, useParams } from 'react-router-dom';
 import Header from './Header';
 import SearchBar from './SearchBar';
 const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
+function sanitizeAddress(address) {
+	if (address === undefined || address === null) {
+		return '';
+	}
+	// Normalize and remove diacritics
+	let cleanAddress = address.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+	// Remove spaces
+	cleanAddress = cleanAddress.replace(/\s+/g, '');
+	return cleanAddress;
+}
 
 const Booking = () => {
 	const { address } = useParams();
 	const { data: luuTru } = useDocsQuery('luuTru');
-	const filterLuuTru = luuTru.filter((item) => item.danhmuc === address);
+	const filterLuuTru = luuTru.filter((item) => sanitizeAddress(item.danhmuc) === address);
 
 	const getRatingText = (star) => {
 		if (star > 4) return 'Xuất sắc';
