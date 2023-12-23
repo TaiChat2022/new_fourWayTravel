@@ -29,10 +29,11 @@ const Datphong = () => {
 		firstName: '',
 		lastName: '',
 		email: '',
-		confirmEmail: '',
 		phone: '',
-		region: '',
 		additionalRequest: '',
+		checkinTime: '',
+		checkoutTime: '',
+		cccd: ''
 	});
 
 	const [formErrors, setFormErrors] = React.useState({});
@@ -53,14 +54,42 @@ const Datphong = () => {
 		} else if (!/\S+@\S+\.\S+/.test(formData.email)) {
 			errors.email = 'Email không hợp lệ';
 		}
-		if (formData.email !== formData.confirmEmail) errors.confirmEmail = 'Email không khớp';
-		if (!formData.phone.trim()) errors.phone = 'Số điện thoại không được để trống';
+
+		if (!formData.phone.trim()) {
+			errors.phone = 'Số điện thoại không được để trống';
+		} else if (formData.phone.trim().length !== 10 || !/^\d{10}$/.test(formData.phone.trim())) {
+			errors.phone = 'Số điện thoại phải có đúng 10 số';
+		}
+
+		const currentDate = new Date();
+		currentDate.setHours(0, 0, 0, 0); // Reset time to 00:00:00 for comparison
+		// Validate CCCD
+		if (!formData.cccd.trim()) {
+			errors.cccd = 'CCCD không được để trống';
+		} else if (formData.cccd.trim().length !== 12 || !/^\d{12}$/.test(formData.cccd.trim())) {
+			errors.cccd = 'CCCD phải có đúng 12 số';
+		}
+
+		// Validate checkinTime
+		if (!formData.checkinTime) {
+			errors.checkinTime = 'Vui lòng chọn ngày nhận phòng';
+		} else if (new Date(formData.checkinTime) < currentDate) {
+			errors.checkinTime = 'Ngày nhận phòng không thể trước ngày hiện tại';
+		}
+
+		// Validate checkoutTime
+		if (!formData.checkoutTime) {
+			errors.checkoutTime = 'Vui lòng chọn ngày trả phòng';
+		} else if (new Date(formData.checkoutTime) < new Date(formData.checkinTime)) {
+			errors.checkoutTime = 'Ngày trả phòng không thể trước ngày nhận phòng';
+		} else if (new Date(formData.checkoutTime).getMonth() > currentDate.getMonth()) {
+			errors.checkoutTime = 'Không chọn ngày trả phòng qua tháng hiện tại';
+		}
 
 		setFormErrors(errors);
 		return Object.keys(errors).length === 0;
 	};
 	//Hàm này để lấy thông tin user đã đặt phòng
-
 	const getAllUsersBookings = async () => {
 		const usersCollectionRef = collection(db, 'users');
 		const usersSnapshot = await getDocs(usersCollectionRef);
@@ -92,12 +121,12 @@ const Datphong = () => {
 					totalRevenue: newRevenue,
 				});
 
-				console.log('Booking count and total revenue incremented successfully.');
+				// console.log('Booking count and total revenue incremented successfully.');
 			} else {
-				console.error('LuuTru document does not exist.');
+				// console.error('LuuTru document does not exist.');
 			}
 		} catch (error) {
-			console.error('Error updating booking count and total revenue:', error);
+			// console.error('Error updating booking count and total revenue:', error);
 		}
 	};
 	const handleSubmit = async (e) => {
@@ -107,6 +136,31 @@ const Datphong = () => {
 			alert('Vui lòng sửa các lỗi trước khi đặt phòng.');
 			return;
 		}
+
+		// Cài đặt thời gian nhận phòng là 2h chiều còn thời gian trả phòng là 12h trưa hôm trả phòng sau
+		const { name, value } = e.target;
+		let updatedFormData = { ...formData };
+		if (name === 'checkinTime') {
+			// Set check-in time to 2 PM (14:00) on the selected date
+			const checkinDate = new Date(value);
+			checkinDate.setHours(14, 0, 0); // Set to 14:00:00
+			updatedFormData.checkinTime = checkinDate.toISOString().split("T")[0];
+
+			// Automatically set checkout time to 12 PM (12:00) the next day
+			const checkoutDate = new Date(checkinDate);
+			checkoutDate.setDate(checkoutDate.getDate() + 1); // Add one day
+			checkoutDate.setHours(12, 0, 0); // Set to 12:00:00
+			updatedFormData.checkoutTime = checkoutDate.toISOString().split("T")[0];
+
+		} else if (name === 'checkoutTime') {
+			// Set checkout time to 12 PM (12:00) on the selected date
+			const checkoutDate = new Date(value);
+			checkoutDate.setHours(12, 0, 0); // Set to 12:00:00
+			updatedFormData.checkoutTime = checkoutDate.toISOString().split("T")[0];
+		} else {
+			updatedFormData[name] = value;
+		}
+		setFormData(updatedFormData);
 
 		try {
 			// Lấy thông tin đặt phòng của tất cả người dùng
@@ -145,6 +199,9 @@ const Datphong = () => {
 				return;
 			}
 
+			const submissionTime = new Date();
+			const formattedSubmissionTime = submissionTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+
 			// Tiếp tục với quá trình lưu thông tin đặt phòng nếu không có xung đột
 			const bookingId = `${Date.now()}`;
 
@@ -154,17 +211,26 @@ const Datphong = () => {
 			// Get the current user's document
 			const userDoc = await getDoc(userDocRef);
 
-			// If the document exists, retrieve the current datphong array and append the new booking
+			// If the document exists, retrieve the current datphong formarray and append the new booking
 			let newDatphongArray = [];
 			if (userDoc.exists()) {
 				const userData = userDoc.data();
 				newDatphongArray = userData.datphong ? [...userData.datphong] : [];
 			}
+			// Format checkinTime and checkoutTime
+			const formattedCheckinTime = new Date(formData.checkinTime).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', year: 'numeric', month: '2-digit', day: '2-digit' }).split(', ')[0];
+			const formattedCheckoutTime = new Date(formData.checkoutTime).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', year: 'numeric', month: '2-digit', day: '2-digit' }).split(', ')[0];
 			// Append the new booking with a unique ID to the datphong array
 			newDatphongArray.push({
 				uid: bookingId,
 				luuTruId: id,
-				bookingDetails: { ...formData, checkinTime: formData.checkinTime, checkoutTime: formData.checkoutTime },
+				ngayThanhToan: formattedSubmissionTime,
+				tongTien: data.price * numberOfDaysStayed,
+				giaGoc: data.price,
+				bookingDetails: {
+					...formData, checkinTime: formattedCheckinTime
+					, checkoutTime: formattedCheckoutTime
+				},
 			});
 
 			// Update the document with the new datphong array
@@ -179,21 +245,19 @@ const Datphong = () => {
 				firstName: '',
 				lastName: '',
 				email: '',
-				confirmEmail: '',
 				phone: '',
-				region: '',
 				additionalRequest: '',
 				checkinTime: '',
 				checkoutTime: '',
+				cccd: '',
 			});
 
-
-			const { tieuDe, firstName, lastName, checkinTime, checkoutTime, additionalRequest } = formData;
+			const { tieuDe, firstName, lastName, additionalRequest, cccd } = formData;
 			const { danhmuc, diaChi, img, title, price } = data;
 			// Chuẩn bị dữ liệu email
 			const emailData = {
 				to: formData.email,
-				subject: `Thông tin đặt phòng FourWayTravel`,
+				subject: `Thông tin booking FourWayTravel`,
 				html: `
 					<!doctype html>
 					<html lang="en">
@@ -232,7 +296,7 @@ const Datphong = () => {
 									<h3>Kính gửi: Quý ${tieuDe ? (tieuDe) : (`khách hàng`)} ${lastName} ${firstName}</h3>
 									<h3>Cám ơn Quý khách đã sử dụng dịch vụ của hệ thống Cổng thanh toán - Ví điện tử MOMO.</h3>
 									<h3>
-										Quý khách vừa thực hiện thanh toán thành công cho booking phòng
+										Quý khách vừa thực hiện thanh toán thành công cho booking
 										<b class="inDam">FourWayTravel</b>
 									</h3>
 					
@@ -253,7 +317,14 @@ const Datphong = () => {
 											<td style="padding: 10px 10px 10px 0">Mã giao dịch</td>
 											<td style="padding: 10px 10px 10px 0">${bookingId}</td>
 										</tr>
-					
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Thời gian thanh toán</td>
+											<td style="padding: 10px 10px 10px 0">${formattedSubmissionTime}</td>
+										</tr>
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Số CCCD của khách</td>
+											<td style="padding: 10px 10px 10px 0">${cccd}</td>
+										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Khu vực</td>
 											<td style="padding: 10px 10px 10px 0">${danhmuc}</td>
@@ -267,17 +338,25 @@ const Datphong = () => {
 											<td style="padding: 10px 10px 10px 0">${title}</td>
 										</tr>
 										<tr>
-											<td style="padding: 10px 10px 10px 0">Thời gian nhận phòng</td>
-											<td style="padding: 10px 10px 10px 0">${checkinTime}</td>
+											<td style="padding: 10px 10px 10px 0">Thời gian nhận</td>
+											<td style="padding: 10px 10px 10px 0">${formattedCheckinTime}</td>
 										</tr>
 										<tr>
-											<td style="padding: 10px 10px 10px 0">Thời gian trả phòng</td>
-											<td style="padding: 10px 10px 10px 0">${checkoutTime}</td>
+											<td style="padding: 10px 10px 10px 0">Thời gian trả</td>
+											<td style="padding: 10px 10px 10px 0">${formattedCheckoutTime}</td>
 										</tr>
 					
 										<tr>
-											<td style="padding: 10px 10px 10px 0">Phí giao dịch</td>
+											<td style="padding: 10px 10px 10px 0">Tổng số ngày khách ở</td>
+											<td style="padding: 10px 10px 10px 0">${numberOfDaysStayed} ngày</td>
+										</tr>
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Giá thuê Homestay / 1 ngày</td>
 											<td style="padding: 10px 10px 10px 0">${price.toLocaleString('vi')} VND</td>
+										</tr>
+										<tr>
+											<td style="padding: 10px 10px 10px 0">Tổng cộng của quý khách là</td>
+											<td style="padding: 10px 10px 10px 0">${(price * numberOfDaysStayed).toLocaleString('vi')} VND</td>
 										</tr>
 
 										${additionalRequest == '' ? (``) : (`
@@ -332,13 +411,13 @@ const Datphong = () => {
 			// Gửi yêu cầu POST đến server
 			try {
 				const response = await axios.post('http://14.225.198.206:2020/sendmail', emailData);
-				console.log(response.data); // Xử lý phản hồi từ server
+				// const response = await axios.post('http://localhost:3000/sendmail', emailData);
 			} catch (error) {
-				console.error('Error sending email:', error);
+				// console.error('Error sending email:', error);
 			}
 
 		} catch (error) {
-			console.error('Error updating document: ', error);
+			// console.error('Error updating document: ', error);
 			alert('Lỗi khi lưu thông tin đặt phòng.');
 		}
 	};
@@ -354,12 +433,34 @@ const Datphong = () => {
 				tieuDe: selectedValue,
 			})
 			.then(() => {
-				console.log(`Document updated with value: ${selectedValue}`);
+				// console.log(`Document updated with value: ${selectedValue}`);
 			})
 			.catch((error) => {
-				console.error('Error updating document:', error);
+				// console.error('Error updating document:', error);
 			});
 	};
+
+	const [numberOfDaysStayed, setNumberOfDaysStayed] = React.useState(1);
+
+	// Function to calculate total price and number of days stayed
+	const calculateOriginPriceAndDays = () => {
+		const checkinDate = new Date(formData.checkinTime);
+		const checkoutDate = new Date(formData.checkoutTime);
+		const diffTime = Math.abs(checkoutDate - checkinDate);
+		const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+		setNumberOfDaysStayed(diffDays);
+		// const OriginPrice = diffDays * data.price;
+		// setFormData({ ...formData, OriginPrice });
+	};
+
+	// Effect to update total price and number of days when dates change
+	React.useEffect(() => {
+		if (formData.checkinTime && formData.checkoutTime) {
+			calculateOriginPriceAndDays();
+		}
+	}, [formData.checkinTime, formData.checkoutTime]);
+
 
 	return (
 		<>
@@ -372,7 +473,7 @@ const Datphong = () => {
 				formData={formData}
 				formErrors={formErrors}
 				updateFirebaseWithSelectedValue={updateFirebaseWithSelectedValue}
-
+				numberOfDaysStayed={numberOfDaysStayed}
 			/>
 			<Footer />
 		</>

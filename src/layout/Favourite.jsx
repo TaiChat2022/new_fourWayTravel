@@ -140,7 +140,7 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChang
 															<div className="w-full md:w-1/5 flex flex-row md:flex-col justify-between">
 																<div className="p-2 flex flex-col w-full h-full rounded-lg bg-gray-200 justify-between ">
 																	<p className="text-gray-900 text-mm w-full">
-																		Kiểm tra giá và lượng phòng
+																		Kiểm tra giá và lượng lưu trú
 																		vào ngày bạn chọn
 																	</p>
 																	<Link

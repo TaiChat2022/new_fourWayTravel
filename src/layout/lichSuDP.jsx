@@ -24,7 +24,7 @@ const LichSuDPLayout = ({ Link, currentUser, userDatPhong, luuTru, renderStars }
 									className="text-xl font-semibold  text-heading-xl text-gray-900"
 									data-testid="favorites-page-headline"
 								>
-									Lịch sử đặt phòng
+									Lịch sử đặt lưu trú
 								</h1>
 
 							</div>
@@ -83,7 +83,7 @@ const LichSuDPLayout = ({ Link, currentUser, userDatPhong, luuTru, renderStars }
 													</div>
 													<div className="mt-5 w-full">
 														<button className="rounded-lg bg-primary-xanh py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
-															<Link to={`/datphong/${item.id}`}>Đặt lại phòng</Link>
+															<Link to={`/datphong/${item.id}`}>Đặt lại ngay</Link>
 														</button>
 													</div>
 												</div>
@@ -92,7 +92,7 @@ const LichSuDPLayout = ({ Link, currentUser, userDatPhong, luuTru, renderStars }
 									))}
 								</>
 							) : (
-								<>Bạn chưa có đặt phòng nào !</>
+								<>Bạn chưa có đặt lưu trú nào !</>
 							)}
 						</div>
 

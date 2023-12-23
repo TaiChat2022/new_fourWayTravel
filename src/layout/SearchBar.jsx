@@ -5,7 +5,8 @@ export default function SearchBarLayout({
 	startDateSelected,
 	onAddressChange,
 	Filter, isBookingPage, filterAddress, setFilterAddress,
-	address, Select, MenuItem, OutlinedInput, MenuProps, getStyles, theme
+	address, Select, MenuItem, OutlinedInput, MenuProps, getStyles, theme,
+	sanitizeAddress
 }) {
 
 	return (
@@ -20,7 +21,7 @@ export default function SearchBarLayout({
 						<button
 							type="button"
 							data-testid="search-form-destination"
-							className="w-full col-span-1  px-5 text-left truncate bg-white group h-14 active:bg-grey-200"
+							className="w-full col-span-1 md:col-span-2 px-5 text-left truncate bg-white group h-14 active:bg-grey-200"
 						>
 							<span className="flex items-center justify-center h-14  2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span
@@ -51,43 +52,7 @@ export default function SearchBarLayout({
 								<span className="relative flex flex-col justify-center w-full truncate">
 									<Box fullWidth>
 										<FormControl fullWidth sx={{ m: 1 }}>
-											{/* <span
-												className="text-xs leading-tight truncate text-grey-700"
-												data-testid="search-form-destination-label"
-											>
-												Địa danh
-											</span> */}
-											{/* <NativeSelect
-												value={isBookingPage ? filterAddress : undefined}
-												defaultValue={30}
-												inputProps={{
-													name: 'diadanh',
-													id: 'uncontrolled-native',
-												}}
-												onChange={
-													isBookingPage
-														? (e) => setFilterAddress(e.target.value)
-														: onAddressChange
-												}
-											>
-												{diadanh ? (
-													<>
-														<option value="" selected >Chọn khu vực</option>
-														{diadanh.map((khuvuc) => (
-															<option
-																key={khuvuc.id}
-																value={`${khuvuc.text}`}
-															>
-																{khuvuc.text}
-															</option>
-														))}
-													</>
-												) : (
-													<>
-														<p>Không lấy được dữ liệu địa danh</p>
-													</>
-												)}
-											</NativeSelect> */}
+
 											<Select
 												// multiple
 												displayEmpty
@@ -106,6 +71,11 @@ export default function SearchBarLayout({
 												<MenuItem disabled value="">
 													<em>Chọn khu vực</em>
 												</MenuItem>
+												<MenuItem
+													value=""
+												>
+													Xem tất cả
+												</MenuItem>
 
 												{diadanh.map((khuvuc) => (
 													<MenuItem
@@ -122,91 +92,80 @@ export default function SearchBarLayout({
 								</span>
 							</span>
 						</button>
-						{/* Nhận trả phòng */}
+						{/* Nhận trả lưu trú */}
 						<button
 							type="button"
 							data-testid="search-form-calendar"
-							className="w-full col-span-1 px-5 text-left truncate bg-white border-t md:border-l md:border-t-0 group h-14 active:bg-grey-200"
+							className="w-full col-span-1 pl-4 pr-4 md:pl-0 text-left truncate bg-white border-t md:border-l md:border-t-0 group h-14 active:bg-grey-200"
 						>
-							<span className="flex items-center md:p-2 md:hover:bg-grey-200 md:rounded-md">
-								<span
-									className="inline-flex flex-shrink-0 mr-3 leading-none transform"
-									aria-hidden="true"
-								>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										className="w-6 h-6 max-w-full max-h-full pointer-events-none"
-									>
-										<g fill="currentColor">
-											<path d="M19 5h-1a1 1 0 00-2 0H8a1 1 0 00-2 0H5a2 2 0 00-2 2v11a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2zm1 13a1 1 0 01-1 1H5a1 1 0 01-1-1V9h16zm0-10H4V7a1 1 0 011-1h14a1 1 0 011 1z" />
-											<circle
-												cx="7.5"
-												cy="12.5"
-												r="1.5"
-											/>
-											<path d="M19 5h-1a1 1 0 00-2 0H8a1 1 0 00-2 0H5a2 2 0 00-2 2v11a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2zm1 13a1 1 0 01-1 1H5a1 1 0 01-1-1V9h16zm0-10H4V7a1 1 0 011-1h14a1 1 0 011 1z" />
-											<circle
-												cx="7.5"
-												cy="12.5"
-												r="1.5"
-											/>
-										</g>
-									</svg>
-								</span>
-
+							<span className="flex items-center md:pl-4 md:hover:bg-grey-200 md:rounded-md">
 								<span className="relative flex flex-col w-full truncate">
-									<span
-										className="text-xs leading-tight truncate text-grey-700"
-										data-testid="search-form-calendar-label"
-									>
-										Nhận/trả phòng
-									</span>
-									<div className="flex items-center justify-between">
-										<span
-											className="text-sm font-bold leading-normal truncate text-grey-900"
-											data-testid="search-form-calendar-value"
-										>
-											<input
-												type="date"
-												name="start"
-												className="block w-full text-sm outline-0"
-												value={startDate}
-												onChange={handleStartDateChange}
-											/>
-										</span>
-										<span
-											className="inline-block text-sm font-bold leading-normal truncate md:hidden text-grey-900"
-											data-testid="search-form-calendar-value"
-										>
-											<input
-												type="date"
-												name="end"
-												className="block w-full text-sm outline-0"
-												value={endDate}
-												onChange={handleEndDateChange}
-												disabled={!startDateSelected}
-											/>
-										</span>
+									<div className="flex justify-between items-center">
+										<div className="nhan md:w-full">
+											<span
+												className="flex flex-col text-sm font-bold leading-normal truncate text-grey-900"
+												data-testid="search-form-calendar-value"
+											>
+												<span
+													className="text-xs leading-tight truncate text-grey-700"
+													data-testid="search-form-calendar-label"
+												>
+													Ngày nhận
+												</span>
+											</span>
+											<div className="flex items-center">
+												<input
+													type="date"
+													name="start"
+													className="block w-full text-sm outline-0"
+													value={startDate}
+													onChange={handleStartDateChange}
+												/>
+											</div>
+										</div>
+										<div className="tra md:w-full  md:hidden">
+											<span
+												className="flex flex-col text-sm font-bold leading-normal truncate md:hidden text-grey-900"
+												data-testid="search-form-calendar-value"
+											>
+												<span
+													className="text-xs leading-tight truncate text-grey-700"
+													data-testid="search-form-calendar-label"
+												>
+													Ngày trả
+												</span>
+											</span>
+											<div className="flex items-center">
+												<input
+													type="date"
+													name="end"
+													className="block w-full text-sm outline-0"
+													value={endDate}
+													onChange={handleEndDateChange}
+													disabled={!startDateSelected}
+												/>
+											</div>
+										</div>
 									</div>
 								</span>
 							</span>
 						</button>
-						{/* Trả phòng */}
+						{/* Trả lưu trú */}
 						<button
 							type="button"
 							data-testid="search-form-guest-selector"
 							className="hidden w-full col-span-1 text-left truncate bg-white border-t md:inline-block md:border-l md:border-t-0 group h-14 active:bg-grey-200"
 						>
-							<span className="z-20 flex items-center justify-start m-auto 2xl:p-2 2xl:hover:bg-grey-200 2xl:rounded-md">
+							<span className="z-20 flex items-center justify-start m-auto 2xl:p-2 2xl:hover:bg-white 2xl:rounded-md">
 								<span className="relative flex flex-col w-full pl-4 truncate">
 									<span
-										className="text-xs leading-tight truncate text-grey-700"
+										className="text-xs leading-tight truncate text-grey-900 font-bold"
 										data-testid="search-form-calendar-label"
 									>
-										Trả phòng
+										Ngày trả
 									</span>
 									<span
-										className="text-sm font-bold leading-normal truncate text-grey-900"
+										className="text-sm leading-normal truncate text-grey-500"
 										data-testid="search-form-calendar-value"
 									>
 										<input
@@ -221,15 +180,15 @@ export default function SearchBarLayout({
 								</span>
 							</span>
 						</button>
-						{/* Số khách và phòng */}
+						{/* Số khách và lưu trú */}
 
 						{/*Fiter */}
-						<Filter></Filter>
+						{/* <Filter></Filter> */}
 						{/* end Fiter */}
 
 						<span className="flex items-center justify-end col-span-1">
 							<Link
-								to={`/booking/${address}`}
+								to={`/booking/${sanitizeAddress(address)}`}
 								type="button"
 								className={`
 									flex items-center justify-center px-12 py-2

@@ -144,24 +144,24 @@ const Dieukhoan = () => {
 						<h3 className="h2">7.Trách nhiệm pháp lý</h3>
 						<p>
 							7.1. fourway travel không chịu trách nhiệm về tính chính xác,chất lượng, đầy đủ hoặc độ tin
-							cậy của nội dung được cung cấp bởi người sử dụng và / hoặc các trang web đặt phòng. Đặc
+							cậy của nội dung được cung cấp bởi người sử dụng và / hoặc các trang web đặt lưu trú. Đặc
 							biệt, không có lời khuyên hoặc thông tin nào từ fourway travel liên quan đến việc lựa chọn
-							phòng.
+							lưu trú.
 						</p>
 						<p>
 							7.2. Mọi thoả thuận phát sinh qua dịch vụ này là giữa người sử dụng và các trang web đặt
-							phòng fourway travel ký kết hợp đồng bên ngoài tương ứng. Cụ thể, fourway travel không bao
+							lưu trú fourway travel ký kết hợp đồng bên ngoài tương ứng. Cụ thể, fourway travel không bao
 							giờ hành động như một tổ chức hoặc cơ quan du lịch. Các điều khoản và điều kiện của các tổ
 							chức hoặc cơ quan du lịch tương ứng đặc biệt liên quan đến quyền hủy bỏ và rút lui, được áp
 							dụng riêng. Người dùng liên lạc để đặt chỗ và thanh toán, cũng như các câu hỏi về hợp đồng
-							với công ty đặt phòng tương ứng. fourway travel vẫn không liên quan trong những thỏa thuận
+							với công ty đặt lưu trú tương ứng. fourway travel vẫn không liên quan trong những thỏa thuận
 							hợp đồng hoặc thỏa thuận và tuyên bố giữa người sử dụng fourway travel và trang web đặt
-							phòng bên ngoài tương ứng.
+							lưu trú bên ngoài tương ứng.
 						</p>
 						<p>
 							7.3. fourway travel không xác minh tính chính xác của nội dung tải lên bởi các trang web đặt
-							phòng hoặc thành viên của Cộng đồng. Nội dung này được cung cấp bởi các trang web đặt
-							phòng/cộng đồng công bố trên trang web của chúng tôi với tham chiếu đến các khách sạn tương
+							lưu trú hoặc thành viên của Cộng đồng. Nội dung này được cung cấp bởi các trang web đặt
+							lưu trú/cộng đồng công bố trên trang web của chúng tôi với tham chiếu đến các khách sạn tương
 							ứng. fourway travel không tác động đến thông tin này (trong hình ảnh, ý kiến, đánh giá, vv).
 							Việc công bố các nội dung và báo cáo trên fourway travel mà người dùng tạo ra không phản ánh
 							quan điểm của fourway travel, đặc biệt, fourway travel không tự nhận những nội dung này là
@@ -169,10 +169,10 @@ const Dieukhoan = () => {
 						</p>
 						<p>
 							7.4. Đặc biệt, liên kết, banner quảng cáo, thông tin về chỗ ở, khu du lịch hoặc các nhà cung
-							cấp v.v..được cung cấp bởi các trang web đặt phòng và các thành viên cộng đồng và không đại
+							cấp v.v..được cung cấp bởi các trang web đặt lưu trú và các thành viên cộng đồng và không đại
 							diện cho các khuyến nghị hoặc thông tin từ fourway travel. Vì lý do kỹ thuật, cập nhật giá
-							chúng tôi nhận được từ các trang web đặt phòng không được thực hiện trong thời gian thực. Do
-							đó có thể là giá xuất hiện trên các trang web đặt phòng không tương ứng với giá niêm yết
+							chúng tôi nhận được từ các trang web đặt lưu trú không được thực hiện trong thời gian thực. Do
+							đó có thể là giá xuất hiện trên các trang web đặt lưu trú không tương ứng với giá niêm yết
 							trên fourway travel. fourway travel không đảm bảo tính chính xác của thông tin, cụ thể là
 							giá cả và mức độ sẵn sàng.
 						</p>

@@ -1,11 +1,6 @@
-
-import Partner from '@/layout/Partner';
-import QRcode from '@/layout/QRcode';
-
 import Footer from '@/pages/Footer';
 import Tabs from '@/pages/Tabs';
 import XemGanDay from '@/pages/xemGanDay';
-import ListKhuVuc from './ListKhuVuc';
 import Product from './Product';
 import SearchBar from './SearchBar';
 const Home = () => {
@@ -19,11 +14,10 @@ const Home = () => {
 			<SearchBar />
 			<XemGanDay />
 			<Tabs />
-			<QRcode />
+			{/* <QRcode /> */}
 			<Product />
-			<Partner />
-			<ListKhuVuc />
-
+			{/* <Partner /> */}
+			{/* <ListKhuVuc /> */}
 			<Footer />
 		</>
 	);

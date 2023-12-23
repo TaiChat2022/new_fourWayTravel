@@ -28,10 +28,10 @@ const UserXemGanDay = () => {
 						fetchedUserXemGanDay.push(doc.data());
 					});
 
-					console.log('Fetched User Xem Gan Day:', fetchedUserXemGanDay);
+					// console.log('Fetched User Xem Gan Day:', fetchedUserXemGanDay);
 					setUserXemGanDay(fetchedUserXemGanDay);
 				} catch (error) {
-					console.error('Error fetching user Xem Gan Day:', error);
+					// console.error('Error fetching user Xem Gan Day:', error);
 				}
 			} else {
 				setCurrentUser(null);

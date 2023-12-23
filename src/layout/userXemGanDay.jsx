@@ -19,7 +19,7 @@ const UserXemGanDayLayout = ({ currentUser, userXemGanDay, Link }) => {
 								[...userXemGanDay]
 									.reverse()
 
-									.map((item) => {
+									.map((item, index) => {
 										const formattedDate =
 											item.lastViewed && typeof item.lastViewed.toDate === 'function'
 												? item.lastViewed.toDate().toLocaleDateString('en-US', {
@@ -33,7 +33,7 @@ const UserXemGanDayLayout = ({ currentUser, userXemGanDay, Link }) => {
 											<>
 												<Link to={`/booking/chitiet/${item.id}`}>
 													<div
-														key={item.id}
+														key={index}
 														className="border border-gray-300 p-0 rounded-md relative grid grid-col-4"
 													>
 														<p className="text-lg text-gray-900 font-bold absolute top-0 right-0">
