@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-export default function FooterLayout({ windowWidth }) {
+
+export default function FooterLayout({ windowWidth, Link }) {
 	return (
 		<>
 			{windowWidth < 720 ? (

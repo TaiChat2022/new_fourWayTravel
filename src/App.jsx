@@ -18,8 +18,6 @@ const DieuKhoan = lazy(() => import('@/layout/Dieukhoan'));
 const TimHieu = lazy(() => import('@/layout/Timhieu'));
 const ThongTin = lazy(() => import('@/layout/Thongtin'));
 
-
-
 const Login = lazy(() => import('@/auth/Login'));
 
 export default function App() {

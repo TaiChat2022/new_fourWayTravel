@@ -48,7 +48,7 @@ const ChiTietLayout = ({
 								{data.price.toLocaleString('vi')} VND
 							</span>
 							<Link to={`/datphong/${data.id}`}>
-								<button className="w-full md:w-64 h-11 rounded-md bg-primary-do hover:scale-95 transition ease-in-out delay-50 duration-200 text-white font-semibold">
+								<button className="w-full px-4 md:w-64 h-11 rounded-md bg-primary-do hover:scale-95 transition ease-in-out delay-50 duration-200 text-white font-semibold">
 									Đặt ngay
 								</button>
 							</Link>
@@ -169,7 +169,7 @@ const ChiTietLayout = ({
 												className={`fa-light ${checkIcon(tienIch)}`}
 												style={{ color: ' #8B56F3' }}
 											></i>
-											<span className="text-sm font-medium">{tienIch}</span>
+											<span className="text-sm font-medium truncate">{tienIch}</span>
 										</div>
 									))}
 								</div>
@@ -306,11 +306,12 @@ const ChiTietLayout = ({
 				<div className="w-3/4 mx-auto my-4">
 					<div className="flex gap-2">
 						<textarea
-							className="bg-stone-100 w-full h-16 px-4 py-2"
+							className="bg-stone-100 w-full h-16 px-4 py-2 rounded-lg"
 							name="binhluan"
 							value={binhLuan}
 							onChange={handleInputChange}
 							cols="30"
+							placeholder="Viết bình luận..."
 							rows="10">
 						</textarea>
 						<button
@@ -324,13 +325,21 @@ const ChiTietLayout = ({
 				</div>
 				{/* Bình luận */}
 				<div className="w-3/4 mx-auto my-4">
-					<div>
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
 						{luuTru && binhLuanArray ? (
 							binhLuanArray.map((item, index) => (
-								<div key={index}>
-									<p>{item.tenNguoiDung}</p>
-									<img src={item.img} alt="User" />
-									<p>{item.noiDung}</p>
+								<div key={index} className="col-span-1 relative shadow-md border px-4 py-2 rounded-lg h-auto">
+									<div className="flex items-center justify-between gap-4">
+										<p className="text-sm font-light">{item.tenNguoiDung}</p>
+										<img
+											className="rounded-full border w-auto h-8"
+											src={item.img} alt="User img"
+										/>
+									</div>
+									<hr className="w-full absolute left-0 mt-2" />
+									<p className="w-full truncate mt-2 font-light">
+										{item.noiDung}
+									</p>
 								</div>
 							))
 						) : (
