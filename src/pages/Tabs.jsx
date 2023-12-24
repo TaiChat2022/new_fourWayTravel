@@ -1,6 +1,17 @@
 import { useDocsQuery } from '@/hooks/useFirestore';
 import BasicTabs from '@/layout/Tabs';
 import React from 'react';
+
+function sanitizeAddress(address) {
+  if (address === undefined || address === null) {
+    return '';
+  }
+  // Normalize and remove diacritics
+  let cleanAddress = address.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  // Remove spaces
+  cleanAddress = cleanAddress.replace(/\s+/g, '');
+  return cleanAddress;
+}
 const Tabs = () => {
 
   const { data: luuTru } = useDocsQuery('luuTru');
@@ -20,7 +31,6 @@ const Tabs = () => {
     tinhthanh3.filter((danhmuc) => danhmuc.khuvuc === 'Miền Trung'),
     [tinhthanh3]
   );
-
 
   const getCounts = (tinhthanh) => {
     return tinhthanh.map((danhmuc) => {
@@ -49,6 +59,7 @@ const Tabs = () => {
         luuTru={luuTru}
 
         countsArray={countsArray}
+        sanitizeAddress={sanitizeAddress}
       />
     </>
   );

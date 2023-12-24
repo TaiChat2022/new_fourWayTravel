@@ -7,8 +7,9 @@ const ChiTietLayout = ({
 	Box, Modal, styleModal, openModal,
 	handleOpenModal, handleCloseModal,
 	styles,
-	dataForBox1,
-	dataForBox2,
+	dataForBox1, dataForBox2,
+
+	binhLuan, handleInputChange, handleSendComment, binhLuanArray
 }) => {
 	return (
 		<>
@@ -77,7 +78,6 @@ const ChiTietLayout = ({
 						</div>
 					</div>
 					{/* end images */}
-
 					<div className="grid grid-cols-1 md:grid-cols-5  w-full gap-4 mt-5">
 						{/* Giới thiệu */}
 						<div className="grid-cols-1 md:col-span-2  shadow-3xl rounded-lg">
@@ -302,12 +302,50 @@ const ChiTietLayout = ({
 						</div>
 					</div>
 				</div>
+				{/* Bình luận */}
+				<div className="w-3/4 mx-auto my-4">
+					<div className="flex gap-2">
+						<textarea
+							className="bg-stone-100 w-full h-16 px-4 py-2"
+							name="binhluan"
+							value={binhLuan}
+							onChange={handleInputChange}
+							cols="30"
+							rows="10">
+						</textarea>
+						<button
+							className="px-6 py-2 font-light text-white bg-blue-600 hover:bg-blue-700 rounded-md flex items-center justify-between"
+							onClick={handleSendComment}
+						>
+							send
+							<i className="fa-solid fa-paper-plane mb-0.5 ml-2"></i>
+						</button>
+					</div>
+				</div>
+				{/* Bình luận */}
+				<div className="w-3/4 mx-auto my-4">
+					<div>
+						{luuTru && binhLuanArray ? (
+							binhLuanArray.map((item, index) => (
+								<div key={index}>
+									<p>{item.tenNguoiDung}</p>
+									<img src={item.img} alt="User" />
+									<p>{item.noiDung}</p>
+								</div>
+							))
+						) : (
+							<p>Chưa có bình luận nào.</p>
+						)}
+					</div>
+				</div>
+
 				<div className="bg-blue-100 w-3/4 mx-auto mt-2 rounded-md px-3 py-6">
 					<div className="mb-4">
 						<h1 className="text-black text-xl -tracking-normal font-semibold">
 							Những lưu trú còn trống tại Four Way Travel
 						</h1>
 					</div>
+
 					<div className="flex justify-start gap-3 items-center bg-blue-950 p-3 rounded-md">
 						<img
 							src="https://ik.imagekit.io/tvlk/image/imageResource/2020/04/14/1586844222168-9f81c6c60bcffcde668cf46de941aa3c.png?tr=q-75"

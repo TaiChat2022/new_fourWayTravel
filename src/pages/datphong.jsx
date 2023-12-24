@@ -339,11 +339,11 @@ const Datphong = () => {
 										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Thời gian nhận</td>
-											<td style="padding: 10px 10px 10px 0">${formattedCheckinTime}</td>
+											<td style="padding: 10px 10px 10px 0">14:00:00 ${formattedCheckinTime}</td>
 										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Thời gian trả</td>
-											<td style="padding: 10px 10px 10px 0">${formattedCheckoutTime}</td>
+											<td style="padding: 10px 10px 10px 0">12h:00:00 ${formattedCheckoutTime}</td>
 										</tr>
 					
 										<tr>

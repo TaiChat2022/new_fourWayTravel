@@ -15,6 +15,12 @@ const BookingLayout = ({
 	return (
 		<>
 			<div className=" w-3/4 mx-auto mt-4">
+				<form>
+					filter
+					<input type="checkbox" name="" id="" />
+					<input type="checkbox" name="" id="" />
+					<input type="checkbox" name="" id="" />
+				</form>
 				{!address || address === "undefined" || address === "" ?
 					(
 						<>
