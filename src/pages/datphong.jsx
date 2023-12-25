@@ -1,12 +1,10 @@
 import { useDocQuery } from '@/hooks/useFirestore';
 import DatphongLayout from '@/layout/datphong';
-import Footer from '@/pages/Footer';
 import { auth, firestore } from '@/utils/firebase.config';
 import axios from 'axios';
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import Header from './Header';
 
 const Datphong = () => {
 	const { id } = useParams();
@@ -259,40 +257,45 @@ const Datphong = () => {
 				to: formData.email,
 				subject: `Thông tin booking FourWayTravel`,
 				html: `
-					<!doctype html>
-					<html lang="en">
-						<head>
-							<meta charset="UTF-8" />
-							<meta
-								name="viewport"
-								content="width=device-width, initial-scale=1.0"
-							/>
-							<title>Mail from FourWayTravel</title>
-							<link rel="stylesheet" />
-						</head>
-						<body>
-							<div class="container">
+					
+				<!doctype html>
+				<html lang="en">
+					<head>
+						<meta charset="UTF-8" />
+						<meta
+							name="viewport"
+							content="width=device-width, initial-scale=1.0"
+						/>
+						<title>Mail from FourWayTravel</title>
+						<link rel="stylesheet" />
+					</head>
+					<body>
+						<div style="width: 100%; background-color: #e6e6e6;">
+							<div class="container" style="width: 60%; margin: 0 auto; background-color: white;">
 								<div
-									class="header"
-									style="width: 100%;background-color: #000; display: flex; justify-content: center; border-bottom: 1px solid #999"
+								class="header"
+								style="width: 100%; display: flex; justify-content: center;"
 								>
-									<div
-										class="logo"
-										style="
+								<div
+								class="logo"
+								style="
 											width: 75%;
-											display: flex;
-											justify-content: center;
+											height: 50px;
+											position: relative;
 											align-items: center;
 											margin: 0 auto;
-										"
+											"
 									>
-										<img
-										src="https://lh3.googleusercontent.com/pw/ADCreHcfWVev3IBhYFwKaTWslmu0eJayFXDvoUT8YbzlpWawaklVkRQryr0Dh_4GdB96loRyM4h03fdCEu5WUudjhiZTnQxpAe5RsdVnIUr0acMEqyKeDrtEsoMRmgiiQ808CDGlFCJ8-JSy5I7FlhtoKdIj=w1024-h132-s-no-gm?authuser=0"
-											style="width: 250px; height: 100px; object-fit: contain"
-										/>
-									</div>
-								</div>
-								<div class="title">
+									
+									<img
+									src="https://lh3.googleusercontent.com/pw/ABLVV85jVRB0wDfOHqewIRKOwDuz413j7soSXpW7UmJ5FXhyNhtZpfpOEAzhOWAvYdcRO6w7iWVp7w3fDJ887SCqM8-l5qeOk61cpRkHeF0_IFHVhZD5Oqeu92_IU6pkYhler1dKQvBH6seRry8VUd1CVe-bOroqZY1i-e5xZ-05FDoUkkk3rFG9ts_2HVKR5MbspV_yqVWvffQyaqg8fZdJQv-j1K19vZKmMXVQryGXiMnWEzYyeQ59eRcI27DuB7PCq1uSUBwr6v_wO2TIt_CT4MQI01hsLfdFFAQ02dFpAsRK_fCxOIrmve6w2D0S0JQcyOzqdVEs2qFexEoeYQEy-bVQVAvWp70PRW8aaGnmH881sw64G4mkaT7D4TVPwQVxBSblhf1bk_fRHqPmGxnEmLu-7uw6B-R--PrfHaS0hsfo5yHwyaq_pJP7LsjXofxT2CjWltF59MW4NrztuQCB3iUl7tpdzF-X7b-Z96Kyf50yOVbmA6jHBJmKl1P41NlLqosw1_P4m98s6ZjtOT7b0fCpOJYasP6zs-rkEVVeKT2-4yfPqE030r6QyKWrvYXNVc9XvtlrLKD_0X8XHX1LrSaKivQpKaFTZaiixLETPadYdpezcsw8URXB3SIxnwV8d_wsVzmR8YWDXwoPit8Yi4VGN8OfYwbx4QS-UMY9GSheWeFUAyTLSvr8X68KovDiIQ1H9zrDMhXvAkw7XDba4vqJ9sNkexQrv0D5tkeGWTgR9EOqRBhlmDdQTTt3E_idkzgtgf6NBxFXJbAgZir7qmX6bz3QIAFm_QnNH-5pDPhUgZuKVy-_cfXaFwNjUPzHT16zxEaOhUeUlsMs_BTFHHJbH1jra_fmxgcorOW64bwuBc84BTu6z4VTCgxZHOblphsgNw=w1024-h132-s-no-gm?authuser=0"
+									style="width: 200px; height: 50px; object-fit: contain; position: absolute;
+									inset: auto 0 auto 0; margin: auto;"
+									/>
+								</div>	
+							</div>
+							<img src="https://adminfourwaytravel.web.app/static/media/HOTEL.fcfa1d001ee4011c781c.jpg" style="width: 100%;" alt="">
+								<div class="title" style="margin-left: 2rem; margin-right: 2rem;">
 									<h3>Kính gửi: Quý ${tieuDe ? (tieuDe) : (`khách hàng`)} ${lastName} ${firstName}</h3>
 									<h3>Cám ơn Quý khách đã sử dụng dịch vụ của hệ thống Cổng thanh toán - Ví điện tử MOMO.</h3>
 									<h3>
@@ -301,15 +304,19 @@ const Datphong = () => {
 									</h3>
 					
 									<h3 class="ttdh">Thông tin đơn hàng:</h3>
-									<table style="border-collapse: collapse; width: 100%">
+									<table style="border-collapse: collapse; width: 100%; ">
 										<tr>
 											<td
 												colspan="2"
-												style="padding: 10px 10px 10px 0"
+												style="padding: 10px 10px 10px 0; "
 											>
 												<img
 													src="${img}"
-													style="width: 250px; height: 250px; object-fit: contain"
+													style="width: 250px; 
+													height: 250px; 
+													object-fit: contain; 
+													display: block;
+													margin: 0 auto;"
 												/>
 											</td>
 										</tr>
@@ -343,7 +350,7 @@ const Datphong = () => {
 										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Thời gian trả</td>
-											<td style="padding: 10px 10px 10px 0">12h:00:00 ${formattedCheckoutTime}</td>
+											<td style="padding: 10px 10px 10px 0">12:00:00 ${formattedCheckoutTime}</td>
 										</tr>
 					
 										<tr>
@@ -358,7 +365,7 @@ const Datphong = () => {
 											<td style="padding: 10px 10px 10px 0">Tổng cộng của quý khách là</td>
 											<td style="padding: 10px 10px 10px 0">${(price * numberOfDaysStayed).toLocaleString('vi')} VND</td>
 										</tr>
-
+					
 										${additionalRequest == '' ? (``) : (`
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Yêu cầu thêm</td>
@@ -375,34 +382,36 @@ const Datphong = () => {
 									margin-top: 1rem;
 									width: 100%;
 									border-top: 1px solid #999;
-									background-color: #000;
-									color: #f1f1f1;
+									background-color: rgb(0, 48, 120);
+									color: #e6e6e6;
 									flex-wrap: wrap;
 								"
 							>
 								<img
-									src="https://lh3.googleusercontent.com/pw/ADCreHcfWVev3IBhYFwKaTWslmu0eJayFXDvoUT8YbzlpWawaklVkRQryr0Dh_4GdB96loRyM4h03fdCEu5WUudjhiZTnQxpAe5RsdVnIUr0acMEqyKeDrtEsoMRmgiiQ808CDGlFCJ8-JSy5I7FlhtoKdIj=w1024-h132-s-no-gm?authuser=0"
-									style="width: 250px; height: 100px; object-fit: contain; margin-top: 1.5rem; margin-right:1.5rem"
+									src="https://lh3.googleusercontent.com/pw/ABLVV86a-hYNm7My1hw1ay-MR2N9zN4s5Xrr377bdOtZpuD2qYkNswV_9csqzjNxcphr37iM8YoJ0hbrd081d8oV_rBOtdqKVtGittDR108gRCywHAWivvEYS-hE9ImJtI0nMAqpFhywCflmhiK9xYAoUiwDY2FeskEzMBoekaZfyD77BbLsxGfk29ASi4pwawRbKynNxDVrYemfVc5uUmoAgoMDg5zscrMKEPszCi2jChPnUqlR_VwDy5YqDuSPl8RAQXEwkBn4G1oDdVvMhWgAaG7uI1CbTUR1lI6TLL06i_-IdOBxhrBh0zN6aOPaUPCL3ZedxFzBfspvv4Wc2maTaxWGTKhvBIKmjkRlbFbWTKRlwyJUKq8PweWBzs-ERAxHAEy6VIVVSj-aiSAOXqTMS2gXyE3RDSVWjYwMJfkmvIMffPmSLQnwy4f10_CX2ReuO0759TWcWvMj2WagxsioI7LFRN7YI9WKhpY654AdaghFo7dmpxkNJ0LhIhA1xnqGvvOKshI6GiIiBw4dBPfvvPVv8RYB4gISEVSpK4JGFb9H2HokD_MINdjzTQRmqG-ySK4nOnydVsiSqyQ378nKqlyTVdNbT8-ZRGQgAmSknOFmhXLlBuxPMiBz3bZEjKOjADrF1QyttlhbV8KExSvdwgq4-pmONP4sP2dmt0Ur-9lIg0BP0Kpd71piWhwHTqgQ2vcd2xqPEzR9apmMTKvp0zSRg05Iz2TN68SKVmKTe2QwcLdCpNrx_pzOsLY2dKkujqGMp0XWHj89c3TVpdGX4SNgP2ufQaFzB7Pgx4PNncOdpyIs-S0okKnNRlPiDXWLeEwLUf8wpLEmA2-I7rPSyjt7D3Ze55V3ZMswUY94J_bfYTF65HIC1tWbBpdBghtM7hOV=w512-h66-s-no-gm?authuser=0"
+									style="width: 200px; height: 100px; object-fit: contain; margin-top: 1.5rem; margin-right:1rem; margin-left: 10px;"
 								/>
 								<div
 									class="title-footer"
-									style="margin-top: 0.5rem"
+									style="margin-top: 0.5rem;
+											margin-right: 0.5rem;"
 								>
 									<p>Mọi chi tiết xin liên hệ: Trung tâm thanh toán điện tử - MOMO</p>
 									<p>Địa chỉ: QTSC 9 Builingg, Tô Ký, Tân Chánh Hiệp ,Q.12 , Tòa T</p>
 									<p>
 										Email:
-										<a href="#">support.fourwaytravel@gmail.com</a>
+										<a href="#" style="color: white">support.fourwaytravel@gmail.com</a>
 									</p>
 									<p>Số điện thoại: 1900 1530 hoặc 08.9999.1530</p>
 									<p>
 										Website:
-										<a href="#">https://fourwaytravel.com</a>
+										<a href="#" style="color: white;">https://fourwaytravel.com</a>
 									</p>
 								</div>
 							</div>
+							</div>
 						</div>
-					</body>
+				</body>
 				</html>
 			
 				`,
@@ -464,8 +473,6 @@ const Datphong = () => {
 
 	return (
 		<>
-			<Header />
-			{/* <SearchBar /> */}
 			<DatphongLayout
 				data={data}
 				handleChange={handleChange}
@@ -475,7 +482,6 @@ const Datphong = () => {
 				updateFirebaseWithSelectedValue={updateFirebaseWithSelectedValue}
 				numberOfDaysStayed={numberOfDaysStayed}
 			/>
-			<Footer />
 		</>
 	);
 };

@@ -80,7 +80,7 @@ export default function SearchBarLayout({
 												{diadanh.map((khuvuc) => (
 													<MenuItem
 														key={khuvuc.id}
-														value={`${khuvuc.text}`}
+														value={`${khuvuc.id}`}
 														style={getStyles(khuvuc.text, khuvuc.text, theme)}
 													>
 														{khuvuc.text}
@@ -188,7 +188,7 @@ export default function SearchBarLayout({
 
 						<span className="flex items-center justify-end col-span-1">
 							<Link
-								to={`/booking/${sanitizeAddress(address)}`}
+								to={`/booking/${address}`}
 								type="button"
 								className={`
 									flex items-center justify-center px-12 py-2

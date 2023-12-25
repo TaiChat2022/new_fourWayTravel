@@ -14,17 +14,19 @@ const ChiTietLayout = ({
 	return (
 		<>
 			<div className="container-details w-full h-auto">
-				<div className="w-3/4 mx-auto mt-2">
+				<div className="w-3/4 mx-auto mt-2" >
 					<div className="flex flex-wrap md:flex-nowrap justify-between">
 						<div
 							key={data.id}
 							className="flex flex-col items-start justify-center"
 						>
-							<h1 className="text-3xl font-bold my-2">{data.title}</h1>
-							<p className="render text-xm font-normal text-primary-xanh flex items-center">
-								Homestay
-								<span className="text-sm ml-2 text-primary-cam">{renderStars(data.star)}</span>
-							</p>
+							<div className="flex items-center gap-2">
+								<h1 className="text-2xl font-bold my-2">{data.title}</h1>
+								<p className="render text-xm font-normal text-primary-xanh flex items-center pt-0.5">
+									Khách sạn
+									<span className="text-sm ml-2 text-primary-cam">{renderStars(data.star)}</span>
+								</p>
+							</div>
 							<div className="flex items-center justify-start my-2 text-sm">
 								<span className="font-semibold text-sm mr-1">
 									<i className="fa-solid fa-location-dot"></i>
@@ -43,13 +45,10 @@ const ChiTietLayout = ({
 							</div>
 						</div>
 						<div className="flex flex-auto flex-col items-end justify-center">
-							<p className="text-xs font-medium">Giá Homestay</p>
-							<span className="text-2xl text-orange-600 font-bold">
-								{data.price.toLocaleString('vi')} VND
-							</span>
 							<Link to={`/datphong/${data.id}`}>
-								<button className="w-full px-4 md:w-64 h-11 rounded-md bg-primary-do hover:scale-95 transition ease-in-out delay-50 duration-200 text-white font-semibold">
-									Đặt ngay
+								<button className="flex items-center justify-center w-full px-8 md:px-4 py-4 md:w-64 rounded-md bg-primary-do hover:scale-95 transition ease-in-out delay-50 duration-200 text-white font-semibold">
+									Chọn phòng
+									<i class="fa-solid fa-angle-right ml-1"></i>
 								</button>
 							</Link>
 						</div>

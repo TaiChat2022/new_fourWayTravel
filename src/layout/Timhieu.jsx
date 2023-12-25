@@ -1,10 +1,7 @@
-import Footer from '@/pages/Footer';
-import Header from '@/pages/Header';
 
 const Timhieu = () => {
 	return (
 		<>
-			<Header></Header>
 			<div className="text-center mt-2 w-3/4 mx-auto">
 				<div className="text-4xl font-bold text-sky-500">XIN CHÀO, TÔI CÓ THỂ GIÚP GÌ CHO BẠN ?</div>
 				<input
@@ -115,7 +112,6 @@ const Timhieu = () => {
 					</li>
 				</ul>
 			</div>
-			<Footer></Footer>
 		</>
 	);
 };

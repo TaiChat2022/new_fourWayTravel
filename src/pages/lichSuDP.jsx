@@ -5,8 +5,6 @@ import { doc, getDoc } from 'firebase/firestore';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Footer from './Footer';
-import Header from './Header';
 const LichSuDP = () => {
 	const { data: luuTru } = useDocsQuery('luuTru');
 	const [currentUser, setCurrentUser] = React.useState(null);
@@ -45,7 +43,6 @@ const LichSuDP = () => {
 	};
 	return (
 		<>
-			<Header />
 			<LichSuDPLayout
 				Link={Link}
 				currentUser={currentUser}
@@ -53,7 +50,6 @@ const LichSuDP = () => {
 				luuTru={luuTru}
 				renderStars={renderStars}
 			/>
-			<Footer />
 		</>
 	);
 };

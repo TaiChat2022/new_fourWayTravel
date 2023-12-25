@@ -1,6 +1,5 @@
 import { useDocQuery, useDocsQuery } from '@/hooks/useFirestore';
 import ChiTietLayout from '@/layout/chiTiet';
-import Footer from '@/pages/Footer';
 import { auth, firestore } from '@/utils/firebase.config';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,8 +7,6 @@ import Modal from '@mui/material/Modal';
 import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import Header from './Header';
-import SearchBar from './SearchBar';
 
 const styleModal = {
 	position: 'absolute',
@@ -238,8 +235,6 @@ const chiTiet = () => {
 
 	return (
 		<>
-			<Header />
-			<SearchBar />
 			<ChiTietLayout
 				data={data}
 				getRatingText={getRatingText}
@@ -276,7 +271,6 @@ const chiTiet = () => {
 
 				binhLuanArray={binhLuanArray}
 			/>
-			<Footer />
 		</>
 	);
 };

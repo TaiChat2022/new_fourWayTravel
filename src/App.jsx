@@ -5,6 +5,8 @@ import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { routes } from './utils/routes';
 
+const Header = lazy(() => import('@/pages/Header'))
+const Footer = lazy(() => import('@/pages/Footer'))
 const Main = lazy(() => import('@/pages/index'))
 const Booking = lazy(() => import('@/pages/Booking'))
 const ChiTiet = lazy(() => import('@/pages/chiTiet'))
@@ -30,6 +32,7 @@ export default function App() {
 				<CircularProgress color="inherit" />
 			</Backdrop>
 		}>
+			<Header />
 			<Routes>
 				<Route
 					path={routes.HOME}
@@ -37,12 +40,12 @@ export default function App() {
 				>
 				</Route>
 				<Route
-					path={routes.LOGIN}
-					element={<Login />}
-				/>
-				<Route
 					path={routes.BOOKING}
 					element={<Booking />}
+				/>
+				<Route
+					path={routes.LOGIN}
+					element={<Login />}
 				/>
 				<Route
 					path={routes.FILTERLUUTRU}
@@ -65,7 +68,7 @@ export default function App() {
 					element={<Datphong />}
 				/>
 				<Route
-					path="/chitiet/:id"
+					path={routes.CHITIET}
 					element={<ChiTiet />}
 				/>
 				<Route
@@ -90,6 +93,7 @@ export default function App() {
 					element={<ThongTin />}
 				/>
 			</Routes>
+			<Footer />
 		</Suspense>
 	);
 }
