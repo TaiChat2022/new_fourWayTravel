@@ -31,21 +31,22 @@ function getStyles(name, isBookingPage, theme) {
 				: theme.typography.fontWeightMedium,
 	};
 }
-function sanitizeAddress(address) {
-	if (address === undefined || address === null) {
-		return '';
-	}
-	// Normalize and remove diacritics
-	let cleanAddress = address.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-	// Remove spaces
-	cleanAddress = cleanAddress.replace(/\s+/g, '');
-	return cleanAddress;
-}
+// function sanitizeAddress(address) {
+// 	if (address === undefined || address === null) {
+// 		return '';
+// 	}
+// 	// Normalize and remove diacritics
+// 	let cleanAddress = address.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+// 	// Remove spaces
+// 	cleanAddress = cleanAddress.replace(/\s+/g, '');
+// 	return cleanAddress;
+// }
 
 const SearchBar = () => {
 	// const navigate = useNavigate();
 
 	const { data: diadanh } = useDocsQuery('danhmuc');
+	const { data: vungMien } = useDocsQuery('vungmien');
 	const [startDate, setStartDate] = React.useState('');
 	const [endDate, setEndDate] = React.useState('');
 	const [startDateSelected, setStartDateSelected] = React.useState(false);
@@ -117,7 +118,7 @@ const SearchBar = () => {
 				setFilterAddress={setFilterAddress}
 
 				address={address}
-				sanitizeAddress={sanitizeAddress}
+				vungMien={vungMien}
 			/>
 		</>
 	);

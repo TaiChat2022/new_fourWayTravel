@@ -59,9 +59,9 @@ const ProductLayout = ({
 														</p>
 														<div className="text-primary-cam text-xs tracking-wider">
 															<div className="mb-1">{renderStars(item.star)}</div>
-															<div className="flex justify-start gap-2 w-full truncate">
-																<i className="fa-solid fa-location-dot text-primary-xanh"></i>
-																<p className="text-primary-xanh">{item.diaChi}</p>
+															<div className="flex justify-start gap-2 w-full truncate text-stone-400">
+																<i className="fa-solid fa-location-dot "></i>
+																<p className="text-md">{item.diaChi}</p>
 															</div>
 														</div>
 														<div className="flex items-end font-semibold text-base text-primary-cam">
@@ -137,9 +137,9 @@ const ProductLayout = ({
 														</p>
 														<div className="text-primary-cam text-xs tracking-wider">
 															<div className="mb-1">{renderStars(item.star)}</div>
-															<div className="flex justify-start gap-2 w-full  truncate">
-																<i className="fa-solid fa-location-dot text-primary-xanh"></i>
-																<p className="text-primary-xanh">{item.diaChi}</p>
+															<div className="flex justify-start gap-2 w-full text-stone-300  truncate">
+																<i className="fa-solid fa-location-dot "></i>
+																<p className="text-md">{item.diaChi}</p>
 															</div>
 														</div>
 														<div className="font-semibold text-base text-primary-cam">
