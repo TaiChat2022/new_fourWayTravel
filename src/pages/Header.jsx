@@ -1,4 +1,4 @@
-import Logo from '@/assets/img/logo1.jpg';
+import Logo from '@/assets/img/fourwaytravel.svg';
 import Login from '@/auth/Login';
 import MenuLayOut from '@/layout/Menu';
 import { auth, firestore } from '@/utils/firebase.config';
@@ -51,6 +51,7 @@ const Header = () => {
 	const handleClose4 = () => {
 		setAnchorE4(null);
 	};
+
 	const [user, setUser] = React.useState(null);
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -76,7 +77,7 @@ const Header = () => {
 			// Thực hiện chuyển trang sau khi đăng xuất
 			window.location.href = '/';
 		} catch (error) {
-			console.error('Sign out error:', error);
+			// console.error('Sign out error:', error);
 		}
 	};
 
@@ -107,7 +108,6 @@ const Header = () => {
 			open4={open4}
 			handleClick4={handleClick4}
 			handleClose4={handleClose4}
-
 		/>
 	);
 };

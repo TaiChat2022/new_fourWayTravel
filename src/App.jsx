@@ -5,12 +5,20 @@ import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { routes } from './utils/routes';
 
+const Header = lazy(() => import('@/pages/Header'))
+const Footer = lazy(() => import('@/pages/Footer'))
 const Main = lazy(() => import('@/pages/index'))
 const Booking = lazy(() => import('@/pages/Booking'))
 const ChiTiet = lazy(() => import('@/pages/chiTiet'))
 const ListLuutru = lazy(() => import('@/pages/ListLuutru'))
 const Favourite = lazy(() => import('@/pages/Favourite'))
 const Datphong = lazy(() => import('@/pages/Datphong'));
+const UserXemGanDay = lazy(() => import('@/pages/userXemGanDay'));
+const LichSuDP = lazy(() => import('@/pages/lichSuDP'));
+
+const DieuKhoan = lazy(() => import('@/layout/Dieukhoan'));
+const TimHieu = lazy(() => import('@/layout/Timhieu'));
+const ThongTin = lazy(() => import('@/layout/Thongtin'));
 
 const Login = lazy(() => import('@/auth/Login'));
 
@@ -24,6 +32,7 @@ export default function App() {
 				<CircularProgress color="inherit" />
 			</Backdrop>
 		}>
+			<Header />
 			<Routes>
 				<Route
 					path={routes.HOME}
@@ -31,11 +40,15 @@ export default function App() {
 				>
 				</Route>
 				<Route
+					path={routes.BOOKING}
+					element={<Booking />}
+				/>
+				<Route
 					path={routes.LOGIN}
 					element={<Login />}
 				/>
 				<Route
-					path={routes.BOOKING}
+					path={routes.FILTERLUUTRU}
 					element={<Booking />}
 				/>
 				<Route
@@ -54,7 +67,33 @@ export default function App() {
 					path={routes.DATPHONG}
 					element={<Datphong />}
 				/>
+				<Route
+					path={routes.CHITIET}
+					element={<ChiTiet />}
+				/>
+				<Route
+					path={routes.USERXEMGANDAY}
+					element={<UserXemGanDay />}
+				/>
+				<Route
+					path={routes.LICHSUDP}
+					element={<LichSuDP />}
+				/>
+
+				<Route
+					path={routes.TIMHIEU}
+					element={<TimHieu />}
+				/>
+				<Route
+					path={routes.DIEUKHOAN}
+					element={<DieuKhoan />}
+				/>
+				<Route
+					path={routes.THONGTIN}
+					element={<ThongTin />}
+				/>
 			</Routes>
+			<Footer />
 		</Suspense>
 	);
 }
