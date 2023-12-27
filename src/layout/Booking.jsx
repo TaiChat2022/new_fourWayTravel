@@ -9,17 +9,26 @@ const BookingLayout = ({
 	labelFavorite,
 	userFavorites,
 	handleAddToRecentlyViewed,
-	selectedTinhThanh
+	selectedTinhThanh, selectedVungMien
 }) => {
 	return (
 		<>
 			<div className=" w-3/4 mx-auto mt-4">
-				{selectedTinhThanh && selectedTinhThanh?.text && (
+				{selectedVungMien && selectedVungMien?.tenVungMien && (
 					<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
-						Khách sạn tại {selectedTinhThanh.text}
+						Khách sạn tại {selectedVungMien.tenVungMien}
 					</h1>
 				)}
-				{!selectedTinhThanh?.text && (
+				{!selectedVungMien?.tenVungMien && (
+					<></>
+				)}
+
+				{selectedTinhThanh && selectedTinhThanh?.tenTinhThanh && (
+					<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
+						Khách sạn tại {selectedTinhThanh.tenTinhThanh}
+					</h1>
+				)}
+				{!selectedTinhThanh?.tenTinhThanh && (
 					<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
 						Xem tất cả khách sạn
 					</h1>
@@ -27,7 +36,7 @@ const BookingLayout = ({
 
 				{luuTru ? (
 					<>
-						{!selectedTinhThanh?.text || !selectedTinhThanh ?
+						{!selectedTinhThanh?.tenTinhThanh || !selectedTinhThanh ?
 							(
 								<>
 									{luuTru.map((item) => (

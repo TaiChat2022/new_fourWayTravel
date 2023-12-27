@@ -17,20 +17,40 @@ const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
 const Booking = () => {
-	const { address } = useParams();
+	const { vungmien, address } = useParams();
 	const { data: luuTru } = useDocsQuery('luuTru');
-	const { data: tinhthanh } = useDocsQuery('danhmuc');
+	const { data: tinhthanh } = useDocsQuery('tinhthanh');
+	const { data: vungMien } = useDocsQuery('vungmien');
 
+	// filter
+	const filterVungMien = vungMien.find((item) => item.id === vungmien);
+	// Lọc danh sách địa danh dựa trên vùng miền được chọn
+	const filterDiaDanh = tinhthanh.filter((item) => {
+		if (!filterVungMien) {
+			return true; // Nếu không có vùng miền được chọn, hiển thị tất cả địa danh
+		}
+		return item.vungMien === filterVungMien.tenVungMien;
+	});
 	// Initialize filterLuuTru with all luuTru data
 	let filterLuuTru = luuTru;
+
+	let selectedVungMien = null;
 	let selectedTinhThanh = null;
 
 	// Check if address is not empty or undefined
-	if (address) {
-		selectedTinhThanh = Array.isArray(tinhthanh) ? tinhthanh.find(tt => tt.id === address) : null;
+	if (vungmien) {
+		selectedVungMien = Array.isArray(vungMien) ? vungMien.find(tt => tt.id === vungmien) : null;
 		// Filter luuTru if selectedTinhThanh is valid and has a text property
-		if (selectedTinhThanh && selectedTinhThanh.text) {
-			filterLuuTru = luuTru.filter(item => item.danhmuc === selectedTinhThanh.text);
+		if (selectedVungMien && selectedVungMien.tenVungMien) {
+			filterLuuTru = luuTru.filter(item => item.khuvuc === selectedVungMien.tenVungMien);
+		}
+	}
+	// Check if address is not empty or undefined
+	if (address) {
+		selectedTinhThanh = Array.isArray(tinhthanh) ? filterDiaDanh.find(tt => tt.id === address) : null;
+		// Filter luuTru if selectedTinhThanh is valid and has a text property
+		if (selectedTinhThanh && selectedTinhThanh.tenTinhThanh) {
+			filterLuuTru = luuTru.filter(item => item.danhmuc === selectedTinhThanh.tenTinhThanh);
 		}
 	}
 
@@ -206,7 +226,7 @@ const Booking = () => {
 				Typography={Typography}
 				Modal={Modal}
 				selectedAmenity={selectedAmenity}
-				// tinhthanh={tinhthanh}
+				selectedVungMien={selectedVungMien}
 				selectedTinhThanh={selectedTinhThanh}
 			/>
 		</>

@@ -1,12 +1,11 @@
 export default function SearchBarLayout({
 	Box, Link,
-	FormControl, NativeSelect, diadanh,
-	startDate, endDate, handleStartDateChange, handleEndDateChange,
-	startDateSelected,
+	FormControl, diadanh,
 	onAddressChange,
 	isBookingPage, filterAddress, setFilterAddress,
 	address, Select, MenuItem, OutlinedInput, MenuProps, getStyles, theme,
-	vungMien,
+	vungMien, mien, filterMien, setFilterMien, onMienChange,
+	filterDiaDanh
 }) {
 
 	return (
@@ -21,7 +20,7 @@ export default function SearchBarLayout({
 						<button
 							type="button"
 							data-testid="search-form-destination"
-							className="w-full col-span-1 md:col-span-2 pl-5 pr-11 md:pr-5 text-left truncate bg-white group h-14 active:bg-grey-200"
+							className="w-full col-span-1 md:col-span-3 pl-5 pr-11 md:pr-5 text-left truncate bg-white group h-14 active:bg-grey-200"
 						>
 							<span className="flex items-center justify-center h-14 2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span
@@ -55,12 +54,12 @@ export default function SearchBarLayout({
 											<Select
 												// multiple
 												displayEmpty
-												value={isBookingPage ? filterAddress : undefined}
+												value={isBookingPage ? filterMien : undefined}
 												defaultValue={[]}
 												onChange={
 													isBookingPage
-														? (e) => setFilterAddress(e.target.value)
-														: onAddressChange
+														? (e) => setFilterMien(e.target.value)
+														: onMienChange
 												}
 												input={<OutlinedInput />}
 												sx={{ py: 2 }}
@@ -96,7 +95,7 @@ export default function SearchBarLayout({
 						<button
 							type="button"
 							data-testid="search-form-destination"
-							className="w-full col-span-1 md:col-span-5 px-12 md:px-5 text-left truncate bg-white group h-14 active:bg-grey-200"
+							className="w-full col-span-1 md:col-span-4 px-12 md:px-5 text-left truncate bg-white group h-14 active:bg-grey-200"
 						>
 							<span className="flex items-center justify-center h-14 2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span className="relative flex flex-col justify-center w-full truncate">
@@ -112,6 +111,7 @@ export default function SearchBarLayout({
 														? (e) => setFilterAddress(e.target.value)
 														: onAddressChange
 												}
+												// onChange={(e) => onAddressChange(e.target.value, 'tinhThanh')}
 												input={<OutlinedInput />}
 												sx={{ py: 2 }}
 												MenuProps={MenuProps}
@@ -127,13 +127,13 @@ export default function SearchBarLayout({
 													Xem tất cả tỉnh thành
 												</MenuItem>
 
-												{diadanh.map((khuvuc) => (
+												{filterDiaDanh.map((khuvuc) => (
 													<MenuItem
 														key={khuvuc.id}
 														value={`${khuvuc.id}`}
-														style={getStyles(khuvuc.text, khuvuc.text, theme)}
+														style={getStyles(khuvuc.tenTinhThanh, khuvuc.tenTinhThanh, theme)}
 													>
-														{khuvuc.text}
+														{khuvuc.tenTinhThanh}
 													</MenuItem>
 												))}
 											</Select>
@@ -142,16 +142,16 @@ export default function SearchBarLayout({
 								</span>
 							</span>
 						</button>
-
+						{/* Tìm */}
 						<span className="flex items-center justify-end col-span-1">
 							<Link
-								to={`/booking/${address}`}
+								to={`/booking/${mien}/${address}`}
 								type="button"
 								className={`
 									flex items-center justify-center px-12 py-2
 									h-full rounded-b-lg md:rounded-md 
 									text-md font-semibold text-white
-									bg-blue-600 hover:bg-blue-700 w-full
+									bg-blue-500 hover:bg-blue-600 w-full
 								`}
 								data-testid="search-button"
 							>
