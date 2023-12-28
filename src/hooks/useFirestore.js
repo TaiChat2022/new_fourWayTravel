@@ -1,6 +1,6 @@
 import { firestore } from '@/utils/firebase.config';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
-import { get, isEmpty, map } from 'lodash';
+import { get, isEmpty, map, orderBy } from 'lodash';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
@@ -11,7 +11,7 @@ const useDocsQuery = (col) =>
 			const colRef = collection(firestore, col);
 
 			const snapshot = await getDocs(colRef);
-
+			console.log(snapshot);
 			return map(get(snapshot, 'docs', []), (doc) => ({
 				id: doc.id,
 				...doc.data(),
