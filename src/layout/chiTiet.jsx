@@ -1,5 +1,5 @@
 const ChiTietLayout = ({
-	data, Link, luuTru,
+	data, Link, khachSan,
 	renderStars, getRatingText,
 	checkIcon, navigate, setCurrentItemIds,
 	currentItemIds, shuffleArrayWithoutDuplicates,
@@ -9,7 +9,7 @@ const ChiTietLayout = ({
 	styles,
 	dataForBox1, dataForBox2,
 
-	binhLuan, handleInputChange, handleSendComment, binhLuanArray
+	binhLuan, handleInputChange, handleSendComment, binhLuanArray,
 }) => {
 	return (
 		<>
@@ -48,7 +48,7 @@ const ChiTietLayout = ({
 							<Link to={`/datphong/${data.id}`}>
 								<button className="flex items-center justify-center w-full px-8 md:px-4 py-4 md:w-64 rounded-md bg-primary-do hover:scale-95 transition ease-in-out delay-50 duration-200 text-white font-semibold">
 									Chọn phòng
-									<i class="fa-solid fa-angle-right ml-1"></i>
+									<i className="fa-solid fa-angle-right ml-1"></i>
 								</button>
 							</Link>
 						</div>
@@ -325,7 +325,7 @@ const ChiTietLayout = ({
 				{/* Bình luận */}
 				<div className="w-3/4 mx-auto my-4">
 					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-						{luuTru && binhLuanArray ? (
+						{khachSan && binhLuanArray ? (
 							binhLuanArray.map((item, index) => (
 								<div key={index} className="col-span-1 relative shadow-md border px-4 py-2 rounded-lg h-auto">
 									<div className="flex items-center justify-between gap-4">
@@ -335,10 +335,16 @@ const ChiTietLayout = ({
 											src={item.img} alt="User img"
 										/>
 									</div>
-									<hr className="w-full absolute left-0 mt-2" />
-									<p className="w-full truncate mt-2 font-light">
+									<hr className="w-full absolute left-0 my-2" />
+
+									<p className="w-full truncate mt-2 pt-2 font-light">
 										{item.noiDung}
 									</p>
+									<hr className="w-full absolute left-0 my-2" />
+									<p className="w-full truncate mt-2 pt-2 font-light">
+										{item.thoiGianBinhLuan}
+									</p>
+
 								</div>
 							))
 						) : (
@@ -364,9 +370,9 @@ const ChiTietLayout = ({
 							Phải đặt lưu trú trong thời điểm không chắc chắn này? Hãy chọn lưu trú có thể hủy miễn phí!
 						</span>
 					</div>
-					{luuTru ? (
+					{khachSan ? (
 						<>
-							{shuffleArrayWithoutDuplicates(luuTru, currentItemIds)
+							{shuffleArrayWithoutDuplicates(khachSan, currentItemIds)
 								.slice(0, 3)
 								.map((item) => (
 									<>
@@ -450,12 +456,12 @@ const ChiTietLayout = ({
 															</div>
 														</div>
 														<div className="">
-															<p className="font-medium text-mm tracking-wider text-gray-500 line-through">
+															{/* <p className="font-medium text-mm tracking-wider text-gray-500 line-through">
 																{item.OldPrice.toLocaleString('vi')} VND
 															</p>
 															<p className="font-bold text-lg tracking-wider text-primary-cam">
 																{item.price.toLocaleString('vi')} VND
-															</p>
+															</p> */}
 															<p className="font-bold text-mm tracking-wider text-gray-500">
 																/ lưu trú / đêm
 															</p>

@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Modal from '@mui/material/Modal';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
-import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import SearchBar from './SearchBar';
@@ -18,7 +18,7 @@ const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const Booking = () => {
 	const { vungmien, address } = useParams();
-	const { data: luuTru } = useDocsQuery('luuTru');
+	const { data: khachsan } = useDocsQuery('khachsan');
 	const { data: tinhthanh } = useDocsQuery('tinhthanh');
 	const { data: vungMien } = useDocsQuery('vungmien');
 
@@ -31,8 +31,8 @@ const Booking = () => {
 		}
 		return item.vungMien === filterVungMien.tenVungMien;
 	});
-	// Initialize filterLuuTru with all luuTru data
-	let filterLuuTru = luuTru;
+	// Initialize filterKhachSan with all khachsan data
+	let filterKhachSan = khachsan;
 
 	let selectedVungMien = null;
 	let selectedTinhThanh = null;
@@ -40,17 +40,17 @@ const Booking = () => {
 	// Check if address is not empty or undefined
 	if (vungmien) {
 		selectedVungMien = Array.isArray(vungMien) ? vungMien.find(tt => tt.id === vungmien) : null;
-		// Filter luuTru if selectedTinhThanh is valid and has a text property
+		// Filter khachsan if selectedTinhThanh is valid and has a text property
 		if (selectedVungMien && selectedVungMien.tenVungMien) {
-			filterLuuTru = luuTru.filter(item => item.khuvuc === selectedVungMien.tenVungMien);
+			filterKhachSan = khachsan.filter(item => item.vungMien === selectedVungMien.tenVungMien);
 		}
 	}
 	// Check if address is not empty or undefined
 	if (address) {
 		selectedTinhThanh = Array.isArray(tinhthanh) ? filterDiaDanh.find(tt => tt.id === address) : null;
-		// Filter luuTru if selectedTinhThanh is valid and has a text property
+		// Filter khachsan if selectedTinhThanh is valid and has a text property
 		if (selectedTinhThanh && selectedTinhThanh.tenTinhThanh) {
-			filterLuuTru = luuTru.filter(item => item.danhmuc === selectedTinhThanh.tenTinhThanh);
+			filterKhachSan = khachsan.filter(item => item.tinhThanh === selectedTinhThanh.tenTinhThanh);
 		}
 	}
 
@@ -147,44 +147,42 @@ const Booking = () => {
 
 	const [xemGanDay, setXemGanDay] = React.useState([]);
 
-	const handleAddToRecentlyViewed = async (itemId, danhmuc, title, img, price) => {
-		// Kiểm tra xem itemId đã tồn tại trong xemGanDay chưa
-		const itemIndex = xemGanDay.findIndex((item) => item.id === itemId);
-		if (itemIndex !== -1) {
-			// Nếu đã tồn tại, thì tăng số lần xem lên 1
-			const updatedXemGanDay = [...xemGanDay];
-			updatedXemGanDay[itemIndex].views += 1;
-			setXemGanDay(updatedXemGanDay);
-		} else {
-			// Nếu itemId chưa có trong mảng, thêm itemId vào mảng với số lần xem là 1
-			const newItem = { id: itemId, danhmuc, title, img, price, views: 1 };
-			setXemGanDay([...xemGanDay, newItem]);
-		}
-
+	const handleAddToRecentlyViewed = async (itemId, tinhThanh, title, img) => {
+		// Check if there is a currentUser
 		if (currentUser) {
-			// Nếu có người dùng đăng nhập, bạn có thể lưu xemGanDay vào Firestore
+			// Define a reference to the user's document in Firestore
 			const userRef = doc(firestore, 'users', currentUser.uid);
-			await updateDoc(userRef, { xemGanDay: xemGanDay });
-			const xemGanDayRef = collection(userRef, 'xemGanDay');
-			const itemDoc = await getDoc(doc(xemGanDayRef, itemId));
 
-			try {
-				if (itemDoc.exists()) {
-					// If the item exists, update the 'views' field only
-					const currentViews = itemDoc.data().views || 0;
-					await updateDoc(doc(xemGanDayRef, itemId), { views: currentViews + 1 });
+			// Load the user's xemGanDay data
+			const userDoc = await getDoc(userRef);
+			let updatedXemGanDay = [];
+
+			if (userDoc.exists()) {
+				// If the user document exists, get the current xemGanDay data
+				updatedXemGanDay = userDoc.data().xemGanDay || [];
+
+				// Check if the itemId is already in xemGanDay
+				const itemIndex = updatedXemGanDay.findIndex((item) => item.id === itemId);
+				if (itemIndex !== -1) {
+					// If it's already in xemGanDay, update the views count
+					updatedXemGanDay[itemIndex].views += 1;
 				} else {
-					// If the item doesn't exist, setDoc to create a new document
-					await setDoc(doc(xemGanDayRef, itemId), { id: itemId, danhmuc, title, img, price, views: 1 });
+					// If it's not in xemGanDay, add it with views count as 1
+					updatedXemGanDay.push({ id: itemId, tinhThanh, title, img, views: 1 });
 				}
-
-				// Perform any other actions needed when a user views details
-				// console.log(`User is viewing details for item with ID: ${itemId}`);
-			} catch (error) {
-				// console.error('Error handling recently viewed:', error);
+			} else {
+				// If the user document doesn't exist, create xemGanDay with the current item
+				updatedXemGanDay = [{ id: itemId, tinhThanh, title, img, views: 1 }];
 			}
+
+			// Update the xemGanDay field in the user's document
+			await updateDoc(userRef, { xemGanDay: updatedXemGanDay });
+
+			// Set the updated xemGanDay in the component state
+			setXemGanDay(updatedXemGanDay);
 		}
 	};
+
 
 	const [open, setOpen] = useState(false);
 	const [selectedAmenity, setSelectedAmenity] = useState(null);
@@ -203,8 +201,8 @@ const Booking = () => {
 		<>
 			<SearchBar />
 			<BookingLayout
-				luuTru={filterLuuTru}
-				filterLuuTru={filterLuuTru}
+				khachsan={filterKhachSan}
+				filterKhachSan={filterKhachSan}
 				React={React}
 				FormControl={FormControl}
 				renderStars={renderStars}
@@ -228,6 +226,8 @@ const Booking = () => {
 				selectedAmenity={selectedAmenity}
 				selectedVungMien={selectedVungMien}
 				selectedTinhThanh={selectedTinhThanh}
+				filterDiaDanh={filterDiaDanh}
+				vungMien={vungMien}
 			/>
 		</>
 	);

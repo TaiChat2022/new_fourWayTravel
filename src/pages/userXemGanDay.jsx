@@ -6,7 +6,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 const UserXemGanDay = () => {
 	const [currentUser, setCurrentUser] = React.useState(null);
-	const { data: luuTru } = useDocsQuery('luuTru');
+	const { data: khachSan } = useDocsQuery('khachsan');
 	const [userXemGanDay, setUserXemGanDay] = React.useState([]);
 
 	React.useEffect(() => {
@@ -40,7 +40,6 @@ const UserXemGanDay = () => {
 		<>
 			<UserXemGanDayLayout
 				currentUser={currentUser}
-				luuTru={luuTru}
 				userXemGanDay={userXemGanDay}
 				Link={Link}
 			/>

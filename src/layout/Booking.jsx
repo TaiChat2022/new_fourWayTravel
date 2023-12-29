@@ -1,7 +1,7 @@
 import 'flowbite';
 const BookingLayout = ({
-	luuTru,
-	filterLuuTru,
+	khachsan,
+	filterKhachSan,
 	getRatingText,
 	Link,
 	handleFavoriteChange,
@@ -9,37 +9,142 @@ const BookingLayout = ({
 	labelFavorite,
 	userFavorites,
 	handleAddToRecentlyViewed,
-	selectedTinhThanh, selectedVungMien
+	selectedTinhThanh, selectedVungMien,
+	filterDiaDanh, vungMien
 }) => {
 	return (
 		<>
-			<div className=" w-3/4 mx-auto mt-4">
+			<div className=" w-3/4 mx-auto mt-6">
 				{selectedVungMien && selectedVungMien?.tenVungMien && (
-					<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
-						Khách sạn tại {selectedVungMien.tenVungMien}
+					<h1 className="mt-4 w-full font-semibold text-md tracking-normal mb-2">
+						Khu vực :
+						<button className={`
+							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium text-blue-500
+							border-blue-500 
+							focus:outline-none bg-white rounded-lg border 
+							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+						`}>
+							{selectedVungMien.tenVungMien}
+						</button>
+						{/* {Array.isArray(vungMien) && vungMien
+							.filter(item => item.tenVungMien !== selectedVungMien.tenVungMien)
+							.map((item, index) => (
+								<Link to={`/path-for-vungmien/${item.tenVungMien}`} key={index}>
+									<button
+										key={index}
+										className={`
+											py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
+											focus:outline-none bg-white rounded-lg border border-gray-200 
+											hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+										`}
+									>
+										{item.tenVungMien}
+									</button>
+								</Link>
+							))
+						} */}
 					</h1>
 				)}
 				{!selectedVungMien?.tenVungMien && (
-					<></>
+					<>
+						<h1 className="mt-4 w-full font-semibold text-md tracking-normal mb-2">
+							Khu vực :
+							<button className={`
+								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium 
+								border-blue-500 text-blue-500
+								focus:outline-none bg-white rounded-lg border 
+								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+							`}>
+								ALL
+							</button>
+							{/* {Array.isArray(vungMien) && vungMien
+								.map((item, index) => (
+									<button
+										key={index}
+										className={`
+										py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
+										focus:outline-none bg-white rounded-lg border border-gray-200 
+										hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+									`}
+									>
+										{item.tenVungMien}
+									</button>
+								))
+							} */}
+						</h1>
+					</>
 				)}
 
-				{selectedTinhThanh && selectedTinhThanh?.tenTinhThanh && (
-					<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
-						Khách sạn tại {selectedTinhThanh.tenTinhThanh}
-					</h1>
+				{selectedTinhThanh && selectedTinhThanh.tenTinhThanh && (
+					<div className="mt-4 w-full font-semibold text-md tracking-normal mb-5 flex items-center flex-wrap">
+						<h1 className='mb-2'>
+							Khách sạn tại :
+						</h1>
+						<button className={`
+							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium text-blue-500
+							border-blue-500 
+							focus:outline-none bg-white rounded-lg border 
+							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+						`}>
+							{selectedTinhThanh.tenTinhThanh}
+						</button>
+
+						{/* {filterDiaDanh
+							.filter(item => item.tenTinhThanh !== selectedTinhThanh.tenTinhThanh)
+							.map((item, index) => (
+								<Link to={`/path-for-tinhthanh/${item.id}`} key={index}> 
+									<button
+										key={index}
+										className={`
+										py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
+										focus:outline-none bg-white rounded-lg border border-gray-200 
+										hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+									`}
+									>
+										{item.tenTinhThanh}
+									</button>
+								</Link>
+							))} */}
+					</div>
 				)}
+
 				{!selectedTinhThanh?.tenTinhThanh && (
-					<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
-						Xem tất cả khách sạn
-					</h1>
+					<>
+						<div className="mt-4 w-full font-semibold text-md tracking-normal mb-5 flex items-center flex-wrap">
+							<h1 className='mb-2'>
+								Xem tất cả khách sạn :
+							</h1>
+							<button className={`
+								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium 
+								border-blue-500 text-blue-500
+								focus:outline-none bg-white rounded-lg border 
+								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+							`}>
+								ALL
+							</button>
+							{/* {filterDiaDanh
+								.map((item, index) => (
+									<button
+										key={index}
+										className={`
+										py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
+										focus:outline-none bg-white rounded-lg border border-gray-200 
+										hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+									`}
+									>
+										{item.tenTinhThanh}
+									</button>
+								))} */}
+						</div>
+					</>
 				)}
 
-				{luuTru ? (
+				{khachsan ? (
 					<>
 						{!selectedTinhThanh?.tenTinhThanh || !selectedTinhThanh ?
 							(
 								<>
-									{luuTru.map((item) => (
+									{khachsan.map((item) => (
 										<>
 											<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
 												<div
@@ -59,7 +164,7 @@ const BookingLayout = ({
 																<Link
 																	to={`/booking/chitiet/${item.id}`}
 																	className="font-semibold text-lg"
-																	onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img, item.price, item.lastViewed)}
+																	onClick={() => handleAddToRecentlyViewed(item.id, item.tinhThanh, item.title, item.img, item.lastViewed)}
 																>
 																	{item.title}
 																</Link>
@@ -143,9 +248,9 @@ const BookingLayout = ({
 																	Tên phòng
 																	<i className="fa-solid fa-user mb-0.5 ml-2"></i>
 																</span>
-																<span className="flex text-lg md:text-md mt-1 font-semibold mr-4">
+																{/* <span className="flex text-lg md:text-md mt-1 font-semibold mr-4">
 																	{item.price.toLocaleString('vi')} VND
-																</span>
+																</span> */}
 															</div>
 															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
 																<span className="flex text-md font-semibold mr-4">
@@ -157,7 +262,7 @@ const BookingLayout = ({
 															<Link
 																to={`/booking/chitiet/${item.id}`}
 																className="w-full flex items-center justify-center h-11 rounded-md"
-																onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img, item.price, item.lastViewed)}
+																onClick={() => handleAddToRecentlyViewed(item.id, item.tinhThanh, item.title, item.img, item.lastViewed)}
 															>
 																<p className="text-white font-light text-base">Xem chi tiết</p>
 															</Link>
@@ -171,7 +276,7 @@ const BookingLayout = ({
 							) :
 							(
 								<>
-									{filterLuuTru.map((item) => (
+									{filterKhachSan.map((item) => (
 										<>
 											<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
 												<div
@@ -191,7 +296,7 @@ const BookingLayout = ({
 																<Link
 																	to={`/booking/chitiet/${item.id}`}
 																	className="font-semibold text-lg"
-																	onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img, item.price, item.lastViewed)}
+																	onClick={() => handleAddToRecentlyViewed(item.id, item.tinhThanh, item.title, item.img, item.lastViewed)}
 																>
 																	{item.title}
 																</Link>
@@ -274,9 +379,9 @@ const BookingLayout = ({
 																	Tên phòng
 																	<i className="fa-solid fa-user mb-0.5 ml-2"></i>
 																</span>
-																<span className="flex text-md  mt-1 font-semibold mr-4">
+																{/* <span className="flex text-md  mt-1 font-semibold mr-4">
 																	{item.price.toLocaleString('vi')} VND
-																</span>
+																</span> */}
 															</div>
 															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
 																<span className="flex text-md font-semibold mr-4">
@@ -288,7 +393,7 @@ const BookingLayout = ({
 															<Link
 																to={`/booking/chitiet/${item.id}`}
 																className="w-full flex items-center justify-center h-11 rounded-md"
-																onClick={() => handleAddToRecentlyViewed(item.id, item.danhmuc, item.title, item.img, item.price, item.lastViewed)}
+																onClick={() => handleAddToRecentlyViewed(item.id, item.tinhThanh, item.title, item.img, item.lastViewed)}
 															>
 																<p className="text-white font-light text-base">Xem chi tiết</p>
 															</Link>
