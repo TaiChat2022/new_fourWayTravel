@@ -37,7 +37,7 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChang
 											{userFavorites.map((item, index) => (
 												<>
 													<div
-														key={index}
+														key={item.id}
 														className="w-full"
 													>
 														<div className="rounded-sm border p-3 flex flex-col md:flex-row justify-between item gap-5">

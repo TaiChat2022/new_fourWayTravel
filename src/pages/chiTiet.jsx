@@ -22,7 +22,7 @@ const styleModal = {
 
 const chiTiet = () => {
 	const { id } = useParams();
-	const { data } = useDocQuery('luuTru', id);
+	const { data } = useDocQuery('khachsan', id);
 	const [user, setUser] = React.useState(null);
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -36,7 +36,7 @@ const chiTiet = () => {
 	}, []);
 	const navigate = useNavigate();
 
-	const { data: luuTru } = useDocsQuery('luuTru');
+	const { data: khachSan } = useDocsQuery('khachsan');
 
 	const styles = {
 		display: '-webkit-box',
@@ -170,7 +170,6 @@ const chiTiet = () => {
 			console.error('Bình luận không được để trống');
 			return;
 		}
-
 		// Check if the user is logged in and has user data
 		if (!user) {
 			console.error('Người dùng chưa đăng nhập');
@@ -183,7 +182,15 @@ const chiTiet = () => {
 			id: id, // ID của nơi lưu trú
 			tenNguoiDung: user.displayName, // Assuming user will always have a displayName
 			img: user.photoURL, // Assuming user will always have a photoURL
-			noiDung: binhLuan // Nội dung bình luận
+			noiDung: binhLuan, // Nội dung bình luận
+			thoiGianBinhLuan: new Date().toLocaleString('vi-VN', {
+				timeZone: 'Asia/Ho_Chi_Minh',
+				year: 'numeric',
+				month: '2-digit',
+				day: '2-digit',
+				hour: '2-digit', // Add hours
+				minute: '2-digit', // Add minutes
+			}),
 		};
 
 		saveComment(commentData);
@@ -191,16 +198,16 @@ const chiTiet = () => {
 	};
 
 	const saveComment = async (commentData) => {
-		const luuTruDocRef = doc(firestore, 'luuTru', commentData.id);
+		const khachSanDocRef = doc(firestore, 'khachsan', commentData.id);
 
 		try {
-			const docSnapshot = await getDoc(luuTruDocRef);
+			const docSnapshot = await getDoc(khachSanDocRef);
 			if (docSnapshot.exists()) {
-				const luuTruData = docSnapshot.data();
-				const updatedBinhluan = luuTruData.binhluan ?
+				const khachSanData = docSnapshot.data();
+				const updatedBinhluan = khachSanData.binhluan ?
 					arrayUnion(commentData) : [commentData];
 
-				await updateDoc(luuTruDocRef, { binhluan: updatedBinhluan });
+				await updateDoc(khachSanDocRef, { binhluan: updatedBinhluan });
 				console.log('Bình luận đã được thêm vào');
 			} else {
 				console.error('Document không tồn tại');
@@ -215,12 +222,12 @@ const chiTiet = () => {
 	useEffect(() => {
 		const fetchBinhLuanData = async () => {
 			try {
-				const luuTruDocRef = doc(firestore, 'luuTru', id);
-				const docSnapshot = await getDoc(luuTruDocRef);
+				const khachSanDocRef = doc(firestore, 'khachsan', id);
+				const docSnapshot = await getDoc(khachSanDocRef);
 
 				if (docSnapshot.exists()) {
-					const luuTruData = docSnapshot.data();
-					const binhLuan = luuTruData.binhluan || [];
+					const khachSanData = docSnapshot.data();
+					const binhLuan = khachSanData.binhluan || [];
 					setBinhLuanArray(binhLuan);
 				} else {
 					console.error('Document không tồn tại');
@@ -240,7 +247,7 @@ const chiTiet = () => {
 				getRatingText={getRatingText}
 				renderStars={renderStars}
 				Link={Link}
-				luuTru={luuTru}
+				khachSan={khachSan}
 				checkIcon={checkIcon}
 				//lặp trung id
 				navigate={navigate}

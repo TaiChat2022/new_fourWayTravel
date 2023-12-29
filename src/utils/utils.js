@@ -19,15 +19,3 @@ export function removeVietnamese(str) {
 
 	return str;
 }
-// hàm này nhận vào danh sách các tỉnh thành và sắp xếp theo số lượng lưu trú giảm dần
-export function getProByRegion(danhmuc, luuTru, khuvuc) {
-	const dt = danhmuc.filter((danhmuc) => danhmuc.khuvuc === khuvuc);
-	dt.map((danhmuc) => {
-		danhmuc.count = luuTru.reduce((count, item) => {
-			return item.danhmuc === danhmuc.text ? count + 1 : count;
-		}, 0);
-	});
-
-	console.log('filteredDanhmucMienBac', dt);
-	return dt.sort((a, b) => b.count - a.count);
-}

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const XemGanDay = () => {
   const [currentUser, setCurrentUser] = React.useState(null);
-  const { data: luuTru } = useDocsQuery('luuTru');
+  const { data: khachSan } = useDocsQuery('khachsan');
   const [userXemGanDay, setUserXemGanDay] = React.useState([]);
 
   React.useEffect(() => {
@@ -73,21 +73,11 @@ const XemGanDay = () => {
     }
   };
 
-  // Sử dụng setTimeout để thực hiện hành động xóa sau 1 phút
-  // Gọi hàm autoDeleteXemGanDay mỗi 1 phút
-  // const autoDeleteInterval = 30000;
-
-  // setInterval(autoDeleteXemGanDay, autoDeleteInterval);
-
-  // React.useEffect(() => {
-  //   autoDeleteXemGanDay();
-  // }, []);
-
   return (
     <>
       <XemGanDayLayout
         currentUser={currentUser}
-        luuTru={luuTru}
+        khachSan={khachSan}
         userXemGanDay={userXemGanDay}
         Link={Link}
       />

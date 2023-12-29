@@ -44,11 +44,19 @@ export default function App() {
 					element={<Booking />}
 				/>
 				<Route
+					path={routes.FILTERTINHTHANH}
+					element={<Booking />}
+				/>
+				<Route
+					path={routes.FILTERVUNGMIEN}
+					element={<Booking />}
+				/>
+				<Route
 					path={routes.LOGIN}
 					element={<Login />}
 				/>
 				<Route
-					path={routes.FILTERLUUTRU}
+					path={routes.FILTERKHACHSAN}
 					element={<Booking />}
 				/>
 				<Route
@@ -60,7 +68,7 @@ export default function App() {
 					element={<Favourite />}
 				/>
 				<Route
-					path={routes.ListLuutru}
+					path={routes.ListKhachSan}
 					element={<ListLuutru />}
 				/>
 				<Route

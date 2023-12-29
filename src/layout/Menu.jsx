@@ -19,7 +19,7 @@ export default function MenuLayOut({
 							<img
 								src={Logo}
 								alt="Logo FourWay Travel"
-								className="object-contain w-200 h-auto relative"
+								className="object-contain w-auto h-10 relative"
 							/>
 						</Link>
 						<nav className="h-full self-end ml-auto">
