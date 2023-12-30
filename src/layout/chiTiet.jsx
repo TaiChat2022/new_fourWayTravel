@@ -373,7 +373,7 @@ const ChiTietLayout = ({
 					{khachSan ? (
 						<>
 							{shuffleArrayWithoutDuplicates(khachSan, currentItemIds)
-								.slice(0, 3)
+								?.slice(0, 3)
 								.map((item) => (
 									<>
 										<div className="bg-white mt-3 px-6 py-3 rounded-md">
@@ -425,7 +425,7 @@ const ChiTietLayout = ({
 												<div className="md:w-4/6 xl:h-80 shadow-2xl rounded-lg mt-4">
 													<div className="px-6 xl:flex xl:justify-between">
 														<div className="flex flex-col">
-															{item.tienich.slice(0, 3).map((tienIch) => (
+															{item.tienich?.slice(0, 3).map((tienIch) => (
 																<div
 																	className="flex gap-3 justify-start items-center mb-3 font-medium text-xm text-primary-cam tracking-wider"
 																	key={tienIch}

@@ -10,7 +10,7 @@ import Modal from '@mui/material/Modal';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import SearchBar from './SearchBar';
 const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -21,6 +21,13 @@ const Booking = () => {
 	const { data: khachsan } = useDocsQuery('khachsan');
 	const { data: tinhthanh } = useDocsQuery('tinhthanh');
 	const { data: vungMien } = useDocsQuery('vungmien');
+
+	const regionDict = useMemo(() => {
+		return vungMien?.reduce((acc, item) => {
+			acc[item.tenVungMien] = item.id;
+			return acc;
+		}, {});
+	}, [vungMien]);
 
 	// filter
 	const filterVungMien = vungMien.find((item) => item.id === vungmien);
@@ -163,16 +170,20 @@ const Booking = () => {
 
 				// Check if the itemId is already in xemGanDay
 				const itemIndex = updatedXemGanDay.findIndex((item) => item.id === itemId);
+
 				if (itemIndex !== -1) {
 					// If it's already in xemGanDay, update the views count
 					updatedXemGanDay[itemIndex].views += 1;
+					// Move the item to the beginning of the array
+					const [movedItem] = updatedXemGanDay.splice(itemIndex, 1);
+					updatedXemGanDay.unshift({ ...movedItem, lastViewed: new Date() });
 				} else {
 					// If it's not in xemGanDay, add it with views count as 1
-					updatedXemGanDay.push({ id: itemId, tinhThanh, title, img, views: 1 });
+					updatedXemGanDay.unshift({ id: itemId, tinhThanh, title, img, views: 1, lastViewed: new Date() });
 				}
 			} else {
 				// If the user document doesn't exist, create xemGanDay with the current item
-				updatedXemGanDay = [{ id: itemId, tinhThanh, title, img, views: 1 }];
+				updatedXemGanDay = [{ id: itemId, tinhThanh, title, img, views: 1, lastViewed: new Date() }];
 			}
 
 			// Update the xemGanDay field in the user's document
@@ -182,7 +193,6 @@ const Booking = () => {
 			setXemGanDay(updatedXemGanDay);
 		}
 	};
-
 
 	const [open, setOpen] = useState(false);
 	const [selectedAmenity, setSelectedAmenity] = useState(null);
@@ -228,6 +238,9 @@ const Booking = () => {
 				selectedTinhThanh={selectedTinhThanh}
 				filterDiaDanh={filterDiaDanh}
 				vungMien={vungMien}
+
+				tinhthanh={tinhthanh}
+				regionDict={regionDict}
 			/>
 		</>
 	);

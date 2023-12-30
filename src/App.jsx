@@ -26,7 +26,7 @@ export default function App() {
 	return (
 		<Suspense fallback={
 			<Backdrop
-				sx={{ zIndex: 1000 }}
+				sx={{ zIndex: 500 }}
 				open
 			>
 				<CircularProgress color="inherit" />
@@ -41,6 +41,10 @@ export default function App() {
 				</Route>
 				<Route
 					path={routes.BOOKING}
+					element={<Booking />}
+				/>
+				<Route
+					path={routes.ALLKHACHSAN}
 					element={<Booking />}
 				/>
 				<Route
