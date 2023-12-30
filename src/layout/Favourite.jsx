@@ -6,9 +6,9 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChang
 					{userFavorites ? (
 						<>
 							<main className="flex justify-start w-3/4 mx-auto pt-9 max-w-screen-2xl">
-								<span className="self-start mr-10">
+								<span className="self-start mr-4">
 									<Link
-										to="/booking"
+										to="/"
 										className="flex items-center text-blue-500 text-md hover:text-blue-700"
 									>
 										<i className="fa-solid fa-chevron-left"></i>
@@ -16,244 +16,150 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChang
 									</Link>
 								</span>
 
-								<div className="w-full">
-									<div className="px-2 w-3/4 m-auto flex gap-1 justify-start items-center">
+								<div className="px-2 w-full m-auto flex flex-col gap-1 items-start">
+									<div className="px-2 w-full m-auto flex flex-wrap md:flex-nowrap gap-1 justify-start items-center">
 										<h1
-											className="font-semibold text-3xl text-heading-xl text-gray-900"
+											className="text-md md:text-xl font-semibold  text-heading-xl text-gray-900"
 											data-testid="favorites-page-headline"
 										>
 											Nơi lưu trú bạn đã thích
 										</h1>
-										<span className=" text-sm font-semibold text-blue-600">
+										<span className="text-md md:text-xl font-semibold text-blue-600">
 											({userFavorites.length} danh sách)
 										</span>
 									</div>
 
 									<section
-										className="mx-auto px-4 w-full"
+										className="w-full"
 										data-testid="favorites-page-items-list"
 									>
-										<ul className="grid grid-cols-1">
-											<li>
-												<article>
-													<div className="flex flex-row items-center m-auto my-7 w-3/4">
-														<h2
-															className="text-heading-m text-gray-900 font-bold"
-															id="destination-count-0"
-														>
-															Miền Bắc
-														</h2>
-														<span className=" text-sm font-semibold text-blue-600">
-															({userFavorites.length} kỳ lưu trú)
-														</span>
+										<ul className="p-0">
+											{userFavorites.map((item, index) => (
+												<>
+													<div
+														key={item.id}
+														className="w-full"
+													>
+														<div className="rounded-sm border p-3 flex flex-col md:flex-row justify-between item gap-5">
+															<div className="w-full md:w-1/5">
+																<img
+																	className="w-full md:w-32 h-32 rounded-lg object-cover"
+																	src={item.img}
+																	alt={item.title}
+																/>
+															</div>
+															<div className="w-full md:w-3/5">
+																<div className="flex justify-between items-center">
+																	<h1 className="font-semibold text-xl">{item.title}</h1>
+																	<div className="relative Tooltip_wrapper__ameta">
+																		<div
+																			aria-describedby="tooltip--__1"
+																			className="leading-none"
+																		>
+																			<button
+																				type="button"
+																				className="flex ml-2"
+																				data-testid="accommodation-card-favorite-list-button"
+																			>
+																				{userFavorites.some(
+																					(favorite) =>
+																						favorite.id ===
+																						item.id,
+																				) ? (
+																					<>
+																						<Checkbox
+																							{...labelFavorite}
+																							onChange={() =>
+																								handleFavoriteChange(
+																									(item.id,
+																										item),
+																								)
+																							}
+																							icon={
+																								<i className="fa-solid fa-heart text-red-500"></i>
+																							}
+																							checkedIcon={
+																								<i className="fa-regular fa-heart"></i>
+																							}
+																						/>
+																					</>
+																				) : (
+																					<>
+																						<Checkbox
+																							{...labelFavorite}
+																							onChange={() =>
+																								handleFavoriteChange(
+																									(item.id,
+																										item),
+																								)
+																							}
+																							icon={
+																								<i className="fa-regular fa-heart"></i>
+																							}
+																							checkedIcon={
+																								<i className="fa-solid fa-heart text-red-500"></i>
+																							}
+																						/>
+																					</>
+																				)}
+																				<span className="sr-only">
+																					Loại bỏ trong
+																					danh sách yêu
+																					thích
+																				</span>
+																			</button>
+																		</div>
+																	</div>
+																</div>
+
+																<div className="">
+																	<p className="render text-xm font-normal text-primary-xanh flex items-center">
+																		Khách Sạn
+
+																	</p>
+																</div>
+																<div className="flex items-center justify-start mt-2 text-sm">
+																	<span className="font-semibold text-sm mr-1">
+																		<i className="fa-solid fa-location-dot text-primary-do"></i>
+																	</span>
+																	<p className="text-sm font-medium ">{item.diaChi} </p>
+																</div>
+																<div className="flex flex-wrap gap-2 mb-2">
+																	{item.tienich.slice(0, 4).map((value, index) => (
+																		<div
+																			key={index}
+																			className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
+																		>
+																			<div className="flex justify-start items-center  pt-1 text-mm gap-1">
+																				<div className="p-1">{value} </div>
+																			</div>
+																		</div>
+																	))}
+																</div>
+															</div>
+															<div className="w-full md:w-1/5 flex flex-row md:flex-col justify-between">
+																<div className="p-2 flex flex-col w-full h-full rounded-lg bg-gray-200 justify-between ">
+																	<p className="text-gray-900 text-mm w-full">
+																		Kiểm tra giá và lượng lưu trú
+																		vào ngày bạn chọn
+																	</p>
+																	<Link
+																		className="text-white px-3 py-2 self-end text-xs font-bold w-auto rounded-lg bg-gray-500 border-b border-gray-500 hover:bg-gray-500 focus:bg-gray-500 active:bg-gray-500 disabled:bg-gray-300 disabled:border-gray-300 "
+																		to={`/booking/chitiet/${item.id}`}
+																	>
+																		Kiểm tra giá
+																	</Link>
+
+																</div>
+															</div>
+														</div>
 													</div>
 
-													<ul className=" p-0">
-														{userFavorites.map((item) => (
-															<>
-																<li className="py-2">
-																	<div className="bg-white rounded flex flex-col">
-																		<article className="flex bg-white w-full text-gray-900 rounded 2xl:rounded-sm">
-																			<div className="flex w-3/4 justify-between gap-2 rounded-lg shadow-3xl m-auto">
-																				<div className="">
-																					<img
-																						className="rounded-ww w-64 h-44"
-																						src={item.img}
-																						alt=""
-																					/>
-																				</div>
-																				<div className="p-2">
-																					<section className="flex justify-between ">
-																						<Link to="/listluutru">
-																							<h2
-																								className="text-heading-m mb-1 text-left w-full font-bold truncate"
-																								dir="auto"
-																							>
-																								<span
-																									data-testid="item-name"
-																									className="text-left w-full truncate font-bold text-xl"
-																								>
-																									<span itemProp="name">
-																										{item.title}
-																									</span>
-																								</span>
-																							</h2>
-																						</Link>
-
-																						<div className="relative Tooltip_wrapper__ameta">
-																							<div
-																								aria-describedby="tooltip--__1"
-																								className="leading-none"
-																							>
-																								<button
-																									type="button"
-																									className="flex ml-2"
-																									data-testid="accommodation-card-favorite-list-button"
-																								>
-																									{userFavorites.some(
-																										(favorite) =>
-																											favorite.id ===
-																											item.id,
-																									) ? (
-																										<>
-																											<Checkbox
-																												{...labelFavorite}
-																												onChange={() =>
-																													handleFavoriteChange(
-																														(item.id,
-																														item),
-																													)
-																												}
-																												icon={
-																													<i className="fa-solid fa-heart text-red-500"></i>
-																												}
-																												checkedIcon={
-																													<i className="fa-regular fa-heart"></i>
-																												}
-																											/>
-																										</>
-																									) : (
-																										<>
-																											<Checkbox
-																												{...labelFavorite}
-																												onChange={() =>
-																													handleFavoriteChange(
-																														(item.id,
-																														item),
-																													)
-																												}
-																												icon={
-																													<i className="fa-regular fa-heart"></i>
-																												}
-																												checkedIcon={
-																													<i className="fa-solid fa-heart text-red-500"></i>
-																												}
-																											/>
-																										</>
-																									)}
-																									<span className="sr-only">
-																										Loại bỏ trong
-																										danh sách yêu
-																										thích
-																									</span>
-																								</button>
-																							</div>
-																						</div>
-																					</section>
-																					<div className="flex flex-wrap items-center">
-																						<button
-																							type="button"
-																							data-testid="accommodation-type"
-																							className="cursor-auto focus:outline-none"
-																						>
-																							<span className="flex items-center">
-																								<span
-																									itemProp="starRating"
-																									itemScope=""
-																									itemType="https://schema.org/Rating"
-																									data-testid="star-rating"
-																									className="text-s text-gray-500 flex"
-																								>
-																									<span
-																										className="inline-flex leading-none transform w-3 h-3 mr-px"
-																										data-testid="star"
-																									>
-																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
-																									</span>
-																									<span
-																										className="inline-flex leading-none transform w-3 h-3 mr-px"
-																										data-testid="star"
-																									>
-																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
-																									</span>
-																									<span
-																										className="inline-flex leading-none transform w-3 h-3 mr-px"
-																										data-testid="star"
-																									>
-																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
-																									</span>
-																									<span
-																										className="inline-flex leading-none transform w-3 h-3 mr-px"
-																										data-testid="star"
-																									>
-																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
-																									</span>
-																									<span
-																										className="inline-flex leading-none transform w-3 h-3 mr-px"
-																										data-testid="star"
-																									>
-																										<i className="fa-solid fa-star mb-1 mr-1 text-gray-300 text-xx"></i>
-																									</span>
-																								</span>
-																								<span className="whitespace-nowrap text-xs ml-2">
-																									Khách sạn
-																								</span>
-																							</span>
-																						</button>
-																					</div>
-																					<div className="mt-1">
-																						<button
-																							type="button"
-																							className="w-full mt-2 flex items-center py-2 pl-2 border-t border-b border-gray-200 cursor"
-																							data-testid="distance-label-section"
-																						>
-																							<span className="inline-flex leading-none transform pr-2">
-																								<i className="fa-light fa-location-dot text-gray-500 "></i>
-																							</span>
-																							<span className="block text-xs text-left w-11/12 text-m pl-1">
-																								{item.diaChi}
-																							</span>
-																						</button>
-																					</div>
-																					<div className="py-2">
-																						<span
-																							data-testid="aggregate-rating"
-																							className="overflow-hidden truncate w-11/12"
-																							itemProp="aggregateRating"
-																							itemScope=""
-																							itemType="https://schema.org/AggregateRating"
-																						>
-																							<span className="space-x-1 flex gap-1 text-sm ">
-																								<span className="inline-flex  justify-center items-center rounded-full leading-none text-xs text-white font-semibold px-4 py-0.5 w-8 bg-green-900">
-																									9.2
-																								</span>
-																								<span className="mt-px ">
-																									<strong className="leading-none mr-2">
-																										Xuất sắc
-																									</strong>
-																									<span className="font-normal">
-																										(2506 nhận xét)
-																									</span>
-																								</span>
-																							</span>
-																						</span>
-																					</div>
-																				</div>
-																				<div className="flex w-48 p-3">
-																					<div className="p-2 flex flex-col rounded-lg bg-gray-200 justify-between ">
-																						<p className="text-gray-900 text-mm w-full">
-																							Kiểm tra giá và lượng phòng
-																							vào ngày bạn chọn
-																						</p>
-																						<Link
-																							className="text-white px-3 py-2 self-end text-xs font-bold w-auto rounded-lg bg-gray-500 border-b border-gray-500 hover:bg-gray-500 focus:bg-gray-500 active:bg-gray-500 disabled:bg-gray-300 disabled:border-gray-300 "
-																							to={`/booking/${item.id}`}
-																						>
-																							Kiểm tra giá
-																						</Link>
-																					</div>
-																				</div>
-																			</div>
-																		</article>
-																	</div>
-																</li>
-															</>
-														))}
-													</ul>
-												</article>
-											</li>
+												</>
+											))}
 										</ul>
 									</section>
+
 								</div>
 							</main>
 						</>

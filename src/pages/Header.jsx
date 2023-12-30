@@ -1,4 +1,4 @@
-import Logo from '@/assets/img/logo1.jpg';
+import Logo from '@/assets/img/FWT.svg';
 import Login from '@/auth/Login';
 import MenuLayOut from '@/layout/Menu';
 import { auth, firestore } from '@/utils/firebase.config';
@@ -8,7 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
-import { collection, doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -51,6 +51,7 @@ const Header = () => {
 	const handleClose4 = () => {
 		setAnchorE4(null);
 	};
+
 	const [user, setUser] = React.useState(null);
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -64,21 +65,24 @@ const Header = () => {
 	}, []);
 	const signOut = async () => {
 		try {
-			// Update the user's Firestore document to set isOnline to false
-			if (user) {
-				const usersCollection = collection(firestore, 'users');
-				const userDoc = doc(usersCollection, user.uid);
-				await updateDoc(userDoc, { isOnline: false });
+			if (user && user.uid) {
+				const userDocRef = doc(firestore, 'users', user.uid);
+
+				// Check if the document exists
+				const docSnap = await getDoc(userDocRef);
+				if (docSnap.exists()) {
+					await updateDoc(userDocRef, { isOnline: false });
+				} else {
+					console.log('No such document!');
+				}
 			}
-			// Sign out the user
 			await auth.signOut();
-			// alert('Đăng xuất thành công!');
-			// Thực hiện chuyển trang sau khi đăng xuất
 			window.location.href = '/';
 		} catch (error) {
 			console.error('Sign out error:', error);
 		}
 	};
+
 
 	return (
 		<MenuLayOut
@@ -107,7 +111,6 @@ const Header = () => {
 			open4={open4}
 			handleClick4={handleClick4}
 			handleClose4={handleClose4}
-
 		/>
 	);
 };

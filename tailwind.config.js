@@ -6,6 +6,14 @@ export default {
 			boxShadow: {
 				'3xl': 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;',
 				product: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;',
+				zz: 'rgba(0, 0, 0, 0.16) 0px 1px 4px;',
+				vv: 'rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;',
+			},
+			lineHeight: {
+				128: '128px',
+			},
+			scale: {
+				98: '98',
 			},
 			fontFamily: {
 				poppins: ['Poppins', 'sans-serif'],
@@ -21,13 +29,20 @@ export default {
 				200: '200px',
 				70: '70%',
 				10: '10%',
+				100: '100px',
+				300: '300px',
+				w24: '24%',
 			},
 			height: {
+				400: '400px',
 				300: '300px',
-				310: '310px',
 				340: '340px',
+				310: '310px',
+				250: '250px',
+				200: '200px',
 				110: '110px',
 				96: '96px',
+				0.2: '0.2px',
 			},
 			borderRadius: {
 				search: '0px 10px 10px 0px',
@@ -35,6 +50,9 @@ export default {
 				vchh: '0px 5px 5px 0px',
 				ss: '4px 4px 4px 0px',
 				zz: '50%',
+				ww: '8px 0px 0px 8px',
+				bb: '0px 8px 8px 0px',
+				qq: '8px 8px 0px 0px',
 			},
 			backgroundColor: {
 				1: 'rgb(233 244 250)',
@@ -42,6 +60,17 @@ export default {
 				3: '#E5E7EB',
 				4: '#E8E2DD',
 				5: '#0A1121',
+				xanh: '#48B4F0',
+				do: '#FF6D43',
+				vang: '#FFCC43',
+				cam: '#ff6d43',
+			},
+			translate: {
+				10: '10%',
+				18: '18%',
+			},
+			padding: {
+				'26px': '0px 0px 0px 26px',
 			},
 			colors: {
 				primary: {
@@ -56,7 +85,14 @@ export default {
 					900: '#001927',
 					star: '#E8E2DD',
 					footer: '#f1f1f1',
+					xanh: '#48B4F0',
+					do: '#FF6D43',
+					vang: '#FFCC43',
+					cam: '#ff6d43',
 				},
+			},
+			scale: {
+				98: '.98',
 			},
 		},
 	},

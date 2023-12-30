@@ -1,13 +1,10 @@
-import React from 'react';
 import { useDocsQuery } from '@/hooks/useFirestore';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { auth, firestore } from '@/utils/firebase.config';
-import HotLayout from '@/layout/HotLayout'
+import HotLayout from '@/layout/HotLayout';
 import { Link } from 'react-router-dom';
 
 const Hot = () => {
-    const {data: luuTru} = useDocsQuery('luuTru');
-    const renderStars = (soSao) => {
+	const { data: luuTru } = useDocsQuery('luuTru');
+	const renderStars = (soSao) => {
 		let stars = [];
 		for (let i = 0; i < soSao; i++) {
 			stars.push(
@@ -20,16 +17,16 @@ const Hot = () => {
 		return stars;
 	};
 	const hotLuuTru = luuTru.filter((item) => item.hot === true);
-    return (
-        <>
-        <HotLayout 
-            luuTru = {luuTru}
-			hotLuuTru ={hotLuuTru}
-            renderStars = {renderStars}
-			Link={Link}
-        />
-        </>
-    );
+	return (
+		<>
+			<HotLayout
+				luuTru={luuTru}
+				hotLuuTru={hotLuuTru}
+				renderStars={renderStars}
+				Link={Link}
+			/>
+		</>
+	);
 };
 
 export default Hot;
