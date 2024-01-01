@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/css/Tabs.css';
 
@@ -25,136 +24,36 @@ function TabPanel(props) {
   );
 }
 
-export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, countsArray, sanitizeAddress }) {
-  const [value, setValue] = useState(0);
-
-  const handleChange = async (event, newValue) => {
-    setValue(newValue);
-  };
+export default function BasicTabs({ value, sortedData, handleChange, }) {
 
   return (
     <>
-      <Box className="container mt-4 bg-2 py-0 px-3 rounded-lg">
-        <div className="mt-4 pt-2 font-medium tenTinhThanh-xl">
-          <i className="fa-brands fa-searchengin"></i> Tìm kiếm phổ biến
-        </div>
-        <Box className="search-tabs">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab
-              style={{ fontSize: '12px', fontWeight: '600' }}
-              className="tabs"
-              label="Miền bắc"
-              {...a11yProps(0)}
-            />
-            <Tab
-              style={{ fontSize: '12px', fontWeight: '600' }}
-              className="tabs"
-              label="Miền trung"
-              {...a11yProps(1)}
-            />
-            <Tab
-              style={{ fontSize: '12px', fontWeight: '600' }}
-              className="tabs"
-              label="Miền nam"
-              {...a11yProps(2)}
-            />
-          </Tabs>
-        </Box>
+      <Box className="container my-4 rounded-lg">
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+          {sortedData.map((vung, index) => (
+            <Tab key={vung.id} label={vung.tenVungMien} {...a11yProps(index)} />
+          ))}
+        </Tabs>
 
-        {tinhthanh1 ? (
-          <>
-            <TabPanel value={value} index={0} className="p-0">
-              <div className="grid grid-cols-4 gap-4 w-full md:h-300">
-                {tinhthanh1.slice(0, 4).map((item, index) => (
-                  <Link to={`/booking/${sanitizeAddress(item.tenTinhThanh)}`} key={item.id} className='col-span-4 sm:col-span-2 md:col-span-1'>
-                    <div className="box-img relative">
-                      <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
-                        <h4 className="name-travel">{item.tenTinhThanh}</h4>
-                        <h4 className="total-room">
-                          <span className="total-number">{countsArray[0][index]}</span> Khách Sạn
-                        </h4>
-                      </div>
-                      <img
-                        src={item.img}
-                        alt={item.title}
-                        className="image"
-                      />
+        {sortedData.map((vung, index) => (
+          <TabPanel key={vung.id} value={value} index={index}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full h-auto md:h-300">
+              {vung.tinhthanh.map(tt => (
+                <Link to={`/booking//${tt.id}`} key={tt.id}>
+                  <div className='box-img relative'>
+                    <div className="backdrop-blur-sm w-full z-50 bg-black/30 bottom-0 absolute p-2">
+                      <h4 className="name-travel">{tt.tenTinhThanh}</h4>
+                      <h4 className="total-room">
+                        <span className="total-number">{tt.count}</span> Khách Sạn
+                      </h4>
                     </div>
-                  </Link>
-                ))}
-              </div>
-            </TabPanel>
-
-          </>
-        ) : (
-          <>
-            <p>Không lấy được dữ liệu địa danh</p>
-          </>
-        )}
-
-        {tinhthanh3 ? (
-          <>
-            <TabPanel value={value} index={1} >
-              <div className="grid grid-cols-4 gap-4 w-full md:h-300">
-                {tinhthanh3.slice(0, 4).map((item, index) => (
-                  <Link to={`/booking/${sanitizeAddress(item.tenTinhThanh)}`} key={item.id} className='col-span-4 sm:col-span-2 md:col-span-1'>
-                    <div className="box-img relative">
-                      <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
-                        <h3 className="name-travel">{item.tenTinhThanh}</h3>
-                        <h3 className="total-room">
-                          <span className="total-number">{countsArray[2][index]}</span> lưu trú
-                        </h3>
-                      </div>
-                      <img
-                        src={item.img}
-                        alt=""
-                        className="image"
-                      />
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </TabPanel>
-          </>
-        ) : (
-          <>
-            <p>Không lấy được dữ liệu địa danh</p>
-          </>
-        )}
-
-        {tinhthanh2 ? (
-          <>
-            <TabPanel value={value} index={2}>
-              <div className="grid grid-cols-4 gap-4 w-full md:h-300">
-                {tinhthanh2.slice(0, 4).map((item, index) => (
-                  <Link to={`/booking/${sanitizeAddress(item.tenTinhThanh)}`} key={item.id} className='col-span-4 sm:col-span-2 md:col-span-1'>
-                    <div className="box-img relative">
-                      <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
-                        <h3 className="name-travel">{item.tenTinhThanh}</h3>
-                        <h3 className="total-room">
-                          <span className="total-number">{countsArray[1][index]}</span> lưu trú
-                        </h3>
-                      </div>
-                      <img
-                        src={item.img}
-                        alt={item.title}
-                        className="image"
-                      />
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </TabPanel>
-          </>
-        ) : (
-          <>
-            <p>Không lấy được dữ liệu địa danh</p>
-          </>
-        )}
+                    <img src={tt.img} alt={tt.tenTinhThanh} className="image" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </TabPanel>
+        ))}
       </Box>
     </>
   );

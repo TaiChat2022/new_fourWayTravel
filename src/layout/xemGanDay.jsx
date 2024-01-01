@@ -6,7 +6,7 @@ const XemGanDayLayout = ({ currentUser, userXemGanDay, Link, handleAddToRecently
 
   return (
     <>
-      <div className="w-3/4 mx-auto">
+      <div className="w-3/4 mx-auto mb-4">
         <h1 className="mt-4 mb-2 text-lg pl-1 py-2 font-medium leading-tight font-poppins">
           <i className="fa-light fa-clock-rotate-left"></i> Xem gần đây
         </h1>
@@ -17,10 +17,10 @@ const XemGanDayLayout = ({ currentUser, userXemGanDay, Link, handleAddToRecently
                 const formattedDate =
                   item.lastViewed && typeof item.lastViewed.toDate === 'function'
                     ? item.lastViewed.toDate().toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                      })
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                    })
                     : '';
 
                 return (

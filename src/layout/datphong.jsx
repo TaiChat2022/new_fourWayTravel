@@ -331,7 +331,7 @@ const DatphongLayout = ({
 									Giá ngày:
 								</span>
 
-								<span className="text-sm md:text-xs font-medium">{data.price.toLocaleString('vi')}</span>
+								<span className="text-sm md:text-xs font-medium">{data.price?.toLocaleString('vi')}</span>
 							</div>
 
 							<div className="flex justify-between mt-4">
