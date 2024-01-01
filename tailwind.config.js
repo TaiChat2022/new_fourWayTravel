@@ -34,6 +34,7 @@ export default {
 				w24: '24%',
 			},
 			height: {
+				500: '500px',
 				400: '400px',
 				300: '300px',
 				340: '340px',
@@ -85,7 +86,8 @@ export default {
 					900: '#001927',
 					star: '#E8E2DD',
 					footer: '#f1f1f1',
-					xanh: '#48B4F0',
+					xanh: '#0B66FD',
+					// xanh: '#48B4F0',
 					do: '#FF6D43',
 					vang: '#FFCC43',
 					cam: '#ff6d43',

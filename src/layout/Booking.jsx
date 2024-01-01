@@ -1,5 +1,4 @@
 import 'flowbite';
-
 const BookingLayout = ({
 	luuTru,
 	filterLuuTru,
@@ -10,33 +9,25 @@ const BookingLayout = ({
 	labelFavorite,
 	userFavorites,
 	handleAddToRecentlyViewed,
-	address
+	selectedTinhThanh
 }) => {
 	return (
 		<>
 			<div className=" w-3/4 mx-auto mt-4">
-				{!address || address === "undefined" || address === "" ?
-					(
-						<>
-							<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
-								Xem tất cả khách sạn
-							</h1>
-						</>
-					) :
-					(
-						<>
-							{filterLuuTru.length > 0 && (
-								<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
-									Khách sạn tại {filterLuuTru[0].danhmuc}
-								</h1>
-							)}
-						</>
-					)
-				}
+				{selectedTinhThanh && selectedTinhThanh?.text && (
+					<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
+						Khách sạn tại {selectedTinhThanh.text}
+					</h1>
+				)}
+				{!selectedTinhThanh?.text && (
+					<h1 className="mt-4 w-full font-semibold text-xl tracking-normal mb-5">
+						Xem tất cả khách sạn
+					</h1>
+				)}
 
 				{luuTru ? (
 					<>
-						{!address || address === "undefined" || address === "" ?
+						{!selectedTinhThanh?.text || !selectedTinhThanh ?
 							(
 								<>
 									{luuTru.map((item) => (
@@ -137,34 +128,20 @@ const BookingLayout = ({
 																	</div>
 																))}
 															</div>
-															{item.voucher ? (
-																<>
-																	<div className="absolute -top-4 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-red-600 pt-2">
-																		<span className="bg-red-600 text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
-																			{item.voucher} %
-																		</span>
-																		<span className="bg-white w-auto border-solid border-2 rounded-vchh border-red-600 px-1.5 py-0.5 text-black h-full ">
-																			Rẻ hơn mọi khi
-																		</span>
-																	</div>
-																</>
-															) : (
-																<></>
-															)}
 
 															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2 pb-2 ">
+																<span className="flex items-center text-md mt-1 font-semibold mr-4">
+																	Tên phòng
+																	<i className="fa-solid fa-user mb-0.5 ml-2"></i>
+																</span>
 																<span className="flex text-lg md:text-md mt-1 font-semibold mr-4">
 																	{item.price.toLocaleString('vi')} VND
 																</span>
-																{item.OldPrice ?
-																	(
-																		<>
-																			<span className="flex text-sm md:text-md mt-1 font-semibold text-red-500 line-through mr-3">
-																				{item.OldPrice.toLocaleString('vi')} VND
-																			</span>
-																		</>
-																	)
-																	: (<></>)}
+															</div>
+															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
+																<span className="flex text-md font-semibold mr-4">
+																	Chỉ còn bao nhiêu phòng ?
+																</span>
 															</div>
 														</div>
 														<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">
@@ -283,34 +260,19 @@ const BookingLayout = ({
 																	</div>
 																))}
 															</div>
-															{item.voucher ? (
-																<>
-																	<div className="absolute -top-4 right-0 w-auto -translate-x-2.5 py-0.5 px-2 text-center text-xx font-bold text-red-600 pt-2">
-																		<span className="bg-red-600 text-white border-2 rounded-vch border-red-600 px-1.5 py-0.5">
-																			{item.voucher} %
-																		</span>
-																		<span className="bg-white w-auto border-solid border-2 rounded-vchh border-red-600 px-1.5 py-0.5 text-black h-full ">
-																			Rẻ hơn mọi khi
-																		</span>
-																	</div>
-																</>
-															) : (
-																<></>
-															)}
-
-															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2 pb-2 ">
-																<span className="flex text-lg md:text-md mt-1 font-semibold mr-4">
+															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
+																<span className="flex items-center text-md mt-1 font-semibold mr-4">
+																	Tên phòng
+																	<i className="fa-solid fa-user mb-0.5 ml-2"></i>
+																</span>
+																<span className="flex text-md  mt-1 font-semibold mr-4">
 																	{item.price.toLocaleString('vi')} VND
 																</span>
-																{item.OldPrice ?
-																	(
-																		<>
-																			<span className="flex text-sm md:text-md mt-1 font-semibold text-red-500 line-through mr-3">
-																				{item.OldPrice.toLocaleString('vi')} VND
-																			</span>
-																		</>
-																	)
-																	: (<></>)}
+															</div>
+															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
+																<span className="flex text-md font-semibold mr-4">
+																	Chỉ còn bao nhiêu phòng ?
+																</span>
 															</div>
 														</div>
 														<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">

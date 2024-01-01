@@ -1,24 +1,23 @@
-import Footer from '@/pages/Footer';
 import Tabs from '@/pages/Tabs';
 import XemGanDay from '@/pages/xemGanDay';
 import Product from './Product';
 import SearchBar from './SearchBar';
+import banner3 from '../assets/img/bannerQN.jpg';
+
 const Home = () => {
 	return (
 		<>
-			{/* <div className="mx-auto mb-7 w-3/4 mt-4">
-				<h1 className="text-2xl font-semibold leading-tight font-poppins">
-					<span>Chúng tôi so sánh giá phòng từ nhiều trang</span>
-				</h1>
-			</div> */}
+			<div className="w-full block z-0 bg-primary-xanh absolute">
+				<img
+					src={banner3}
+					alt=""
+					className="w-full h-500 object-cover opacity-50 "
+				/>
+			</div>
 			<SearchBar />
 			<XemGanDay />
 			<Tabs />
-			{/* <QRcode /> */}
 			<Product />
-			{/* <Partner /> */}
-			{/* <ListKhuVuc /> */}
-			<Footer />
 		</>
 	);
 };

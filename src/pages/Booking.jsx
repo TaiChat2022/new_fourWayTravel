@@ -1,6 +1,5 @@
 import { useDocsQuery } from '@/hooks/useFirestore';
 import BookingLayout from '@/layout/Booking';
-import Footer from '@/pages/Footer';
 import { auth, firestore } from '@/utils/firebase.config';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,24 +12,27 @@ import Typography from '@mui/material/Typography';
 import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Header from './Header';
 import SearchBar from './SearchBar';
 const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
-function sanitizeAddress(address) {
-	if (address === undefined || address === null) {
-		return '';
-	}
-	// Normalize and remove diacritics
-	let cleanAddress = address.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-	// Remove spaces
-	cleanAddress = cleanAddress.replace(/\s+/g, '');
-	return cleanAddress;
-}
+
 
 const Booking = () => {
 	const { address } = useParams();
 	const { data: luuTru } = useDocsQuery('luuTru');
-	const filterLuuTru = luuTru.filter((item) => sanitizeAddress(item.danhmuc) === address);
+	const { data: tinhthanh } = useDocsQuery('danhmuc');
+
+	// Initialize filterLuuTru with all luuTru data
+	let filterLuuTru = luuTru;
+	let selectedTinhThanh = null;
+
+	// Check if address is not empty or undefined
+	if (address) {
+		selectedTinhThanh = Array.isArray(tinhthanh) ? tinhthanh.find(tt => tt.id === address) : null;
+		// Filter luuTru if selectedTinhThanh is valid and has a text property
+		if (selectedTinhThanh && selectedTinhThanh.text) {
+			filterLuuTru = luuTru.filter(item => item.danhmuc === selectedTinhThanh.text);
+		}
+	}
 
 	const getRatingText = (star) => {
 		if (star > 4) return 'Xuất sắc';
@@ -179,10 +181,9 @@ const Booking = () => {
 
 	return (
 		<>
-			<Header />
 			<SearchBar />
 			<BookingLayout
-				luuTru={luuTru}
+				luuTru={filterLuuTru}
 				filterLuuTru={filterLuuTru}
 				React={React}
 				FormControl={FormControl}
@@ -205,9 +206,9 @@ const Booking = () => {
 				Typography={Typography}
 				Modal={Modal}
 				selectedAmenity={selectedAmenity}
-				address={address}
+				// tinhthanh={tinhthanh}
+				selectedTinhThanh={selectedTinhThanh}
 			/>
-			<Footer />
 		</>
 	);
 };

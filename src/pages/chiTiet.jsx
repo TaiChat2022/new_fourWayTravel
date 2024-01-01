@@ -1,13 +1,12 @@
 import { useDocQuery, useDocsQuery } from '@/hooks/useFirestore';
 import ChiTietLayout from '@/layout/chiTiet';
-import Footer from '@/pages/Footer';
+import { auth, firestore } from '@/utils/firebase.config';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import Header from './Header';
-import SearchBar from './SearchBar';
 
 const styleModal = {
 	position: 'absolute',
@@ -24,6 +23,16 @@ const styleModal = {
 const chiTiet = () => {
 	const { id } = useParams();
 	const { data } = useDocQuery('luuTru', id);
+	const [user, setUser] = React.useState(null);
+	React.useEffect(() => {
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				setUser(user);
+			} else {
+				setUser(null);
+			}
+		});
+	}, []);
 	const navigate = useNavigate();
 
 	const { data: luuTru } = useDocsQuery('luuTru');
@@ -88,7 +97,7 @@ const chiTiet = () => {
 
 	const checkIcon = (tienIch) => {
 		if (tienIch === 'Điều hòa') {
-			return 'fa-snowflake';
+			return 'fa-light fa-snowflake';
 		}
 		if (tienIch === 'WiFi') {
 			return 'fa-wifi';
@@ -149,10 +158,81 @@ const chiTiet = () => {
 	const handleOpenModal = () => setOpenModal(true);
 	const handleCloseModal = () => setOpenModal(false);
 
+	const [binhLuan, setBinhLuan] = useState('');
+
+	const handleInputChange = (e) => {
+		setBinhLuan(e.target.value);
+	};
+
+	const handleSendComment = () => {
+		if (!binhLuan.trim()) {
+			console.error('Bình luận không được để trống');
+			return;
+		}
+
+		// Check if the user is logged in and has user data
+		if (!user) {
+			console.error('Người dùng chưa đăng nhập');
+			// You can add additional handling here, like showing a login prompt
+			return;
+		}
+
+		// Include user data in the comment
+		const commentData = {
+			id: id, // ID của nơi lưu trú
+			tenNguoiDung: user.displayName, // Assuming user will always have a displayName
+			img: user.photoURL, // Assuming user will always have a photoURL
+			noiDung: binhLuan, // Nội dung bình luận
+		};
+
+		saveComment(commentData);
+		setBinhLuan(''); // Clear the comment input after submission
+	};
+
+	const saveComment = async (commentData) => {
+		const luuTruDocRef = doc(firestore, 'luuTru', commentData.id);
+
+		try {
+			const docSnapshot = await getDoc(luuTruDocRef);
+			if (docSnapshot.exists()) {
+				const luuTruData = docSnapshot.data();
+				const updatedBinhluan = luuTruData.binhluan ? arrayUnion(commentData) : [commentData];
+
+				await updateDoc(luuTruDocRef, { binhluan: updatedBinhluan });
+				console.log('Bình luận đã được thêm vào');
+			} else {
+				console.error('Document không tồn tại');
+			}
+		} catch (error) {
+			console.error('Lỗi khi thêm bình luận: ', error);
+		}
+	};
+
+	const [binhLuanArray, setBinhLuanArray] = useState([]);
+
+	useEffect(() => {
+		const fetchBinhLuanData = async () => {
+			try {
+				const luuTruDocRef = doc(firestore, 'luuTru', id);
+				const docSnapshot = await getDoc(luuTruDocRef);
+
+				if (docSnapshot.exists()) {
+					const luuTruData = docSnapshot.data();
+					const binhLuan = luuTruData.binhluan || [];
+					setBinhLuanArray(binhLuan);
+				} else {
+					console.error('Document không tồn tại');
+				}
+			} catch (error) {
+				console.error('Lỗi khi lấy dữ liệu bình luận: ', error);
+			}
+		};
+
+		fetchBinhLuanData();
+	}, [id]);
+
 	return (
 		<>
-			<Header />
-			<SearchBar />
 			<ChiTietLayout
 				data={data}
 				getRatingText={getRatingText}
@@ -181,8 +261,12 @@ const chiTiet = () => {
 				handleOpenModal={handleOpenModal}
 				handleCloseModal={handleCloseModal}
 				styles={styles}
+				// bình luận
+				binhLuan={binhLuan}
+				handleInputChange={handleInputChange}
+				handleSendComment={handleSendComment}
+				binhLuanArray={binhLuanArray}
 			/>
-			<Footer />
 		</>
 	);
 };

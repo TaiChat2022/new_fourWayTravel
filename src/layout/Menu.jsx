@@ -1,14 +1,31 @@
 export default function MenuLayOut({
-	Logo, Link,
-	Button, Menu, MenuItem, Box, Typography,
-	anchorEl, open, handleClick, handleClose,
+	Logo,
+	Link,
+	Button,
+	Menu,
+	MenuItem,
+	Box,
+	Typography,
+	anchorEl,
+	open,
+	handleClick,
+	handleClose,
 
 	ITEM_HEIGHT,
 
-	styleModal, Modal, openModal, handleOpenModal, handleCloseModal,
+	styleModal,
+	Modal,
+	openModal,
+	handleOpenModal,
+	handleCloseModal,
 
-	Login, user, signOut, anchorE4, open4, handleClick4, handleClose4,
-
+	Login,
+	user,
+	signOut,
+	anchorE4,
+	open4,
+	handleClick4,
+	handleClose4,
 }) {
 	return (
 		<>
@@ -55,8 +72,11 @@ export default function MenuLayOut({
 													onClick={handleClick4}
 												>
 													<div className="flex items-center justify-center py-2">
-														<img className="flex items-center h-8 w-8 rounded-full ring-2"
-															src={user.photoURL} alt={user.displayName} />
+														<img
+															className="flex items-center h-8 w-8 rounded-full ring-2"
+															src={user.photoURL}
+															alt={user.displayName}
+														/>
 													</div>
 												</Button>
 											</div>
@@ -79,13 +99,14 @@ export default function MenuLayOut({
 													{user.displayName}
 												</span>
 												<MenuItem>
-													<Button onClick={signOut}
-														className="border-t mt-2 border-2 border-gray-900 flex items-center justify-center w-full">
+													<Button
+														onClick={signOut}
+														className="border-t mt-2 border-2 border-gray-900 flex items-center justify-center w-full"
+													>
 														<span>Đăng xuất</span>
 													</Button>
 												</MenuItem>
 											</Menu>
-
 										</li>
 									</>
 								) : (
@@ -182,8 +203,7 @@ export default function MenuLayOut({
 											</Modal>
 										</li>
 									</>
-								)
-								}
+								)}
 								{/* Menu */}
 								<li className="h-full list-none flex relative">
 									<Button
@@ -208,28 +228,26 @@ export default function MenuLayOut({
 										}}
 									>
 										<div className="flex flex-col justify-start">
-											{user ?
-												(
-													<>
-														<Link
-															// onClick={handleClose}
-															to='/xemganday'
-															className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
-														>
-															<i className="fa-solid fa-clock-rotate-left"></i> Xem gần đây
-														</Link>
-														<Link
-															// onClick={handleClose}
-															to='/lichsudatphong'
-															className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
-														>
-															<i className="fa-regular fa-bookmark"></i> Lịch sử đặt hàng
-														</Link>
-													</>
-												) : (
-													<></>
-												)
-											}
+											{user ? (
+												<>
+													<Link
+														// onClick={handleClose}
+														to="/xemganday"
+														className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
+													>
+														<i className="fa-solid fa-clock-rotate-left"></i> Xem gần đây
+													</Link>
+													<Link
+														// onClick={handleClose}
+														to="/lichsudatphong"
+														className="w-full border-b py-2 px-4 text-left hover:text-blue-500"
+													>
+														<i className="fa-regular fa-bookmark"></i> Lịch sử đặt hàng
+													</Link>
+												</>
+											) : (
+												<></>
+											)}
 
 											<button
 												onClick={handleClose}
@@ -245,7 +263,6 @@ export default function MenuLayOut({
 					</header>
 				</div>
 			</div>
-
 		</>
 	);
 }
