@@ -2,10 +2,25 @@ export const routes = {
 	HOME: '/',
 
 	Favourite: '/favourite',
-	ListLuutru: '/listluutru',
+	ListKhachSan: '/listluutru',
+
 	BOOKING: '/booking',
-	CHITIET: '/booking/:id',
+	FILTERTINHTHANH: '/booking//:address',
+	FILTERVUNGMIEN: '/booking/:vungmien/',
+	FILTERKHACHSAN: '/booking/:vungmien/:address',
+
+	CHITIET: '/booking/chitiet/:id',
 	DATPHONG: '/datphong/:id',
+	USERXEMGANDAY: '/xemganday',
+	LICHSUDP: '/lichsudatphong',
 	LOGIN: '/auth/login',
 	REGISTER: '/auth/register',
+
+	TIMHIEU: '/timhieu',
+	COHOI: '/cohoi',
+	THONGBAO: '/thongbao',
+	HOATDONG: '/cachhoatdong',
+	DIEUKHOAN: '/dieukhoan',
+	THONGTIN: '/thongtin',
+	TINTUC: '/tintuc',
 };

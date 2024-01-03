@@ -1,5 +1,6 @@
 import FooterLayout from '@/layout/Footer';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 const Footer = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     useEffect(() => {
@@ -13,6 +14,7 @@ const Footer = () => {
         <>
             <FooterLayout
                 windowWidth={windowWidth}
+                Link={Link}
             />
         </>
     );

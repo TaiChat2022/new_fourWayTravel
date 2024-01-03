@@ -4,7 +4,6 @@ import Checkbox from '@mui/material/Checkbox';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../pages/Header';
 
 const Favourite = () => {
 	const [currentUser, setCurrentUser] = React.useState(null);
@@ -69,7 +68,6 @@ const Favourite = () => {
 	};
 	return (
 		<>
-			<Header />
 			<FavouriteLayout
 				Link={Link}
 				userFavorites={userFavorites}

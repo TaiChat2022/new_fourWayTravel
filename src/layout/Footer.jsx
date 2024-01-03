@@ -1,18 +1,17 @@
-import { Link } from 'react-router-dom';
-export default function FooterLayout({ windowWidth }) {
+export default function FooterLayout({ windowWidth, Link }) {
 	return (
 		<>
 			{windowWidth < 720 ? (
 				<>
 					<footer>
-						<div className="mx-auto bg-5 mt-12 py-6 2xl:py-14 2xl:pb-16 px-7 2xs:px-8 l:px-14 2xl:px-5 border-t-2">
-							<div className="flex flex-col mx-auto justify-between flex-shrink-0 mb-6 w-3/4">
-								<h2 className="font-bold text-primary-footer text-3xl py-4 mb-4">FOUR WAY TRAVEL</h2>
+						<div className="py-6 mx-auto mt-12 border-t-2 bg-5 2xl:py-14 2xl:pb-16 px-7 2xs:px-8 l:px-14 2xl:px-5">
+							<div className="flex flex-col justify-between flex-shrink-0 w-3/4 mx-auto mb-6">
+								<h2 className="py-4 mb-4 text-3xl font-bold text-primary-footer">FOUR WAY TRAVEL</h2>
 								<div className="grid grid-cols-1 gap-4">
-									<div className="col-span-1 flex flex-col gap-8">
+									<div className="flex flex-col col-span-1 gap-8">
 										<div className="List1">
 											<h2 className="mb-6 text-lg font-bold text-primary-footer">Công ty</h2>
-											<ul className="text-primary-footer text-sm font-medium">
+											<ul className="text-sm font-medium text-primary-footer">
 												<li className="mb-4">
 													<Link
 														to="#"
@@ -39,9 +38,9 @@ export default function FooterLayout({ windowWidth }) {
 												</li>
 											</ul>
 										</div>
-										<div className="List2 border-t-2 pt-4">
+										<div className="pt-4 border-t-2 List2">
 											<h2 className="mb-6 text-lg font-bold text-primary-footer">Hỗ trợ</h2>
-											<ul className="text-primary-footer text-sm font-medium">
+											<ul className="text-sm font-medium text-primary-footer">
 												<li className="mb-4">
 													<Link
 														to="#"
@@ -78,7 +77,7 @@ export default function FooterLayout({ windowWidth }) {
 										</div>
 									</div>
 
-									<div className="Input_form col-span-1">
+									<div className="col-span-1 Input_form">
 										<h2 className="mb-6 text-lg font-bold text-primary-footer">
 											Tìm nguồn cảm hứng đặc biệt cho kỳ nghỉ tiếp theo của bạn - đăng ký nhận bản
 											tin của chúng tôi.
@@ -111,7 +110,7 @@ export default function FooterLayout({ windowWidth }) {
 												<input
 													type="search"
 													id="default-search"
-													className="block w-full p-4 pl-10 text-sm bg-white border border-gray-400 text-gray-900 rounded-lg "
+													className="block w-full p-4 pl-10 text-sm text-gray-900 bg-white border border-gray-400 rounded-lg "
 													placeholder="Địa chỉ email..."
 													required
 												/>
@@ -123,7 +122,7 @@ export default function FooterLayout({ windowWidth }) {
 												</button>
 											</div>
 										</form>
-										<p className="text-primary-footer text-s leading-normal text-left mt-4">
+										<p className="mt-4 leading-normal text-left text-primary-footer text-s">
 											Copyright 2023 FourWay Travel.
 										</p>
 									</div>
@@ -135,17 +134,17 @@ export default function FooterLayout({ windowWidth }) {
 			) : (
 				<>
 					<footer>
-						<div className="mx-auto bg-5 mt-12 py-6 2xl:py-14 2xl:pb-16 px-7 2xs:px-8 l:px-14 2xl:px-5 border-t-2">
-							<div className="flex flex-col mx-auto justify-between flex-shrink-0 mb-6 w-3/4">
-								<h2 className="font-bold text-3xl py-4 mb-4 text-primary-footer">FOUR WAY TRAVEL</h2>
+						<div className="py-6 mx-auto mt-12 border-t-2 bg-5 2xl:py-14 2xl:pb-16 px-7 2xs:px-8 l:px-14 2xl:px-5">
+							<div className="flex flex-col justify-between flex-shrink-0 w-3/4 mx-auto mb-6">
+								<h2 className="py-4 mb-4 text-3xl font-bold text-primary-footer">FOUR WAY TRAVEL</h2>
 								<div className="grid grid-cols-3 gap-4">
-									<div className="col-span-1 flex flex-wrap gap-8">
+									<div className="flex flex-wrap col-span-1 gap-8">
 										<div className="List1">
 											<h2 className="mb-6 text-lg font-bold text-primary-footer">Công ty</h2>
-											<ul className=" text-sm text-primary-footer font-medium">
+											<ul className="text-sm font-medium text-primary-footer">
 												<li className="mb-4">
 													<Link
-														to="#"
+														to="/timhieu"
 														className=" hover:underline"
 													>
 														Tìm hiểu
@@ -153,7 +152,7 @@ export default function FooterLayout({ windowWidth }) {
 												</li>
 												<li className="mb-4">
 													<Link
-														to="#"
+														to="cohoi"
 														className="hover:underline"
 													>
 														Cơ hội làm việc
@@ -161,7 +160,7 @@ export default function FooterLayout({ windowWidth }) {
 												</li>
 												<li className="mb-4">
 													<Link
-														to="#"
+														to="tintuc"
 														className="hover:underline"
 													>
 														Tin tức
@@ -171,10 +170,10 @@ export default function FooterLayout({ windowWidth }) {
 										</div>
 										<div className="List2">
 											<h2 className="mb-6 text-lg font-bold text-primary-footer">Hỗ trợ</h2>
-											<ul className="text-primary-footer text-sm font-medium">
+											<ul className="text-sm font-medium text-primary-footer">
 												<li className="mb-4">
 													<Link
-														to="#"
+														to="cachhoatdong"
 														className=" hover:underline"
 													>
 														Cách hoạt động
@@ -182,7 +181,7 @@ export default function FooterLayout({ windowWidth }) {
 												</li>
 												<li className="mb-4">
 													<Link
-														to="#"
+														to="/dieukhoan"
 														className="hover:underline"
 													>
 														Điều khoản sự dụng
@@ -190,7 +189,7 @@ export default function FooterLayout({ windowWidth }) {
 												</li>
 												<li className="mb-4">
 													<Link
-														to="#"
+														to="/thongtin"
 														className="hover:underline"
 													>
 														Thông tin pháp lý
@@ -198,7 +197,7 @@ export default function FooterLayout({ windowWidth }) {
 												</li>
 												<li className="mb-4">
 													<Link
-														to="#"
+														to="thongbao"
 														className="hover:underline"
 													>
 														Thông báo bảo mật
@@ -208,7 +207,7 @@ export default function FooterLayout({ windowWidth }) {
 										</div>
 									</div>
 
-									<div className="Input_form col-span-2">
+									<div className="col-span-2 Input_form">
 										<h2 className="mb-6 text-lg font-bold text-primary-footer">
 											Tìm nguồn cảm hứng đặc biệt cho kỳ nghỉ tiếp theo của bạn - đăng ký nhận bản
 											tin của chúng tôi.
@@ -241,7 +240,7 @@ export default function FooterLayout({ windowWidth }) {
 												<input
 													type="search"
 													id="default-search"
-													className="block w-full p-4 pl-10 text-sm bg-white border border-gray-400 text-gray-900 rounded-lg "
+													className="block w-full p-4 pl-10 text-sm text-gray-900 bg-white border border-gray-400 rounded-lg "
 													placeholder="Địa chỉ email..."
 													required
 												/>
@@ -253,7 +252,7 @@ export default function FooterLayout({ windowWidth }) {
 												</button>
 											</div>
 										</form>
-										<p className="text-grey-500 text-s leading-normal text-primary-footer text-left mt-4">
+										<p className="mt-4 leading-normal text-left text-grey-500 text-s text-primary-footer">
 											Copyright 2023 FourWay Travel.
 										</p>
 									</div>

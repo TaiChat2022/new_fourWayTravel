@@ -38,13 +38,13 @@ export default function Filter() {
 							className="text-xs leading-tight truncate text-grey-700"
 							data-testid="search-form-guest-selector-label"
 						>
-							Số khách và phòng
+							Số khách và lưu trú
 						</span>
 						<span
 							className="text-sm font-bold leading-normal truncate text-grey-900"
 							data-testid="search-form-guest-selector-value"
 						>
-							2 khách, 1 phòng
+							2 khách, 1 lưu trú
 						</span>
 					</span>
 				</span>
@@ -244,7 +244,7 @@ export default function Filter() {
 											htmlFor="number-input133"
 											className="font-bold text-m"
 										>
-											Phòng
+											lưu trú
 										</label>
 										<div className="grid grid-flow-col gap-4 auto-cols-auto">
 											<button
