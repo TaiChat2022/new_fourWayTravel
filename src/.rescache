@@ -1,1 +1,1 @@
-{"__version__":1,"totalSize":3083022,"count":85,"data":{"App.jsx":[0,1924],"assets":[1,2864912],"auth":[1,2452],"components":[1,3174],"hooks":[1,5800],"index.css":[0,152],"layout":[1,158966],"main.jsx":[0,889],"pages":[1,42312],"stores":[1,188],"utils":[1,2253]}}
+{"__version__":1,"totalSize":4811718,"count":96,"data":{"App.jsx":[0,1924],"assets":[1,4584454],"auth":[1,2452],"components":[1,3174],"hooks":[1,5467],"index.css":[0,152],"layout":[1,158966],"main.jsx":[0,889],"pages":[1,42312],"sendemail.html":[0,9487],"stores":[1,188],"utils":[1,2253]}}

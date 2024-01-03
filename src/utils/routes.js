@@ -5,6 +5,7 @@ export const routes = {
 	ListKhachSan: '/listluutru',
 
 	BOOKING: '/booking',
+	ALLKHACHSAN: '/booking//',
 	FILTERTINHTHANH: '/booking//:address',
 	FILTERVUNGMIEN: '/booking/:vungmien/',
 	FILTERKHACHSAN: '/booking/:vungmien/:address',

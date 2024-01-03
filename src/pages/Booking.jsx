@@ -20,6 +20,7 @@ const Booking = () => {
 	const { data: khachsan } = useDocsQuery('khachsan');
 	const { data: tinhthanh } = useDocsQuery('tinhthanh');
 	const { data: vungMien } = useDocsQuery('vungmien');
+	const { data: phong } = useDocsQuery('phong');
 
 	const regionDict = useMemo(() => {
 		return vungMien?.reduce((acc, item) => {
@@ -27,7 +28,7 @@ const Booking = () => {
 			return acc;
 		}, {});
 	}, [vungMien]);
-	console.log('region: ', regionDict);
+
 	// filter
 	const filterVungMien = vungMien.find((item) => item.id === vungmien);
 	// Lọc danh sách địa danh dựa trên vùng miền được chọn
@@ -169,16 +170,20 @@ const Booking = () => {
 
 				// Check if the itemId is already in xemGanDay
 				const itemIndex = updatedXemGanDay.findIndex((item) => item.id === itemId);
+
 				if (itemIndex !== -1) {
 					// If it's already in xemGanDay, update the views count
 					updatedXemGanDay[itemIndex].views += 1;
+					// Move the item to the beginning of the array
+					const [movedItem] = updatedXemGanDay.splice(itemIndex, 1);
+					updatedXemGanDay.unshift({ ...movedItem, lastViewed: new Date() });
 				} else {
 					// If it's not in xemGanDay, add it with views count as 1
-					updatedXemGanDay.push({ id: itemId, tinhThanh, title, img, views: 1 });
+					updatedXemGanDay.unshift({ id: itemId, tinhThanh, title, img, views: 1, lastViewed: new Date() });
 				}
 			} else {
 				// If the user document doesn't exist, create xemGanDay with the current item
-				updatedXemGanDay = [{ id: itemId, tinhThanh, title, img, views: 1 }];
+				updatedXemGanDay = [{ id: itemId, tinhThanh, title, img, views: 1, lastViewed: new Date() }];
 			}
 
 			// Update the xemGanDay field in the user's document
@@ -235,6 +240,7 @@ const Booking = () => {
 				vungMien={vungMien}
 				tinhthanh={tinhthanh}
 				regionDict={regionDict}
+				phong={phong}
 			/>
 		</>
 	);

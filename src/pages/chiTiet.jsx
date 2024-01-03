@@ -21,6 +21,7 @@ const styleModal = {
 };
 
 const chiTiet = () => {
+	const navigate = useNavigate();
 	const { id } = useParams();
 	const { data } = useDocQuery('khachsan', id);
 	const [user, setUser] = React.useState(null);
@@ -28,15 +29,15 @@ const chiTiet = () => {
 		auth.onAuthStateChanged((user) => {
 			if (user) {
 				setUser(user);
-			}
-			else {
+			} else {
 				setUser(null);
 			}
 		});
 	}, []);
-	const navigate = useNavigate();
 
 	const { data: khachSan } = useDocsQuery('khachsan');
+	const { data: phong } = useDocsQuery('phong');
+	const filteredPhongKS = phong.filter(item => item.khachSanId === data.id);
 
 	const styles = {
 		display: '-webkit-box',
@@ -65,10 +66,10 @@ const chiTiet = () => {
 		const diaDiemGanDayList = data.diaDiemGanDay;
 
 		// Take the first 3 items for box1
-		const dataForBox1 = diaDiemGanDayList.slice(0, 3);
+		const dataForBox1 = diaDiemGanDayList?.slice(0, 3);
 
 		// Take the remaining items for box2
-		const dataForBox2 = diaDiemGanDayList.slice(3);
+		const dataForBox2 = diaDiemGanDayList?.slice(3);
 
 		// Update state with the data for each box
 		setDataForBox1(dataForBox1);
@@ -98,7 +99,7 @@ const chiTiet = () => {
 
 	const checkIcon = (tienIch) => {
 		if (tienIch === 'Điều hòa') {
-			return 'fa-snowflake';
+			return 'fa-light fa-snowflake';
 		}
 		if (tienIch === 'WiFi') {
 			return 'fa-wifi';
@@ -170,6 +171,7 @@ const chiTiet = () => {
 			console.error('Bình luận không được để trống');
 			return;
 		}
+
 		// Check if the user is logged in and has user data
 		if (!user) {
 			console.error('Người dùng chưa đăng nhập');
@@ -183,14 +185,6 @@ const chiTiet = () => {
 			tenNguoiDung: user.displayName, // Assuming user will always have a displayName
 			img: user.photoURL, // Assuming user will always have a photoURL
 			noiDung: binhLuan, // Nội dung bình luận
-			thoiGianBinhLuan: new Date().toLocaleString('vi-VN', {
-				timeZone: 'Asia/Ho_Chi_Minh',
-				year: 'numeric',
-				month: '2-digit',
-				day: '2-digit',
-				hour: '2-digit', // Add hours
-				minute: '2-digit', // Add minutes
-			}),
 		};
 
 		saveComment(commentData);
@@ -204,8 +198,7 @@ const chiTiet = () => {
 			const docSnapshot = await getDoc(khachSanDocRef);
 			if (docSnapshot.exists()) {
 				const khachSanData = docSnapshot.data();
-				const updatedBinhluan = khachSanData.binhluan ?
-					arrayUnion(commentData) : [commentData];
+				const updatedBinhluan = khachSanData.binhluan ? arrayUnion(commentData) : [commentData];
 
 				await updateDoc(khachSanDocRef, { binhluan: updatedBinhluan });
 				console.log('Bình luận đã được thêm vào');
@@ -270,13 +263,14 @@ const chiTiet = () => {
 				handleOpenModal={handleOpenModal}
 				handleCloseModal={handleCloseModal}
 				styles={styles}
-
 				// bình luận
 				binhLuan={binhLuan}
 				handleInputChange={handleInputChange}
 				handleSendComment={handleSendComment}
-
 				binhLuanArray={binhLuanArray}
+
+				// phòng khách sạn
+				phongKS={filteredPhongKS}
 			/>
 		</>
 	);

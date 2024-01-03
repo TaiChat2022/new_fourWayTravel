@@ -1,26 +1,13 @@
 export default function SearchBarLayout({
-	Box,
-	Link,
-	FormControl,
-	diadanh,
+	Box, Link,
+	FormControl, diadanh,
 	onAddressChange,
-	isBookingPage,
-	filterAddress,
-	setFilterAddress,
-	address,
-	Select,
-	MenuItem,
-	OutlinedInput,
-	MenuProps,
-	getStyles,
-	theme,
-	vungMien,
-	mien,
-	filterMien,
-	setFilterMien,
-	onMienChange,
-	filterDiaDanh,
+	isBookingPage, filterAddress, setFilterAddress,
+	address, Select, MenuItem, OutlinedInput, MenuProps, getStyles, theme,
+	vungMien, mien, filterMien, setFilterMien, onMienChange,
+	filterDiaDanh
 }) {
+
 	return (
 		<>
 			<div className="w-3/4 mx-auto mt-2 border-none rounded-lg shadow-2xl mb-2 z-50 md:sticky top-0 left-0 right-0">
@@ -63,31 +50,31 @@ export default function SearchBarLayout({
 								</span>
 								<span className="relative flex flex-col justify-center w-full truncate">
 									<Box fullWidth>
-										<FormControl
-											fullWidth
-											sx={{ m: 1 }}
-										>
+										<FormControl fullWidth sx={{ m: 1 }}>
 											<Select
 												// multiple
 												displayEmpty
 												value={isBookingPage ? filterMien : undefined}
 												defaultValue={[]}
 												onChange={
-													isBookingPage ? (e) => setFilterMien(e.target.value) : onMienChange
+													isBookingPage
+														? (e) => setFilterMien(e.target.value)
+														: onMienChange
 												}
 												input={<OutlinedInput />}
 												sx={{ py: 2 }}
 												MenuProps={MenuProps}
 												inputProps={{ 'aria-label': 'Without label' }}
 											>
-												<MenuItem
-													disabled
-													value=""
-												>
+												<MenuItem disabled value="">
 													<i className="fa-solid fa-earth-asia mr-2"></i>
 													<em>Chọn vùng miền</em>
 												</MenuItem>
-												<MenuItem value="">Xem tất cả vùng miền</MenuItem>
+												<MenuItem
+													value=""
+												>
+													Xem tất cả vùng miền
+												</MenuItem>
 
 												{vungMien.map((vung) => (
 													<MenuItem
@@ -113,10 +100,7 @@ export default function SearchBarLayout({
 							<span className="flex items-center justify-center h-14 2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span className="relative flex flex-col justify-center w-full truncate">
 									<Box fullWidth>
-										<FormControl
-											fullWidth
-											sx={{ m: 1.5 }}
-										>
+										<FormControl fullWidth sx={{ m: 1.5 }}>
 											<Select
 												// multiple
 												displayEmpty
@@ -133,24 +117,21 @@ export default function SearchBarLayout({
 												MenuProps={MenuProps}
 												inputProps={{ 'aria-label': 'Without label' }}
 											>
-												<MenuItem
-													disabled
-													value=""
-												>
+												<MenuItem disabled value="">
 													<i className="fa-solid fa-location-dot mr-2"></i>
 													<em>Chọn khu vực</em>
 												</MenuItem>
-												<MenuItem value="">Xem tất cả tỉnh thành</MenuItem>
+												<MenuItem
+													value=""
+												>
+													Xem tất cả tỉnh thành
+												</MenuItem>
 
 												{filterDiaDanh.map((khuvuc) => (
 													<MenuItem
 														key={khuvuc.id}
 														value={`${khuvuc.id}`}
-														style={getStyles(
-															khuvuc.tenTinhThanh,
-															khuvuc.tenTinhThanh,
-															theme,
-														)}
+														style={getStyles(khuvuc.tenTinhThanh, khuvuc.tenTinhThanh, theme)}
 													>
 														{khuvuc.tenTinhThanh}
 													</MenuItem>
@@ -179,7 +160,7 @@ export default function SearchBarLayout({
 						</span>
 					</div>
 				</div>
-			</div>
+			</div >
 		</>
 	);
 }

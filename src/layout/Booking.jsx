@@ -1,7 +1,8 @@
 import 'flowbite';
+import { useMemo, useState } from 'react';
 const BookingLayout = ({
 	khachsan,
-	filterKhachSan,
+	filterKhachSan = [],
 	getRatingText,
 	Link,
 	handleFavoriteChange,
@@ -12,61 +13,55 @@ const BookingLayout = ({
 	selectedTinhThanh,
 	selectedVungMien,
 	filterDiaDanh,
-	tinhthanh,
-	regionDict = {},
+	vungMien,
+	regionDict,
+	phong = [],
 }) => {
-	console.log(filterDiaDanh);
-	console.log(tinhthanh);
+	const [filterPrice, setFilterPrice] = useState('thap');
+	const lowestPriceDict = useMemo(() => {
+		const kq = {};
+		filterKhachSan.map((item) => {
+			kq[item.id] = phong
+				.filter((item2) => item2.khachSanId === item.id)
+				?.sort((a, b) => a.price - b.price)[0]?.price;
+		});
+		return kq;
+	}, [filterKhachSan, phong]);
 
 	return (
 		<>
 			<div className=" w-3/4 mx-auto mt-6">
-				<>
-					{tinhthanh.map((khuvuc) => (
-						<Link
-							to={`/booking/${regionDict[khuvuc.vungMien]}/${khuvuc?.id}`}
-							key={khuvuc.id}
-						>
-							<button
-								type="button"
-								className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-								value={`${khuvuc.tenTinhThanh}`}
-							>
-								{khuvuc.tenTinhThanh}
-							</button>
-						</Link>
-					))}
-				</>
+				{/* Filter vùng miền */}
 				{selectedVungMien && selectedVungMien?.tenVungMien && (
 					<h1 className="mt-4 w-full font-semibold text-md tracking-normal mb-2">
 						Khu vực :
 						<button
 							className={`
-							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium text-blue-500
-							border-blue-500 
+							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+							text-blue-500 border-blue-500 
 							focus:outline-none bg-white rounded-lg border 
 							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
 						`}
 						>
 							{selectedVungMien.tenVungMien}
 						</button>
-						{/* {Array.isArray(vungMien) && vungMien
-							.filter(item => item.tenVungMien !== selectedVungMien.tenVungMien)
-							.map((item, index) => (
-								<Link to={`/path-for-vungmien/${item.tenVungMien}`} key={index}>
-									<button
-										key={index}
-										className={`
+						{Array.isArray(vungMien) &&
+							vungMien
+								.filter((item) => item.tenVungMien !== selectedVungMien.tenVungMien)
+								.map((item, index) => (
+									<Link to={`/booking/${regionDict[item.tenVungMien]}`}>
+										<button
+											key={index}
+											className={`
 											py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
 											focus:outline-none bg-white rounded-lg border border-gray-200 
-											hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+										
 										`}
-									>
-										{item.tenVungMien}
-									</button>
-								</Link>
-							))
-						} */}
+										>
+											{item.tenVungMien}
+										</button>
+									</Link>
+								))}
 					</h1>
 				)}
 				{!selectedVungMien?.tenVungMien && (
@@ -83,27 +78,36 @@ const BookingLayout = ({
 							>
 								ALL
 							</button>
-							{/* {Array.isArray(vungMien) && vungMien
-								.map((item, index) => (
-									<button
-										key={index}
-										className={`
-										py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
-										focus:outline-none bg-white rounded-lg border border-gray-200 
-										hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-									`}
-									>
-										{item.tenVungMien}
-									</button>
-								))
-							} */}
+							{Array.isArray(vungMien) &&
+								vungMien.map((item, index) => (
+									<Link to={`/booking/${regionDict[item.tenVungMien]}/`}>
+										<button
+											key={index}
+											className={`
+											py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
+											focus:outline-none bg-white rounded-lg border border-gray-200 
+										`}
+										>
+											{item.tenVungMien}
+										</button>
+									</Link>
+								))}
 						</h1>
 					</>
 				)}
 
+				{/* Filter tỉnh thành */}
 				{selectedTinhThanh && selectedTinhThanh.tenTinhThanh && (
 					<div className="mt-4 w-full font-semibold text-md tracking-normal mb-5 flex items-center flex-wrap">
 						<h1 className="mb-2">Khách sạn tại :</h1>
+						<button
+							className={`
+							py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
+							focus:outline-none bg-white rounded-lg border border-gray-200 
+						`}
+						>
+							<Link to={`/booking/${regionDict[selectedTinhThanh.vungMien]}/`}>ALL</Link>
+						</button>
 						<button
 							className={`
 							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium text-blue-500
@@ -115,25 +119,23 @@ const BookingLayout = ({
 							{selectedTinhThanh.tenTinhThanh}
 						</button>
 
-						{/* {filterDiaDanh
-							.filter(item => item.tenTinhThanh !== selectedTinhThanh.tenTinhThanh)
+						{filterDiaDanh
+							.filter((item) => item.tenTinhThanh !== selectedTinhThanh.tenTinhThanh)
 							.map((item, index) => (
-								<Link to={`/path-for-tinhthanh/${item.id}`} key={index}> 
+								<Link to={`/booking/${regionDict[item.vungMien]}/${item?.id}`}>
 									<button
 										key={index}
 										className={`
 										py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
 										focus:outline-none bg-white rounded-lg border border-gray-200 
-										hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
 									`}
 									>
 										{item.tenTinhThanh}
 									</button>
 								</Link>
-							))} */}
+							))}
 					</div>
 				)}
-
 				{!selectedTinhThanh?.tenTinhThanh && (
 					<>
 						<div className="mt-4 w-full font-semibold text-md tracking-normal mb-5 flex items-center flex-wrap">
@@ -148,23 +150,47 @@ const BookingLayout = ({
 							>
 								ALL
 							</button>
-							{/* {filterDiaDanh
-								.map((item, index) => (
+							{filterDiaDanh.map((item, index) => (
+								<Link to={`/booking/${regionDict[item.vungMien]}/${item?.id}`}>
 									<button
 										key={index}
 										className={`
-										py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
-										focus:outline-none bg-white rounded-lg border border-gray-200 
-										hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-									`}
+												py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
+												focus:outline-none bg-white rounded-lg border border-gray-200 
+											`}
 									>
 										{item.tenTinhThanh}
 									</button>
-								))} */}
+								</Link>
+							))}
 						</div>
 					</>
 				)}
-
+				<>
+					<span className="font-bold">Sắp xếp theo giá: </span>
+					<button
+						className={`
+							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+							
+							focus:outline-none bg-white rounded-lg border 
+							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+							
+						`}
+						onClick={() => setFilterPrice('thap')}
+					>
+						Giá Thấp - Cao
+					</button>
+					<button
+						className={`
+							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+							focus:outline-none bg-white rounded-lg border 
+							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+						`}
+						onClick={() => setFilterPrice('cao')}
+					>
+						Giá Cao - Thấp
+					</button>
+				</>
 				{khachsan ? (
 					<>
 						{!selectedTinhThanh?.tenTinhThanh || !selectedTinhThanh ? (
@@ -252,7 +278,7 @@ const BookingLayout = ({
 													</div>
 													{/* <span className="text-sm font-semibold">Tiện ích:</span> */}
 													<div className="flex flex-wrap gap-2 mb-2">
-														{item?.tienich?.slice(0, 4).map((value, index) => (
+														{item.tienich?.slice(0, 4).map((value, index) => (
 															<div
 																key={index}
 																className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
@@ -269,7 +295,7 @@ const BookingLayout = ({
 													<div className="flex flex-col w-auto rounded-lg border-none bg-stone-200">
 														<div className="flex flex-wrap items-center gap-1 mt-1 ml-3 text-xs">
 															<p className="border-none rounded-lg mt-1">Gần đây:</p>
-															{item?.diaDiemGanDay?.slice(0, 2).map((value, index) => (
+															{item.diaDiemGanDay?.slice(0, 2).map((value, index) => (
 																<div
 																	key={index}
 																	className="w-auto border-none rounded-lg"
@@ -294,7 +320,7 @@ const BookingLayout = ({
 														</div>
 														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
 															<span className="flex text-md font-semibold mr-4">
-																Chỉ còn bao nhiêu phòng ?
+																Giá:
 															</span>
 														</div>
 													</div>
@@ -408,7 +434,7 @@ const BookingLayout = ({
 													</div>
 													{/* <span className="text-sm font-semibold">Tiện ích:</span> */}
 													<div className="flex flex-wrap gap-2 mb-2">
-														{item?.tienich?.slice(0, 4).map((value, index) => (
+														{item.tienich?.slice(0, 4).map((value, index) => (
 															<div
 																key={index}
 																className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
@@ -425,7 +451,7 @@ const BookingLayout = ({
 													<div className="flex flex-col w-auto rounded-lg border-none bg-stone-200">
 														<div className="flex flex-wrap items-center gap-1 mt-1 ml-3 text-xs">
 															<p className="border-none rounded-lg mt-1">Gần đây:</p>
-															{item?.diaDiemGanDay?.slice(0, 2).map((value, index) => (
+															{item.diaDiemGanDay?.slice(0, 2).map((value, index) => (
 																<div
 																	key={index}
 																	className="w-auto border-none rounded-lg"
@@ -439,7 +465,7 @@ const BookingLayout = ({
 															))}
 														</div>
 														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
-															<span className="flex items-center text-md mt-1 font-semibold mr-4">
+															<span className="flex opacity text-sm font-medium mr-4">
 																Tên phòng
 																<i className="fa-solid fa-user mb-0.5 ml-2"></i>
 															</span>
@@ -447,9 +473,12 @@ const BookingLayout = ({
 																	{item.price.toLocaleString('vi')} VND
 																</span> */}
 														</div>
-														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
-															<span className="flex text-md font-semibold mr-4">
-																Chỉ còn bao nhiêu phòng ?
+														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1 gap-2">
+															<span className="flex opacity text-sm font-medium mr-4">
+																Giá thấp nhất
+															</span>
+															<span className=" font-bold text-lg">
+																{lowestPriceDict[item.id] || 0} VNĐ
 															</span>
 														</div>
 													</div>

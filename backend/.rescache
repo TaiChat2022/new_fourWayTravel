@@ -1,1 +1,1 @@
-{"__version__":1,"totalSize":148921,"count":6,"data":{"header.html":[0,3878],"logo1.jpg":[0,102164],"mail.css":[0,1193],"package-lock.json":[0,39942],"package.json":[0,409],"server.js":[0,1335]}}
+{"__version__":1,"totalSize":186352,"count":23,"data":{"app.js":[0,1239],"bin":[1,1691],"config":[1,302],"nbproject":[1,830],"package-lock.json":[0,39942],"package.json":[0,409],"public":[1,123512],"readme.txt":[0,741],"routes":[1,11715],"server.js":[0,1335],"views":[1,4636]}}
