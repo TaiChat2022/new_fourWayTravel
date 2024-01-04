@@ -26,7 +26,7 @@ export default function App() {
 	return (
 		<Suspense fallback={
 			<Backdrop
-				sx={{ zIndex: 1000 }}
+				sx={{ zIndex: 500 }}
 				open
 			>
 				<CircularProgress color="inherit" />
@@ -44,11 +44,23 @@ export default function App() {
 					element={<Booking />}
 				/>
 				<Route
+					path={routes.ALLKHACHSAN}
+					element={<Booking />}
+				/>
+				<Route
+					path={routes.FILTERTINHTHANH}
+					element={<Booking />}
+				/>
+				<Route
+					path={routes.FILTERVUNGMIEN}
+					element={<Booking />}
+				/>
+				<Route
 					path={routes.LOGIN}
 					element={<Login />}
 				/>
 				<Route
-					path={routes.FILTERLUUTRU}
+					path={routes.FILTERKHACHSAN}
 					element={<Booking />}
 				/>
 				<Route
@@ -60,7 +72,7 @@ export default function App() {
 					element={<Favourite />}
 				/>
 				<Route
-					path={routes.ListLuutru}
+					path={routes.ListKhachSan}
 					element={<ListLuutru />}
 				/>
 				<Route

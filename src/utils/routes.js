@@ -2,9 +2,14 @@ export const routes = {
 	HOME: '/',
 
 	Favourite: '/favourite',
-	ListLuutru: '/listluutru',
+	ListKhachSan: '/listluutru',
+
 	BOOKING: '/booking',
-	FILTERLUUTRU: '/booking/:address',
+	ALLKHACHSAN: '/booking//',
+	FILTERTINHTHANH: '/booking//:address',
+	FILTERVUNGMIEN: '/booking/:vungmien/',
+	FILTERKHACHSAN: '/booking/:vungmien/:address',
+
 	CHITIET: '/booking/chitiet/:id',
 	DATPHONG: '/datphong/:id',
 	USERXEMGANDAY: '/xemganday',
