@@ -15,12 +15,12 @@ import { Link, useParams } from 'react-router-dom';
 import SearchBar from './SearchBar';
 const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-
 const Booking = () => {
 	const { vungmien, address } = useParams();
 	const { data: khachsan } = useDocsQuery('khachsan');
 	const { data: tinhthanh } = useDocsQuery('tinhthanh');
 	const { data: vungMien } = useDocsQuery('vungmien');
+	const { data: phong } = useDocsQuery('phong');
 
 	const regionDict = useMemo(() => {
 		return vungMien?.reduce((acc, item) => {
@@ -46,18 +46,18 @@ const Booking = () => {
 
 	// Check if address is not empty or undefined
 	if (vungmien) {
-		selectedVungMien = Array.isArray(vungMien) ? vungMien.find(tt => tt.id === vungmien) : null;
+		selectedVungMien = Array.isArray(vungMien) ? vungMien.find((tt) => tt.id === vungmien) : null;
 		// Filter khachsan if selectedTinhThanh is valid and has a text property
 		if (selectedVungMien && selectedVungMien.tenVungMien) {
-			filterKhachSan = khachsan.filter(item => item.vungMien === selectedVungMien.tenVungMien);
+			filterKhachSan = khachsan.filter((item) => item.vungMien === selectedVungMien.tenVungMien);
 		}
 	}
 	// Check if address is not empty or undefined
 	if (address) {
-		selectedTinhThanh = Array.isArray(tinhthanh) ? filterDiaDanh.find(tt => tt.id === address) : null;
+		selectedTinhThanh = Array.isArray(tinhthanh) ? filterDiaDanh.find((tt) => tt.id === address) : null;
 		// Filter khachsan if selectedTinhThanh is valid and has a text property
 		if (selectedTinhThanh && selectedTinhThanh.tenTinhThanh) {
-			filterKhachSan = khachsan.filter(item => item.tinhThanh === selectedTinhThanh.tenTinhThanh);
+			filterKhachSan = khachsan.filter((item) => item.tinhThanh === selectedTinhThanh.tenTinhThanh);
 		}
 	}
 
@@ -238,9 +238,9 @@ const Booking = () => {
 				selectedTinhThanh={selectedTinhThanh}
 				filterDiaDanh={filterDiaDanh}
 				vungMien={vungMien}
-
 				tinhthanh={tinhthanh}
 				regionDict={regionDict}
+				phong={phong}
 			/>
 		</>
 	);

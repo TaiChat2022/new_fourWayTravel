@@ -1,14 +1,33 @@
 import 'flowbite';
+import { useMemo, useState } from 'react';
 const BookingLayout = ({
 	khachsan,
-	filterKhachSan,
-	getRatingText, Link,
-	handleFavoriteChange, Checkbox, labelFavorite,
-	userFavorites, handleAddToRecentlyViewed,
-	selectedTinhThanh, selectedVungMien,
-	filterDiaDanh, vungMien,
-	regionDict, tinhthanh
+	filterKhachSan = [],
+	getRatingText,
+	Link,
+	handleFavoriteChange,
+	Checkbox,
+	labelFavorite,
+	userFavorites,
+	handleAddToRecentlyViewed,
+	selectedTinhThanh,
+	selectedVungMien,
+	filterDiaDanh,
+	vungMien,
+	regionDict,
+	phong = [],
 }) => {
+	const [filterPrice, setFilterPrice] = useState('thap');
+	const lowestPriceDict = useMemo(() => {
+		const kq = {};
+		filterKhachSan.map((item) => {
+			kq[item.id] = phong
+				.filter((item2) => item2.khachSanId === item.id)
+				?.sort((a, b) => a.price - b.price)[0]?.price;
+		});
+		return kq;
+	}, [filterKhachSan, phong]);
+
 	return (
 		<>
 			<div className=" w-3/4 mx-auto mt-6">
@@ -16,47 +35,51 @@ const BookingLayout = ({
 				{selectedVungMien && selectedVungMien?.tenVungMien && (
 					<h1 className="mt-4 w-full font-semibold text-md tracking-normal mb-2">
 						Khu vực :
-						<button className={`
+						<button
+							className={`
 							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
 							text-blue-500 border-blue-500 
 							focus:outline-none bg-white rounded-lg border 
 							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-						`}>
+						`}
+						>
 							{selectedVungMien.tenVungMien}
 						</button>
-						{Array.isArray(vungMien) && vungMien
-							.filter(item => item.tenVungMien !== selectedVungMien.tenVungMien)
-							.map((item, index) => (
-								<Link to={`/booking/${regionDict[item.tenVungMien]}/`}>
-									<button
-										key={index}
-										className={`
+						{Array.isArray(vungMien) &&
+							vungMien
+								.filter((item) => item.tenVungMien !== selectedVungMien.tenVungMien)
+								.map((item, index) => (
+									<Link to={`/booking/${regionDict[item.tenVungMien]}`}>
+										<button
+											key={index}
+											className={`
 											py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
 											focus:outline-none bg-white rounded-lg border border-gray-200 
 										
 										`}
-									>
-										{item.tenVungMien}
-									</button>
-								</Link>
-							))
-						}
+										>
+											{item.tenVungMien}
+										</button>
+									</Link>
+								))}
 					</h1>
 				)}
 				{!selectedVungMien?.tenVungMien && (
 					<>
 						<h1 className="mt-4 w-full font-semibold text-md tracking-normal mb-2">
 							Khu vực :
-							<button className={`
+							<button
+								className={`
 								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium 
 								border-blue-500 text-blue-500
 								focus:outline-none bg-white rounded-lg border 
 								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-							`}>
+							`}
+							>
 								ALL
 							</button>
-							{Array.isArray(vungMien) && vungMien
-								.map((item, index) => (
+							{Array.isArray(vungMien) &&
+								vungMien.map((item, index) => (
 									<Link to={`/booking/${regionDict[item.tenVungMien]}/`}>
 										<button
 											key={index}
@@ -68,8 +91,7 @@ const BookingLayout = ({
 											{item.tenVungMien}
 										</button>
 									</Link>
-								))
-							}
+								))}
 						</h1>
 					</>
 				)}
@@ -77,28 +99,28 @@ const BookingLayout = ({
 				{/* Filter tỉnh thành */}
 				{selectedTinhThanh && selectedTinhThanh.tenTinhThanh && (
 					<div className="mt-4 w-full font-semibold text-md tracking-normal mb-5 flex items-center flex-wrap">
-						<h1 className='mb-2'>
-							Khách sạn tại :
-						</h1>
-						<button className={`
+						<h1 className="mb-2">Khách sạn tại :</h1>
+						<button
+							className={`
 							py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
 							focus:outline-none bg-white rounded-lg border border-gray-200 
-						`}>
-							<Link to={`/booking/${regionDict[selectedTinhThanh.vungMien]}/`}>
-								ALL
-							</Link>
+						`}
+						>
+							<Link to={`/booking/${regionDict[selectedTinhThanh.vungMien]}/`}>ALL</Link>
 						</button>
-						<button className={`
+						<button
+							className={`
 							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium text-blue-500
 							border-blue-500 
 							focus:outline-none bg-white rounded-lg border 
 							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-						`}>
+						`}
+						>
 							{selectedTinhThanh.tenTinhThanh}
 						</button>
 
 						{filterDiaDanh
-							.filter(item => item.tenTinhThanh !== selectedTinhThanh.tenTinhThanh)
+							.filter((item) => item.tenTinhThanh !== selectedTinhThanh.tenTinhThanh)
 							.map((item, index) => (
 								<Link to={`/booking/${regionDict[item.vungMien]}/${item?.id}`}>
 									<button
@@ -117,303 +139,375 @@ const BookingLayout = ({
 				{!selectedTinhThanh?.tenTinhThanh && (
 					<>
 						<div className="mt-4 w-full font-semibold text-md tracking-normal mb-5 flex items-center flex-wrap">
-							<h1 className='mb-2'>
-								Xem tất cả khách sạn :
-							</h1>
-							<button className={`
+							<h1 className="mb-2">Xem tất cả khách sạn :</h1>
+							<button
+								className={`
 								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium 
 								border-blue-500 text-blue-500
 								focus:outline-none bg-white rounded-lg border 
 								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-							`}>
+							`}
+							>
 								ALL
 							</button>
-							{filterDiaDanh
-								.map((item, index) => (
-									<Link to={`/booking/${regionDict[item.vungMien]}/${item?.id}`}>
-										<button
-											key={index}
-											className={`
+							{filterDiaDanh.map((item, index) => (
+								<Link to={`/booking/${regionDict[item.vungMien]}/${item?.id}`}>
+									<button
+										key={index}
+										className={`
 												py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
 												focus:outline-none bg-white rounded-lg border border-gray-200 
 											`}
-										>
-											{item.tenTinhThanh}
-										</button>
-									</Link>
-								))}
+									>
+										{item.tenTinhThanh}
+									</button>
+								</Link>
+							))}
 						</div>
 					</>
 				)}
-
+				<>
+					<span className="font-bold">Sắp xếp theo giá: </span>
+					<button
+						className={`
+							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+							
+							focus:outline-none bg-white rounded-lg border 
+							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+							
+						`}
+						onClick={() => setFilterPrice('thap')}
+					>
+						Giá Thấp - Cao
+					</button>
+					<button
+						className={`
+							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+							focus:outline-none bg-white rounded-lg border 
+							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+						`}
+						onClick={() => setFilterPrice('cao')}
+					>
+						Giá Cao - Thấp
+					</button>
+				</>
 				{khachsan ? (
 					<>
-						{!selectedTinhThanh?.tenTinhThanh || !selectedTinhThanh ?
-							(
-								<>
-									{khachsan.map((item) => (
-										<>
-											<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
-												<div
-													key={item.id}
-													className="grid grid-cols-1 md:grid-cols-5 gap-8"
-												>
-													<div className="col-span-1">
-														<img
-															src={item.img}
-															alt={item.title}
-															className="rounded-t-lg md:rounded-l-lg md:rounded-t-none md:rounded-tl-lg w-full h-48 md:h-full object-cover"
-														/>
+						{!selectedTinhThanh?.tenTinhThanh || !selectedTinhThanh ? (
+							<>
+								{khachsan.map((item) => (
+									<>
+										<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
+											<div
+												key={item.id}
+												className="grid grid-cols-1 md:grid-cols-5 gap-8"
+											>
+												<div className="col-span-1">
+													<img
+														src={item.img}
+														alt={item.title}
+														className="rounded-t-lg md:rounded-l-lg md:rounded-t-none md:rounded-tl-lg w-full h-48 md:h-full object-cover"
+													/>
+												</div>
+												<div className="ml-3 md:ml-0 col-span-1 md:col-span-2">
+													<div className="mt-2">
+														<div className="flex items-center justify-between">
+															<Link
+																to={`/booking/chitiet/${item.id}`}
+																className="font-semibold text-lg"
+																onClick={() =>
+																	handleAddToRecentlyViewed(
+																		item.id,
+																		item.tinhThanh,
+																		item.title,
+																		item.img,
+																		item.lastViewed,
+																	)
+																}
+															>
+																{item.title}
+															</Link>
+
+															{/* Yêu thích */}
+															{userFavorites.some(
+																(favorite) => favorite.id === item.id,
+															) ? (
+																<>
+																	<Checkbox
+																		{...labelFavorite}
+																		onChange={() =>
+																			handleFavoriteChange((item.id, item))
+																		}
+																		icon={
+																			<i className="fa-solid fa-heart text-red-500"></i>
+																		}
+																		checkedIcon={
+																			<i className="fa-regular fa-heart"></i>
+																		}
+																	/>
+																</>
+															) : (
+																<>
+																	<Checkbox
+																		{...labelFavorite}
+																		onChange={() =>
+																			handleFavoriteChange((item.id, item))
+																		}
+																		icon={<i className="fa-regular fa-heart"></i>}
+																		checkedIcon={
+																			<i className="fa-solid fa-heart text-red-500"></i>
+																		}
+																	/>
+																</>
+															)}
+														</div>
 													</div>
-													<div className="ml-3 md:ml-0 col-span-1 md:col-span-2">
-														<div className="mt-2">
-															<div className="flex items-center justify-between">
-																<Link
-																	to={`/booking/chitiet/${item.id}`}
-																	className="font-semibold text-lg"
-																	onClick={() => handleAddToRecentlyViewed(item.id, item.tinhThanh, item.title, item.img, item.lastViewed)}
-																>
-																	{item.title}
-																</Link>
 
-																{/* Yêu thích */}
-																{userFavorites.some((favorite) => favorite.id === item.id) ? (
-																	<>
-																		<Checkbox
-																			{...labelFavorite}
-																			onChange={() => handleFavoriteChange((item.id, item))}
-																			icon={
-																				<i className="fa-solid fa-heart text-red-500"></i>
-																			}
-																			checkedIcon={<i className="fa-regular fa-heart"></i>}
-																		/>
-																	</>
-																) : (
-																	<>
-																		<Checkbox
-																			{...labelFavorite}
-																			onChange={() => handleFavoriteChange((item.id, item))}
-																			icon={<i className="fa-regular fa-heart"></i>}
-																			checkedIcon={
-																				<i className="fa-solid fa-heart text-red-500"></i>
-																			}
-																		/>
-																	</>
-																)}
+													<div className="flex items-center justify-start mt-2 text-sm">
+														<span className="font-semibold text-sm mr-1">
+															<i className="fa-solid fa-star mb-1 mr-1 text-gray-300"></i>
+															{item.star} - {getRatingText(item.star)}
+														</span>
+														{/* <p className="text-sm">(30 đánh giá)</p> */}
+													</div>
+													<div className="flex items-center justify-start mt-2 text-sm">
+														<span className=" text-sm mr-1">
+															<span className="font-semibold"> Địa chỉ: </span>
+															{item.diaChi}
+														</span>
+													</div>
+													{/* <span className="text-sm font-semibold">Tiện ích:</span> */}
+													<div className="flex flex-wrap gap-2 mb-2">
+														{item.tienich?.slice(0, 4).map((value, index) => (
+															<div
+																key={index}
+																className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
+															>
+																<div className="flex justify-start items-center  pt-1 text-mm gap-1">
+																	<div className="p-1">{value} </div>
+																</div>
 															</div>
-
-														</div>
-
-														<div className="flex items-center justify-start mt-2 text-sm">
-															<span className="font-semibold text-sm mr-1">
-																<i className="fa-solid fa-star mb-1 mr-1 text-gray-300"></i>
-																{item.star} - {getRatingText(item.star)}
-															</span>
-															{/* <p className="text-sm">(30 đánh giá)</p> */}
-														</div>
-														<div className="flex items-center justify-start mt-2 text-sm">
-															<span className=" text-sm mr-1">
-																<span className="font-semibold"> Địa chỉ: </span>
-																{item.diaChi}
-															</span>
-														</div>
-														{/* <span className="text-sm font-semibold">Tiện ích:</span> */}
-														<div className="flex flex-wrap gap-2 mb-2">
-															{item.tienich?.slice(0, 4).map((value, index) => (
+														))}
+													</div>
+													{/* <button onClick={handleOpen}>Tiện ích</button> */}
+												</div>
+												<div className="block m-2 col-span-1 md:col-span-2 relative">
+													<div className="flex flex-col w-auto rounded-lg border-none bg-stone-200">
+														<div className="flex flex-wrap items-center gap-1 mt-1 ml-3 text-xs">
+															<p className="border-none rounded-lg mt-1">Gần đây:</p>
+															{item.diaDiemGanDay?.slice(0, 2).map((value, index) => (
 																<div
 																	key={index}
-																	className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
+																	className="w-auto border-none rounded-lg"
 																>
-																	<div className="flex justify-start items-center  pt-1 text-mm gap-1">
-																		<div className="p-1">{value} </div>
+																	<div className="flex justify-start items-center pt-1 text-mm truncate">
+																		{/* Kiểm tra nếu không phải là mục đầu tiên, thêm dấu phẩy */}
+																		{index > 0 && <span>,</span>}
+																		<div className="p-1">{value}</div>
 																	</div>
 																</div>
 															))}
 														</div>
-														{/* <button onClick={handleOpen}>Tiện ích</button> */}
-													</div>
-													<div className="block m-2 col-span-1 md:col-span-2 relative">
-														<div className="flex flex-col w-auto rounded-lg border-none bg-stone-200">
-															<div className="flex flex-wrap items-center gap-1 mt-1 ml-3 text-xs">
-																<p className='border-none rounded-lg mt-1'>Gần đây:</p>
-																{item.diaDiemGanDay?.slice(0, 2).map((value, index) => (
-																	<div
-																		key={index}
-																		className="w-auto border-none rounded-lg"
-																	>
-																		<div className="flex justify-start items-center pt-1 text-mm truncate">
-																			{/* Kiểm tra nếu không phải là mục đầu tiên, thêm dấu phẩy */}
-																			{index > 0 && <span>,</span>}
-																			<div className="p-1">{value}</div>
-																		</div>
-																	</div>
-																))}
-															</div>
 
-															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2 pb-2 ">
-																<span className="flex items-center text-md mt-1 font-semibold mr-4">
-																	Tên phòng
-																	<i className="fa-solid fa-user mb-0.5 ml-2"></i>
-																</span>
-																{/* <span className="flex text-lg md:text-md mt-1 font-semibold mr-4">
+														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2 pb-2 ">
+															<span className="flex items-center text-md mt-1 font-semibold mr-4">
+																Tên phòng
+																<i className="fa-solid fa-user mb-0.5 ml-2"></i>
+															</span>
+															{/* <span className="flex text-lg md:text-md mt-1 font-semibold mr-4">
 																	{item.price.toLocaleString('vi')} VND
 																</span> */}
-															</div>
-															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
-																<span className="flex text-md font-semibold mr-4">
-																	Chỉ còn bao nhiêu phòng ?
-																</span>
-															</div>
 														</div>
-														<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">
-															<Link
-																to={`/booking/chitiet/${item.id}`}
-																className="w-full flex items-center justify-center h-11 rounded-md"
-																onClick={() => handleAddToRecentlyViewed(item.id, item.tinhThanh, item.title, item.img, item.lastViewed)}
-															>
-																<p className="text-white font-light text-base">Xem chi tiết</p>
-															</Link>
+														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
+															<span className="flex text-md font-semibold mr-4">
+																Giá:
+															</span>
 														</div>
+													</div>
+													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">
+														<Link
+															to={`/booking/chitiet/${item.id}`}
+															className="w-full flex items-center justify-center h-11 rounded-md"
+															onClick={() =>
+																handleAddToRecentlyViewed(
+																	item.id,
+																	item.tinhThanh,
+																	item.title,
+																	item.img,
+																	item.lastViewed,
+																)
+															}
+														>
+															<p className="text-white font-light text-base">
+																Xem chi tiết
+															</p>
+														</Link>
 													</div>
 												</div>
 											</div>
-										</>
-									))}
-								</>
-							) :
-							(
-								<>
-									{filterKhachSan.map((item) => (
-										<>
-											<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
-												<div
-													key={item.id}
-													className="grid grid-cols-1 md:grid-cols-5 gap-8"
-												>
-													<div className="col-span-1">
-														<img
-															src={item.img}
-															alt={item.title}
-															className="rounded-t-lg md:rounded-l-lg md:rounded-t-none md:rounded-tl-lg w-full h-48 md:h-full object-cover"
-														/>
+										</div>
+									</>
+								))}
+							</>
+						) : (
+							<>
+								{filterKhachSan.map((item) => (
+									<>
+										<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
+											<div
+												key={item.id}
+												className="grid grid-cols-1 md:grid-cols-5 gap-8"
+											>
+												<div className="col-span-1">
+													<img
+														src={item.img}
+														alt={item.title}
+														className="rounded-t-lg md:rounded-l-lg md:rounded-t-none md:rounded-tl-lg w-full h-48 md:h-full object-cover"
+													/>
+												</div>
+												<div className="ml-3 md:ml-0 col-span-1 md:col-span-2">
+													<div className="mt-2">
+														<div className="flex items-center justify-between">
+															<Link
+																to={`/booking/chitiet/${item.id}`}
+																className="font-semibold text-lg"
+																onClick={() =>
+																	handleAddToRecentlyViewed(
+																		item.id,
+																		item.tinhThanh,
+																		item.title,
+																		item.img,
+																		item.lastViewed,
+																	)
+																}
+															>
+																{item.title}
+															</Link>
+
+															{/* Yêu thích */}
+															{userFavorites.some(
+																(favorite) => favorite.id === item.id,
+															) ? (
+																<>
+																	<Checkbox
+																		{...labelFavorite}
+																		onChange={() =>
+																			handleFavoriteChange((item.id, item))
+																		}
+																		icon={
+																			<i className="fa-solid fa-heart text-red-500"></i>
+																		}
+																		checkedIcon={
+																			<i className="fa-regular fa-heart"></i>
+																		}
+																	/>
+																</>
+															) : (
+																<>
+																	<Checkbox
+																		{...labelFavorite}
+																		onChange={() =>
+																			handleFavoriteChange((item.id, item))
+																		}
+																		icon={<i className="fa-regular fa-heart"></i>}
+																		checkedIcon={
+																			<i className="fa-solid fa-heart text-red-500"></i>
+																		}
+																	/>
+																</>
+															)}
+														</div>
 													</div>
-													<div className="ml-3 md:ml-0 col-span-1 md:col-span-2">
-														<div className="mt-2">
-															<div className="flex items-center justify-between">
-																<Link
-																	to={`/booking/chitiet/${item.id}`}
-																	className="font-semibold text-lg"
-																	onClick={() => handleAddToRecentlyViewed(item.id, item.tinhThanh, item.title, item.img, item.lastViewed)}
-																>
-																	{item.title}
-																</Link>
 
-																{/* Yêu thích */}
-																{userFavorites.some((favorite) => favorite.id === item.id) ? (
-																	<>
-																		<Checkbox
-																			{...labelFavorite}
-																			onChange={() => handleFavoriteChange((item.id, item))}
-																			icon={
-																				<i className="fa-solid fa-heart text-red-500"></i>
-																			}
-																			checkedIcon={<i className="fa-regular fa-heart"></i>}
-																		/>
-																	</>
-																) : (
-																	<>
-																		<Checkbox
-																			{...labelFavorite}
-																			onChange={() => handleFavoriteChange((item.id, item))}
-																			icon={<i className="fa-regular fa-heart"></i>}
-																			checkedIcon={
-																				<i className="fa-solid fa-heart text-red-500"></i>
-																			}
-																		/>
-																	</>
-																)}
+													<div className="flex items-center justify-start mt-2 text-sm">
+														<span className="font-semibold text-sm mr-1">
+															<i className="fa-solid fa-star mb-1 mr-1 text-gray-300"></i>
+															{item.star} - {getRatingText(item.star)}
+														</span>
+														{/* <p className="text-sm">(30 đánh giá)</p> */}
+													</div>
+													<div className="flex items-center justify-start mt-2 text-sm">
+														<span className=" text-sm mr-1">
+															<span className="font-semibold"> Địa chỉ: </span>
+															{item.diaChi}
+														</span>
+													</div>
+													{/* <span className="text-sm font-semibold">Tiện ích:</span> */}
+													<div className="flex flex-wrap gap-2 mb-2">
+														{item.tienich?.slice(0, 4).map((value, index) => (
+															<div
+																key={index}
+																className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
+															>
+																<div className="flex justify-start items-center  pt-1 text-mm gap-1">
+																	<div className="p-1">{value} </div>
+																</div>
 															</div>
-
-														</div>
-
-														<div className="flex items-center justify-start mt-2 text-sm">
-															<span className="font-semibold text-sm mr-1">
-																<i className="fa-solid fa-star mb-1 mr-1 text-gray-300"></i>
-																{item.star} - {getRatingText(item.star)}
-															</span>
-															{/* <p className="text-sm">(30 đánh giá)</p> */}
-														</div>
-														<div className="flex items-center justify-start mt-2 text-sm">
-															<span className=" text-sm mr-1">
-																<span className="font-semibold"> Địa chỉ: </span>
-																{item.diaChi}
-															</span>
-														</div>
-														{/* <span className="text-sm font-semibold">Tiện ích:</span> */}
-														<div className="flex flex-wrap gap-2 mb-2">
-															{item.tienich?.slice(0, 4).map((value, index) => (
+														))}
+													</div>
+													{/* <button onClick={handleOpen}>Tiện ích</button> */}
+												</div>
+												<div className="block m-2 col-span-1 md:col-span-2 relative">
+													<div className="flex flex-col w-auto rounded-lg border-none bg-stone-200">
+														<div className="flex flex-wrap items-center gap-1 mt-1 ml-3 text-xs">
+															<p className="border-none rounded-lg mt-1">Gần đây:</p>
+															{item.diaDiemGanDay?.slice(0, 2).map((value, index) => (
 																<div
 																	key={index}
-																	className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
+																	className="w-auto border-none rounded-lg"
 																>
-																	<div className="flex justify-start items-center  pt-1 text-mm gap-1">
-																		<div className="p-1">{value} </div>
+																	<div className="flex justify-start items-center pt-1 text-mm truncate">
+																		{/* Kiểm tra nếu không phải là mục đầu tiên, thêm dấu phẩy */}
+																		{index > 0 && <span>,</span>}
+																		<div className="p-1">{value}</div>
 																	</div>
 																</div>
 															))}
 														</div>
-														{/* <button onClick={handleOpen}>Tiện ích</button> */}
-													</div>
-													<div className="block m-2 col-span-1 md:col-span-2 relative">
-														<div className="flex flex-col w-auto rounded-lg border-none bg-stone-200">
-															<div className="flex flex-wrap items-center gap-1 mt-1 ml-3 text-xs">
-																<p className='border-none rounded-lg mt-1'>Gần đây:</p>
-																{item.diaDiemGanDay?.slice(0, 2).map((value, index) => (
-																	<div
-																		key={index}
-																		className="w-auto border-none rounded-lg"
-																	>
-																		<div className="flex justify-start items-center pt-1 text-mm truncate">
-																			{/* Kiểm tra nếu không phải là mục đầu tiên, thêm dấu phẩy */}
-																			{index > 0 && <span>,</span>}
-																			<div className="p-1">{value}</div>
-																		</div>
-																	</div>
-																))}
-															</div>
-															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
-																<span className="flex items-center text-md mt-1 font-semibold mr-4">
-																	Tên phòng
-																	<i className="fa-solid fa-user mb-0.5 ml-2"></i>
-																</span>
-																{/* <span className="flex text-md  mt-1 font-semibold mr-4">
+														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
+															<span className="flex opacity text-sm font-medium mr-4">
+																Tên phòng
+																<i className="fa-solid fa-user mb-0.5 ml-2"></i>
+															</span>
+															{/* <span className="flex text-md  mt-1 font-semibold mr-4">
 																	{item.price.toLocaleString('vi')} VND
 																</span> */}
-															</div>
-															<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
-																<span className="flex text-md font-semibold mr-4">
-																	Chỉ còn bao nhiêu phòng ?
-																</span>
-															</div>
 														</div>
-														<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">
-															<Link
-																to={`/booking/chitiet/${item.id}`}
-																className="w-full flex items-center justify-center h-11 rounded-md"
-																onClick={() => handleAddToRecentlyViewed(item.id, item.tinhThanh, item.title, item.img, item.lastViewed)}
-															>
-																<p className="text-white font-light text-base">Xem chi tiết</p>
-															</Link>
+														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1 gap-2">
+															<span className="flex opacity text-sm font-medium mr-4">
+																Giá thấp nhất
+															</span>
+															<span className=" font-bold text-lg">
+																{lowestPriceDict[item.id] || 0} VNĐ
+															</span>
 														</div>
+													</div>
+													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">
+														<Link
+															to={`/booking/chitiet/${item.id}`}
+															className="w-full flex items-center justify-center h-11 rounded-md"
+															onClick={() =>
+																handleAddToRecentlyViewed(
+																	item.id,
+																	item.tinhThanh,
+																	item.title,
+																	item.img,
+																	item.lastViewed,
+																)
+															}
+														>
+															<p className="text-white font-light text-base">
+																Xem chi tiết
+															</p>
+														</Link>
 													</div>
 												</div>
 											</div>
-										</>
-									))}
-								</>
-							)
-						}
-
+										</div>
+									</>
+								))}
+							</>
+						)}
 					</>
 				) : (
 					<>

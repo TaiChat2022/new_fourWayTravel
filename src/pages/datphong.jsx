@@ -1,4 +1,4 @@
-import { useDocQuery } from '@/hooks/useFirestore';
+import { useDocQuery, useDocsQuery } from '@/hooks/useFirestore';
 import DatphongLayout from '@/layout/datphong';
 import { auth, firestore } from '@/utils/firebase.config';
 import axios from 'axios';
@@ -8,7 +8,8 @@ import { useParams } from 'react-router-dom';
 
 const Datphong = () => {
 	const { id } = useParams();
-	const { data } = useDocQuery('luuTru', id);
+	const { data } = useDocQuery('phong', id);
+	const { data: khachSan } = useDocsQuery('khachsan');
 	const [user, setUser] = React.useState(null);
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -19,6 +20,8 @@ const Datphong = () => {
 			}
 		});
 	}, []);
+
+	const filterKhachSan = khachSan.find(item => item.id === data.khachSanId);
 
 	const db = getFirestore();
 
@@ -251,7 +254,8 @@ const Datphong = () => {
 			});
 
 			const { tieuDe, firstName, lastName, additionalRequest, cccd } = formData;
-			const { danhmuc, diaChi, img, title, price } = data;
+			const { img, tenPhong, price } = data;
+			const { tinhThanh, diaChi } = khachSan
 			// Chuẩn bị dữ liệu email
 			const emailData = {
 				to: formData.email,
@@ -334,7 +338,7 @@ const Datphong = () => {
 										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Khu vực</td>
-											<td style="padding: 10px 10px 10px 0">${danhmuc}</td>
+											<td style="padding: 10px 10px 10px 0">${tinhThanh}</td>
 										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Địa chỉ</td>
@@ -342,7 +346,7 @@ const Datphong = () => {
 										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Tên khách sạn</td>
-											<td style="padding: 10px 10px 10px 0">${title}</td>
+											<td style="padding: 10px 10px 10px 0">${tenPhong}</td>
 										</tr>
 										<tr>
 											<td style="padding: 10px 10px 10px 0">Thời gian nhận</td>
@@ -481,6 +485,7 @@ const Datphong = () => {
 				formErrors={formErrors}
 				updateFirebaseWithSelectedValue={updateFirebaseWithSelectedValue}
 				numberOfDaysStayed={numberOfDaysStayed}
+				filterKhachSan={filterKhachSan}
 			/>
 		</>
 	);
