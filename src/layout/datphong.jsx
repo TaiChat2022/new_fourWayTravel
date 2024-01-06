@@ -31,7 +31,7 @@ const DatphongLayout = ({
 												className="block tracking-wide text-grey-darker text-base  mb-2"
 												htmlFor="grid-state"
 											>
-												Tiêu đề
+												Danh xưng
 											</label>
 											<div className="relative">
 												<select
@@ -41,7 +41,7 @@ const DatphongLayout = ({
 													value={formData.tieuDe} // Control the input with formData state
 													onChange={handleChange} // Set the event handler
 												>
-													<option name="tieuDe" value={``} selected disabled>Chọn tiêu đề</option>
+													<option name="tieuDe" value={``} selected disabled>Chọn danh xưng</option>
 													<option name="tieuDe" value={`Ông`}>Ông</option>
 													<option name="tieuDe" value={`Bà`}>Bà</option>
 													<option name="tieuDe" value={`Anh`}>Anh</option>

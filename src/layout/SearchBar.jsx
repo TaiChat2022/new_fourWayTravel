@@ -10,7 +10,7 @@ export default function SearchBarLayout({
 
 	return (
 		<>
-			<div className="w-3/4 mx-auto mt-2 border-none rounded-lg shadow-2xl mb-2 z-50 md:sticky top-0 left-0 right-0">
+			<div className="w-2/4  border-none rounded-lg shadow-2xl mb-2 z-50 md:sticky top-0 left-0 right-0">
 				<div
 					className="flex flex-wrap w-full overflow-hidden bg-white rounded-lg 2xl:flex-nowrap"
 					data-testid="search-form"
@@ -119,9 +119,10 @@ export default function SearchBarLayout({
 											>
 												<MenuItem disabled value="">
 													<i className="fa-solid fa-location-dot mr-2"></i>
-													<em>Chọn khu vực</em>
+													<em>Chọn tỉnh thành</em>
 												</MenuItem>
 												<MenuItem
+													key={``}
 													value=""
 												>
 													Xem tất cả tỉnh thành

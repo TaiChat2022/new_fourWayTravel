@@ -209,7 +209,17 @@ const Booking = () => {
 
 	return (
 		<>
-			<SearchBar />
+			<div className='w-full bg-blue-300 py-5 mx-auto flex items-center justify-evenly'>
+				<div className='flex gap-2 w-1/6 ml-8'>
+					<Link to="/">
+						Home
+					</Link> /
+					<Link to="/booking">
+						Tìm khách sạn
+					</Link>
+				</div>
+				<SearchBar />
+			</div>
 			<BookingLayout
 				khachsan={filterKhachSan}
 				filterKhachSan={filterKhachSan}
