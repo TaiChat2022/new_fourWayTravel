@@ -1,9 +1,6 @@
-import Footer from '@/pages/Footer';
-import Header from '@/pages/Header';
 const Dieukhoan = () => {
 	return (
 		<>
-			<Header />
 			<main className="flex w-3/4 mx-auto mt-4">
 				<article className="w-full p-4 m-auto rounded-md shadow-2xl">
 					<h1 className="mb-6 text-2xl font-bold text-center text-heading-l">Điều khoản và Điều kiện</h1>
@@ -149,19 +146,19 @@ const Dieukhoan = () => {
 							lưu trú.
 						</p>
 						<p>
-							7.2. Mọi thoả thuận phát sinh qua dịch vụ này là giữa người sử dụng và các trang web đặt
-							lưu trú fourway travel ký kết hợp đồng bên ngoài tương ứng. Cụ thể, fourway travel không bao
-							giờ hành động như một tổ chức hoặc cơ quan du lịch. Các điều khoản và điều kiện của các tổ
-							chức hoặc cơ quan du lịch tương ứng đặc biệt liên quan đến quyền hủy bỏ và rút lui, được áp
-							dụng riêng. Người dùng liên lạc để đặt chỗ và thanh toán, cũng như các câu hỏi về hợp đồng
-							với công ty đặt lưu trú tương ứng. fourway travel vẫn không liên quan trong những thỏa thuận
-							hợp đồng hoặc thỏa thuận và tuyên bố giữa người sử dụng fourway travel và trang web đặt
-							lưu trú bên ngoài tương ứng.
+							7.2. Mọi thoả thuận phát sinh qua dịch vụ này là giữa người sử dụng và các trang web đặt lưu
+							trú fourway travel ký kết hợp đồng bên ngoài tương ứng. Cụ thể, fourway travel không bao giờ
+							hành động như một tổ chức hoặc cơ quan du lịch. Các điều khoản và điều kiện của các tổ chức
+							hoặc cơ quan du lịch tương ứng đặc biệt liên quan đến quyền hủy bỏ và rút lui, được áp dụng
+							riêng. Người dùng liên lạc để đặt chỗ và thanh toán, cũng như các câu hỏi về hợp đồng với
+							công ty đặt lưu trú tương ứng. fourway travel vẫn không liên quan trong những thỏa thuận hợp
+							đồng hoặc thỏa thuận và tuyên bố giữa người sử dụng fourway travel và trang web đặt lưu trú
+							bên ngoài tương ứng.
 						</p>
 						<p>
 							7.3. fourway travel không xác minh tính chính xác của nội dung tải lên bởi các trang web đặt
-							lưu trú hoặc thành viên của Cộng đồng. Nội dung này được cung cấp bởi các trang web đặt
-							lưu trú/cộng đồng công bố trên trang web của chúng tôi với tham chiếu đến các khách sạn tương
+							lưu trú hoặc thành viên của Cộng đồng. Nội dung này được cung cấp bởi các trang web đặt lưu
+							trú/cộng đồng công bố trên trang web của chúng tôi với tham chiếu đến các khách sạn tương
 							ứng. fourway travel không tác động đến thông tin này (trong hình ảnh, ý kiến, đánh giá, vv).
 							Việc công bố các nội dung và báo cáo trên fourway travel mà người dùng tạo ra không phản ánh
 							quan điểm của fourway travel, đặc biệt, fourway travel không tự nhận những nội dung này là
@@ -169,12 +166,12 @@ const Dieukhoan = () => {
 						</p>
 						<p>
 							7.4. Đặc biệt, liên kết, banner quảng cáo, thông tin về chỗ ở, khu du lịch hoặc các nhà cung
-							cấp v.v..được cung cấp bởi các trang web đặt lưu trú và các thành viên cộng đồng và không đại
-							diện cho các khuyến nghị hoặc thông tin từ fourway travel. Vì lý do kỹ thuật, cập nhật giá
-							chúng tôi nhận được từ các trang web đặt lưu trú không được thực hiện trong thời gian thực. Do
-							đó có thể là giá xuất hiện trên các trang web đặt lưu trú không tương ứng với giá niêm yết
-							trên fourway travel. fourway travel không đảm bảo tính chính xác của thông tin, cụ thể là
-							giá cả và mức độ sẵn sàng.
+							cấp v.v..được cung cấp bởi các trang web đặt lưu trú và các thành viên cộng đồng và không
+							đại diện cho các khuyến nghị hoặc thông tin từ fourway travel. Vì lý do kỹ thuật, cập nhật
+							giá chúng tôi nhận được từ các trang web đặt lưu trú không được thực hiện trong thời gian
+							thực. Do đó có thể là giá xuất hiện trên các trang web đặt lưu trú không tương ứng với giá
+							niêm yết trên fourway travel. fourway travel không đảm bảo tính chính xác của thông tin, cụ
+							thể là giá cả và mức độ sẵn sàng.
 						</p>
 						<p>
 							7.5.fourway travel không chịu trách nhiệm cho các trục trặc kỹ thuật mà nguyên nhân không
@@ -199,7 +196,6 @@ const Dieukhoan = () => {
 					</div>
 				</article>
 			</main>
-			<Footer />
 		</>
 	);
 };

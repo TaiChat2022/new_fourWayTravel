@@ -23,7 +23,7 @@ const Product = () => {
 
 	const styles = {
 		display: '-webkit-box',
-		WebkitLineClamp: 2,
+		WebkitLineClamp: 1,
 		WebkitBoxOrient: 'vertical',
 		overflow: 'hidden',
 	};

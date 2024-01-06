@@ -17,8 +17,12 @@ const UserXemGanDay = lazy(() => import('@/pages/userXemGanDay'));
 const LichSuDP = lazy(() => import('@/pages/lichSuDP'));
 
 const DieuKhoan = lazy(() => import('@/layout/Dieukhoan'));
+const Cohoi = lazy(() => import('@/layout/Cohoi'));
 const TimHieu = lazy(() => import('@/layout/Timhieu'));
 const ThongTin = lazy(() => import('@/layout/Thongtin'));
+const Thongbao = lazy(() => import('@/layout/Thongbao'));
+const Tintuc = lazy(() => import('@/layout/Tintuc'));
+const Hoatdong = lazy(() => import('@/layout/Hoatdong'));
 
 const Login = lazy(() => import('@/auth/Login'));
 
@@ -97,12 +101,28 @@ export default function App() {
 					element={<TimHieu />}
 				/>
 				<Route
+					path={routes.COHOI}
+					element={<Cohoi />}
+				/>
+				<Route
+					path={routes.HOATDONG}
+					element={<Hoatdong />}
+				/>
+				<Route
 					path={routes.DIEUKHOAN}
 					element={<DieuKhoan />}
 				/>
 				<Route
 					path={routes.THONGTIN}
 					element={<ThongTin />}
+				/>
+				<Route
+					path={routes.THONGBAO}
+					element={<Thongbao />}
+				/>
+				<Route
+					path={routes.TINTUC}
+					element={<Tintuc />}
 				/>
 			</Routes>
 			<Footer />

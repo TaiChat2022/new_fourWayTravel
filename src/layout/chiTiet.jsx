@@ -1,31 +1,14 @@
 const ChiTietLayout = ({
-	data,
-	Link,
-	khachSan,
-	renderStars,
-	getRatingText,
-	checkIcon,
-	navigate,
-	setCurrentItemIds,
-	currentItemIds,
-	shuffleArrayWithoutDuplicates,
+	data, Link, khachSan, renderStars,
+	getRatingText, checkIcon, navigate,
+	setCurrentItemIds, currentItemIds, shuffleArrayWithoutDuplicates,
 
-	Box,
-	Modal,
-	styleModal,
-	openModal,
-	handleOpenModal,
-	handleCloseModal,
-	styles,
-	dataForBox1,
-	dataForBox2,
+	Box, Modal, styleModal,
+	openModal, handleOpenModal, handleCloseModal,
+	styles, dataForBox1, dataForBox2,
 
-	binhLuan,
-	handleInputChange,
-	handleSendComment,
-	binhLuanArray,
-	phongKS,
-	...props
+	binhLuan, handleInputChange, handleSendComment, binhLuanArray,
+	phongKS, ...props
 }) => {
 	return (
 		<>
@@ -316,125 +299,118 @@ const ChiTietLayout = ({
 					</div>
 				</div>
 				{/* start loại phòng  */}
-				{
-					<>
-						{phongKS.map((room) => (
-							<div
-								className="shadow-3xl w-3/4 mx-auto mt-2 rounded-md px-3 py-3"
-								id="choose_room"
-								key={room.id}
-							>
-								<div className="bg-white mt-3 px-6 py-3 rounded-md">
-									<div className="mb-3">
-										<h1 className="text-xl font-extrabold">Phòng {room.tenPhong}</h1>
+				{<>
+					{phongKS.map(room => (
+						<div
+							className="shadow-3xl w-3/4 mx-auto mt-2 rounded-md px-3 py-3"
+							id="choose_room" key={room.id}
+						>
+							<div className="bg-white mt-3 px-6 py-3 rounded-md">
+								<div className="mb-3">
+									<h1 className="text-xl font-extrabold">Phòng {room.tenPhong}</h1>
+								</div>
+								<div className="md:flex md:justify-between md:gap-4">
+									<div className="shadow-2xl md:w-2/6 md:pb-4 rounded-lg">
+										<div className="">
+											<img
+												src={room.img}
+												alt={room.tenPhong}
+												className="w-full h-52 object-cover rounded-qq"
+											/>
+										</div>
+										<div className="flex justify-start text-lg items-center gap-3 pl-3 mt-3">
+											<i className="fa-solid fa-door-open"></i>
+											<span className="font-semibold ">Số phòng : {room.soPhong}</span>
+										</div>
+										<div className="pl-3 mt-3">
+											<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
+												<i className="fa-solid fa-bed text-primary-xanh"></i>
+												<span className="">WiFi miễn phí</span>{' '}
+											</p>
+											<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
+												<i className="fa-solid fa-ban-smoking text-primary-xanh"></i>
+												<span className="">Không hút thuốc</span>{' '}
+											</p>
+											<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
+												<i className="fa-regular fa-snowflake text-primary-xanh"></i>
+												<span className="">Điều hòa</span>{' '}
+											</p>
+											<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
+												<i className="fa-solid fa-water-ladder text-primary-xanh"></i>
+												<span className="">Hồ bơi</span>{' '}
+											</p>
+											<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
+												<i className="fa-solid fa-mobile-screen-button text-primary-xanh"></i>
+												<span className="">Điện thoại</span>{' '}
+											</p>
+										</div>
 									</div>
-									<div className="md:flex md:justify-between md:gap-4">
-										<div className="shadow-2xl md:w-2/6 md:pb-4 rounded-lg">
+
+									<div className="md:w-4/6 md:h-auto shadow-3xl rounded-lg py-5 ">
+										<div className="px-6 md:flex md:justify-between">
+											<div className="flex flex-col border-r-2 pr-2">
+												<div className="mb-2">
+													<h1 className="font-semibold">Tóm tắt</h1>
+												</div>
+												<div className="font-medium text-xm text-gray-600 tracking-wider bg-gray-300 p-2 rounded-md -ml-9">
+													<span>Giá tốt có bữa ăn sáng và hủy miễn phí</span>
+												</div>
+												<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm tracking-wider">
+													<i className="fa-solid fa-utensils text-primary-xanh"></i>
+													<span>Bao gồm 2 bữa sáng</span>
+												</div>
+												<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm tracking-wider">
+													<i className="fa-regular fa-circle-check text-primary-xanh"></i>
+													<span>
+														Hủy miễn phí <span>trước 22:00, 5 Thg1, 2024</span>
+													</span>
+												</div>
+												<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm tracking-wider">
+													<i className="fa-solid fa-bolt text-primary-xanh"></i>
+													<span>Xác nhận ngay</span>
+												</div>
+											</div>
+
 											<div className="">
-												<img
-													src={room.img}
-													alt={room.tenPhong}
-													className="w-full h-52 object-cover rounded-qq"
-												/>
+												<div className="mb-2">
+													<h1 className="font-semibold text-center">Sức chứa</h1>
+												</div>
+												<div className="flex justify-center items-center gap-2">
+													<i className="fa-solid fa-user "></i>
+													<i className="fa-solid fa-user"></i>
+												</div>
 											</div>
-											<div className="flex justify-start text-lg items-center gap-3 pl-3 mt-3">
-												<i className="fa-solid fa-door-open"></i>
-												<span className="font-semibold ">Số phòng : {room.soPhong}</span>
-											</div>
-											<div className="pl-3 mt-3">
-												<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
-													<i className="fa-solid fa-bed text-primary-xanh"></i>
-													<span className="">WiFi miễn phí</span>{' '}
+											<div className="border-l-2 pl-2">
+												<p className="font-medium text-mm tracking-wider  mb-2">Bao gồm thuế mỗi đêm</p>
+												<p className="font-bold text-lg tracking-wider mb-1">{room.price.toLocaleString('vi')} VND</p>
+												<p className="font-bold text-mm tracking-wider text-primary-cam mb-1">
+													Chỉ còn <span>1</span> phòng
 												</p>
-												<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
-													<i className="fa-solid fa-ban-smoking text-primary-xanh"></i>
-													<span className="">Không hút thuốc</span>{' '}
-												</p>
-												<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
-													<i className="fa-regular fa-snowflake text-primary-xanh"></i>
-													<span className="">Điều hòa</span>{' '}
-												</p>
-												<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
-													<i className="fa-solid fa-water-ladder text-primary-xanh"></i>
-													<span className="">Hồ bơi</span>{' '}
-												</p>
-												<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
-													<i className="fa-solid fa-mobile-screen-button text-primary-xanh"></i>
-													<span className="">Điện thoại</span>{' '}
+												<p className="font-bold text-mm tracking-wider text-xanhbg-primary-xanh">
+													Giá cuối cùng
 												</p>
 											</div>
 										</div>
-
-										<div className="md:w-4/6 md:h-auto shadow-3xl rounded-lg py-5 ">
-											<div className="px-6 md:flex md:justify-between">
-												<div className="flex flex-col border-r-2 pr-2">
-													<div className="mb-2">
-														<h1 className="font-semibold">Tóm tắt</h1>
-													</div>
-													<div className="font-medium text-xm text-gray-600 tracking-wider bg-gray-300 p-2 rounded-md -ml-9">
-														<span>Giá tốt có bữa ăn sáng và hủy miễn phí</span>
-													</div>
-													<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm tracking-wider">
-														<i className="fa-solid fa-utensils text-primary-xanh"></i>
-														<span>Bao gồm 2 bữa sáng</span>
-													</div>
-													<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm tracking-wider">
-														<i className="fa-regular fa-circle-check text-primary-xanh"></i>
-														<span>
-															Hủy miễn phí <span>trước 22:00, 5 Thg1, 2024</span>
-														</span>
-													</div>
-													<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm tracking-wider">
-														<i className="fa-solid fa-bolt text-primary-xanh"></i>
-														<span>Xác nhận ngay</span>
-													</div>
-												</div>
-
-												<div className="">
-													<div className="mb-2">
-														<h1 className="font-semibold text-center">Sức chứa</h1>
-													</div>
-													<div className="flex justify-center items-center gap-2">
-														<i className="fa-solid fa-user "></i>
-														<i className="fa-solid fa-user"></i>
-													</div>
-												</div>
-												<div className="border-l-2 pl-2">
-													<p className="font-medium text-mm tracking-wider  mb-2">
-														Bao gồm thuế mỗi đêm
-													</p>
-													<p className="font-bold text-lg tracking-wider mb-1">
-														{room.price.toLocaleString('vi')} VND
-													</p>
-													<p className="font-bold text-mm tracking-wider text-primary-cam mb-1">
-														Chỉ còn <span>1</span> phòng
-													</p>
-													<p className="font-bold text-mm tracking-wider text-xanhbg-primary-xanh">
-														Giá cuối cùng
-													</p>
+										<div className="px-6 md:flex md:justify-between">
+											<div className="flex justify-start items-center gap-4 ">
+												<i className="fa-solid fa-money-check-dollar text-primary-xanh"></i>
+												<div className="text-xm font-medium tracking-wider">
+													<p className="">Thanh toán trước trực tuyến</p>
 												</div>
 											</div>
-											<div className="px-6 md:flex md:justify-between">
-												<div className="flex justify-start items-center gap-4 ">
-													<i className="fa-solid fa-money-check-dollar text-primary-xanh"></i>
-													<div className="text-xm font-medium tracking-wider">
-														<p className="">Thanh toán trước trực tuyến</p>
-													</div>
-												</div>
-												<div className="bg-primary-xanh w-28 text-center rounded-lg">
-													<Link to={`/datphong/${room.id}`}>
-														<button className="px-3 py-2 text-base text-white">
-															Đặt ngay
-														</button>
-													</Link>
-												</div>
+											<div className="bg-primary-xanh w-28 text-center rounded-lg">
+												<Link to={`/datphong/${room.id}`}>
+													<button className="px-3 py-2 text-base text-white">Đặt ngay</button>
+												</Link>
 											</div>
 										</div>
+
 									</div>
 								</div>
 							</div>
-						))}
-					</>
+						</div>
+					))}
+				</>
 				}
 
 				{/* end loại phòng  */}
@@ -565,7 +541,7 @@ const ChiTietLayout = ({
 												<div className="md:w-4/6 md:h-80 shadow-2xl rounded-lg mt-4">
 													<div className="px-6 md:flex md:justify-between">
 														<div className="flex flex-col">
-															{item.tienich?.slice(0, 3).map((tienIch) => (
+															{(item.tienich)?.slice(0, 3).map((tienIch) => (
 																<div
 																	className="flex gap-3 justify-start items-center mb-3 font-medium text-xm tracking-wider"
 																	key={tienIch}
@@ -615,9 +591,9 @@ const ChiTietLayout = ({
 																</p>
 															</div>
 														</div>
-														<div className="bg-primary-xanh text-center rounded-lg">
+														<div className="bg-primary-xanh w-28 text-center rounded-lg">
 															<button
-																className="px-3 py-3 font-semibold tracking-wide text-sm text-white"
+																className="px-3 py-2 text-base text-white"
 																onClick={() => {
 																	setCurrentItemIds((prevItemIds) => [
 																		...prevItemIds,
@@ -626,7 +602,7 @@ const ChiTietLayout = ({
 																	navigate(`/booking/chitiet/${item.id}`);
 																}}
 															>
-																Xem phòng trống
+																Xem chi tiết
 															</button>
 														</div>
 													</div>

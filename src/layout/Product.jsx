@@ -117,11 +117,18 @@ const ProductLayout = ({
 												}
 											>
 												<div className="w-full">
-													<img
-														src={item.img}
-														alt={item.title}
-														className=" rounded-tl-2xl rounded-br-2xl w-full h-52 mb-0.5"
-													/>
+													<div className="relative">
+														<img
+															src={item.img}
+															alt={item.title}
+															className=" rounded-tl-2xl rounded-br-2xl w-full h-52 mb-0.5"
+														/>
+														<div className="absolute bottom-0 z-50 bg-gray-600">
+															<p className="px-3 py-1 text-sm text-white">
+																Giá từ 1.220.000 VND
+															</p>
+														</div>
+													</div>
 													<div className="text-black w-full p-2">
 														<p className="text-sm font-semibold tracking-wide mb-0.5 w-full truncate">
 															{item.title}

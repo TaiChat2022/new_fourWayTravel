@@ -6,7 +6,7 @@ import SearchBar from './SearchBar';
 const Home = () => {
 	return (
 		<>
-			<div className='w-screen h-400 relative flex items-center'>
+			<div className='w-screen h-400 relative flex items-center justify-center'>
 				<img className='w-full h-400 absolute object-cover'
 					src={headerBanner} alt="banner header" />
 				<SearchBar />

@@ -1,4 +1,3 @@
-
 export default function FooterLayout({ windowWidth, Link }) {
 	return (
 		<>
@@ -153,7 +152,7 @@ export default function FooterLayout({ windowWidth, Link }) {
 												</li>
 												<li className="mb-4">
 													<Link
-														to="#"
+														to="cohoi"
 														className="hover:underline"
 													>
 														Cơ hội làm việc
@@ -161,7 +160,7 @@ export default function FooterLayout({ windowWidth, Link }) {
 												</li>
 												<li className="mb-4">
 													<Link
-														to="#"
+														to="tintuc"
 														className="hover:underline"
 													>
 														Tin tức
@@ -174,7 +173,7 @@ export default function FooterLayout({ windowWidth, Link }) {
 											<ul className="text-sm font-medium text-primary-footer">
 												<li className="mb-4">
 													<Link
-														to="#"
+														to="cachhoatdong"
 														className=" hover:underline"
 													>
 														Cách hoạt động
@@ -198,7 +197,7 @@ export default function FooterLayout({ windowWidth, Link }) {
 												</li>
 												<li className="mb-4">
 													<Link
-														to="#"
+														to="thongbao"
 														className="hover:underline"
 													>
 														Thông báo bảo mật
