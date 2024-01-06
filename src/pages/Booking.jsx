@@ -209,12 +209,12 @@ const Booking = () => {
 
 	return (
 		<>
-			<div className='w-full bg-blue-300 py-5 mx-auto flex items-center justify-evenly'>
+			<div className='w-full bg-blue-300 py-5 mx-auto flex items-center justify-around'>
 				<div className='flex gap-2 w-1/6 ml-8'>
-					<Link to="/">
-						Home
+					<Link to="/" className='hover:underline'>
+						Trang chủ
 					</Link> /
-					<Link to="/booking">
+					<Link to="/booking" className='underline'>
 						Tìm khách sạn
 					</Link>
 				</div>

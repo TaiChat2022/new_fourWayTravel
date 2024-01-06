@@ -37,10 +37,10 @@ const BookingLayout = ({
 						Khu vực :
 						<button
 							className={`
-							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-							text-blue-500 border-blue-500 
-							focus:outline-none bg-white rounded-lg border 
-							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+							py-1.5 ml-2 px-4  mb-2 text-sm font-medium
+							text-white bg-gray-400 outline-none 
+							focus:outline-none rounded-md 
+							 active:text-blue-700
 						`}
 						>
 							{selectedVungMien.tenVungMien}
@@ -49,18 +49,20 @@ const BookingLayout = ({
 							vungMien
 								.filter((item) => item.tenVungMien !== selectedVungMien.tenVungMien)
 								.map((item, index) => (
-									<Link to={`/booking/${regionDict[item.tenVungMien]}`}>
-										<button
-											key={index}
-											className={`
-											py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
-											focus:outline-none bg-white rounded-lg border border-gray-200 
+									<>
+										<Link to={`/booking/${regionDict[item.tenVungMien]}`}>
+											<button
+												key={index}
+												className={`
+											py-1.5 px-2 me-2 mb-2 text-sm font-medium text-gray-900 
+											focus:outline-none rounded-lg
 										
 										`}
-										>
-											{item.tenVungMien}
-										</button>
-									</Link>
+											>
+												{item.tenVungMien}
+											</button>
+										</Link>
+									</>
 								))}
 					</h1>
 				)}
@@ -70,27 +72,29 @@ const BookingLayout = ({
 							Khu vực :
 							<button
 								className={`
-								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium 
-								border-blue-500 text-blue-500
-								focus:outline-none bg-white rounded-lg border 
-								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-							`}
+									py-1.5 ml-2 px-2 me-2 mb-2 text-sm font-medium
+									text-white bg-gray-400 outline-none 
+									focus:outline-none rounded-md 
+									active:text-blue-700
+								`}
 							>
 								ALL
 							</button>
 							{Array.isArray(vungMien) &&
 								vungMien.map((item, index) => (
-									<Link to={`/booking/${regionDict[item.tenVungMien]}/`}>
-										<button
-											key={index}
-											className={`
-											py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
-											focus:outline-none bg-white rounded-lg border border-gray-200 
+									<>
+										<Link to={`/booking/${regionDict[item.tenVungMien]}/`}>
+											<button
+												key={index}
+												className={`
+												py-1.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
+											focus:outline-none rounded-lg
 										`}
-										>
-											{item.tenVungMien}
-										</button>
-									</Link>
+											>
+												{item.tenVungMien}
+											</button>
+										</Link>
+									</>
 								))}
 						</h1>
 					</>
@@ -102,18 +106,18 @@ const BookingLayout = ({
 						<h1 className="mb-2">Khách sạn tại :</h1>
 						<button
 							className={`
-							py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
-							focus:outline-none bg-white rounded-lg border border-gray-200 
+							py-1.5 px-2 me-2 mb-2 text-sm font-medium text-gray-900 
+											focus:outline-none rounded-lg
 						`}
 						>
 							<Link to={`/booking/${regionDict[selectedTinhThanh.vungMien]}/`}>ALL</Link>
 						</button>
 						<button
 							className={`
-							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium text-blue-500
-							border-blue-500 
-							focus:outline-none bg-white rounded-lg border 
-							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+							py-1.5 ml-2 px-2 me-2 mb-2 text-sm font-medium
+							text-white bg-gray-400 outline-none 
+							focus:outline-none rounded-md 
+							 active:text-blue-700
 						`}
 						>
 							{selectedTinhThanh.tenTinhThanh}
@@ -122,17 +126,19 @@ const BookingLayout = ({
 						{filterDiaDanh
 							.filter((item) => item.tenTinhThanh !== selectedTinhThanh.tenTinhThanh)
 							.map((item, index) => (
-								<Link to={`/booking/${regionDict[item.vungMien]}/${item?.id}`}>
-									<button
-										key={index}
-										className={`
-										py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
-										focus:outline-none bg-white rounded-lg border border-gray-200 
+								<>
+									<Link to={`/booking/${regionDict[item.vungMien]}/${item?.id}`}>
+										<button
+											key={index}
+											className={`
+											py-1.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
+											focus:outline-none rounded-lg0 
 									`}
-									>
-										{item.tenTinhThanh}
-									</button>
-								</Link>
+										>
+											{item.tenTinhThanh}
+										</button>
+									</Link>
+								</>
 							))}
 					</div>
 				)}
@@ -142,26 +148,28 @@ const BookingLayout = ({
 							<h1 className="mb-2">Xem tất cả khách sạn :</h1>
 							<button
 								className={`
-								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium 
-								border-blue-500 text-blue-500
-								focus:outline-none bg-white rounded-lg border 
-								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-							`}
+									py-1.5 ml-2 px-2 me-2 mb-2 text-sm font-medium
+									text-white bg-gray-400 outline-none 
+									focus:outline-none rounded-md 
+									active:text-blue-700
+								`}
 							>
 								ALL
 							</button>
 							{filterDiaDanh.map((item, index) => (
-								<Link to={`/booking/${regionDict[item.vungMien]}/${item?.id}`}>
-									<button
-										key={index}
-										className={`
-												py-2.5 ml-2 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
-												focus:outline-none bg-white rounded-lg border border-gray-200 
+								<>
+									<Link to={`/booking/${regionDict[item.vungMien]}/${item?.id}`}>
+										<button
+											key={index}
+											className={`
+												py-1.5 px-2 me-2 mb-2 text-sm font-medium text-gray-900 
+												focus:outline-none rounded-lg
 											`}
-									>
-										{item.tenTinhThanh}
-									</button>
-								</Link>
+										>
+											{item.tenTinhThanh}
+										</button>
+									</Link>
+								</>
 							))}
 						</div>
 					</>
@@ -265,7 +273,7 @@ const BookingLayout = ({
 
 													<div className="flex items-center justify-start mt-2 text-sm">
 														<span className="font-semibold text-sm mr-1">
-															<i className="fa-solid fa-star mb-1 mr-1 text-gray-300"></i>
+															<i className="fa-solid fa-star mb-1 mr-1 text-primary-cam"></i>
 															{item.star} - {getRatingText(item.star)}
 														</span>
 														{/* <p className="text-sm">(30 đánh giá)</p> */}
@@ -292,7 +300,7 @@ const BookingLayout = ({
 													{/* <button onClick={handleOpen}>Tiện ích</button> */}
 												</div>
 												<div className="block m-2 col-span-1 md:col-span-2 relative">
-													<div className="flex flex-col w-auto rounded-lg border-none bg-stone-200">
+													<div className="flex flex-col w-auto rounded-lg border-none bg-gray-200">
 														<div className="flex flex-wrap items-center gap-1 mt-1 ml-3 text-xs">
 															<p className="border-none rounded-lg mt-1">Gần đây:</p>
 															{item.diaDiemGanDay?.slice(0, 2).map((value, index) => (
@@ -324,7 +332,7 @@ const BookingLayout = ({
 															</span>
 														</div>
 													</div>
-													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">
+													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-xanh transition-all hover:opacity-80">
 														<Link
 															to={`/booking/chitiet/${item.id}`}
 															className="w-full flex items-center justify-center h-11 rounded-md"
@@ -421,7 +429,7 @@ const BookingLayout = ({
 
 													<div className="flex items-center justify-start mt-2 text-sm">
 														<span className="font-semibold text-sm mr-1">
-															<i className="fa-solid fa-star mb-1 mr-1 text-gray-300"></i>
+															<i className="fa-solid fa-star mb-1 mr-1 text-primary-cam"></i>
 															{item.star} - {getRatingText(item.star)}
 														</span>
 														{/* <p className="text-sm">(30 đánh giá)</p> */}

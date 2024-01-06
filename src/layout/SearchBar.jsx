@@ -1,93 +1,75 @@
 export default function SearchBarLayout({
-	Box, Link,
-	FormControl, diadanh,
+	// Box,
+	Link,
+	// FormControl,
+	// diadanh,
 	onAddressChange,
-	isBookingPage, filterAddress, setFilterAddress,
-	address, Select, MenuItem, OutlinedInput, MenuProps, getStyles, theme,
-	vungMien, mien, filterMien, setFilterMien, onMienChange,
-	filterDiaDanh
+	isBookingPage,
+	filterAddress,
+	setFilterAddress,
+	address,
+	// Select,
+	// MenuItem,
+	// OutlinedInput,
+	// MenuProps,
+	getStyles,
+	theme,
+	vungMien,
+	mien,
+	filterMien,
+	setFilterMien,
+	onMienChange,
+	filterDiaDanh,
 }) {
-
 	return (
 		<>
-			<div className="w-2/4  border-none rounded-lg shadow-2xl mb-2 z-50 md:sticky top-0 left-0 right-0">
+			<div className="w-2/4  mt-2 border-none rounded-lg shadow-2xl mb-2 z-50 md:sticky top-0 left-0 right-0">
 				<div
-					className="flex flex-wrap w-full overflow-hidden bg-white rounded-lg 2xl:flex-nowrap"
+					className=" w-full overflow-hidden rounded-lg"
 					data-testid="search-form"
 				>
-					<div className="grid w-full grid-cols-1 rounded-lg md:h-14 md:grid-cols-8">
+					<div className="flex justify-between gap-5">
 						{/* Vùng miền */}
 						<button
 							type="button"
 							data-testid="search-form-destination"
-							className="w-full col-span-1 md:col-span-3 pl-5 pr-11 md:pr-5 text-left truncate bg-white group h-14 active:bg-grey-200"
+							className="w-full rounded-lg col-span-1 border-2 border-gray-300 md:col-span-3 pl-5 pr-11 md:pr-5 text-left truncate bg-white group h-14 active:bg-grey-200"
 						>
 							<span className="flex items-center justify-center h-14 2xl:hover:bg-grey-200 2xl:rounded-md">
-								<span
-									className="inline-flex flex-shrink-0 mr-2 leading-none transform "
-									aria-hidden="true"
-								>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width={24}
-										height={24}
-										viewBox="0 0 24 24"
-										className="max-w-full max-h-full pointer-events-none"
-									>
-										<g
-											fill="none"
-											stroke="currentColor"
-											strokeLinecap="round"
-											strokeMiterlimit={10}
-											strokeWidth={2}
-										>
-											<path
-												d="M10 3a7 7 0 107 7 7 7 0 00-7-7zM21 21l-6-6"
-												vectorEffect="non-scaling-stroke"
-											></path>
-										</g>
-									</svg>
-								</span>
 								<span className="relative flex flex-col justify-center w-full truncate">
-									<Box fullWidth>
-										<FormControl fullWidth sx={{ m: 1 }}>
-											<Select
-												// multiple
-												displayEmpty
-												value={isBookingPage ? filterMien : undefined}
-												defaultValue={[]}
-												onChange={
-													isBookingPage
-														? (e) => setFilterMien(e.target.value)
-														: onMienChange
-												}
-												input={<OutlinedInput />}
-												sx={{ py: 2 }}
-												MenuProps={MenuProps}
-												inputProps={{ 'aria-label': 'Without label' }}
-											>
-												<MenuItem disabled value="">
-													<i className="fa-solid fa-earth-asia mr-2"></i>
-													<em>Chọn vùng miền</em>
-												</MenuItem>
-												<MenuItem
-													value=""
-												>
-													Xem tất cả vùng miền
-												</MenuItem>
+									<div className="w-full">
 
-												{vungMien.map((vung) => (
-													<MenuItem
-														key={vung.id}
-														value={`${vung.id}`}
-														style={getStyles(vung.tenVungMien, vung.tenVungMien, theme)}
-													>
-														{vung.tenVungMien}
-													</MenuItem>
-												))}
-											</Select>
-										</FormControl>
-									</Box>
+										<select
+											className="hover:border-b-2 hover:border-gray-300 outline-none w-full"
+											value={isBookingPage ? filterMien : undefined}
+											defaultValue={[]}
+											onChange={
+												isBookingPage ? (e) => setFilterMien(e.target.value) : onMienChange
+											}
+										>
+											<option
+												disabled
+												value=""
+												className="text-gray-700 bg-white hover:bg-gray-100"
+											>
+												<i className="fa-solid fa-earth-asia mr-2"></i>
+												<em>Chọn vùng miền</em>
+											</option>
+											<option value="">Xem tất cả vùng miền</option>
+
+											{vungMien.map((vung) => (
+												<option
+													key={vung.id}
+													value={`${vung.id}`}
+													className="text-gray-700 bg-white hover:bg-gray-100"
+													style={getStyles(vung.tenVungMien, vung.tenVungMien, theme)}
+												>
+													{vung.tenVungMien}
+												</option>
+											))}
+										</select>
+
+									</div>
 								</span>
 							</span>
 						</button>
@@ -95,51 +77,49 @@ export default function SearchBarLayout({
 						<button
 							type="button"
 							data-testid="search-form-destination"
-							className="w-full col-span-1 md:col-span-4 px-12 md:px-5 text-left truncate bg-white group h-14 active:bg-grey-200"
+							className="w-full rounded-lg border-2 border-gray-300 col-span-1 md:col-span-4 px-12 md:px-5 text-left truncate bg-white group h-14 active:bg-grey-200"
 						>
 							<span className="flex items-center justify-center h-14 2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span className="relative flex flex-col justify-center w-full truncate">
-									<Box fullWidth>
-										<FormControl fullWidth sx={{ m: 1.5 }}>
-											<Select
-												// multiple
-												displayEmpty
-												value={isBookingPage ? filterAddress : undefined}
-												defaultValue={[]}
-												onChange={
-													isBookingPage
-														? (e) => setFilterAddress(e.target.value)
-														: onAddressChange
-												}
-												// onChange={(e) => onAddressChange(e.target.value, 'tinhThanh')}
-												input={<OutlinedInput />}
-												sx={{ py: 2 }}
-												MenuProps={MenuProps}
-												inputProps={{ 'aria-label': 'Without label' }}
-											>
-												<MenuItem disabled value="">
-													<i className="fa-solid fa-location-dot mr-2"></i>
-													<em>Chọn tỉnh thành</em>
-												</MenuItem>
-												<MenuItem
-													key={``}
-													value=""
-												>
-													Xem tất cả tỉnh thành
-												</MenuItem>
+									<div className="w-full">
 
-												{filterDiaDanh.map((khuvuc) => (
-													<MenuItem
-														key={khuvuc.id}
-														value={`${khuvuc.id}`}
-														style={getStyles(khuvuc.tenTinhThanh, khuvuc.tenTinhThanh, theme)}
-													>
-														{khuvuc.tenTinhThanh}
-													</MenuItem>
-												))}
-											</Select>
-										</FormControl>
-									</Box>
+										<select
+											className="hover:border-b-2 hover:border-gray-300 outline-none w-full"
+											value={isBookingPage ? filterAddress : undefined}
+											defaultValue={[]}
+											onChange={
+												isBookingPage
+													? (e) => setFilterAddress(e.target.value)
+													: onAddressChange
+											}
+										>
+											<option
+												disabled
+												value=""
+												className="text-gray-700 bg-white hover:bg-gray-100"
+											>
+												<i className="fa-solid fa-location-dot mr-2"></i>
+												<em>Chọn tỉnh thành</em>
+											</option>
+											<option value="">Xem tất cả tỉnh thành</option>
+
+											{filterDiaDanh.map((khuvuc) => (
+												<option
+													className="text-gray-700 bg-white hover:bg-gray-100"
+													key={khuvuc.id}
+													value={`${khuvuc.id}`}
+													style={getStyles(
+														khuvuc.tenTinhThanh,
+														khuvuc.tenTinhThanh,
+														theme,
+													)}
+												>
+													{khuvuc.tenTinhThanh}
+												</option>
+											))}
+										</select>
+
+									</div>
 								</span>
 							</span>
 						</button>
@@ -149,19 +129,25 @@ export default function SearchBarLayout({
 								to={`/booking/${mien}/${address}`}
 								type="button"
 								className={`
-									flex items-center justify-center px-12 py-2
+									flex items-center justify-center px-6 py-2
 									h-full rounded-b-lg md:rounded-md 
 									text-md font-semibold text-white
 									bg-blue-500 hover:bg-blue-600 w-full
 								`}
 								data-testid="search-button"
 							>
+								<span
+									className="inline-flex flex-shrink-0 mr-1 leading-none transform "
+									aria-hidden="true"
+								>
+									<i className="fa-solid fa-magnifying-glass"></i>
+								</span>
 								<span className="text-center">Tìm</span>
 							</Link>
 						</span>
 					</div>
 				</div>
-			</div >
+			</div>
 		</>
 	);
 }
