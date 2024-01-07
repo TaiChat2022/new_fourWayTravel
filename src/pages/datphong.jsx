@@ -225,6 +225,7 @@ const Datphong = () => {
 			newDatphongArray.push({
 				uid: bookingId,
 				phongID: id,
+				khachID: filterKhachSan.id,
 				ngayThanhToan: formattedSubmissionTime,
 				tongTien: data.price * numberOfDaysStayed,
 				giaGoc: data.price,
@@ -463,7 +464,7 @@ const Datphong = () => {
 													href="#"
 													style="color: white"
 												>
-													https://fourwaytravel.com
+													https://hotel-fourwaytravel.web.app/
 												</a>
 											</p>
 										</div>
