@@ -106,18 +106,18 @@ const Datphong = () => {
 		return allUsersBookings;
 	};
 	// cập nhật 2 hàm này để sài được thống kê 
-	const handleBookingSuccess = async (luuTruId) => {
+	const handleBookingSuccess = async (phongID) => {
 		try {
-			const luuTruDocRef = doc(db, 'luuTru', luuTruId);
-			const luuTruDoc = await getDoc(luuTruDocRef);
+			const phongDocRef = doc(db, 'phong', phongID);
+			const phongDoc = await getDoc(phongDocRef);
 
-			if (luuTruDoc.exists()) {
-				const price = luuTruDoc.data().price || 0;
-				const currentCount = luuTruDoc.data().bookingCount || 0;
-				const currentRevenue = luuTruDoc.data().totalRevenue || 0;
+			if (phongDoc.exists()) {
+				const price = phongDoc.data().price || 0;
+				const currentCount = phongDoc.data().bookingCount || 0;
+				const currentRevenue = phongDoc.data().totalRevenue || 0;
 				const newRevenue = currentRevenue + parseFloat(price);
 
-				await updateDoc(luuTruDocRef, {
+				await updateDoc(phongDocRef, {
 					bookingCount: currentCount + 1,
 					totalRevenue: newRevenue,
 				});
@@ -224,7 +224,7 @@ const Datphong = () => {
 			// Append the new booking with a unique ID to the datphong array
 			newDatphongArray.push({
 				uid: bookingId,
-				luuTruId: id,
+				phongID: id,
 				ngayThanhToan: formattedSubmissionTime,
 				tongTien: data.price * numberOfDaysStayed,
 				giaGoc: data.price,
@@ -402,10 +402,18 @@ const Datphong = () => {
 												<td style="padding: 10px 10px 10px 0">${additionalRequest}</td>
 											</tr>
 											`)}
-											<tr>
-												<td style="padding: 10px 10px 10px 0">Trạng thái</td>
-												<td style="padding: 10px 10px 10px 0; color:#888888">${bookingStatus}</td>
-											</tr>
+											${bookingStatus ? (`
+												<tr>
+													<td style="padding: 10px 10px 10px 0">Trạng thái</td>
+													<td style="padding: 10px 10px 10px 0; color:#888888">${bookingStatus}</td>
+												</tr>
+											`) : (`
+												<tr>
+													<td style="padding: 10px 10px 10px 0">Trạng thái</td>
+													<td style="padding: 10px 10px 10px 0; color:#888888">Đang chờ duyệt</td>
+												</tr>
+											`)}
+											
 										</table>
 									</div>
 									<div

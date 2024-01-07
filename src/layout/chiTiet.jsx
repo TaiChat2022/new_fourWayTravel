@@ -320,30 +320,9 @@ const ChiTietLayout = ({
 										</div>
 										<div className="flex justify-start text-lg items-center gap-3 pl-3 mt-3">
 											<i className="fa-solid fa-door-open"></i>
-											<span className="font-semibold ">Số phòng : {room.soPhong}</span>
+											<span className="font-semibold ">Trạng thái : {room.soPhong}</span>
 										</div>
-										<div className="pl-3 mt-3">
-											<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
-												<i className="fa-solid fa-bed text-primary-xanh"></i>
-												<span className="">WiFi miễn phí</span>{' '}
-											</p>
-											<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
-												<i className="fa-solid fa-ban-smoking text-primary-xanh"></i>
-												<span className="">Không hút thuốc</span>{' '}
-											</p>
-											<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
-												<i className="fa-regular fa-snowflake text-primary-xanh"></i>
-												<span className="">Điều hòa</span>{' '}
-											</p>
-											<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
-												<i className="fa-solid fa-water-ladder text-primary-xanh"></i>
-												<span className="">Hồ bơi</span>{' '}
-											</p>
-											<p className=" flex justify-start items-center gap-3 text-xm font-medium mb-2 p-1 rounded-md">
-												<i className="fa-solid fa-mobile-screen-button text-primary-xanh"></i>
-												<span className="">Điện thoại</span>{' '}
-											</p>
-										</div>
+
 									</div>
 
 									<div className="md:w-4/6 md:h-auto shadow-3xl rounded-lg py-5 ">
@@ -355,20 +334,9 @@ const ChiTietLayout = ({
 												<div className="font-medium text-xm text-gray-600 tracking-wider bg-gray-300 p-2 rounded-md -ml-9">
 													<span>Giá tốt có bữa ăn sáng và hủy miễn phí</span>
 												</div>
-												<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm tracking-wider">
-													<i className="fa-solid fa-utensils text-primary-xanh"></i>
-													<span>Bao gồm 2 bữa sáng</span>
-												</div>
-												<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm tracking-wider">
-													<i className="fa-regular fa-circle-check text-primary-xanh"></i>
-													<span>
-														Hủy miễn phí <span>trước 22:00, 5 Thg1, 2024</span>
-													</span>
-												</div>
-												<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm tracking-wider">
-													<i className="fa-solid fa-bolt text-primary-xanh"></i>
-													<span>Xác nhận ngay</span>
-												</div>
+												<p className="font-bold text-mm tracking-wider text-xanhbg-primary-xanh mt-2">
+													{room.loaiPhong}
+												</p>
 											</div>
 
 											<div className="">
@@ -381,7 +349,7 @@ const ChiTietLayout = ({
 												</div>
 											</div>
 											<div className="border-l-2 pl-2">
-												<p className="font-medium text-mm tracking-wider  mb-2">Bao gồm thuế mỗi đêm</p>
+												{/* <p className="font-medium text-mm tracking-wider  mb-2">Bao gồm thuế mỗi đêm</p> */}
 												<p className="font-bold text-lg tracking-wider mb-1">{room.price.toLocaleString('vi')} VND</p>
 												<p className="font-bold text-mm tracking-wider text-primary-cam mb-1">
 													Chỉ còn <span>1</span> phòng
