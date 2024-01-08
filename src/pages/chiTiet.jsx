@@ -198,7 +198,9 @@ const chiTiet = () => {
 			const docSnapshot = await getDoc(khachSanDocRef);
 			if (docSnapshot.exists()) {
 				const khachSanData = docSnapshot.data();
-				const updatedBinhluan = khachSanData.binhluan ? arrayUnion(commentData) : [commentData];
+				const currentTimestamp = new Date().toLocaleDateString('vi-VN'); // Get current date in "dd/mm/yy" format
+				const updatedComment = { ...commentData, thoiGianBinhLuan: currentTimestamp }; // Add timestamp to commentData
+				const updatedBinhluan = khachSanData.binhluan ? arrayUnion(updatedComment) : [updatedComment];
 
 				await updateDoc(khachSanDocRef, { binhluan: updatedBinhluan });
 				console.log('Bình luận đã được thêm vào');
@@ -232,6 +234,29 @@ const chiTiet = () => {
 
 		fetchBinhLuanData();
 	}, [id]);
+
+	const getRelativeTime = (dateString) => {
+		const commentDate = new Date(dateString);
+		const currentDate = new Date();
+		const commentDay = commentDate.getDate();
+		const commentMonth = commentDate.getMonth();
+		const commentYear = commentDate.getFullYear();
+		const currentDay = currentDate.getDate();
+		const currentMonth = currentDate.getMonth();
+		const currentYear = currentDate.getFullYear();
+
+		const currentTimestamp = currentDay + '/' + (currentMonth + 1) + '/' + currentYear;
+
+		if (commentDay === currentDay && commentMonth === currentMonth && commentYear === currentYear) {
+			return "Hôm nay";
+		} else if (dateString === currentTimestamp) {
+			return "Hôm nay"; // Ngày hiện tại trùng với ngày trong thoiGianBinhLuan
+		} else {
+			return `Bình luận ${dateString} ngày trước`; // Hiển thị thoiGianBinhLuan
+		}
+	};
+
+
 
 	return (
 		<>
@@ -271,6 +296,7 @@ const chiTiet = () => {
 
 				// phòng khách sạn
 				phongKS={filteredPhongKS}
+				getRelativeTime={getRelativeTime}
 			/>
 		</>
 	);

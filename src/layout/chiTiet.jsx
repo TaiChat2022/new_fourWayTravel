@@ -8,6 +8,7 @@ const ChiTietLayout = ({
 	styles, dataForBox1, dataForBox2,
 
 	binhLuan, handleInputChange, handleSendComment, binhLuanArray,
+	getRelativeTime,
 	phongKS, ...props
 }) => {
 	return (
@@ -87,7 +88,7 @@ const ChiTietLayout = ({
 						<div className="grid-cols-1 md:col-span-2  shadow-3xl rounded-lg">
 							<div className="p-3">
 								<div className="flex justify-between items-center mb-4">
-									<h2 className="font-semibold text-base">Giới thiệu cơ sở lưu trú</h2>
+									<h2 className="font-semibold text-base">Giới thiệu cơ sở khách sạn</h2>
 									<div className="">
 										<button
 											onClick={handleOpenModal}
@@ -171,7 +172,7 @@ const ChiTietLayout = ({
 							</div>
 						</div>
 						{/* Khách bình luận */}
-						<div className="grid-cols-1 md:col-span-3  shadow-3xl rounded-lg">
+						<div className="grid-cols-1 md:col-span-3 shadow-3xl rounded-lg">
 							<div className="p-3">
 								<div className="flex justify-between items-center mb-4">
 									<h2 className="text-base font-semibold">Khách nói gì về kỳ nghỉ của họ</h2>
@@ -439,7 +440,7 @@ const ChiTietLayout = ({
 										<div className="flex items-center justify-start gap-1">
 											<p className="text-sm font-semibold">@{item.tenNguoiDung}</p>
 											<span className="text-sm font-medium text-gray-400 tracking-wide">
-												1 tháng trước
+												{getRelativeTime(item.thoiGianBinhLuan)}
 											</span>
 										</div>
 										<p className="w-full truncate text-base mt-1 font-light">{item.noiDung}</p>
@@ -455,7 +456,7 @@ const ChiTietLayout = ({
 				<div className="bg-gray-200 w-3/4 mx-auto mt-2 rounded-md px-3 py-6">
 					<div className="mb-4">
 						<h1 className="text-black text-xl -tracking-normal font-semibold">
-							Những lưu trú còn trống tại Four Way Travel
+							Những khách sạn còn trống tại Four Way Travel
 						</h1>
 					</div>
 
@@ -466,7 +467,7 @@ const ChiTietLayout = ({
 							className="w-9 h-9"
 						/>
 						<span className="text-white text-sm font-semibold tracking-wider">
-							Phải đặt lưu trú trong thời điểm không chắc chắn này? Hãy chọn lưu trú có thể hủy miễn phí!
+							Phải đặt khách sạn trong thời điểm không chắc chắn này? Hãy chọn khách sạn có thể hủy miễn phí!
 						</span>
 					</div>
 					{khachSan ? (
@@ -539,11 +540,11 @@ const ChiTietLayout = ({
 														<div className="">
 															<div className="flex gap-3 justify-start items-center mb-3 font-medium text-xm  tracking-wider">
 																<i className="fa-solid fa-ban text-primary-xanh"></i>
-																<span>Hủy lưu trú có thu phí</span>
+																<span>Hủy khách sạn có thu phí</span>
 															</div>
 															<div className="flex gap-3 justify-start items-center mb-1 font-medium text-xm text-xanhbg-primary-xanh tracking-wider">
 																<i className="fa-solid fa-question text-primary-xanh"></i>
-																<span>Xem chính sách hủy lưu trú</span>
+																<span>Xem chính sách hủy khách sạn</span>
 															</div>
 														</div>
 														<div className="">
@@ -554,7 +555,7 @@ const ChiTietLayout = ({
 																{item.price.toLocaleString('vi')} VND
 															</p> */}
 															<p className="font-bold text-mm tracking-wider">
-																/ lưu trú / đêm
+																/ khách sạn / đêm
 															</p>
 															<p className="font-bold text-mm tracking-wider text-xanhbg-primary-xanh">
 																Giá cuối cùng
@@ -565,9 +566,9 @@ const ChiTietLayout = ({
 														<div className="flex justify-start items-center gap-4 ">
 															<i className="fa-solid fa-money-check-dollar text-primary-xanh"></i>
 															<div className="text-xm font-medium tracking-wider">
-																<p className="">Thanh toán khi nhận lưu trú</p>
+																<p className="">Thanh toán khi nhận khách sạn</p>
 																<p className="">
-																	Đặt bây giờ và thanh toán khi nhận lưu trú!
+																	Đặt bây giờ và thanh toán khi nhận khách sạn!
 																</p>
 															</div>
 														</div>
@@ -607,7 +608,7 @@ const ChiTietLayout = ({
 						</>
 					) : (
 						<>
-							<p>Không tìm được lưu trú</p>
+							<p>Không tìm được khách sạn</p>
 						</>
 					)}
 				</div>
