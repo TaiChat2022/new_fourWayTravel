@@ -243,18 +243,8 @@ const DatphongLayout = ({
 									<div className="flex flex-wrap justify-start items-center my-2 gap-2 p-26px">
 										<span className="font-semibold text-sm">Hủy đặt phòng:</span>
 										<p className="text-sm tracking-wide ">
-											Nếu hủy, thay đổi hoặc không đến, khách sẽ trả toàn bộ giá trị tiền đặt
-											phòng.
+											Nếu hủy, thay đổi hoặc không đến, khách sẽ nhận được email thông báo đặt phòng thất bại.
 										</p>
-									</div>
-									<div className="flex flex-wrap justify-start items-center my-2 gap-2 p-26px">
-										<span className="font-semibold text-sm tracking-wide">Thanh toán:</span>
-										<p className="text-sm tracking-wide">
-											Thanh toán toàn bộ giá trị tiền đặt phòng.
-										</p>
-									</div>
-									<div className="my-2 p-26px">
-										<span className="font-semibold text-sm tracking-wide">Đã bao gồm ăn sáng</span>
 									</div>
 								</div>
 							</div>

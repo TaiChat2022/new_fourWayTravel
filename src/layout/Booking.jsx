@@ -16,6 +16,7 @@ const BookingLayout = ({
 	vungMien,
 	regionDict,
 	phong = [],
+	findCheapestRoom,
 }) => {
 	const [filterPrice, setFilterPrice] = useState('thap');
 	const lowestPriceDict = useMemo(() => {
@@ -27,7 +28,14 @@ const BookingLayout = ({
 		});
 		return kq;
 	}, [filterKhachSan, phong]);
-
+	// useMemo to get the cheapest room name for each hotel
+	const cheapestRooms = useMemo(() => {
+		return filterKhachSan.reduce((acc, hotel) => {
+			const cheapestRoom = findCheapestRoom(phong, [hotel]);
+			acc[hotel.id] = cheapestRoom ? cheapestRoom.tenPhong : 'Không có phòng';
+			return acc;
+		}, {});
+	}, [filterKhachSan, phong, findCheapestRoom]);
 	return (
 		<>
 			<div className=" w-3/4 mx-auto mt-6">
@@ -319,7 +327,7 @@ const BookingLayout = ({
 
 														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2 pb-2 ">
 															<span className="flex items-center text-md mt-1 font-semibold mr-4">
-																Tên phòng
+																{cheapestRooms[item.id]}
 																<i className="fa-solid fa-user mb-0.5 ml-2"></i>
 															</span>
 															{/* <span className="flex text-lg md:text-md mt-1 font-semibold mr-4">
@@ -327,9 +335,15 @@ const BookingLayout = ({
 																</span> */}
 														</div>
 														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
-															<span className="flex text-md font-semibold mr-4">
-																Giá:
-															</span>
+															{lowestPriceDict[item.id] > 0 ? (
+																<>
+																	<span className="flex text-md font-semibold mr-4">
+																		{(lowestPriceDict[item.id])?.toLocaleString('vi') + ' VNĐ'}
+																	</span>
+																</>
+															) : (
+																<></>
+															)}
 														</div>
 													</div>
 													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-xanh transition-all hover:opacity-80">
@@ -473,24 +487,28 @@ const BookingLayout = ({
 															))}
 														</div>
 														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
-															<span className="flex opacity text-sm font-medium mr-4">
-																Tên phòng
+															<span className="flex opacity text-sm font-medium mr-4 w-1/2 truncate">
+																{cheapestRooms[item.id]}
 																<i className="fa-solid fa-user mb-0.5 ml-2"></i>
 															</span>
-															{/* <span className="flex text-md  mt-1 font-semibold mr-4">
-																	{item.price.toLocaleString('vi')} VND
-																</span> */}
 														</div>
 														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1 gap-2">
-															<span className="flex opacity text-sm font-medium mr-4">
-																Giá thấp nhất
-															</span>
+
 															<span className=" font-bold text-lg">
-																{lowestPriceDict[item.id] || 0} VNĐ
+																{lowestPriceDict[item.id] > 0 ? (
+																	<>
+
+																		<span className="flex text-md font-semibold mr-4">
+																			{(lowestPriceDict[item.id])?.toLocaleString('vi') + ' VNĐ'}
+																		</span>
+																	</>
+																) : (
+																	<></>
+																)}
 															</span>
 														</div>
 													</div>
-													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">
+													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-xanh transition-all hover:opacity-80">
 														<Link
 															to={`/booking/chitiet/${item.id}`}
 															className="w-full flex items-center justify-center h-11 rounded-md"

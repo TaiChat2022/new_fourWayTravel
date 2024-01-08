@@ -320,7 +320,19 @@ const ChiTietLayout = ({
 										</div>
 										<div className="flex justify-start text-lg items-center gap-3 pl-3 mt-3">
 											<i className="fa-solid fa-door-open"></i>
-											<span className="font-semibold ">Trạng thái : {room.soPhong}</span>
+											<span className="font-semibold ">
+												Trạng thái :
+												{room.trangThaiPhong === "Trống" ? (
+													<>
+														<span className="text-green-500"> {room.trangThaiPhong}</span>
+													</>
+												) : (
+													<>
+														<span className="text-red-500"> {room.trangThaiPhong}</span>
+													</>
+												)}
+
+											</span>
 										</div>
 
 									</div>
