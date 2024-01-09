@@ -16,6 +16,7 @@ const BookingLayout = ({
 	vungMien,
 	regionDict,
 	phong = [],
+	findCheapestRoom,
 }) => {
 	const [filterPrice, setFilterPrice] = useState('thap');
 	const lowestPriceDict = useMemo(() => {
@@ -27,7 +28,14 @@ const BookingLayout = ({
 		});
 		return kq;
 	}, [filterKhachSan, phong]);
-
+	// useMemo to get the cheapest room name for each hotel
+	const cheapestRooms = useMemo(() => {
+		return filterKhachSan.reduce((acc, hotel) => {
+			const cheapestRoom = findCheapestRoom(phong, [hotel]);
+			acc[hotel.id] = cheapestRoom ? cheapestRoom.tenPhong : 'Không có phòng';
+			return acc;
+		}, {});
+	}, [filterKhachSan, phong, findCheapestRoom]);
 	return (
 		<>
 			<div className=" w-3/4 mx-auto mt-6">
@@ -37,7 +45,7 @@ const BookingLayout = ({
 						Khu vực :
 						<button
 							className={`
-							py-1.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+							py-1.5 ml-2 px-4  mb-2 text-sm font-medium
 							text-white bg-gray-400 outline-none 
 							focus:outline-none rounded-md 
 							 active:text-blue-700
@@ -54,7 +62,7 @@ const BookingLayout = ({
 											<button
 												key={index}
 												className={`
-											py-1.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
+											py-1.5 px-2 me-2 mb-2 text-sm font-medium text-gray-900 
 											focus:outline-none rounded-lg
 										
 										`}
@@ -72,11 +80,11 @@ const BookingLayout = ({
 							Khu vực :
 							<button
 								className={`
-								py-1.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-							text-white bg-gray-400 outline-none 
-							focus:outline-none rounded-md 
-							 active:text-blue-700
-							`}
+									py-1.5 ml-2 px-2 me-2 mb-2 text-sm font-medium
+									text-white bg-gray-400 outline-none 
+									focus:outline-none rounded-md 
+									active:text-blue-700
+								`}
 							>
 								ALL
 							</button>
@@ -106,7 +114,7 @@ const BookingLayout = ({
 						<h1 className="mb-2">Khách sạn tại :</h1>
 						<button
 							className={`
-							py-1.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
+							py-1.5 px-2 me-2 mb-2 text-sm font-medium text-gray-900 
 											focus:outline-none rounded-lg
 						`}
 						>
@@ -114,7 +122,7 @@ const BookingLayout = ({
 						</button>
 						<button
 							className={`
-							py-1.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+							py-1.5 ml-2 px-2 me-2 mb-2 text-sm font-medium
 							text-white bg-gray-400 outline-none 
 							focus:outline-none rounded-md 
 							 active:text-blue-700
@@ -148,11 +156,11 @@ const BookingLayout = ({
 							<h1 className="mb-2">Xem tất cả khách sạn :</h1>
 							<button
 								className={`
-								py-1.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-							text-white bg-gray-400 outline-none 
-							focus:outline-none rounded-md 
-							 active:text-blue-700
-							`}
+									py-1.5 ml-2 px-2 me-2 mb-2 text-sm font-medium
+									text-white bg-gray-400 outline-none 
+									focus:outline-none rounded-md 
+									active:text-blue-700
+								`}
 							>
 								ALL
 							</button>
@@ -162,8 +170,8 @@ const BookingLayout = ({
 										<button
 											key={index}
 											className={`
-											py-1.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
-											focus:outline-none rounded-lg
+												py-1.5 px-2 me-2 mb-2 text-sm font-medium text-gray-900 
+												focus:outline-none rounded-lg
 											`}
 										>
 											{item.tenTinhThanh}
@@ -317,20 +325,28 @@ const BookingLayout = ({
 															))}
 														</div>
 
-														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2 pb-2 ">
-															<span className="flex items-center text-md mt-1 font-semibold mr-4">
-																Tên phòng
-																<i className="fa-solid fa-user mb-0.5 ml-2"></i>
+														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2 ">
+															<span className="flex items-center text-sm font-medium mr-4">
+																{cheapestRooms[item.id]}
+																<i className="fa-solid fa-user ml-2"></i>
 															</span>
 															{/* <span className="flex text-lg md:text-md mt-1 font-semibold mr-4">
 																	{item.price.toLocaleString('vi')} VND
 																</span> */}
 														</div>
-														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
-															<span className="flex text-md font-semibold mr-4">
-																Giá:
-															</span>
-														</div>
+														{/* <div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
+															{lowestPriceDict[item.id] > 0 ? (
+																<>
+																	<span className="flex text-md font-semibold mr-4">
+																		{lowestPriceDict[item.id]?.toLocaleString(
+																			'vi',
+																		) + ' VNĐ'}
+																	</span>
+																</>
+															) : (
+																<></>
+															)}
+														</div> */}
 													</div>
 													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-xanh transition-all hover:opacity-80">
 														<Link
@@ -456,7 +472,7 @@ const BookingLayout = ({
 													{/* <button onClick={handleOpen}>Tiện ích</button> */}
 												</div>
 												<div className="block m-2 col-span-1 md:col-span-2 relative">
-													<div className="flex flex-col w-auto rounded-lg border-none bg-stone-200">
+													<div className="flex flex-col w-auto rounded-lg border-none bg-gray-200">
 														<div className="flex flex-wrap items-center gap-1 mt-1 ml-3 text-xs">
 															<p className="border-none rounded-lg mt-1">Gần đây:</p>
 															{item.diaDiemGanDay?.slice(0, 2).map((value, index) => (
@@ -472,25 +488,29 @@ const BookingLayout = ({
 																</div>
 															))}
 														</div>
-														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
-															<span className="flex opacity text-sm font-medium mr-4">
-																Tên phòng
+														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2">
+															<span className="flex opacity text-sm font-medium items-center mr-4 w-1/2 truncate">
+																{cheapestRooms[item.id]}
 																<i className="fa-solid fa-user mb-0.5 ml-2"></i>
 															</span>
-															{/* <span className="flex text-md  mt-1 font-semibold mr-4">
-																	{item.price.toLocaleString('vi')} VND
-																</span> */}
 														</div>
-														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1 gap-2">
-															<span className="flex opacity text-sm font-medium mr-4">
-																Giá thấp nhất
-															</span>
+														{/* <div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1 gap-2">
 															<span className=" font-bold text-lg">
-																{lowestPriceDict[item.id] || 0} VNĐ
+																{lowestPriceDict[item.id] > 0 ? (
+																	<>
+																		<span className="flex text-md font-semibold mr-4">
+																			{lowestPriceDict[item.id]?.toLocaleString(
+																				'vi',
+																			) + ' VNĐ'}
+																		</span>
+																	</>
+																) : (
+																	<></>
+																)}
 															</span>
-														</div>
+														</div> */}
 													</div>
-													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-do transition-all hover:opacity-80">
+													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-xanh transition-all hover:opacity-80">
 														<Link
 															to={`/booking/chitiet/${item.id}`}
 															className="w-full flex items-center justify-center h-11 rounded-md"

@@ -22,6 +22,17 @@ const Booking = () => {
 	const { data: vungMien } = useDocsQuery('vungmien');
 	const { data: phong } = useDocsQuery('phong');
 
+	const findCheapestRoom = (rooms, hotels) => {
+		// Filter rooms that belong to the given hotels
+		const eligibleRooms = rooms.filter((room) => hotels.some((hotel) => hotel.id === room.khachSanId));
+
+		// Sort the rooms by price in ascending order
+		eligibleRooms.sort((a, b) => a.price - b.price);
+
+		// Return the cheapest room or null if no rooms are available
+		return eligibleRooms.length > 0 ? eligibleRooms[0] : null;
+	};
+
 	const regionDict = useMemo(() => {
 		return vungMien?.reduce((acc, item) => {
 			acc[item.tenVungMien] = item.id;
@@ -209,16 +220,25 @@ const Booking = () => {
 
 	return (
 		<>
-			<div className='w-full bg-blue-300 py-5 mx-auto flex items-center justify-evenly'>
-				<div className='flex gap-2 w-1/6 ml-8'>
-					<Link to="/">
-						Home
-					</Link> /
-					<Link to="/booking">
-						Tìm khách sạn
-					</Link>
+			<div className="w-full bg-blue-300 py-5 mx-auto ">
+				<div className="w-3/4 mx-auto flex items-center justify-between">
+					<div className="flex gap-2 w-1/4">
+						<Link
+							to="/"
+							className="hover:underline"
+						>
+							Trang chủ
+						</Link>{' '}
+						/
+						<Link
+							to="/booking"
+							className="underline"
+						>
+							Tìm khách sạn
+						</Link>
+					</div>
+					<SearchBar />
 				</div>
-				<SearchBar />
 			</div>
 			<BookingLayout
 				khachsan={filterKhachSan}
@@ -251,6 +271,7 @@ const Booking = () => {
 				tinhthanh={tinhthanh}
 				regionDict={regionDict}
 				phong={phong}
+				findCheapestRoom={findCheapestRoom}
 			/>
 		</>
 	);
