@@ -3,20 +3,13 @@ import { useMemo, useState } from 'react';
 const BookingLayout = ({
 	khachsan,
 	filterKhachSan = [],
-	getRatingText,
-	Link,
-	handleFavoriteChange,
-	Checkbox,
-	labelFavorite,
-	userFavorites,
+	getRatingText, Link,
+	handleFavoriteChange, Checkbox,
+	labelFavorite, userFavorites,
 	handleAddToRecentlyViewed,
-	selectedTinhThanh,
-	selectedVungMien,
-	filterDiaDanh,
-	vungMien,
-	regionDict,
-	phong = [],
-	findCheapestRoom,
+	selectedTinhThanh, selectedVungMien,
+	filterDiaDanh, vungMien, regionDict,
+	phong = [], findCheapestRoom,
 }) => {
 	const [filterPrice, setFilterPrice] = useState('thap');
 	const lowestPriceDict = useMemo(() => {
@@ -36,6 +29,11 @@ const BookingLayout = ({
 			return acc;
 		}, {});
 	}, [filterKhachSan, phong, findCheapestRoom]);
+
+	// limit load khách sạn
+	const [numHotelsDisplayed, setNumHotelsDisplayed] = useState(4);
+	const numHotelsPerPage = 4; // Số lượng khách sạn mỗi lần hiển thị thêm
+
 	return (
 		<>
 			<div className=" w-3/4 mx-auto mt-6">
@@ -186,22 +184,22 @@ const BookingLayout = ({
 					<span className="font-bold">Sắp xếp theo giá: </span>
 					<button
 						className={`
-							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-							
-							focus:outline-none bg-white rounded-lg border 
-							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-							
-						`}
+								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+								
+								focus:outline-none bg-white rounded-lg border 
+								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+								
+							`}
 						onClick={() => setFilterPrice('thap')}
 					>
 						Giá Thấp - Cao
 					</button>
 					<button
 						className={`
-							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-							focus:outline-none bg-white rounded-lg border 
-							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-						`}
+								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+								focus:outline-none bg-white rounded-lg border 
+								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+							`}
 						onClick={() => setFilterPrice('cao')}
 					>
 						Giá Cao - Thấp
@@ -211,7 +209,7 @@ const BookingLayout = ({
 					<>
 						{!selectedTinhThanh?.tenTinhThanh || !selectedTinhThanh ? (
 							<>
-								{khachsan.map((item) => (
+								{khachsan.slice(0, numHotelsDisplayed).map((item) => (
 									<>
 										<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
 											<div
@@ -325,26 +323,28 @@ const BookingLayout = ({
 															))}
 														</div>
 
-														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2 pb-2 ">
-															<span className="flex items-center text-md mt-1 font-semibold mr-4">
+														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2 ">
+															<span className="flex items-center text-sm font-medium mr-4">
 																{cheapestRooms[item.id]}
-																<i className="fa-solid fa-user mb-0.5 ml-2"></i>
+																<i className="fa-solid fa-user ml-2"></i>
 															</span>
 															{/* <span className="flex text-lg md:text-md mt-1 font-semibold mr-4">
 																	{item.price.toLocaleString('vi')} VND
 																</span> */}
 														</div>
-														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
+														{/* <div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
 															{lowestPriceDict[item.id] > 0 ? (
 																<>
 																	<span className="flex text-md font-semibold mr-4">
-																		{(lowestPriceDict[item.id])?.toLocaleString('vi') + ' VNĐ'}
+																		{lowestPriceDict[item.id]?.toLocaleString(
+																			'vi',
+																		) + ' VNĐ'}
 																	</span>
 																</>
 															) : (
 																<></>
 															)}
-														</div>
+														</div> */}
 													</div>
 													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-xanh transition-all hover:opacity-80">
 														<Link
@@ -368,12 +368,25 @@ const BookingLayout = ({
 												</div>
 											</div>
 										</div>
+										<button
+											className={`
+												py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+												focus:outline-none bg-white rounded-lg border 
+												hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+											`}
+											onClick={() => {
+												// Tăng số lượng khách sạn đã được hiển thị lên numHotelsPerPage
+												setNumHotelsDisplayed(numHotelsDisplayed + numHotelsPerPage);
+											}}
+										>
+											Xem thêm
+										</button>
 									</>
 								))}
 							</>
 						) : (
 							<>
-								{filterKhachSan.map((item) => (
+								{filterKhachSan.slice(0, numHotelsDisplayed).map((item) => (
 									<>
 										<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
 											<div
@@ -470,7 +483,7 @@ const BookingLayout = ({
 													{/* <button onClick={handleOpen}>Tiện ích</button> */}
 												</div>
 												<div className="block m-2 col-span-1 md:col-span-2 relative">
-													<div className="flex flex-col w-auto rounded-lg border-none bg-stone-200">
+													<div className="flex flex-col w-auto rounded-lg border-none bg-gray-200">
 														<div className="flex flex-wrap items-center gap-1 mt-1 ml-3 text-xs">
 															<p className="border-none rounded-lg mt-1">Gần đây:</p>
 															{item.diaDiemGanDay?.slice(0, 2).map((value, index) => (
@@ -486,27 +499,27 @@ const BookingLayout = ({
 																</div>
 															))}
 														</div>
-														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
-															<span className="flex opacity text-sm font-medium mr-4 w-1/2 truncate">
+														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-2">
+															<span className="flex opacity text-sm font-medium items-center mr-4 w-1/2 truncate">
 																{cheapestRooms[item.id]}
 																<i className="fa-solid fa-user mb-0.5 ml-2"></i>
 															</span>
 														</div>
-														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1 gap-2">
-
+														{/* <div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1 gap-2">
 															<span className=" font-bold text-lg">
 																{lowestPriceDict[item.id] > 0 ? (
 																	<>
-
 																		<span className="flex text-md font-semibold mr-4">
-																			{(lowestPriceDict[item.id])?.toLocaleString('vi') + ' VNĐ'}
+																			{lowestPriceDict[item.id]?.toLocaleString(
+																				'vi',
+																			) + ' VNĐ'}
 																		</span>
 																	</>
 																) : (
 																	<></>
 																)}
 															</span>
-														</div>
+														</div> */}
 													</div>
 													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-xanh transition-all hover:opacity-80">
 														<Link
@@ -530,6 +543,19 @@ const BookingLayout = ({
 												</div>
 											</div>
 										</div>
+										<button
+											className={`
+												py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+												focus:outline-none bg-white rounded-lg border 
+												hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+											`}
+											onClick={() => {
+												// Tăng số lượng khách sạn đã được hiển thị lên numHotelsPerPage
+												setNumHotelsDisplayed(numHotelsDisplayed + numHotelsPerPage);
+											}}
+										>
+											Xem thêm
+										</button>
 									</>
 								))}
 							</>

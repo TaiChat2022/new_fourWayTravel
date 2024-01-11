@@ -24,9 +24,7 @@ const Booking = () => {
 
 	const findCheapestRoom = (rooms, hotels) => {
 		// Filter rooms that belong to the given hotels
-		const eligibleRooms = rooms.filter(room =>
-			hotels.some(hotel => hotel.id === room.khachSanId)
-		);
+		const eligibleRooms = rooms.filter((room) => hotels.some((hotel) => hotel.id === room.khachSanId));
 
 		// Sort the rooms by price in ascending order
 		eligibleRooms.sort((a, b) => a.price - b.price);
@@ -222,13 +220,20 @@ const Booking = () => {
 
 	return (
 		<>
-			<div className='w-full bg-blue-300 py-5 mx-auto '>
-				<div className='w-3/4 mx-auto flex items-center justify-between'>
-					<div className='flex gap-2 w-1/6'>
-						<Link to="/" className='hover:underline'>
+			<div className="w-full bg-blue-300 py-5 mx-auto ">
+				<div className="w-3/4 mx-auto flex items-center justify-between">
+					<div className="flex gap-2 w-1/4">
+						<Link
+							to="/"
+							className="hover:underline"
+						>
 							Trang chủ
-						</Link> /
-						<Link to="/booking" className='underline'>
+						</Link>{' '}
+						/
+						<Link
+							to="/booking"
+							className="underline"
+						>
 							Tìm khách sạn
 						</Link>
 					</div>

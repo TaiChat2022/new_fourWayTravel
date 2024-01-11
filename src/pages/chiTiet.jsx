@@ -37,7 +37,7 @@ const chiTiet = () => {
 
 	const { data: khachSan } = useDocsQuery('khachsan');
 	const { data: phong } = useDocsQuery('phong');
-	const filteredPhongKS = phong.filter(item => item.khachSanId === data.id);
+	const filteredPhongKS = phong.filter((item) => item.khachSanId === data.id);
 
 	const styles = {
 		display: '-webkit-box',
@@ -248,15 +248,13 @@ const chiTiet = () => {
 		const currentTimestamp = currentDay + '/' + (currentMonth + 1) + '/' + currentYear;
 
 		if (commentDay === currentDay && commentMonth === currentMonth && commentYear === currentYear) {
-			return "Hôm nay";
+			return 'Hôm nay';
 		} else if (dateString === currentTimestamp) {
-			return "Hôm nay"; // Ngày hiện tại trùng với ngày trong thoiGianBinhLuan
+			return 'Hôm nay'; // Ngày hiện tại trùng với ngày trong thoiGianBinhLuan
 		} else {
-			return `Bình luận ${dateString} ngày trước`; // Hiển thị thoiGianBinhLuan
+			return `${dateString}`; // Hiển thị thoiGianBinhLuan
 		}
 	};
-
-
 
 	return (
 		<>
@@ -293,10 +291,11 @@ const chiTiet = () => {
 				handleInputChange={handleInputChange}
 				handleSendComment={handleSendComment}
 				binhLuanArray={binhLuanArray}
-
 				// phòng khách sạn
 				phongKS={filteredPhongKS}
 				getRelativeTime={getRelativeTime}
+				// commentCount={commentCount}
+				// setCommentCount={setCommentCount}
 			/>
 		</>
 	);
