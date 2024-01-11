@@ -368,21 +368,22 @@ const BookingLayout = ({
 												</div>
 											</div>
 										</div>
-										<button
-											className={`
-												py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-												focus:outline-none bg-white rounded-lg border 
-												hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-											`}
-											onClick={() => {
-												// Tăng số lượng khách sạn đã được hiển thị lên numHotelsPerPage
-												setNumHotelsDisplayed(numHotelsDisplayed + numHotelsPerPage);
-											}}
-										>
-											Xem thêm
-										</button>
+
 									</>
 								))}
+								<button
+									className={`
+												py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+												focus:outline-none bg-blue-500 rounded-lg border 
+												hover:bg-blue-700 active:text-blue-700 focus:z-10 focus:ring-4
+											`}
+									onClick={() => {
+										// Tăng số lượng khách sạn đã được hiển thị lên numHotelsPerPage
+										setNumHotelsDisplayed(numHotelsDisplayed + numHotelsPerPage);
+									}}
+								>
+									Xem thêm
+								</button>
 							</>
 						) : (
 							<>
@@ -543,21 +544,22 @@ const BookingLayout = ({
 												</div>
 											</div>
 										</div>
-										<button
-											className={`
-												py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-												focus:outline-none bg-white rounded-lg border 
-												hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-											`}
-											onClick={() => {
-												// Tăng số lượng khách sạn đã được hiển thị lên numHotelsPerPage
-												setNumHotelsDisplayed(numHotelsDisplayed + numHotelsPerPage);
-											}}
-										>
-											Xem thêm
-										</button>
+
 									</>
 								))}
+								<button
+									className={`
+												py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+												focus:outline-none bg-blue-500 rounded-lg border 
+												hover:bg-blue-700 active:text-blue-700 focus:z-10 focus:ring-4
+											`}
+									onClick={() => {
+										// Tăng số lượng khách sạn đã được hiển thị lên numHotelsPerPage
+										setNumHotelsDisplayed(numHotelsDisplayed + numHotelsPerPage);
+									}}
+								>
+									Xem thêm
+								</button>
 							</>
 						)}
 					</>

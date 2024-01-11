@@ -294,8 +294,6 @@ const chiTiet = () => {
 				// phòng khách sạn
 				phongKS={filteredPhongKS}
 				getRelativeTime={getRelativeTime}
-				// commentCount={commentCount}
-				// setCommentCount={setCommentCount}
 			/>
 		</>
 	);

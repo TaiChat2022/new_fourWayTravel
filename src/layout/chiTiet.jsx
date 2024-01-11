@@ -1,34 +1,16 @@
 const ChiTietLayout = ({
-	data,
-	Link,
-	khachSan,
-	renderStars,
-	getRatingText,
-	checkIcon,
-	navigate,
-	setCurrentItemIds,
-	currentItemIds,
-	shuffleArrayWithoutDuplicates,
+	data, Link, khachSan, renderStars,
+	getRatingText, checkIcon,
+	navigate, setCurrentItemIds,
+	currentItemIds, shuffleArrayWithoutDuplicates,
 
-	Box,
-	Modal,
-	styleModal,
-	openModal,
-	handleOpenModal,
-	handleCloseModal,
-	styles,
-	dataForBox1,
-	dataForBox2,
+	Box, Modal, styleModal,
+	openModal, handleOpenModal,
+	handleCloseModal, styles,
+	dataForBox1, dataForBox2,
 
-	binhLuan,
-	handleInputChange,
-	handleSendComment,
-	binhLuanArray,
-	getRelativeTime,
-	phongKS,
-	// ...props,
-	commentCount,
-	// setCommentCount,
+	binhLuan, handleInputChange, handleSendComment,
+	binhLuanArray, getRelativeTime, phongKS,
 }) => {
 	return (
 		<>
@@ -71,11 +53,11 @@ const ChiTietLayout = ({
 								</button>
 							</a>
 							{/* <Link to={`/datphong/${data.id}`}>
-								<button className="flex items-center justify-center w-full px-8 md:px-4 py-4 md:w-64 rounded-md bg-primary-xanh hover:scale-95 transition ease-in-out delay-50 duration-200 text-white font-semibold">
-									Chọn phòng
-									<i className="fa-solid fa-angle-right ml-1"></i>
-								</button>
-							</Link> */}
+									<button className="flex items-center justify-center w-full px-8 md:px-4 py-4 md:w-64 rounded-md bg-primary-xanh hover:scale-95 transition ease-in-out delay-50 duration-200 text-white font-semibold">
+										Chọn phòng
+										<i className="fa-solid fa-angle-right ml-1"></i>
+									</button>
+								</Link> */}
 						</div>
 					</div>
 					{/* start images */}
@@ -344,71 +326,73 @@ const ChiTietLayout = ({
 												<i className="fa-solid fa-door-open"></i>
 												<span className="font-semibold ">
 													Trạng thái :
-													{typeof room?.trangThaiPhong === 'string' && room?.trangThaiPhong.toLowerCase() === 'trống' ? (
-														<span className="text-green-500">
-															{' '}
-															{room?.trangThaiPhong}
-														</span>
-													) : Array.isArray(room?.trangThaiPhong) && room?.trangThaiPhong.some(trangThai => trangThai.trangThai === false) ? (
-														<span className="text-green-500"> Đã đặt</span>
-													) : (
-														<span className="text-red-500"> Đã đặt</span>
-													)}
+													{typeof room?.trangThaiPhong === 'string' ?
+														(
+															<>
+																{room?.trangThaiPhong.toLowerCase() === 'trống' ? (
+																	<span className="text-green-500">
+																		{' '}
+																		{room?.trangThaiPhong}
+																	</span>
+																) :
+																	(
+																		<span className="text-red-500">
+																			{' '}
+																			{room?.trangThaiPhong}
+																		</span>
+																	)}
+															</>
+														) : Array.isArray(room?.trangThaiPhong) && room?.trangThaiPhong.every(trangThai => trangThai == true) ? (
+															<span className="text-red-500"> Đã đặt</span>
+														) : (
+															<span className="text-green-500"> Trống</span>
+														)
+													}
 												</span>
 											</div>
 										</div>
 
 										<div className="md:w-4/6 md:h-auto shadow-3xl rounded-lg py-5 ">
 											<div className="px-6 md:flex md:justify-between">
-												<div className="flex flex-col border-r-2 pr-2">
-													<div className="mb-2">
-														<h1 className="font-semibold">Tóm tắt</h1>
-													</div>
-													<div className="font-medium text-xm text-gray-600 tracking-wider bg-gray-300 p-2 rounded-md -ml-9">
-														<span>Giá tốt có bữa ăn sáng và hủy miễn phí</span>
-													</div>
-													<p className="font-bold text-mm tracking-wider text-xanhbg-primary-xanh mt-2">
-														{room?.loaiPhong}
-													</p>
-												</div>
-
+												{room?.khuyenmai ?
+													(<>
+														<div className="font-medium text-xm text-gray-600 tracking-wider bg-gray-300 p-2 rounded-md -ml-9">
+															<span>Khuyến mãi {room?.khuyenmai} và hủy miễn phí</span>
+														</div>
+													</>)
+													: (<></>)
+												}
 												<div className="">
 													<div className="mb-2">
-														<h1 className="font-semibold text-center">Sức chứa</h1>
+														<h1 className="font-semibold text-center">Loại phòng</h1>
 													</div>
 													<div className="flex justify-center items-center gap-2">
-														<i className="fa-solid fa-user "></i>
-														<i className="fa-solid fa-user"></i>
+														{room?.loaiPhong}
 													</div>
 												</div>
-												<div className="border-l-2 pl-2">
+												<div className="pl-2">
 													{/* <p className="font-medium text-mm tracking-wider  mb-2">Bao gồm thuế mỗi đêm</p> */}
 													<p className="font-bold text-lg tracking-wider mb-1">
 														{(room?.price).toLocaleString('vi')} VND
 													</p>
-													<p className="font-bold text-mm tracking-wider text-primary-cam mb-1">
-														Chỉ còn <span>1</span> phòng
-													</p>
-													<p className="font-bold text-mm tracking-wider text-xanhbg-primary-xanh">
-														Giá cuối cùng
-													</p>
 												</div>
 											</div>
-											<div className="px-6 md:flex md:justify-between">
-												<div className="flex justify-start items-center gap-4 ">
-													<i className="fa-solid fa-money-check-dollar text-primary-xanh"></i>
-													<div className="text-xm font-medium tracking-wider">
-														<p className="">Thanh toán trước trực tuyến</p>
-													</div>
-												</div>
+											<div className="px-6 md:flex justify-end">
 												<div className="bg-primary-xanh w-28 text-center rounded-lg">
-
 													<Link to={`/datphong/${room?.id}`}>
 														<button className="px-3 py-2 text-base text-white">
 															Đặt ngay
 														</button>
 													</Link>
 												</div>
+											</div>
+											<div className="px-6 md:flex md:justify-between gap-2 mt-4">
+												{room.imgPhu?.map((item, index) => (
+													<div key={index} >
+														<img src={item} alt={`Image ${index}`} className="w-full h-24 object-cover rounded-lg" />
+													</div>
+												))}
+
 											</div>
 										</div>
 									</div>
@@ -419,16 +403,15 @@ const ChiTietLayout = ({
 				}
 
 				{/* end loại phòng  */}
-				{/* Bình luận */}
+				{/* nhắn bình luận */}
 				<div className="w-3/4 mx-auto my-4">
 					<div className="">
-						{commentCount !== null ? (
-							commentCount > 0 ? (
-								<h1 className="text-xl font-semibold my-5">{commentCount} bình luận</h1>
-							) : (
-								<p>Chưa có bình luận nào.</p>
-							)
-						) : null}
+						{binhLuanArray.length > 0 ? (
+							<h1 className="text-xl font-semibold my-5">{binhLuanArray.length} bình luận</h1>
+						) : (
+							<p>Chưa có bình luận nào.</p>
+						)
+						}
 					</div>
 					<div className="flex gap-2">
 						<textarea
@@ -483,6 +466,8 @@ const ChiTietLayout = ({
 					</div>
 				</div>
 
+
+				{/* Những khách sạn còn trống phòng tại Four Way Travel */}
 				<div className="bg-gray-200 w-3/4 mx-auto mt-2 rounded-md px-3 py-6">
 					<div className="mb-4">
 						<h1 className="text-black text-xl -tracking-normal font-semibold">
