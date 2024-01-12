@@ -9,7 +9,7 @@ const ChiTietLayout = ({
 	handleCloseModal, styles,
 	dataForBox1, dataForBox2,
 
-	binhLuan, handleInputChange, handleSendComment,
+	binhLuan, handleInputChange, handleSendComment, filteredBinhLuanArray,
 	binhLuanArray, getRelativeTime, phongKS,
 }) => {
 	return (
@@ -401,13 +401,13 @@ const ChiTietLayout = ({
 						))}
 					</>
 				}
-
 				{/* end loại phòng  */}
+
 				{/* nhắn bình luận */}
 				<div className="w-3/4 mx-auto my-4">
 					<div className="">
-						{binhLuanArray.length > 0 ? (
-							<h1 className="text-xl font-semibold my-5">{binhLuanArray.length} bình luận</h1>
+						{filteredBinhLuanArray?.length > 0 ? (
+							<h1 className="text-xl font-semibold my-5">{filteredBinhLuanArray?.length} bình luận</h1>
 						) : (
 							<p>Chưa có bình luận nào.</p>
 						)
@@ -436,33 +436,34 @@ const ChiTietLayout = ({
 				{/* Bình luận */}
 				<div className="w-3/4 mx-auto my-7">
 					<div className="flex w-full justify-start items-center flex-wrap">
-						{khachSan && binhLuanArray ? (
-							binhLuanArray?.map((item, index) => (
-								<div
-									key={index}
-									className="flex mt-5 justify-start items-center w-full gap-2 shadow-sm"
-								>
-									<div className="">
-										<img
-											className="rounded-full border w-auto h-8"
-											src={item?.img}
-											alt="User img"
-										/>
-									</div>
-									<div className="">
-										<div className="flex items-center justify-start gap-1">
-											<p className="text-sm font-semibold">@{item?.tenNguoiDung}</p>
-											<span className="text-sm font-medium text-gray-400 tracking-wide">
-												{getRelativeTime(item?.thoiGianBinhLuan)}
-											</span>
+						{khachSan && filteredBinhLuanArray ?
+							(
+								filteredBinhLuanArray?.map((item, index) => (
+									<div
+										key={index}
+										className="flex mt-5 justify-start items-center w-full gap-2 shadow-sm"
+									>
+										<div className="">
+											<img
+												className="rounded-full border w-auto h-8"
+												src={item?.img}
+												alt="User img"
+											/>
 										</div>
-										<p className="w-full truncate text-base mt-1 font-light">{item?.noiDung}</p>
+										<div className="">
+											<div className="flex items-center justify-start gap-1">
+												<p className="text-sm font-semibold">@{item?.tenNguoiDung}</p>
+												<span className="text-sm font-medium text-gray-400 tracking-wide">
+													{getRelativeTime(item?.thoiGianBinhLuan)}
+												</span>
+											</div>
+											<p className="w-full truncate text-base mt-1 font-light">{item?.noiDung}</p>
+										</div>
 									</div>
-								</div>
-							))
-						) : (
-							<p>Chưa có bình luận nào.</p>
-						)}
+								))
+							) : (
+								<p>Chưa có bình luận nào.</p>
+							)}
 					</div>
 				</div>
 

@@ -57,7 +57,7 @@ const chiTiet = () => {
 	};
 	const [currentItemIds, setCurrentItemIds] = useState([]);
 
-	//địa điểm gần đây
+	// Địa điểm gần đây
 	const [dataForBox1, setDataForBox1] = useState([]);
 	const [dataForBox2, setDataForBox2] = useState([]);
 
@@ -160,6 +160,8 @@ const chiTiet = () => {
 	const handleOpenModal = () => setOpenModal(true);
 	const handleCloseModal = () => setOpenModal(false);
 
+
+	// Bình luận
 	const [binhLuan, setBinhLuan] = useState('');
 
 	const handleInputChange = (e) => {
@@ -185,6 +187,7 @@ const chiTiet = () => {
 			tenNguoiDung: user.displayName, // Assuming user will always have a displayName
 			img: user.photoURL, // Assuming user will always have a photoURL
 			noiDung: binhLuan, // Nội dung bình luận
+			trangThai: false,
 		};
 
 		saveComment(commentData);
@@ -199,11 +202,11 @@ const chiTiet = () => {
 			if (docSnapshot.exists()) {
 				const khachSanData = docSnapshot.data();
 				const currentTimestamp = new Date().toLocaleDateString('vi-VN'); // Get current date in "dd/mm/yy" format
-				const updatedComment = { ...commentData, thoiGianBinhLuan: currentTimestamp }; // Add timestamp to commentData
+				const updatedComment = { ...commentData, thoiGianBinhLuan: currentTimestamp, trangThai: false }; // Add timestamp and trangThai to commentData
 				const updatedBinhluan = khachSanData.binhluan ? arrayUnion(updatedComment) : [updatedComment];
 
 				await updateDoc(khachSanDocRef, { binhluan: updatedBinhluan });
-				console.log('Bình luận đã được thêm vào');
+
 			} else {
 				console.error('Document không tồn tại');
 			}
@@ -256,6 +259,8 @@ const chiTiet = () => {
 		}
 	};
 
+	const filteredBinhLuanArray = binhLuanArray.filter((item) => item.trangThai === true);
+
 	return (
 		<>
 			<ChiTietLayout
@@ -286,11 +291,14 @@ const chiTiet = () => {
 				handleOpenModal={handleOpenModal}
 				handleCloseModal={handleCloseModal}
 				styles={styles}
+
 				// bình luận
 				binhLuan={binhLuan}
 				handleInputChange={handleInputChange}
 				handleSendComment={handleSendComment}
 				binhLuanArray={binhLuanArray}
+				filteredBinhLuanArray={filteredBinhLuanArray}
+
 				// phòng khách sạn
 				phongKS={filteredPhongKS}
 				getRelativeTime={getRelativeTime}
