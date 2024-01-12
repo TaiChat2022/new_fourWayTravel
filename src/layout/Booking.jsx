@@ -3,20 +3,13 @@ import { useMemo, useState } from 'react';
 const BookingLayout = ({
 	khachsan,
 	filterKhachSan = [],
-	getRatingText,
-	Link,
-	handleFavoriteChange,
-	Checkbox,
-	labelFavorite,
-	userFavorites,
+	getRatingText, Link,
+	handleFavoriteChange, Checkbox,
+	labelFavorite, userFavorites,
 	handleAddToRecentlyViewed,
-	selectedTinhThanh,
-	selectedVungMien,
-	filterDiaDanh,
-	vungMien,
-	regionDict,
-	phong = [],
-	findCheapestRoom,
+	selectedTinhThanh, selectedVungMien,
+	filterDiaDanh, vungMien, regionDict,
+	phong = [], findCheapestRoom,
 }) => {
 	const [filterPrice, setFilterPrice] = useState('thap');
 	const lowestPriceDict = useMemo(() => {
@@ -36,6 +29,11 @@ const BookingLayout = ({
 			return acc;
 		}, {});
 	}, [filterKhachSan, phong, findCheapestRoom]);
+
+	// limit load khách sạn
+	const [numHotelsDisplayed, setNumHotelsDisplayed] = useState(4);
+	const numHotelsPerPage = 4; // Số lượng khách sạn mỗi lần hiển thị thêm
+
 	return (
 		<>
 			<div className=" w-3/4 mx-auto mt-6">
@@ -186,22 +184,22 @@ const BookingLayout = ({
 					<span className="font-bold">Sắp xếp theo giá: </span>
 					<button
 						className={`
-							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-							
-							focus:outline-none bg-white rounded-lg border 
-							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-							
-						`}
+								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+								
+								focus:outline-none bg-white rounded-lg border 
+								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+								
+							`}
 						onClick={() => setFilterPrice('thap')}
 					>
 						Giá Thấp - Cao
 					</button>
 					<button
 						className={`
-							py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-							focus:outline-none bg-white rounded-lg border 
-							hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-						`}
+								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+								focus:outline-none bg-white rounded-lg border 
+								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
+							`}
 						onClick={() => setFilterPrice('cao')}
 					>
 						Giá Cao - Thấp
@@ -211,7 +209,7 @@ const BookingLayout = ({
 					<>
 						{!selectedTinhThanh?.tenTinhThanh || !selectedTinhThanh ? (
 							<>
-								{khachsan.map((item) => (
+								{khachsan.slice(0, numHotelsDisplayed).map((item) => (
 									<>
 										<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
 											<div
@@ -370,12 +368,26 @@ const BookingLayout = ({
 												</div>
 											</div>
 										</div>
+
 									</>
 								))}
+								<button
+									className={`
+												py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+												focus:outline-none bg-blue-500 rounded-lg border 
+												hover:bg-blue-700 active:text-blue-700 focus:z-10 focus:ring-4
+											`}
+									onClick={() => {
+										// Tăng số lượng khách sạn đã được hiển thị lên numHotelsPerPage
+										setNumHotelsDisplayed(numHotelsDisplayed + numHotelsPerPage);
+									}}
+								>
+									Xem thêm
+								</button>
 							</>
 						) : (
 							<>
-								{filterKhachSan.map((item) => (
+								{filterKhachSan.slice(0, numHotelsDisplayed).map((item) => (
 									<>
 										<div className="mt-2 bg-white rounded-lg mb-4 h-auto shadow-product hover:scale-103 transition ease-in-out delay-50 duration-200">
 											<div
@@ -532,8 +544,22 @@ const BookingLayout = ({
 												</div>
 											</div>
 										</div>
+
 									</>
 								))}
+								<button
+									className={`
+												py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
+												focus:outline-none bg-blue-500 rounded-lg border 
+												hover:bg-blue-700 active:text-blue-700 focus:z-10 focus:ring-4
+											`}
+									onClick={() => {
+										// Tăng số lượng khách sạn đã được hiển thị lên numHotelsPerPage
+										setNumHotelsDisplayed(numHotelsDisplayed + numHotelsPerPage);
+									}}
+								>
+									Xem thêm
+								</button>
 							</>
 						)}
 					</>

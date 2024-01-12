@@ -1,5 +1,7 @@
 const UserXemGanDayLayout = ({ currentUser, userXemGanDay, Link, handleAddToRecentlyViewed }) => {
-	const sortedUserXemGanDay = [...userXemGanDay].sort((a, b) => new Date(b.lastViewed) - new Date(a.lastViewed));
+	const sortedUserXemGanDay = [...userXemGanDay].sort((a, b) =>
+		new Date(b.lastViewed) - new Date(a.lastViewed)
+	);
 
 	return (
 		<>
@@ -22,10 +24,10 @@ const UserXemGanDayLayout = ({ currentUser, userXemGanDay, Link, handleAddToRece
 									const formattedDate =
 										item.lastViewed && typeof item.lastViewed.toDate === 'function'
 											? item.lastViewed.toDate().toLocaleDateString('en-US', {
-													year: 'numeric',
-													month: '2-digit',
-													day: '2-digit',
-											  })
+												year: 'numeric',
+												month: '2-digit',
+												day: '2-digit',
+											})
 											: '';
 
 									return (
@@ -37,14 +39,14 @@ const UserXemGanDayLayout = ({ currentUser, userXemGanDay, Link, handleAddToRece
 													item.tinhThanh,
 													item.title,
 													item.img,
-													item.lastViewed,
+													item.lastViewed
 												)
 											}
 											key={index}
 										>
 											<div className="border border-gray-300 p-0 rounded-md relative grid grid-col-4">
 												<div className="flex items-center col-span-1 relative">
-													<div className="p-2 w-16 h-16">
+													<div className="p-2 w-20 h-20">
 														<img
 															src={item.img}
 															alt={item.title}
@@ -52,9 +54,7 @@ const UserXemGanDayLayout = ({ currentUser, userXemGanDay, Link, handleAddToRece
 														/>
 													</div>
 													<div className="flex flex-col truncatee">
-														<p className="text-base font-semibold md:text-sm">
-															{item.title}
-														</p>
+														<p className="text-base font-semibold md:text-sm">{item.title}</p>
 														<p className="text-base md:text-sm ">{item.danhmuc}</p>
 													</div>
 												</div>

@@ -23,12 +23,10 @@ const ChiTietLayout = ({
 	binhLuan,
 	handleInputChange,
 	handleSendComment,
+	filteredBinhLuanArray,
 	binhLuanArray,
 	getRelativeTime,
 	phongKS,
-	// ...props,
-	commentCount,
-	// setCommentCount,
 }) => {
 	return (
 		<>
@@ -48,7 +46,7 @@ const ChiTietLayout = ({
 							</div>
 							<div className="flex items-center justify-start my-2 text-sm">
 								<span className="font-semibold text-sm mr-1">
-									<i className="fa-solid fa-location-dot"></i>
+									<i className="fa-solid fa-location-dot text-primary-xanh"></i>
 								</span>
 								<p className="text-sm font-medium ">
 									{data.diaChi}{' '}
@@ -70,12 +68,6 @@ const ChiTietLayout = ({
 									<i className="fa-solid fa-angle-right ml-1"></i>
 								</button>
 							</a>
-							{/* <Link to={`/datphong/${data.id}`}>
-								<button className="flex items-center justify-center w-full px-8 md:px-4 py-4 md:w-64 rounded-md bg-primary-xanh hover:scale-95 transition ease-in-out delay-50 duration-200 text-white font-semibold">
-									Chọn phòng
-									<i className="fa-solid fa-angle-right ml-1"></i>
-								</button>
-							</Link> */}
 						</div>
 					</div>
 					{/* start images */}
@@ -329,14 +321,14 @@ const ChiTietLayout = ({
 							>
 								<div className="bg-white mt-3 px-6 py-3 rounded-md">
 									<div className="mb-3">
-										<h1 className="text-xl font-extrabold">Phòng {room.tenPhong}</h1>
+										<h1 className="text-xl font-extrabold">Phòng {room?.tenPhong}</h1>
 									</div>
 									<div className="md:flex md:justify-between md:gap-4">
 										<div className="shadow-2xl md:w-2/6 md:pb-4 rounded-lg">
 											<div className="">
 												<img
-													src={room.img}
-													alt={room.tenPhong}
+													src={room?.img}
+													alt={room?.tenPhong}
 													className="w-full h-52 object-cover rounded-qq"
 												/>
 											</div>
@@ -344,17 +336,25 @@ const ChiTietLayout = ({
 												<i className="fa-solid fa-door-open"></i>
 												<span className="font-semibold ">
 													Trạng thái :
-													{room.trangThaiPhong === 'Trống' ? (
+													{typeof room?.trangThaiPhong === 'string' ? (
 														<>
-															<span className="text-green-500">
-																{' '}
-																{room.trangThaiPhong}
-															</span>
+															{room?.trangThaiPhong.toLowerCase() === 'trống' ? (
+																<span className="text-green-500">
+																	{' '}
+																	{room?.trangThaiPhong}
+																</span>
+															) : (
+																<span className="text-red-500">
+																	{' '}
+																	{room?.trangThaiPhong}
+																</span>
+															)}
 														</>
+													) : Array.isArray(room?.trangThaiPhong) &&
+													  room?.trangThaiPhong.every((trangThai) => trangThai == true) ? (
+														<span className="text-red-500"> Đã đặt</span>
 													) : (
-														<>
-															<span className="text-red-500"> {room.trangThaiPhong}</span>
-														</>
+														<span className="text-green-500"> Trống</span>
 													)}
 												</span>
 											</div>
@@ -362,28 +362,60 @@ const ChiTietLayout = ({
 
 										<div className="md:w-4/6 md:h-auto shadow-3xl rounded-lg py-5 ">
 											<div className="px-6 md:flex md:justify-between">
-												<div className="flex flex-col border-r-2 pr-2">
+												<div className="flex flex-col pr-2">
 													<div className="mb-2">
 														<h1 className="font-semibold">Tóm tắt</h1>
 													</div>
-													<div className="font-medium text-xm text-gray-600 tracking-wider bg-gray-300 p-2 rounded-md -ml-9">
-														<span>Giá tốt có bữa ăn sáng và hủy miễn phí</span>
+													<div className="font-medium text-xm text-gray-600 tracking-wider rounded-md">
+														<span>
+															{room?.khuyenmai ? (
+																<>
+																	<div className="  -ml-9">
+																		<span className="rounded-md font-medium text-xm bg-gray-300 p-2 text-gray-600 tracking-wider">
+																			Khuyến mãi {room?.khuyenmai} %
+																		</span>
+																	</div>
+																</>
+															) : (
+																<></>
+															)}
+														</span>
 													</div>
-													<p className="font-bold text-mm tracking-wider text-xanhbg-primary-xanh mt-2">
-														{room.loaiPhong}
-													</p>
 												</div>
 
-												<div className="">
+												<div className="border-x-2 border-solid border-gray-200 px-5">
 													<div className="mb-2">
 														<h1 className="font-semibold text-center">Sức chứa</h1>
 													</div>
 													<div className="flex justify-center items-center gap-2">
-														<i className="fa-solid fa-user "></i>
-														<i className="fa-solid fa-user"></i>
+														{room?.soNguoi === 1 && <i className="fa-solid fa-user"></i>}
+														{room?.soNguoi === 2 && (
+															<>
+																<i className="fa-solid fa-user"></i>
+																<i className="fa-solid fa-user"></i>
+															</>
+														)}
+														{room?.soNguoi === 3 && (
+															<>
+																<i className="fa-solid fa-user"></i>
+																<i className="fa-solid fa-user"></i>
+																<i className="fa-solid fa-user"></i>
+															</>
+														)}
+														{room?.soNguoi === 4 && (
+															<>
+																<i className="fa-solid fa-user"></i>
+																<i className="fa-solid fa-user"></i>
+																<i className="fa-solid fa-user"></i>
+																<i className="fa-solid fa-user"></i>
+															</>
+														)}
 													</div>
+													<p className="font-bold text-mm tracking-wider text-xanhbg-primary-xanh mt-2">
+														{room?.loaiPhong}
+													</p>
 												</div>
-												<div className="border-l-2 pl-2">
+												<div className="pl-2">
 													{/* <p className="font-medium text-mm tracking-wider  mb-2">Bao gồm thuế mỗi đêm</p> */}
 													<p className="font-bold text-lg tracking-wider mb-1">
 														{room.price.toLocaleString('vi')} VND
@@ -400,7 +432,7 @@ const ChiTietLayout = ({
 												<div className="flex justify-start items-center gap-4 ">
 													<i className="fa-solid fa-money-check-dollar text-primary-xanh"></i>
 													<div className="text-xm font-medium tracking-wider">
-														<p className="">Thanh toán trước trực tuyến</p>
+														<p className="">Thanh toán khi nhận phòng</p>
 													</div>
 												</div>
 												<div className="bg-primary-xanh w-28 text-center rounded-lg">
@@ -411,6 +443,17 @@ const ChiTietLayout = ({
 													</Link>
 												</div>
 											</div>
+											<div className="px-6 md:flex md:justify-between gap-2 mt-4">
+												{room.imgPhu?.map((item, index) => (
+													<div key={index}>
+														<img
+															src={item}
+															alt={`Image ${index}`}
+															className="w-full h-24 object-cover rounded-lg"
+														/>
+													</div>
+												))}
+											</div>
 										</div>
 									</div>
 								</div>
@@ -418,17 +461,13 @@ const ChiTietLayout = ({
 						))}
 					</>
 				}
-
 				{/* end loại phòng  */}
-				{/* Bình luận */}
+
+				{/* nhắn bình luận */}
 				<div className="w-3/4 mx-auto my-4">
 					<div className="">
-						{commentCount !== null ? (
-							commentCount > 0 ? (
-								<h1 className="text-xl font-semibold my-5">{commentCount} bình luận</h1>
-							) : (
-								<p>Chưa có bình luận nào.</p>
-							)
+						{filteredBinhLuanArray?.length > 0 ? (
+							<h1 className="text-xl font-semibold my-5">{filteredBinhLuanArray?.length} bình luận</h1>
 						) : null}
 					</div>
 					<div className="flex gap-2">
@@ -454,8 +493,8 @@ const ChiTietLayout = ({
 				{/* Bình luận */}
 				<div className="w-3/4 mx-auto my-7">
 					<div className="flex w-full justify-start items-center flex-wrap">
-						{khachSan && binhLuanArray ? (
-							binhLuanArray?.map((item, index) => (
+						{khachSan && filteredBinhLuanArray ? (
+							filteredBinhLuanArray?.map((item, index) => (
 								<div
 									key={index}
 									className="flex mt-5 justify-start items-center w-full gap-2 shadow-sm"
@@ -463,18 +502,18 @@ const ChiTietLayout = ({
 									<div className="">
 										<img
 											className="rounded-full border w-auto h-8"
-											src={item.img}
+											src={item?.img}
 											alt="User img"
 										/>
 									</div>
 									<div className="">
 										<div className="flex items-center justify-start gap-1">
-											<p className="text-sm font-semibold">@{item.tenNguoiDung}</p>
+											<p className="text-sm font-semibold">@{item?.tenNguoiDung}</p>
 											<span className="text-sm font-medium text-gray-400 tracking-wide">
-												{getRelativeTime(item.thoiGianBinhLuan)}
+												{getRelativeTime(item?.thoiGianBinhLuan)}
 											</span>
 										</div>
-										<p className="w-full truncate text-base mt-1 font-light">{item.noiDung}</p>
+										<p className="w-full truncate text-base mt-1 font-light">{item?.noiDung}</p>
 									</div>
 								</div>
 							))
@@ -484,6 +523,7 @@ const ChiTietLayout = ({
 					</div>
 				</div>
 
+				{/* Những khách sạn còn trống phòng tại Four Way Travel */}
 				<div className="bg-gray-200 w-3/4 mx-auto mt-2 rounded-md px-3 py-6">
 					<div className="mb-4">
 						<h1 className="text-black text-xl -tracking-normal font-semibold">

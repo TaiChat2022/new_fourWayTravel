@@ -77,8 +77,8 @@ export default function BasicTabs({ value, sortedData, handleChange }) {
 			<div className="mt-6 mx-auto w-3/4 px-0 py-0">
 				<div className="bg-white">
 					<div className="mx-auto pt-10 pb-12 l:py-10 Wrapper_box__4K_5d px-4 2xs:px-5 l:px-10 2xl:px-5">
-						<section className="md:flex md:flex-wrap justify-between items-center gap-5">
-							<div className="md:w-1/4 m-auto text-center">
+						<section className="flex justify-between items-center gap-5">
+							<div className="w-1/4 m-auto text-center">
 								<picture>
 									<source
 										media="(min-width:80px)"
@@ -100,7 +100,7 @@ export default function BasicTabs({ value, sortedData, handleChange }) {
 									</p>
 								</div>
 							</div>
-							<div className="md:w-1/4 m-auto text-center">
+							<div className="w-1/4 m-auto text-center">
 								<picture>
 									<source
 										media="(min-width:980px)"
@@ -122,7 +122,7 @@ export default function BasicTabs({ value, sortedData, handleChange }) {
 									</p>
 								</div>
 							</div>
-							<div className="md:w-1/4 m-auto text-center">
+							<div className="w-1/4 m-auto text-center">
 								<picture className="w-300">
 									<source
 										className="w-300"
