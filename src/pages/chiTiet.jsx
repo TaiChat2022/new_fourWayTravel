@@ -24,6 +24,7 @@ const chiTiet = () => {
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const { data } = useDocQuery('khachsan', id);
+
 	const [user, setUser] = React.useState(null);
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -37,6 +38,7 @@ const chiTiet = () => {
 
 	const { data: khachSan } = useDocsQuery('khachsan');
 	const { data: phong } = useDocsQuery('phong');
+
 	const filteredPhongKS = phong.filter((item) => item.khachSanId === data.id);
 
 	const styles = {
@@ -160,7 +162,6 @@ const chiTiet = () => {
 	const handleOpenModal = () => setOpenModal(true);
 	const handleCloseModal = () => setOpenModal(false);
 
-
 	// Bình luận
 	const [binhLuan, setBinhLuan] = useState('');
 
@@ -261,6 +262,28 @@ const chiTiet = () => {
 
 	const filteredBinhLuanArray = binhLuanArray.filter((item) => item.trangThai === true);
 
+	// const canUserComment = () => {
+	// 	// Kiểm tra nếu user đã đặt phòng
+	// 	if (user?.datphong) {
+	// 		const bookingDetails = user?.datphong.bookingDetails;
+
+	// 		// Tìm bookingDetail
+	// 		const matchingBookingDetail = bookingDetails.some(detail => {
+	// 			return detail.bookingStatus === "Thành công";
+	// 		});
+	// 		// Tìm datphong
+	// 		const mathchingDatPhong = user.datphong.some(item => {
+	// 			return item.khachID = data.id;
+	// 		})
+
+	// 		// Nếu tìm thấy matchingBookingDetail, cho phép người dùng bình luận
+	// 		if (matchingBookingDetail && mathchingDatPhong) {
+	// 			return true;
+	// 		}
+	// 	}
+	// 	// Nếu không đáp ứng điều kiện nào, không cho phép bình luận
+	// 	return false;
+	// }
 	return (
 		<>
 			<ChiTietLayout

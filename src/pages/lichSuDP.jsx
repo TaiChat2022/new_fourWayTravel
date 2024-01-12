@@ -21,7 +21,6 @@ const LichSuDP = () => {
 		return () => unsubscribe();
 	}, []);
 
-
 	const [userDatPhong, setUserDatPhong] = React.useState([]);
 
 	const fetchUserDatPhong = async (userId) => {
@@ -32,9 +31,16 @@ const LichSuDP = () => {
 		}
 	};
 
+	// Filter phòng và khách sạn
 	const filteredPhong = phong.filter((item) =>
 		userDatPhong.some((datPhongItem) => datPhongItem.phongID === item.id),
 	);
+
+	const ID_ks_phong = filteredPhong.map((item) => {
+		return item.khachSanId;
+	})
+	const filterKhachSan = khachSan.filter(item => ID_ks_phong.includes(item.id));
+
 	const renderStars = (soSao) => {
 		let stars = [];
 		for (let i = 0; i < soSao; i++) {
@@ -56,6 +62,7 @@ const LichSuDP = () => {
 				phong={phong}
 				renderStars={renderStars}
 				filteredPhong={filteredPhong}
+				filterKhachSan={filterKhachSan}
 			/>
 		</>
 	);

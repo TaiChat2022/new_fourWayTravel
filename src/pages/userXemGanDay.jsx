@@ -9,7 +9,6 @@ const UserXemGanDay = () => {
 	const { data: khachSan } = useDocsQuery('khachsan');
 	const [userXemGanDay, setUserXemGanDay] = React.useState([]);
 
-
 	React.useEffect(() => {
 		const fetchUserData = async (user) => {
 			if (user) {
