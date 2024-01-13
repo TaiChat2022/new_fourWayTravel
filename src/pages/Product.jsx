@@ -7,7 +7,7 @@ import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { Link } from 'react-router-dom';
 const Product = () => {
-	const { data: luuTru } = useDocsQuery('luuTru');
+	const { data: khachsan } = useDocsQuery('khachsan');
 	const renderStars = (soSao) => {
 		let stars = [];
 		for (let i = 0; i < soSao; i++) {
@@ -20,9 +20,16 @@ const Product = () => {
 		}
 		return stars;
 	};
-	const hotLuuTru = luuTru.filter((item) => item.hot === true);
-	const khachSanVip = luuTru.filter((item) => item.star === 5);
-	const LuuTruGiamGia = luuTru.filter((item) => item.voucher > 0);
+
+	const styles = {
+		display: '-webkit-box',
+		WebkitLineClamp: 1,
+		WebkitBoxOrient: 'vertical',
+		overflow: 'hidden',
+	};
+	const hotKhachSan = khachsan.filter((item) => item.hot === true);
+	const khachSanVip = khachsan.filter((item) => item.star === 5);
+	const LuuTruGiamGia = khachsan.filter((item) => item.voucher > 0);
 
 	const [currentUser, setCurrentUser] = React.useState(null);
 
@@ -75,16 +82,15 @@ const Product = () => {
 			}
 		}
 	};
-	const topDiscountedLuuTru = [...LuuTruGiamGia]
-		.sort((a, b) => b.voucher - a.voucher)
-		.slice(0, 4);
+	const topDiscountedLuuTru = [...LuuTruGiamGia].sort((a, b) => b.voucher - a.voucher).slice(0, 4);
 
 	return (
 		<>
 			<ProductLayout
-				luuTru={luuTru}
+				styles={styles}
+				khachsan={khachsan}
 				khachSanVip={khachSanVip}
-				hotLuuTru={hotLuuTru}
+				hotKhachSan={hotKhachSan}
 				renderStars={renderStars}
 				Link={Link}
 				handleAddToRecentlyViewed={handleAddToRecentlyViewed}

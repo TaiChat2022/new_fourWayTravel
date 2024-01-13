@@ -18,6 +18,10 @@ export const routes = {
 	REGISTER: '/auth/register',
 
 	TIMHIEU: '/timhieu',
+	COHOI: '/cohoi',
+	THONGBAO: '/thongbao',
+	HOATDONG: '/cachhoatdong',
 	DIEUKHOAN: '/dieukhoan',
 	THONGTIN: '/thongtin',
+	TINTUC: '/tintuc',
 };

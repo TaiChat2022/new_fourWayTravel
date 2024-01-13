@@ -1,8 +1,5 @@
-const LichSuDPLayout = ({ Link, currentUser, userDatPhong, luuTru, renderStars }) => {
-	// Filter luuTru items based on the luuTruId in userDatPhong
-	const filteredLuuTru = luuTru.filter((luuTruItem) =>
-		userDatPhong.some((datPhongItem) => datPhongItem.luuTruId === luuTruItem.id),
-	);
+const LichSuDPLayout = ({ Link, currentUser, phong, renderStars, filteredPhong, userDatPhong }) => {
+
 	return (
 		<>
 			{currentUser ? (
@@ -28,9 +25,9 @@ const LichSuDPLayout = ({ Link, currentUser, userDatPhong, luuTru, renderStars }
 								</h1>
 
 							</div>
-							{filteredLuuTru.length > 0 ? (
+							{filteredPhong.length > 0 ? (
 								<>
-									{filteredLuuTru.map((item, index) => (
+									{filteredPhong.map((item, index) => (
 										<div
 											key={index}
 											className="w-full"

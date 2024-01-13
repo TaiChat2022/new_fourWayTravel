@@ -1,9 +1,12 @@
 const DatphongLayout = ({
-	data, handleChange, handleSubmit, formData, formErrors, numberOfDaysStayed
+	data, handleChange, handleSubmit, formData,
+	formErrors, numberOfDaysStayed, filterKhachSan
 }) => {
 	return (
 		<>
 			<div className="container w-3/4 m-auto">
+				Khách sạn {filterKhachSan.title}
+
 				{Object.keys(formErrors).length > 0 && (
 					<div
 						className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 mt-2"
@@ -28,7 +31,7 @@ const DatphongLayout = ({
 												className="block tracking-wide text-grey-darker text-base  mb-2"
 												htmlFor="grid-state"
 											>
-												Tiêu đề
+												Danh xưng
 											</label>
 											<div className="relative">
 												<select
@@ -38,7 +41,7 @@ const DatphongLayout = ({
 													value={formData.tieuDe} // Control the input with formData state
 													onChange={handleChange} // Set the event handler
 												>
-													<option name="tieuDe" value={``} selected disabled>Chọn tiêu đề</option>
+													<option name="tieuDe" value={``} selected disabled>Chọn danh xưng</option>
 													<option name="tieuDe" value={`Ông`}>Ông</option>
 													<option name="tieuDe" value={`Bà`}>Bà</option>
 													<option name="tieuDe" value={`Anh`}>Anh</option>
@@ -97,7 +100,7 @@ const DatphongLayout = ({
 										<input
 											className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
 											id="checkin-time"
-											type="datetime-local"
+											type="date"
 											name="checkinTime"
 											min={new Date().toISOString().split("T")[0]}
 											value={formData.checkinTime}
@@ -115,7 +118,7 @@ const DatphongLayout = ({
 										<input
 											className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
 											id="checkout-time"
-											type="datetime-local"
+											type="date"
 											name="checkoutTime"
 											min={formData.checkinTime ? new Date(formData.checkinTime).toISOString().split("T")[0] : undefined}
 											value={formData.checkoutTime}
@@ -231,27 +234,17 @@ const DatphongLayout = ({
 								</div>
 							</div>
 							<div className="bg-white px-3 py-4 mb-4">
-								<h1 className="text-lg font-semibold tracking-wide px-3">Chính sách Homestay</h1>
+								<h1 className="text-lg font-semibold tracking-wide px-3">Chính sách Khách sạn</h1>
 								<div className="rounded-sm px-3">
 									<div className="flex justify-start items-center my-2 gap-3 ">
 										<i className="fa-light fa-file-lines text-lg"></i>
-										<span className="font-semibold text-sm tracking-wide">Homestay {data.title}</span>
+										<span className="font-semibold text-sm tracking-wide">Khách sạn {data.title}</span>
 									</div>
 									<div className="flex flex-wrap justify-start items-center my-2 gap-2 p-26px">
 										<span className="font-semibold text-sm">Hủy đặt phòng:</span>
 										<p className="text-sm tracking-wide ">
-											Nếu hủy, thay đổi hoặc không đến, khách sẽ trả toàn bộ giá trị tiền đặt
-											phòng.
+											Nếu hủy, thay đổi hoặc không đến, khách sẽ nhận được email thông báo đặt phòng thất bại.
 										</p>
-									</div>
-									<div className="flex flex-wrap justify-start items-center my-2 gap-2 p-26px">
-										<span className="font-semibold text-sm tracking-wide">Thanh toán:</span>
-										<p className="text-sm tracking-wide">
-											Thanh toán toàn bộ giá trị tiền đặt phòng.
-										</p>
-									</div>
-									<div className="my-2 p-26px">
-										<span className="font-semibold text-sm tracking-wide">Đã bao gồm ăn sáng</span>
 									</div>
 								</div>
 							</div>
@@ -313,8 +306,8 @@ const DatphongLayout = ({
 									className="w-full max-h-48 md:w-auto md:max-h-28 rounded-md object-cover"
 								/>
 								<div className="Title">
-									<h1 className="text-lg md:text-base font-bold">{data.title}</h1>
-									<p className="text-sm md:text-xs font-semibold mt-3 tracking-wide">Phòng Grand Ocean View</p>
+									<h1 className="text-lg md:text-base font-bold">Phòng {data.tenPhong}</h1>
+									<p className="text-sm md:text-xs font-semibold mt-3 tracking-wide">Số {data.soPhong}</p>
 								</div>
 							</div>
 
