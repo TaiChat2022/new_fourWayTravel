@@ -23,12 +23,12 @@ export default function SearchBarLayout({
 }) {
 	return (
 		<>
-			<div className="w-2/4  mt-2 border-none rounded-lg shadow-2xl mb-2 z-50 md:sticky top-0 left-0 right-0">
+			<div className="w-3/4 md:w-2/4 mt-2 border-none rounded-lg shadow-2xl mb-2 z-50 md:sticky top-0 left-0 right-0">
 				<div
-					className=" w-full overflow-hidden rounded-lg"
+					className="w-full overflow-hidden rounded-lg"
 					data-testid="search-form"
 				>
-					<div className="flex justify-between gap-5">
+					<div className="flex flex-col md:flex-row justify-between gap-5">
 						{/* Vùng miền */}
 						<button
 							type="button"

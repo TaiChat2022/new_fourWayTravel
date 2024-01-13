@@ -33,6 +33,13 @@ const Booking = () => {
 		return eligibleRooms.length > 0 ? eligibleRooms[0] : null;
 	};
 
+	// Trong tệp Booking.js, thêm hàm findAllRoom
+	const findAllRoom = async (rooms, hotels) => {
+		const allRoom = rooms.filter((room) => hotels.some((hotel) => hotel.id === room.khachSanId));
+		return allRoom;
+	};
+
+
 	const regionDict = useMemo(() => {
 		return vungMien?.reduce((acc, item) => {
 			acc[item.tenVungMien] = item.id;
@@ -221,8 +228,8 @@ const Booking = () => {
 	return (
 		<>
 			<div className="w-full bg-blue-300 py-5 mx-auto ">
-				<div className="w-3/4 mx-auto flex items-center justify-between">
-					<div className="flex gap-2 w-1/4">
+				<div className="w-3/4 mx-auto flex flex-col md:flex-row items-center justify-between">
+					<div className="flex gap-2 w-full md:w-1/4">
 						<Link
 							to="/"
 							className="hover:underline"
@@ -272,6 +279,7 @@ const Booking = () => {
 				regionDict={regionDict}
 				phong={phong}
 				findCheapestRoom={findCheapestRoom}
+				findAllRoom={findAllRoom}
 			/>
 		</>
 	);

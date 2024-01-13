@@ -43,6 +43,14 @@ const BookingLayout = ({
 						Khu vực :
 						<button
 							className={`
+							py-1.5 mx-2 mb-2 text-sm font-medium text-gray-900 
+											focus:outline-none rounded-lg
+						`}
+						>
+							<Link to={`/booking/`}>ALL</Link>
+						</button>
+						<button
+							className={`
 							py-1.5 ml-2 px-4  mb-2 text-sm font-medium
 							text-white bg-gray-400 outline-none 
 							focus:outline-none rounded-md 
@@ -75,7 +83,7 @@ const BookingLayout = ({
 				{!selectedVungMien?.tenVungMien && (
 					<>
 						<h1 className="mt-4 w-full font-semibold text-md tracking-normal mb-2">
-							Khu vực :
+							Xem tất cả khu vực :
 							<button
 								className={`
 									py-1.5 ml-2 px-2 me-2 mb-2 text-sm font-medium
@@ -93,7 +101,7 @@ const BookingLayout = ({
 											<button
 												key={index}
 												className={`
-												py-1.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
+												py-1.5 px-1 mb-2 text-sm font-medium text-gray-900 
 											focus:outline-none rounded-lg
 										`}
 											>
@@ -180,31 +188,7 @@ const BookingLayout = ({
 						</div>
 					</>
 				)}
-				<>
-					<span className="font-bold">Sắp xếp theo giá: </span>
-					<button
-						className={`
-								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-								
-								focus:outline-none bg-white rounded-lg border 
-								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-								
-							`}
-						onClick={() => setFilterPrice('thap')}
-					>
-						Giá Thấp - Cao
-					</button>
-					<button
-						className={`
-								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-								focus:outline-none bg-white rounded-lg border 
-								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-							`}
-						onClick={() => setFilterPrice('cao')}
-					>
-						Giá Cao - Thấp
-					</button>
-				</>
+
 				{khachsan ? (
 					<>
 						{!selectedTinhThanh?.tenTinhThanh || !selectedTinhThanh ? (
