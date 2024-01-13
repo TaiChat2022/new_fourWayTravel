@@ -24,6 +24,7 @@ const chiTiet = () => {
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const { data } = useDocQuery('khachsan', id);
+
 	const [user, setUser] = React.useState(null);
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -37,6 +38,7 @@ const chiTiet = () => {
 
 	const { data: khachSan } = useDocsQuery('khachsan');
 	const { data: phong } = useDocsQuery('phong');
+
 	const filteredPhongKS = phong.filter((item) => item.khachSanId === data.id);
 
 	const styles = {
@@ -160,7 +162,6 @@ const chiTiet = () => {
 	const handleOpenModal = () => setOpenModal(true);
 	const handleCloseModal = () => setOpenModal(false);
 
-
 	// Bình luận
 	const [binhLuan, setBinhLuan] = useState('');
 
@@ -260,6 +261,7 @@ const chiTiet = () => {
 	};
 
 	const filteredBinhLuanArray = binhLuanArray.filter((item) => item.trangThai === true);
+
 
 	return (
 		<>
