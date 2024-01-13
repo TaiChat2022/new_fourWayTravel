@@ -33,14 +33,13 @@ export default function SearchBarLayout({
 						<button
 							type="button"
 							data-testid="search-form-destination"
-							className="w-full rounded-lg col-span-1 border-2 border-gray-300 md:col-span-3 pl-5 pr-11 md:pr-5 text-left truncate bg-white group h-14 active:bg-grey-200"
+							className="w-full rounded-md col-span-1 md:col-span-3 pl-5 pr-11 h-12 md:pr-5 text-left truncate bg-white group active:bg-grey-200"
 						>
-							<span className="flex items-center justify-center h-14 2xl:hover:bg-grey-200 2xl:rounded-md">
+							<span className="flex items-center justify-center 2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span className="relative flex flex-col justify-center w-full truncate">
 									<div className="w-full">
-
 										<select
-											className="hover:border-b-2 hover:border-gray-300 outline-none w-full"
+											className="outline-none w-full border-none text-gray-500"
 											value={isBookingPage ? filterMien : undefined}
 											defaultValue={[]}
 											onChange={
@@ -50,7 +49,7 @@ export default function SearchBarLayout({
 											<option
 												disabled
 												value=""
-												className="text-gray-700 bg-white hover:bg-gray-100"
+												className="bg-white hover:bg-gray-100 text-gray-500"
 											>
 												<i className="fa-solid fa-earth-asia mr-2"></i>
 												<em>Chọn vùng miền</em>
@@ -68,7 +67,6 @@ export default function SearchBarLayout({
 												</option>
 											))}
 										</select>
-
 									</div>
 								</span>
 							</span>
@@ -77,14 +75,13 @@ export default function SearchBarLayout({
 						<button
 							type="button"
 							data-testid="search-form-destination"
-							className="w-full rounded-lg border-2 border-gray-300 col-span-1 md:col-span-4 px-12 md:px-5 text-left truncate bg-white group h-14 active:bg-grey-200"
+							className="w-full rounded-md col-span-1 md:col-span-4 px-12 md:px-5 text-left truncate bg-white group h-12 active:bg-grey-200"
 						>
-							<span className="flex items-center justify-center h-14 2xl:hover:bg-grey-200 2xl:rounded-md">
+							<span className="flex items-center justify-center 2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span className="relative flex flex-col justify-center w-full truncate">
 									<div className="w-full">
-
 										<select
-											className="hover:border-b-2 hover:border-gray-300 outline-none w-full"
+											className="outline-none w-full text-gray-500"
 											value={isBookingPage ? filterAddress : undefined}
 											defaultValue={[]}
 											onChange={
@@ -108,17 +105,12 @@ export default function SearchBarLayout({
 													className="text-gray-700 bg-white hover:bg-gray-100"
 													key={khuvuc.id}
 													value={`${khuvuc.id}`}
-													style={getStyles(
-														khuvuc.tenTinhThanh,
-														khuvuc.tenTinhThanh,
-														theme,
-													)}
+													style={getStyles(khuvuc.tenTinhThanh, khuvuc.tenTinhThanh, theme)}
 												>
 													{khuvuc.tenTinhThanh}
 												</option>
 											))}
 										</select>
-
 									</div>
 								</span>
 							</span>
@@ -129,8 +121,8 @@ export default function SearchBarLayout({
 								to={`/booking/${mien}/${address}`}
 								type="button"
 								className={`
-									flex items-center justify-center px-6 py-2
-									h-full rounded-b-lg md:rounded-md 
+									flex items-center justify-center h-12
+									rounded-b-lg md:rounded-md px-6
 									text-md font-semibold text-white
 									bg-blue-500 hover:bg-blue-600 w-full
 								`}
@@ -142,7 +134,7 @@ export default function SearchBarLayout({
 								>
 									<i className="fa-solid fa-magnifying-glass"></i>
 								</span>
-								<span className="text-center">Tìm</span>
+								<span className="text-center text-base tracking-widest">Tìm</span>
 							</Link>
 						</span>
 					</div>

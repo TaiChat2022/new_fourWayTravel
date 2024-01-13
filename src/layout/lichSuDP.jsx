@@ -86,25 +86,35 @@ const LichSuDPLayout = ({ Link, currentUser, phong, renderStars, filteredPhong, 
 													{/* Thông tin trạng thái */}
 													<span className="font-semibold flex flex-row">
 														Trạng thái :
-														{typeof item?.trangThaiPhong === 'string' ? (
+														{typeof item.trangThaiPhong === 'string' ? (
 															<>
-																{item?.trangThaiPhong.toLowerCase() === 'trống' ? (
+																{item.trangThaiPhong === 'Trống' ? (
 																	<span className="text-green-500">
 																		{' '}
-																		{item?.trangThaiPhong}
+																		{item.trangThaiPhong}
 																	</span>
 																) : (
 																	<span className="text-red-500">
 																		{' '}
-																		{item?.trangThaiPhong}
+																		{item.trangThaiPhong}
 																	</span>
 																)}
 															</>
-														) : Array.isArray(item?.trangThaiPhong) &&
-															item?.trangThaiPhong.every((trangThai) => trangThai == true) ? (
-															<span className="text-red-500"> Đã đặt</span>
 														) : (
-															<span className="text-green-500"> Trống</span>
+															<>
+																{item.trangThaiPhong?.trangThai === true ?
+																	(
+																		<>
+																			<span className="text-red-500 ml-1"> Đã đặt</span>
+																		</>
+																	) : (
+																		<>
+																			<span className="text-green-500 ml-1"> Trống</span>
+																		</>
+																	)
+																}
+
+															</>
 														)}
 													</span>
 												</div>
@@ -116,29 +126,45 @@ const LichSuDPLayout = ({ Link, currentUser, phong, renderStars, filteredPhong, 
 														</p>
 													</div>
 													<div className="mt-5 w-full">
-														{typeof item?.trangThaiPhong === 'string' ? (
+														{typeof item.trangThaiPhong === 'string' ? (
 															<>
-																{item?.trangThaiPhong.toLowerCase() === 'trống' ? (
-																	<button className="rounded-lg bg-primary-xanh py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
-																		<Link to={`/datphong/${item.id}`}>Đặt lại ngay</Link>
-																	</button>
+																{item.trangThaiPhong === 'Trống' ? (
+																	<Link to={`/datphong/${item.id}`}>
+																		<button className="rounded-lg bg-primary-xanh py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
+																			Đặt lại ngay
+																		</button>
+																	</Link>
 																) : (
-																	<button disabled className="rounded-lg bg-red-500 py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
-																		<Link>Đặt lại ngay</Link>
-																	</button>
+																	<Link>
+																		<button disabled className="rounded-lg bg-red-500 py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
+																			Đặt lại ngay
+																		</button>
+																	</Link>
 																)}
 															</>
-														) : Array.isArray(item?.trangThaiPhong) &&
-															item?.trangThaiPhong.every((trangThai) => trangThai == true) ? (
-															<button disabled className="rounded-lg bg-red-500 py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
-																<Link>Đặt lại ngay</Link>
-															</button>
 														) : (
-															<button className="rounded-lg bg-primary-xanh py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
-																<Link to={`/datphong/${item.id}`}>Đặt lại ngay</Link>
-															</button>
+															<>
+																{item.trangThaiPhong?.trangThai === true ?
+																	(
+																		<>
+																			<Link>
+																				<button disabled className="rounded-lg bg-red-500 py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
+																					Đặt lại ngay
+																				</button>
+																			</Link>
+																		</>
+																	) : (
+																		<>
+																			<Link to={`/datphong/${item.id}`}>
+																				<button className="rounded-lg bg-primary-xanh py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
+																					Đặt lại ngay
+																				</button>
+																			</Link>
+																		</>
+																	)
+																}
+															</>
 														)}
-
 													</div>
 												</div>
 											</div>

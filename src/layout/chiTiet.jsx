@@ -14,7 +14,6 @@ const ChiTietLayout = ({
 	getRelativeTime, phongKS,
 
 }) => {
-
 	return (
 		<>
 			<div className="container-details w-full h-auto">
@@ -324,25 +323,35 @@ const ChiTietLayout = ({
 												<i className="fa-solid fa-door-open"></i>
 												<span className="font-semibold ">
 													Trạng thái :
-													{typeof room?.trangThaiPhong === 'string' ? (
+													{typeof room.trangThaiPhong === 'string' ? (
 														<>
-															{room?.trangThaiPhong.toLowerCase() === 'trống' ? (
+															{room.trangThaiPhong === 'Trống' ? (
 																<span className="text-green-500">
 																	{' '}
-																	{room?.trangThaiPhong}
+																	{room.trangThaiPhong}
 																</span>
 															) : (
 																<span className="text-red-500">
 																	{' '}
-																	{room?.trangThaiPhong}
+																	{room.trangThaiPhong}
 																</span>
 															)}
 														</>
-													) : Array.isArray(room?.trangThaiPhong) &&
-														room?.trangThaiPhong.every((trangThai) => trangThai == true) ? (
-														<span className="text-red-500"> Đã đặt</span>
 													) : (
-														<span className="text-green-500"> Trống</span>
+														<>
+															{room.trangThaiPhong?.trangThai === true ?
+																(
+																	<>
+																		<span className="text-red-500"> Đã đặt</span>
+																	</>
+																) : (
+																	<>
+																		<span className="text-green-500"> Trống</span>
+																	</>
+																)
+															}
+
+														</>
 													)}
 												</span>
 											</div>
@@ -353,6 +362,9 @@ const ChiTietLayout = ({
 												<div className="flex flex-col pr-2">
 													<div className="font-medium text-xm text-gray-600 tracking-wider rounded-md">
 														<span>
+															<span className="flex items-center justify-center">
+																{room.trangThaiPhong?.checkinTime} - {room.trangThaiPhong?.checkoutTime}
+															</span>
 															{room?.khuyenmai ? (
 																<>
 																	<div className="-ml-9">
@@ -421,9 +433,9 @@ const ChiTietLayout = ({
 													</div>
 												</div>
 												<div className="bg-primary-xanh w-28 text-center rounded-lg">
-													{typeof room?.trangThaiPhong === 'string' ? (
+													{typeof room.trangThaiPhong === 'string' ? (
 														<>
-															{room?.trangThaiPhong.toLowerCase() === 'trống' ? (
+															{room.trangThaiPhong === 'Trống' ? (
 																<Link to={`/datphong/${room.id}`}>
 																	<button className="px-3 py-2 text-base text-white">
 																		Đặt ngay
@@ -437,19 +449,28 @@ const ChiTietLayout = ({
 																</Link>
 															)}
 														</>
-													) : Array.isArray(room?.trangThaiPhong) &&
-														room?.trangThaiPhong.every((trangThai) => trangThai == true) ? (
-														<Link>
-															<button disabled className="px-3 py-2 text-base text-white">
-																Đặt ngay
-															</button>
-														</Link>
 													) : (
-														<Link to={`/datphong/${room.id}`}>
-															<button className="px-3 py-2 text-base text-white">
-																Đặt ngay
-															</button>
-														</Link>
+														<>
+															{room.trangThaiPhong?.trangThai === true ?
+																(
+																	<>
+																		<Link>
+																			<button disabled className="px-3 py-2 text-base text-white">
+																				Đặt ngay
+																			</button>
+																		</Link>
+																	</>
+																) : (
+																	<>
+																		<Link to={`/datphong/${room.id}`}>
+																			<button className="px-3 py-2 text-base text-white">
+																				Đặt ngay
+																			</button>
+																		</Link>
+																	</>
+																)
+															}
+														</>
 													)}
 												</div>
 											</div>
