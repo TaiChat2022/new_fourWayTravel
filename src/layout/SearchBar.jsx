@@ -23,17 +23,17 @@ export default function SearchBarLayout({
 }) {
 	return (
 		<>
-			<div className="w-3/4 md:w-2/4 mt-2 border-none rounded-lg shadow-2xl mb-2 z-50 md:sticky top-0 left-0 right-0">
+			<div className="md:w-2/4  mt-2 border-none mb-2 z-50 md:sticky top-0 left-0 right-0">
 				<div
-					className="w-full overflow-hidden rounded-lg"
+					className=" w-full overflow-hidden rounded-lg"
 					data-testid="search-form"
 				>
-					<div className="flex flex-col md:flex-row justify-between gap-5">
+					<div className="md:flex md:justify-between md:gap-5">
 						{/* Vùng miền */}
 						<button
 							type="button"
 							data-testid="search-form-destination"
-							className="w-full rounded-md col-span-1 md:col-span-3 pl-5 pr-11 h-12 md:pr-5 text-left truncate bg-white group active:bg-grey-200"
+							className="w-full rounded-md col-span-1 md:col-span-3 pl-5 pr-11 h-12 mb-2 md:pr-5 text-left truncate bg-white group "
 						>
 							<span className="flex items-center justify-center 2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span className="relative flex flex-col justify-center w-full truncate">
@@ -75,7 +75,7 @@ export default function SearchBarLayout({
 						<button
 							type="button"
 							data-testid="search-form-destination"
-							className="w-full rounded-md col-span-1 md:col-span-4 px-12 md:px-5 text-left truncate bg-white group h-12 active:bg-grey-200"
+							className="w-full rounded-md col-span-1 md:col-span-4 mb-2 px-12 md:px-5 text-left truncate bg-white group h-12 "
 						>
 							<span className="flex items-center justify-center 2xl:hover:bg-grey-200 2xl:rounded-md">
 								<span className="relative flex flex-col justify-center w-full truncate">
@@ -116,13 +116,12 @@ export default function SearchBarLayout({
 							</span>
 						</button>
 						{/* Tìm */}
-						<span className="flex items-center justify-end col-span-1">
+						<span className="flex items-center mb-2 justify-end col-span-1">
 							<Link
 								to={`/booking/${mien}/${address}`}
 								type="button"
 								className={`
-									flex items-center justify-center h-12
-									rounded-b-lg md:rounded-md px-6
+									flex items-center justify-center h-12 md:rounded-lg px-6
 									text-md font-semibold text-white
 									bg-blue-500 hover:bg-blue-600 w-full
 								`}

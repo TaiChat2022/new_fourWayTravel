@@ -28,7 +28,8 @@ const ChiTietLayout = ({
 					return ++total;
 				}
 			} else {
-				if (room.trangThaiPhong.trangThai == true) {
+				const arrayLichSu = room.trangThaiPhong;
+				if (arrayLichSu.lichSuDatPhong?.some(item => item.trangThai) === true) {
 					return ++total;
 				} else {
 					return total;
@@ -362,9 +363,14 @@ const ChiTietLayout = ({
 										<h1 className="text-xl">
 											Tất cả các phòng: {phongKS.length}
 										</h1>
-										<h1 className="text-xl">
-											Phòng đơn còn: {totalPhongDon}
-										</h1>
+										{totalPhongDon > 0 ? (
+											<>
+												<h1 className="text-xl">
+													Phòng đơn còn: {totalPhongDon}
+												</h1>
+											</>
+										) : (<></>)}
+
 										<h1 className="text-xl">
 											Phòng đôi còn: {totalPhongDoi}
 										</h1>
@@ -381,7 +387,7 @@ const ChiTietLayout = ({
 								<>
 									<div className="w-3/4 mx-auto py-2">
 										<h1 className="text-xl">
-											Hết phòng
+											đã hết
 										</h1>
 									</div>
 								</>
@@ -409,35 +415,32 @@ const ChiTietLayout = ({
 											<div className="flex justify-start text-lg items-center gap-3 pl-3 mt-3">
 												<i className="fa-solid fa-door-open"></i>
 												<span className="font-semibold ">
-													Trạng thái :
+													Số phòng :
 													{typeof room.trangThaiPhong === 'string' ? (
 														<>
 															{room.trangThaiPhong === 'Trống' ? (
 																<span className="text-green-500">
 																	{' '}
-																	{room.trangThaiPhong}
+																	1 phòng
 																</span>
 															) : (
 																<span className="text-red-500">
 																	{' '}
-																	{room.trangThaiPhong}
+																	đã hết
 																</span>
 															)}
 														</>
 													) : (
 														<>
-															{room.trangThaiPhong?.trangThai === true ?
-																(
-																	<>
-																		<span className="text-red-500"> Đã đặt</span>
-																	</>
-																) : (
-																	<>
-																		<span className="text-green-500"> Trống</span>
-																	</>
-																)
-															}
-
+															{room.trangThaiPhong.lichSuDatPhong?.some(item => item.trangThai) === true ? (
+																<>
+																	<span className="text-red-500"> đã hết</span>
+																</>
+															) : (
+																<>
+																	<span className="text-green-500"> 1 phòng</span>
+																</>
+															)}
 														</>
 													)}
 												</span>
@@ -447,16 +450,21 @@ const ChiTietLayout = ({
 										<div className="md:w-4/6 md:h-auto shadow-3xl rounded-lg py-5 ">
 											<div className="px-6 md:flex md:justify-between">
 												<div className="flex flex-col pr-2">
-													<div className="font-medium text-xm text-gray-600 tracking-wider rounded-md">
+													<h1 className="font-semibold text-center">Tóm tắt</h1>
+													<span className="flex items-center justify-center mt-3 text-sm">
+														{/* 01/01/2024 */}
+														{room.trangThaiPhong?.checkinTime} -{' '}
+														{room.trangThaiPhong?.checkoutTime}
+														{/* 01/01/2024 */}
+													</span>
+													<div className="font-medium text-xm text-gray-600 tracking-wider rounded-md mt-3">
 														<span>
-															<span className="flex items-center justify-center">
-																{room.trangThaiPhong?.checkinTime} - {room.trangThaiPhong?.checkoutTime}
-															</span>
 															{room?.khuyenmai ? (
 																<>
-																	<div className="-ml-9">
+																	<div className="">
 																		<span className="rounded-md font-medium text-xm bg-gray-300 p-2 text-gray-600 tracking-wider">
-																			Khuyến mãi {room?.khuyenmai} {room?.isPercentage == true ? ('%') : ('VND')}
+																			Khuyến mãi {room?.khuyenmai}{' '}
+																			{room?.isPercentage == true ? '%' : 'VND'}
 																		</span>
 																	</div>
 																</>
@@ -499,60 +507,16 @@ const ChiTietLayout = ({
 														{room?.loaiPhong}
 													</p>
 												</div>
-												<div className=" py-4 w-1/3 bg-stone-100 flex flex-col justify-center">
+												<div className="pl-2">
 													{/* <p className="font-medium text-mm tracking-wider  mb-2">Bao gồm thuế mỗi đêm</p> */}
 													<p className="font-bold text-lg tracking-wider mb-1">
 														{room.price.toLocaleString('vi')} VND
 													</p>
-													<p className="font-bold text-mm tracking-wider text-primary-cam mb-1">
-														Chỉ còn <span>1</span> phòng
-													</p>
-													<p className="font-bold text-mm tracking-wider text-xanhbg-primary-xanh">
-														Giá cuối cùng
-													</p>
-													<div className="bg-primary-xanh w-28 text-center rounded-lg">
-														{typeof room.trangThaiPhong === 'string' ? (
-															<>
-																{room.trangThaiPhong === 'Trống' ? (
-																	<Link to={`/datphong/${room.id}`}>
-																		<button className=" py-2 text-base text-white">
-																			Đặt ngay
-																		</button>
-																	</Link>
-																) : (
-																	<Link>
-																		<button disabled className=" py-2 text-base text-white">
-																			Đặt ngay
-																		</button>
-																	</Link>
-																)}
-															</>
-														) : (
-															<>
-																{room.trangThaiPhong?.trangThai === true ?
-																	(
-																		<>
-																			<Link>
-																				<button disabled className=" py-2 text-base text-white">
-																					Đặt ngay
-																				</button>
-																			</Link>
-																		</>
-																	) : (
-																		<>
-																			<Link to={`/datphong/${room.id}`}>
-																				<button className=" py-2 text-base text-white">
-																					Đặt ngay
-																				</button>
-																			</Link>
-																		</>
-																	)
-																}
-															</>
-														)}
-													</div>
-												</div>
 
+													<p className="font-bold text-primary-cam text-mm tracking-wider text-xanhbg-primary-xanh">
+														Không tính VAT
+													</p>
+												</div>
 											</div>
 											<div className="px-6 md:flex md:justify-between">
 												<div className="flex justify-start items-center gap-4 ">
@@ -562,8 +526,60 @@ const ChiTietLayout = ({
 													</div>
 												</div>
 
+												{typeof room.trangThaiPhong === 'string' ? (
+													<>
+														{room.trangThaiPhong === 'Trống' ? (
+															<div className="bg-primary-xanh mr-1 w-28 text-center rounded-lg">
+																<Link to={`/datphong/${room.id}`}>
+																	<button className="px-3 py-2 text-base text-white">
+																		Đặt ngay
+																	</button>
+																</Link>
+															</div>
+														) : (
+															<div className="bg-gray-300 mr-1 w-28 text-center rounded-lg">
+																<Link>
+																	<button
+																		disabled
+																		className="px-3 py-2 text-base text-white"
+																	>
+																		Đặt ngay
+																	</button>
+																</Link>
+															</div>
+														)}
+													</>
+												) : (
+													<>
+														{room.trangThaiPhong.lichSuDatPhong?.some(item => item.trangThai) === true ? (
+															<>
+																<div className="bg-gray-300 mr-1 w-28 text-center rounded-lg">
+																	<Link>
+																		<button
+																			disabled
+																			className="px-3 py-2 text-base text-white"
+																		>
+																			Đặt ngay
+																		</button>
+																	</Link>
+																</div>
+															</>
+														) : (
+															<>
+																<div className="bg-primary-xanh mr-1 w-28 text-center rounded-lg">
+																	<Link to={`/datphong/${room.id}`}>
+																		<button className="px-3 py-2 text-base text-white">
+																			Đặt ngay
+																		</button>
+																	</Link>
+																</div>
+															</>
+														)}
+													</>
+												)}
+
 											</div>
-											<div className="px-2 md:flex justify-start gap-2 mt-4">
+											<div className="px-6 md:flex md:justify-between gap-2 mt-4">
 												{room.imgPhu?.map((item, index) => (
 													<div key={index}>
 														<img
@@ -670,50 +686,22 @@ const ChiTietLayout = ({
 								?.slice(0, 3)
 								.map((item) => (
 									<>
-										<div className="bg-white mt-3 px-6 py-3 rounded-md">
+										<div className="bg-white mt-3 px-6 py-3 rounded-md ">
 											<div className="mb-3">
 												<h1 className="text-xl font-extrabold">{item.title}</h1>
 											</div>
-											<div className="md:flex md:justify-between md:gap-4">
-												<div className="shadow-2xl md:w-2/6 md:pb-4 rounded-lg">
+											<div className="md:flex md:justify-between md:gap-4 ">
+												<div className="shadow-2xl md:w-2/6 rounded-lg">
 													<div className="">
 														<img
 															src={item.img}
 															alt={item.title}
-															className="w-full h-52 object-cover rounded-qq"
+															className="w-full h-52 object-cover rounded-lg"
 														/>
-													</div>
-													<div className="flex justify-start items-center gap-3 pl-3 mt-3">
-														<i className="fa-duotone fa-pen-ruler text-primary-xanh"></i>
-														<span className="font-semibold text-sm">
-															25.0 m<sup>2</sup>
-														</span>
-													</div>
-													<div className="pl-3 mt-3">
-														<p className="text-xm font-medium mb-2 p-1 rounded-md w-28">
-															<span className="text-sm"> Vòi tắm đứng</span>{' '}
-														</p>
-														<p className="text-xm font-medium mb-2 p-1 rounded-md w-28">
-															<span className="text-sm"> Máy lạnh</span>{' '}
-														</p>
-														<p className="text-xm font-medium mb-2 p-1 rounded-md w-28">
-															<span className="text-sm"> Tủ lạnh</span>{' '}
-														</p>
-														<p className="text-xm font-medium mb-2 p-1 rounded-md w-28">
-															<span className="text-sm"> Nước nóng</span>{' '}
-														</p>
-													</div>
-													<div className="bg-gray-50 text-center w-4/5 py-1 m-auto rounded-md ">
-														<Link
-															to={`/booking/chitiet/${item.id}`}
-															className="text-primary-xanh font-semibold tracking-wide text-sm"
-														>
-															Xem chi tiết
-														</Link>
 													</div>
 												</div>
 
-												<div className="md:w-4/6 md:h-80 shadow-2xl rounded-lg mt-4">
+												<div className="md:w-4/6 md:h-52 shadow-2xl rounded-lg">
 													<div className="px-6 md:flex md:justify-between">
 														<div className="flex flex-col">
 															{item.tienich?.slice(0, 3).map((tienIch) => (
@@ -738,17 +726,17 @@ const ChiTietLayout = ({
 															</div>
 															<div className="flex gap-3 justify-start items-center mb-1 font-medium text-xm text-xanhbg-primary-xanh tracking-wider">
 																<i className="fa-solid fa-question text-primary-xanh"></i>
-																<span>Xem chính sách hủy khách sạn</span>
+																<span>Chính sách hủy khách sạn</span>
 															</div>
 														</div>
-														<div className="">
+														{/* <div className="">
 															<p className="font-bold text-mm tracking-wider">
 																/ phòng / đêm
 															</p>
 															<p className="font-bold text-mm tracking-wider text-xanhbg-primary-xanh">
 																Giá cuối cùng
 															</p>
-														</div>
+														</div> */}
 													</div>
 													<div className="px-6 mt-6 md:flex md:justify-between">
 														<div className="flex justify-start items-center gap-4 ">

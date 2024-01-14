@@ -40,19 +40,11 @@ const DatphongLayout = ({
 											<div className="relative">
 												<select
 													name="tieuDe" // Add the 'name' attribute to link with formData
-													className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
+													className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-2 px-4 pr-8 rounded"
 													id="grid-state"
 													value={formData.tieuDe} // Control the input with formData state
 													onChange={handleChange} // Set the event handler
 												>
-													{/* <option
-														name="tieuDe"
-														value={``}
-														selected
-														disabled
-													>
-														Chọn danh xưng
-													</option> */}
 													<option
 														name="tieuDe"
 														value={`Ông`}
@@ -92,7 +84,7 @@ const DatphongLayout = ({
 											Họ <span className="text-primary-xanh font-semibold">*</span>
 										</label>
 										<input
-											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-2 px-4"
 											id="grid-last-name"
 											type="text"
 											name="lastName"
@@ -109,7 +101,7 @@ const DatphongLayout = ({
 											Tên <span className="text-primary-xanh font-semibold">*</span>
 										</label>
 										<input
-											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-2 px-4 mb-3"
 											id="grid-first-name"
 											type="text"
 											name="firstName"
@@ -130,7 +122,7 @@ const DatphongLayout = ({
 											<span className="text-primary-xanh font-semibold">*</span>
 										</label>
 										<input
-											className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
+											className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-2 px-4 pr-8 rounded"
 											id="checkin-time"
 											type="date"
 											name="checkinTime"
@@ -149,7 +141,7 @@ const DatphongLayout = ({
 											<span className="text-primary-xanh font-semibold">*</span>
 										</label>
 										<input
-											className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
+											className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-2 px-4 pr-8 rounded"
 											id="checkout-time"
 											type="date"
 											name="checkoutTime"
@@ -173,7 +165,7 @@ const DatphongLayout = ({
 											Email <span className="text-primary-xanh font-semibold">*</span>
 										</label>
 										<input
-											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-2 px-4"
 											id="grid-email"
 											type="email"
 											name="email"
@@ -192,7 +184,7 @@ const DatphongLayout = ({
 											Số điện thoại <span className="text-primary-xanh font-semibold">*</span>
 										</label>
 										<input
-											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-2 px-4"
 											id="grid-city"
 											type="text"
 											name="phone"
@@ -212,7 +204,7 @@ const DatphongLayout = ({
 											Số CCCD <span className="text-primary-xanh font-semibold">*</span>
 										</label>
 										<input
-											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-2 px-4"
 											id="grid-city"
 											type="text"
 											name="cccd"
@@ -232,7 +224,7 @@ const DatphongLayout = ({
 										</label>
 										<textarea
 											name="additionalRequest" // Add 'name' attribute to link with formData
-											className="w-full border h-28 p-3 outline-none rounded-sm text-sm"
+											className="w-full border h-20 p-3 outline-none rounded-sm text-sm"
 											cols="30"
 											rows="10"
 											placeholder="Ví dụ: Sở thích về Giường, địa điểm đón hoặc trả khách"
@@ -266,7 +258,7 @@ const DatphongLayout = ({
 								<div className="w-full px-3">
 									<div className="relative">
 										<select
-											className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
+											className="block outline-none text-sm appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-2 px-4 pr-8 rounded"
 											id="grid-state"
 										>
 											<option>Thanh toán online</option>
@@ -326,36 +318,28 @@ const DatphongLayout = ({
 									</div>
 								</div>
 								<div className="Title">
-									<h1 className="text-lg md:text-base font-bold">Phòng {data.tenPhong}</h1>
-									<p className="text-sm md:text-xs font-semibold mt-3 tracking-wide">
-										Số {data.soPhong}
-									</p>
+									<h1 className="md:text-lg font-bold">Phòng {data.tenPhong}</h1>
+									<p className="md:text-sm font-semibold mt-3 tracking-wide">Số {data.soPhong}</p>
 								</div>
 							</div>
 
 							<div className="flex justify-between mt-4">
 								<div className="flex justify-start items-center gap-2">
-									<span className="text-gray-400 text-sm md:text-xs tracking-wide">Thời gian ở:</span>
+									<span className="text-gray-400 md:text-sm tracking-wide">Thời gian ở:</span>
 								</div>
-								<span className="flex flex-nowrap justify-end md:flex-wrap text-sm md:text-xs">
+								<span className="flex flex-nowrap justify-end md:flex-wrap md:text-sm">
 									{numberOfDaysStayed} ngày
 								</span>
 							</div>
 							<div className="flex justify-between mt-4">
-								<span className="flex gap-1 text-gray-400 text-sm md:text-xs tracking-wide ">
-									Giá ngày:
-								</span>
+								<span className="flex gap-1 text-gray-400 md:text-sm tracking-wide ">Giá ngày:</span>
 
-								<span className="text-sm md:text-xs font-medium">
-									{data.price?.toLocaleString('vi')}
-								</span>
+								<span className="md:text-sm font-medium">{data.price?.toLocaleString('vi')}</span>
 							</div>
 
 							<div className="flex justify-between mt-4">
-								<span className="text-gray-400 text-sm md:text-xs">Phí dịch vụ</span>
-								<span className="flex text-sm md:text-xs text-primary-xanh font-semibold">
-									MIỄN PHÍ
-								</span>
+								<span className="text-gray-400 md:text-sm">Phí dịch vụ</span>
+								<span className="flex md:text-sm text-primary-xanh font-semibold">MIỄN PHÍ</span>
 							</div>
 
 							<div className="mt-4 flex justify-between items-center">

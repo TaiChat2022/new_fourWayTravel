@@ -35,7 +35,7 @@ const LichSuDPLayout = ({ Link, currentUser, phong, renderStars, filteredPhong, 
 											<div className="rounded-sm border p-3 flex flex-col md:flex-row justify-between item gap-5">
 												<div className="w-full md:w-1/5">
 													<img
-														className="w-full md:w-32 h-32 rounded-lg object-cover"
+														className="w-full h-full rounded-lg object-cover"
 														src={item.img}
 														alt={item.title}
 													/>
@@ -102,7 +102,7 @@ const LichSuDPLayout = ({ Link, currentUser, phong, renderStars, filteredPhong, 
 															</>
 														) : (
 															<>
-																{item.trangThaiPhong?.trangThai === true ?
+																{item.trangThaiPhong.lichSuDatPhong?.some((datphong) => datphong.trangThai) === true ?
 																	(
 																		<>
 																			<span className="text-red-500 ml-1"> Đã đặt</span>
@@ -136,7 +136,7 @@ const LichSuDPLayout = ({ Link, currentUser, phong, renderStars, filteredPhong, 
 																	</Link>
 																) : (
 																	<Link>
-																		<button disabled className="rounded-lg bg-red-500 py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
+																		<button disabled className="rounded-lg bg-gray-300 py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
 																			Đặt lại ngay
 																		</button>
 																	</Link>
@@ -144,11 +144,11 @@ const LichSuDPLayout = ({ Link, currentUser, phong, renderStars, filteredPhong, 
 															</>
 														) : (
 															<>
-																{item.trangThaiPhong?.trangThai === true ?
+																{item.trangThaiPhong.lichSuDatPhong?.some((datphong) => datphong.trangThai) === true ?
 																	(
 																		<>
 																			<Link>
-																				<button disabled className="rounded-lg bg-red-500 py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
+																				<button disabled className="rounded-lg bg-gray-300 py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
 																					Đặt lại ngay
 																				</button>
 																			</Link>

@@ -39,7 +39,6 @@ const Booking = () => {
 		return allRoom;
 	};
 
-
 	const regionDict = useMemo(() => {
 		return vungMien?.reduce((acc, item) => {
 			acc[item.tenVungMien] = item.id;
