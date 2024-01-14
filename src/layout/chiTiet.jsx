@@ -14,6 +14,42 @@ const ChiTietLayout = ({
 	getRelativeTime, phongKS,
 
 }) => {
+
+	let totalAvailableRooms = 0;
+	let totalPhongDon = 0;
+	let totalPhongDoi = 0;
+	if (phongKS) {
+		totalAvailableRooms = phongKS.reduce((total, room) => {
+			if (typeof room.trangThaiPhong === 'string') {
+				if (room.trangThaiPhong === 'Trống') {
+					return total;
+				} else {
+					return ++total;
+				}
+			} else {
+				if (room.trangThaiPhong.trangThai == true) {
+					return ++total;
+				} else {
+					return total;
+				}
+			}
+		}, 0);
+
+		totalPhongDon = phongKS.reduce((total, room) => {
+			if (room.loaiPhong === 'Phòng đơn') {
+				return ++total;
+			} else {
+				return total;
+			}
+		}, 0);
+		totalPhongDoi = phongKS.reduce((total, room) => {
+			if (room.loaiPhong === 'Phòng đôi') {
+				return ++total;
+			} else {
+				return total;
+			}
+		}, 0);
+	}
 	return (
 		<>
 			<div className="container-details w-full h-auto">
@@ -300,6 +336,35 @@ const ChiTietLayout = ({
 				{/* start loại phòng  */}
 				{
 					<>
+						{phongKS.length > 0 ?
+							(
+								<>
+									<div className="w-3/4 mx-auto py-2">
+										<h1 className="text-xl">
+											Tất cả các phòng: {phongKS.length}
+										</h1>
+										<h1 className="text-xl">
+											Phòng đơn còn: {totalPhongDon}
+										</h1>
+										<h1 className="text-xl">
+											Phòng đôi còn: {totalPhongDoi}
+										</h1>
+										<h1 className="text-xl">
+											Tất cả các phòng trống:
+											{phongKS.length - totalAvailableRooms}
+										</h1>
+									</div>
+								</>
+							) : (
+								<>
+									<div className="w-3/4 mx-auto py-2">
+										<h1 className="text-xl">
+											Hết phòng
+										</h1>
+									</div>
+								</>
+							)
+						}
 						{phongKS.map((room) => (
 							<div
 								className="shadow-3xl w-3/4 mx-auto mt-2 rounded-md px-3 py-3"
@@ -412,7 +477,7 @@ const ChiTietLayout = ({
 														{room?.loaiPhong}
 													</p>
 												</div>
-												<div className="pl-2">
+												<div className=" py-4 w-1/3 bg-stone-100 flex flex-col justify-center">
 													{/* <p className="font-medium text-mm tracking-wider  mb-2">Bao gồm thuế mỗi đêm</p> */}
 													<p className="font-bold text-lg tracking-wider mb-1">
 														{room.price.toLocaleString('vi')} VND
@@ -423,7 +488,49 @@ const ChiTietLayout = ({
 													<p className="font-bold text-mm tracking-wider text-xanhbg-primary-xanh">
 														Giá cuối cùng
 													</p>
+													<div className="bg-primary-xanh w-28 text-center rounded-lg">
+														{typeof room.trangThaiPhong === 'string' ? (
+															<>
+																{room.trangThaiPhong === 'Trống' ? (
+																	<Link to={`/datphong/${room.id}`}>
+																		<button className=" py-2 text-base text-white">
+																			Đặt ngay
+																		</button>
+																	</Link>
+																) : (
+																	<Link>
+																		<button disabled className=" py-2 text-base text-white">
+																			Đặt ngay
+																		</button>
+																	</Link>
+																)}
+															</>
+														) : (
+															<>
+																{room.trangThaiPhong?.trangThai === true ?
+																	(
+																		<>
+																			<Link>
+																				<button disabled className=" py-2 text-base text-white">
+																					Đặt ngay
+																				</button>
+																			</Link>
+																		</>
+																	) : (
+																		<>
+																			<Link to={`/datphong/${room.id}`}>
+																				<button className=" py-2 text-base text-white">
+																					Đặt ngay
+																				</button>
+																			</Link>
+																		</>
+																	)
+																}
+															</>
+														)}
+													</div>
 												</div>
+
 											</div>
 											<div className="px-6 md:flex md:justify-between">
 												<div className="flex justify-start items-center gap-4 ">
@@ -432,49 +539,9 @@ const ChiTietLayout = ({
 														<p className="">Thanh toán khi nhận phòng</p>
 													</div>
 												</div>
-												<div className="bg-primary-xanh w-28 text-center rounded-lg">
-													{typeof room.trangThaiPhong === 'string' ? (
-														<>
-															{room.trangThaiPhong === 'Trống' ? (
-																<Link to={`/datphong/${room.id}`}>
-																	<button className="px-3 py-2 text-base text-white">
-																		Đặt ngay
-																	</button>
-																</Link>
-															) : (
-																<Link>
-																	<button disabled className="px-3 py-2 text-base text-white">
-																		Đặt ngay
-																	</button>
-																</Link>
-															)}
-														</>
-													) : (
-														<>
-															{room.trangThaiPhong?.trangThai === true ?
-																(
-																	<>
-																		<Link>
-																			<button disabled className="px-3 py-2 text-base text-white">
-																				Đặt ngay
-																			</button>
-																		</Link>
-																	</>
-																) : (
-																	<>
-																		<Link to={`/datphong/${room.id}`}>
-																			<button className="px-3 py-2 text-base text-white">
-																				Đặt ngay
-																			</button>
-																		</Link>
-																	</>
-																)
-															}
-														</>
-													)}
-												</div>
+
 											</div>
-											<div className="px-6 md:flex md:justify-between gap-2 mt-4">
+											<div className="px-2 md:flex justify-start gap-2 mt-4">
 												{room.imgPhu?.map((item, index) => (
 													<div key={index}>
 														<img
