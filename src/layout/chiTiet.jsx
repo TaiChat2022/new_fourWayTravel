@@ -1,7 +1,7 @@
 const ChiTietLayout = ({
 	data,
 	Link,
-	// user,
+	user,
 	khachSan,
 	renderStars,
 	getRatingText,
@@ -29,6 +29,61 @@ const ChiTietLayout = ({
 	getRelativeTime,
 	phongKS,
 }) => {
+	let totalAvailableRooms = 0;
+	let totalPhongDon = 0;
+	let totalPhongDoi = 0;
+	let totalPhongLon = 0;
+	if (phongKS) {
+		totalAvailableRooms = phongKS.reduce((total, room) => {
+			if (typeof room.trangThaiPhong === 'string') {
+				if (room.trangThaiPhong === 'Trống') {
+					return total;
+				} else {
+					return ++total;
+				}
+			} else {
+				const arrayLichSu = room.trangThaiPhong;
+				if (arrayLichSu.lichSuDatPhong?.some((item) => item.trangThai) === true) {
+					return ++total;
+				} else {
+					return total;
+				}
+			}
+		}, 0);
+
+		totalPhongDon = phongKS.reduce((total, room) => {
+			if (room.loaiPhong === 'Phòng đơn') {
+				return ++total;
+			} else {
+				return total;
+			}
+		}, 0);
+		// Tổng phòng đơn
+		totalPhongDoi = phongKS.reduce((total, room) => {
+			if (room.loaiPhong === 'Phòng đôi') {
+				return ++total;
+			} else {
+				return total;
+			}
+		}, 0);
+		// Tổng phòng đôi
+		totalPhongDoi = phongKS.reduce((total, room) => {
+			if (room.loaiPhong === 'Phòng đôi') {
+				return ++total;
+			} else {
+				return total;
+			}
+		}, 0);
+
+		// Tổng phòng lớn
+		totalPhongLon = phongKS.reduce((total, room) => {
+			if (room.soNguoi > 2) {
+				return ++total;
+			} else {
+				return total;
+			}
+		}, 0);
+	}
 	return (
 		<>
 			<div className="container-details w-full h-auto">
@@ -196,10 +251,10 @@ const ChiTietLayout = ({
 											<i className="fa-solid fa-star text-white-100 mb-0.5 text-xs"></i>
 										</p>
 										<p className="ml-2 font-medium text-gray-900 ">{getRatingText(data.star)}</p>
-										{/* <span className="w-1 h-1 mx-2 bg-gray-900 rounded-full dark:bg-gray-500" /> */}
-										{/* <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+										<span className="w-1 h-1 mx-2 bg-gray-900 rounded-full dark:bg-gray-500" />
+										<p className="text-sm font-medium text-gray-500 dark:text-gray-400">
 											376 đánh giá
-										</p> */}
+										</p>
 									</div>
 									<div className="mb-4">
 										<h2 className="text-md font-semibold">Hạng mục:</h2>
@@ -314,6 +369,41 @@ const ChiTietLayout = ({
 				{/* start loại phòng  */}
 				{
 					<>
+						{phongKS.length > 0 ? (
+							<>
+								<div className="w-3/4 mx-auto py-2 flex justify-start items-center my-3 gap-3">
+									<h1 className="text-sm border-2 border-gray-300 rounded-3xl py-2 px-5">
+										Tất cả các phòng: {phongKS.length}
+									</h1>
+									{totalPhongDon > 0 ? (
+										<>
+											<h1 className="text-sm border-2 border-gray-300 rounded-3xl py-2 px-5">
+												Phòng đơn còn: {totalPhongDon}
+											</h1>
+										</>
+									) : (
+										<></>
+									)}
+
+									<h1 className="text-sm border-2 border-gray-300 rounded-3xl py-2 px-5">
+										Phòng đôi còn: {totalPhongDoi}
+									</h1>
+									<h1 className="text-sm border-2 border-gray-300 rounded-3xl py-2 px-5">
+										Phòng lớn còn: {totalPhongLon}
+									</h1>
+									<h1 className="text-sm border-2 border-gray-300 rounded-3xl py-2 px-5">
+										Tất cả các phòng trống:
+										{phongKS.length - totalAvailableRooms}
+									</h1>
+								</div>
+							</>
+						) : (
+							<>
+								<div className="w-3/4 mx-auto py-2">
+									<h1 className="text-xl">đã hết</h1>
+								</div>
+							</>
+						)}
 						{phongKS.map((room) => (
 							<div
 								className="shadow-3xl w-3/4 mx-auto mt-2 rounded-md px-3 py-3"
@@ -336,30 +426,26 @@ const ChiTietLayout = ({
 											<div className="flex justify-start text-lg items-center gap-3 pl-3 mt-3">
 												<i className="fa-solid fa-door-open"></i>
 												<span className="font-semibold ">
-													Trạng thái :
+													Số phòng :
 													{typeof room.trangThaiPhong === 'string' ? (
 														<>
 															{room.trangThaiPhong === 'Trống' ? (
-																<span className="text-green-500">
-																	{' '}
-																	{room.trangThaiPhong}
-																</span>
+																<span className="text-green-500"> 1 phòng</span>
 															) : (
-																<span className="text-red-500">
-																	{' '}
-																	{room.trangThaiPhong}
-																</span>
+																<span className="text-red-500"> đã hết</span>
 															)}
 														</>
 													) : (
 														<>
-															{room.trangThaiPhong?.trangThai === true ? (
+															{room.trangThaiPhong.lichSuDatPhong?.some(
+																(item) => item.trangThai,
+															) === true ? (
 																<>
-																	<span className="text-red-500"> Đã đặt</span>
+																	<span className="text-red-500"> đã hết</span>
 																</>
 															) : (
 																<>
-																	<span className="text-green-500"> Trống</span>
+																	<span className="text-green-500"> 1 phòng</span>
 																</>
 															)}
 														</>
@@ -446,16 +532,19 @@ const ChiTietLayout = ({
 														<p className="">Thanh toán khi nhận phòng</p>
 													</div>
 												</div>
-												<div className="bg-primary-xanh w-28 text-center rounded-lg">
-													{typeof room.trangThaiPhong === 'string' ? (
-														<>
-															{room.trangThaiPhong === 'Trống' ? (
+
+												{typeof room.trangThaiPhong === 'string' ? (
+													<>
+														{room.trangThaiPhong === 'Trống' ? (
+															<div className="bg-primary-xanh mr-1 w-28 text-center rounded-lg">
 																<Link to={`/datphong/${room.id}`}>
 																	<button className="px-3 py-2 text-base text-white">
 																		Đặt ngay
 																	</button>
 																</Link>
-															) : (
+															</div>
+														) : (
+															<div className="bg-gray-300 mr-1 w-28 text-center rounded-lg">
 																<Link>
 																	<button
 																		disabled
@@ -464,12 +553,16 @@ const ChiTietLayout = ({
 																		Đặt ngay
 																	</button>
 																</Link>
-															)}
-														</>
-													) : (
-														<>
-															{room.trangThaiPhong?.trangThai === true ? (
-																<>
+															</div>
+														)}
+													</>
+												) : (
+													<>
+														{room.trangThaiPhong.lichSuDatPhong?.some(
+															(item) => item.trangThai,
+														) === true ? (
+															<>
+																<div className="bg-gray-300 mr-1 w-28 text-center rounded-lg">
 																	<Link>
 																		<button
 																			disabled
@@ -478,19 +571,21 @@ const ChiTietLayout = ({
 																			Đặt ngay
 																		</button>
 																	</Link>
-																</>
-															) : (
-																<>
+																</div>
+															</>
+														) : (
+															<>
+																<div className="bg-primary-xanh mr-1 w-28 text-center rounded-lg">
 																	<Link to={`/datphong/${room.id}`}>
 																		<button className="px-3 py-2 text-base text-white">
 																			Đặt ngay
 																		</button>
 																	</Link>
-																</>
-															)}
-														</>
-													)}
-												</div>
+																</div>
+															</>
+														)}
+													</>
+												)}
 											</div>
 											<div className="px-6 md:flex md:justify-between gap-2 mt-4">
 												{room.imgPhu?.map((item, index) => (
@@ -521,7 +616,7 @@ const ChiTietLayout = ({
 					</div>
 					<div className="flex gap-2">
 						<textarea
-							className=" w-full h-10 p-2 border-b border-gray-200 outline-none focus:border-b-2 focus:border-gray-400"
+							className=" w-full h-7 border-b border-gray-200 outline-none focus:border-b-2 focus:border-gray-400"
 							name="binhluan"
 							value={binhLuan}
 							onChange={handleInputChange}

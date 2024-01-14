@@ -362,10 +362,6 @@ const Datphong = () => {
 												<td style="padding: 10px 10px 10px 0">${formattedSubmissionTime}</td>
 											</tr>
 											<tr>
-												<td style="padding: 10px 10px 10px 0">Số CCCD của khách</td>
-												<td style="padding: 10px 10px 10px 0">${cccd}</td>
-											</tr>
-											<tr>
 												<td style="padding: 10px 10px 10px 0">Khu vực</td>
 												<td style="padding: 10px 10px 10px 0">${tinhThanh}</td>
 											</tr>
@@ -398,7 +394,7 @@ const Datphong = () => {
 												<td style="padding: 10px 10px 10px 0">12:00:00 ${formattedCheckoutTime}</td>
 											</tr>
 											<tr>
-												<td style="padding: 10px 10px 10px 0">Tổng số ngày khách ở</td>
+												<td style="padding: 10px 10px 10px 0">Tổng cộng</td>
 												<td style="padding: 10px 10px 10px 0">${numberOfDaysStayed} ngày</td>
 											</tr>
 
@@ -413,31 +409,29 @@ const Datphong = () => {
 												</td>
 											</tr>
 
-											${
-												additionalRequest == ''
-													? ``
-													: `
+											${additionalRequest == ''
+						? ``
+						: `
 											<tr>
 												<td style="padding: 10px 10px 10px 0">Yêu cầu thêm</td>
 												<td style="padding: 10px 10px 10px 0">${additionalRequest}</td>
 											</tr>
 											`
-											}
-											${
-												bookingStatus
-													? `
+					}
+											${bookingStatus
+						? `
 												<tr>
 													<td style="padding: 10px 10px 10px 0">Trạng thái</td>
 													<td style="padding: 10px 10px 10px 0; color:#888888">${bookingStatus}</td>
 												</tr>
 											`
-													: `
+						: `
 												<tr>
 													<td style="padding: 10px 10px 10px 0">Trạng thái</td>
 													<td style="padding: 10px 10px 10px 0; color:#888888">Đang chờ duyệt</td>
 												</tr>
 											`
-											}
+					}
 											
 										</table>
 									</div>
@@ -456,7 +450,7 @@ const Datphong = () => {
 										"
 									>
 										<img
-											src="https://firebasestorage.googleapis.com/v0/b/hotel-fourwaytravel.appspot.com/o/Logo.png?alt=media&token=f948c7fd-43ae-46b2-95fe-e92ad0a54053"
+											src="https://firebasestorage.googleapis.com/v0/b/hotel-fourwaytravel.appspot.com/o/footerLogo.png?alt=media&token=639847c0-fdf3-4e67-b0b0-0e85bb1be2b5"
 											style="
 												width: 200px;
 												height: 100px;
