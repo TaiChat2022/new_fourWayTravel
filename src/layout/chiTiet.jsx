@@ -18,6 +18,7 @@ const ChiTietLayout = ({
 	let totalAvailableRooms = 0;
 	let totalPhongDon = 0;
 	let totalPhongDoi = 0;
+	let totalPhongLon = 0;
 	if (phongKS) {
 		totalAvailableRooms = phongKS.reduce((total, room) => {
 			if (typeof room.trangThaiPhong === 'string') {
@@ -42,8 +43,26 @@ const ChiTietLayout = ({
 				return total;
 			}
 		}, 0);
+		// Tổng phòng đơn
 		totalPhongDoi = phongKS.reduce((total, room) => {
 			if (room.loaiPhong === 'Phòng đôi') {
+				return ++total;
+			} else {
+				return total;
+			}
+		}, 0);
+		// Tổng phòng đôi
+		totalPhongDoi = phongKS.reduce((total, room) => {
+			if (room.loaiPhong === 'Phòng đôi') {
+				return ++total;
+			} else {
+				return total;
+			}
+		}, 0);
+
+		// Tổng phòng lớn
+		totalPhongLon = phongKS.reduce((total, room) => {
+			if (room.soNguoi > 2) {
 				return ++total;
 			} else {
 				return total;
@@ -348,6 +367,9 @@ const ChiTietLayout = ({
 										</h1>
 										<h1 className="text-xl">
 											Phòng đôi còn: {totalPhongDoi}
+										</h1>
+										<h1 className="text-xl">
+											Phòng lớn còn: {totalPhongLon}
 										</h1>
 										<h1 className="text-xl">
 											Tất cả các phòng trống:
