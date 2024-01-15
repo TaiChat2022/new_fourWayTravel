@@ -6,7 +6,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const LichSuDP = () => {
-	const { data: luuTru } = useDocsQuery('luuTru');
+	const { data: phong } = useDocsQuery('phong');
+	const { data: khachSan } = useDocsQuery('khachsan');
 	const [currentUser, setCurrentUser] = React.useState(null);
 
 	React.useEffect(() => {
@@ -19,6 +20,7 @@ const LichSuDP = () => {
 
 		return () => unsubscribe();
 	}, []);
+
 	const [userDatPhong, setUserDatPhong] = React.useState([]);
 
 	const fetchUserDatPhong = async (userId) => {
@@ -28,6 +30,16 @@ const LichSuDP = () => {
 			setUserDatPhong(userDoc.data().datphong || []);
 		}
 	};
+
+	// Filter phòng và khách sạn
+	const filteredPhong = phong.filter((item) =>
+		userDatPhong.some((datPhongItem) => datPhongItem.phongID === item.id),
+	);
+
+	const ID_ks_phong = filteredPhong.map((item) => {
+		return item.khachSanId;
+	})
+	const filterKhachSan = khachSan.filter(item => ID_ks_phong.includes(item.id));
 
 	const renderStars = (soSao) => {
 		let stars = [];
@@ -47,8 +59,10 @@ const LichSuDP = () => {
 				Link={Link}
 				currentUser={currentUser}
 				userDatPhong={userDatPhong}
-				luuTru={luuTru}
+				phong={phong}
 				renderStars={renderStars}
+				filteredPhong={filteredPhong}
+				filterKhachSan={filterKhachSan}
 			/>
 		</>
 	);

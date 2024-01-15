@@ -21,22 +21,25 @@ const styleModal = {
 };
 
 const chiTiet = () => {
+	const navigate = useNavigate();
 	const { id } = useParams();
 	const { data } = useDocQuery('khachsan', id);
+
 	const [user, setUser] = React.useState(null);
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
 			if (user) {
 				setUser(user);
-			}
-			else {
+			} else {
 				setUser(null);
 			}
 		});
 	}, []);
-	const navigate = useNavigate();
 
 	const { data: khachSan } = useDocsQuery('khachsan');
+	const { data: phong } = useDocsQuery('phong');
+
+	const filteredPhongKS = phong.filter((item) => item.khachSanId === data.id);
 
 	const styles = {
 		display: '-webkit-box',
@@ -56,7 +59,7 @@ const chiTiet = () => {
 	};
 	const [currentItemIds, setCurrentItemIds] = useState([]);
 
-	//địa điểm gần đây
+	// Địa điểm gần đây
 	const [dataForBox1, setDataForBox1] = useState([]);
 	const [dataForBox2, setDataForBox2] = useState([]);
 
@@ -65,10 +68,10 @@ const chiTiet = () => {
 		const diaDiemGanDayList = data.diaDiemGanDay;
 
 		// Take the first 3 items for box1
-		const dataForBox1 = diaDiemGanDayList.slice(0, 3);
+		const dataForBox1 = diaDiemGanDayList?.slice(0, 3);
 
 		// Take the remaining items for box2
-		const dataForBox2 = diaDiemGanDayList.slice(3);
+		const dataForBox2 = diaDiemGanDayList?.slice(3);
 
 		// Update state with the data for each box
 		setDataForBox1(dataForBox1);
@@ -98,7 +101,7 @@ const chiTiet = () => {
 
 	const checkIcon = (tienIch) => {
 		if (tienIch === 'Điều hòa') {
-			return 'fa-snowflake';
+			return 'fa-light fa-snowflake';
 		}
 		if (tienIch === 'WiFi') {
 			return 'fa-wifi';
@@ -159,6 +162,7 @@ const chiTiet = () => {
 	const handleOpenModal = () => setOpenModal(true);
 	const handleCloseModal = () => setOpenModal(false);
 
+	// Bình luận
 	const [binhLuan, setBinhLuan] = useState('');
 
 	const handleInputChange = (e) => {
@@ -170,6 +174,7 @@ const chiTiet = () => {
 			console.error('Bình luận không được để trống');
 			return;
 		}
+
 		// Check if the user is logged in and has user data
 		if (!user) {
 			console.error('Người dùng chưa đăng nhập');
@@ -183,14 +188,7 @@ const chiTiet = () => {
 			tenNguoiDung: user.displayName, // Assuming user will always have a displayName
 			img: user.photoURL, // Assuming user will always have a photoURL
 			noiDung: binhLuan, // Nội dung bình luận
-			thoiGianBinhLuan: new Date().toLocaleString('vi-VN', {
-				timeZone: 'Asia/Ho_Chi_Minh',
-				year: 'numeric',
-				month: '2-digit',
-				day: '2-digit',
-				hour: '2-digit', // Add hours
-				minute: '2-digit', // Add minutes
-			}),
+			trangThai: false,
 		};
 
 		saveComment(commentData);
@@ -204,11 +202,12 @@ const chiTiet = () => {
 			const docSnapshot = await getDoc(khachSanDocRef);
 			if (docSnapshot.exists()) {
 				const khachSanData = docSnapshot.data();
-				const updatedBinhluan = khachSanData.binhluan ?
-					arrayUnion(commentData) : [commentData];
+				const currentTimestamp = new Date().toLocaleDateString('vi-VN'); // Get current date in "dd/mm/yy" format
+				const updatedComment = { ...commentData, thoiGianBinhLuan: currentTimestamp, trangThai: false }; // Add timestamp and trangThai to commentData
+				const updatedBinhluan = khachSanData.binhluan ? arrayUnion(updatedComment) : [updatedComment];
 
 				await updateDoc(khachSanDocRef, { binhluan: updatedBinhluan });
-				console.log('Bình luận đã được thêm vào');
+
 			} else {
 				console.error('Document không tồn tại');
 			}
@@ -239,6 +238,30 @@ const chiTiet = () => {
 
 		fetchBinhLuanData();
 	}, [id]);
+
+	const getRelativeTime = (dateString) => {
+		const commentDate = new Date(dateString);
+		const currentDate = new Date();
+		const commentDay = commentDate.getDate();
+		const commentMonth = commentDate.getMonth();
+		const commentYear = commentDate.getFullYear();
+		const currentDay = currentDate.getDate();
+		const currentMonth = currentDate.getMonth();
+		const currentYear = currentDate.getFullYear();
+
+		const currentTimestamp = currentDay + '/' + (currentMonth + 1) + '/' + currentYear;
+
+		if (commentDay === currentDay && commentMonth === currentMonth && commentYear === currentYear) {
+			return 'Hôm nay';
+		} else if (dateString === currentTimestamp) {
+			return 'Hôm nay'; // Ngày hiện tại trùng với ngày trong thoiGianBinhLuan
+		} else {
+			return `${dateString}`; // Hiển thị thoiGianBinhLuan
+		}
+	};
+
+	const filteredBinhLuanArray = binhLuanArray.filter((item) => item.trangThai === true);
+
 
 	return (
 		<>
@@ -275,8 +298,12 @@ const chiTiet = () => {
 				binhLuan={binhLuan}
 				handleInputChange={handleInputChange}
 				handleSendComment={handleSendComment}
-
 				binhLuanArray={binhLuanArray}
+				filteredBinhLuanArray={filteredBinhLuanArray}
+
+				// phòng khách sạn
+				phongKS={filteredPhongKS}
+				getRelativeTime={getRelativeTime}
 			/>
 		</>
 	);

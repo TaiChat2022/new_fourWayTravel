@@ -10,17 +10,41 @@ import Modal from '@mui/material/Modal';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import SearchBar from './SearchBar';
 const labelFavorite = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
 
 const Booking = () => {
 	const { vungmien, address } = useParams();
 	const { data: khachsan } = useDocsQuery('khachsan');
 	const { data: tinhthanh } = useDocsQuery('tinhthanh');
 	const { data: vungMien } = useDocsQuery('vungmien');
+	const { data: phong } = useDocsQuery('phong');
+
+	const findCheapestRoom = (rooms, hotels) => {
+		// Filter rooms that belong to the given hotels
+		const eligibleRooms = rooms.filter((room) => hotels.some((hotel) => hotel.id === room.khachSanId));
+
+		// Sort the rooms by price in ascending order
+		eligibleRooms.sort((a, b) => a.price - b.price);
+
+		// Return the cheapest room or null if no rooms are available
+		return eligibleRooms.length > 0 ? eligibleRooms[0] : null;
+	};
+
+	// Trong tệp Booking.js, thêm hàm findAllRoom
+	const findAllRoom = async (rooms, hotels) => {
+		const allRoom = rooms.filter((room) => hotels.some((hotel) => hotel.id === room.khachSanId));
+		return allRoom;
+	};
+
+	const regionDict = useMemo(() => {
+		return vungMien?.reduce((acc, item) => {
+			acc[item.tenVungMien] = item.id;
+			return acc;
+		}, {});
+	}, [vungMien]);
 
 	// filter
 	const filterVungMien = vungMien.find((item) => item.id === vungmien);
@@ -39,18 +63,18 @@ const Booking = () => {
 
 	// Check if address is not empty or undefined
 	if (vungmien) {
-		selectedVungMien = Array.isArray(vungMien) ? vungMien.find(tt => tt.id === vungmien) : null;
+		selectedVungMien = Array.isArray(vungMien) ? vungMien.find((tt) => tt.id === vungmien) : null;
 		// Filter khachsan if selectedTinhThanh is valid and has a text property
 		if (selectedVungMien && selectedVungMien.tenVungMien) {
-			filterKhachSan = khachsan.filter(item => item.vungMien === selectedVungMien.tenVungMien);
+			filterKhachSan = khachsan.filter((item) => item.vungMien === selectedVungMien.tenVungMien);
 		}
 	}
 	// Check if address is not empty or undefined
 	if (address) {
-		selectedTinhThanh = Array.isArray(tinhthanh) ? filterDiaDanh.find(tt => tt.id === address) : null;
+		selectedTinhThanh = Array.isArray(tinhthanh) ? filterDiaDanh.find((tt) => tt.id === address) : null;
 		// Filter khachsan if selectedTinhThanh is valid and has a text property
 		if (selectedTinhThanh && selectedTinhThanh.tenTinhThanh) {
-			filterKhachSan = khachsan.filter(item => item.tinhThanh === selectedTinhThanh.tenTinhThanh);
+			filterKhachSan = khachsan.filter((item) => item.tinhThanh === selectedTinhThanh.tenTinhThanh);
 		}
 	}
 
@@ -163,16 +187,20 @@ const Booking = () => {
 
 				// Check if the itemId is already in xemGanDay
 				const itemIndex = updatedXemGanDay.findIndex((item) => item.id === itemId);
+
 				if (itemIndex !== -1) {
 					// If it's already in xemGanDay, update the views count
 					updatedXemGanDay[itemIndex].views += 1;
+					// Move the item to the beginning of the array
+					const [movedItem] = updatedXemGanDay.splice(itemIndex, 1);
+					updatedXemGanDay.unshift({ ...movedItem, lastViewed: new Date() });
 				} else {
 					// If it's not in xemGanDay, add it with views count as 1
-					updatedXemGanDay.push({ id: itemId, tinhThanh, title, img, views: 1 });
+					updatedXemGanDay.unshift({ id: itemId, tinhThanh, title, img, views: 1, lastViewed: new Date() });
 				}
 			} else {
 				// If the user document doesn't exist, create xemGanDay with the current item
-				updatedXemGanDay = [{ id: itemId, tinhThanh, title, img, views: 1 }];
+				updatedXemGanDay = [{ id: itemId, tinhThanh, title, img, views: 1, lastViewed: new Date() }];
 			}
 
 			// Update the xemGanDay field in the user's document
@@ -182,7 +210,6 @@ const Booking = () => {
 			setXemGanDay(updatedXemGanDay);
 		}
 	};
-
 
 	const [open, setOpen] = useState(false);
 	const [selectedAmenity, setSelectedAmenity] = useState(null);
@@ -199,7 +226,26 @@ const Booking = () => {
 
 	return (
 		<>
-			<SearchBar />
+			<div className="w-full bg-blue-300 py-5 mx-auto ">
+				<div className="w-3/4 mx-auto flex flex-col md:flex-row items-center justify-between">
+					<div className="flex gap-2 w-full md:w-1/4">
+						<Link
+							to="/"
+							className="hover:underline"
+						>
+							Trang chủ
+						</Link>{' '}
+						/
+						<Link
+							to="/booking"
+							className="underline"
+						>
+							Tìm khách sạn
+						</Link>
+					</div>
+					<SearchBar />
+				</div>
+			</div>
 			<BookingLayout
 				khachsan={filterKhachSan}
 				filterKhachSan={filterKhachSan}
@@ -228,6 +274,11 @@ const Booking = () => {
 				selectedTinhThanh={selectedTinhThanh}
 				filterDiaDanh={filterDiaDanh}
 				vungMien={vungMien}
+				tinhthanh={tinhthanh}
+				regionDict={regionDict}
+				phong={phong}
+				findCheapestRoom={findCheapestRoom}
+				findAllRoom={findAllRoom}
 			/>
 		</>
 	);

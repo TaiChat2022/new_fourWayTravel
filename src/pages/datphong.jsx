@@ -1,4 +1,4 @@
-import { useDocQuery } from '@/hooks/useFirestore';
+import { useDocQuery, useDocsQuery } from '@/hooks/useFirestore';
 import DatphongLayout from '@/layout/datphong';
 import { auth, firestore } from '@/utils/firebase.config';
 import axios from 'axios';
@@ -8,7 +8,8 @@ import { useParams } from 'react-router-dom';
 
 const Datphong = () => {
 	const { id } = useParams();
-	const { data } = useDocQuery('luuTru', id);
+	const { data } = useDocQuery('phong', id);
+	const { data: khachSan } = useDocsQuery('khachsan');
 	const [user, setUser] = React.useState(null);
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -19,6 +20,8 @@ const Datphong = () => {
 			}
 		});
 	}, []);
+
+	const filterKhachSan = khachSan.find((item) => item.id === data.khachSanId);
 
 	const db = getFirestore();
 
@@ -31,7 +34,7 @@ const Datphong = () => {
 		additionalRequest: '',
 		checkinTime: '',
 		checkoutTime: '',
-		cccd: ''
+		cccd: '',
 	});
 
 	const [formErrors, setFormErrors] = React.useState({});
@@ -102,19 +105,19 @@ const Datphong = () => {
 
 		return allUsersBookings;
 	};
-	// cập nhật 2 hàm này để sài được thống kê 
-	const handleBookingSuccess = async (luuTruId) => {
+	// cập nhật 2 hàm này để sài được thống kê
+	const handleBookingSuccess = async (phongID) => {
 		try {
-			const luuTruDocRef = doc(db, 'luuTru', luuTruId);
-			const luuTruDoc = await getDoc(luuTruDocRef);
+			const phongDocRef = doc(db, 'phong', phongID);
+			const phongDoc = await getDoc(phongDocRef);
 
-			if (luuTruDoc.exists()) {
-				const price = luuTruDoc.data().price || 0;
-				const currentCount = luuTruDoc.data().bookingCount || 0;
-				const currentRevenue = luuTruDoc.data().totalRevenue || 0;
+			if (phongDoc.exists()) {
+				const price = phongDoc.data().price || 0;
+				const currentCount = phongDoc.data().bookingCount || 0;
+				const currentRevenue = phongDoc.data().totalRevenue || 0;
 				const newRevenue = currentRevenue + parseFloat(price);
 
-				await updateDoc(luuTruDocRef, {
+				await updateDoc(phongDocRef, {
 					bookingCount: currentCount + 1,
 					totalRevenue: newRevenue,
 				});
@@ -142,19 +145,18 @@ const Datphong = () => {
 			// Set check-in time to 2 PM (14:00) on the selected date
 			const checkinDate = new Date(value);
 			checkinDate.setHours(14, 0, 0); // Set to 14:00:00
-			updatedFormData.checkinTime = checkinDate.toISOString().split("T")[0];
+			updatedFormData.checkinTime = checkinDate.toISOString().split('T')[0];
 
 			// Automatically set checkout time to 12 PM (12:00) the next day
 			const checkoutDate = new Date(checkinDate);
 			checkoutDate.setDate(checkoutDate.getDate() + 1); // Add one day
 			checkoutDate.setHours(12, 0, 0); // Set to 12:00:00
-			updatedFormData.checkoutTime = checkoutDate.toISOString().split("T")[0];
-
+			updatedFormData.checkoutTime = checkoutDate.toISOString().split('T')[0];
 		} else if (name === 'checkoutTime') {
 			// Set checkout time to 12 PM (12:00) on the selected date
 			const checkoutDate = new Date(value);
 			checkoutDate.setHours(12, 0, 0); // Set to 12:00:00
-			updatedFormData.checkoutTime = checkoutDate.toISOString().split("T")[0];
+			updatedFormData.checkoutTime = checkoutDate.toISOString().split('T')[0];
 		} else {
 			updatedFormData[name] = value;
 		}
@@ -186,8 +188,10 @@ const Datphong = () => {
 				const formattedNewCheckout = formatToDateOnly(newCheckoutTime);
 
 				return (
-					(formattedNewCheckin >= formattedBookingCheckin && formattedNewCheckin < formattedBookingCheckout) ||
-					(formattedNewCheckout > formattedBookingCheckin && formattedNewCheckout <= formattedBookingCheckout) ||
+					(formattedNewCheckin >= formattedBookingCheckin &&
+						formattedNewCheckin < formattedBookingCheckout) ||
+					(formattedNewCheckout > formattedBookingCheckin &&
+						formattedNewCheckout <= formattedBookingCheckout) ||
 					(formattedNewCheckin <= formattedBookingCheckin && formattedNewCheckout >= formattedBookingCheckout)
 				);
 			});
@@ -216,18 +220,35 @@ const Datphong = () => {
 				newDatphongArray = userData.datphong ? [...userData.datphong] : [];
 			}
 			// Format checkinTime and checkoutTime
-			const formattedCheckinTime = new Date(formData.checkinTime).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', year: 'numeric', month: '2-digit', day: '2-digit' }).split(', ')[0];
-			const formattedCheckoutTime = new Date(formData.checkoutTime).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', year: 'numeric', month: '2-digit', day: '2-digit' }).split(', ')[0];
+			const formattedCheckinTime = new Date(formData.checkinTime)
+				.toLocaleString('vi-VN', {
+					timeZone: 'Asia/Ho_Chi_Minh',
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit',
+				})
+				.split(', ')[0];
+			const formattedCheckoutTime = new Date(formData.checkoutTime)
+				.toLocaleString('vi-VN', {
+					timeZone: 'Asia/Ho_Chi_Minh',
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit',
+				})
+				.split(', ')[0];
 			// Append the new booking with a unique ID to the datphong array
 			newDatphongArray.push({
 				uid: bookingId,
-				luuTruId: id,
+				phongID: id,
+				khachID: filterKhachSan.id,
 				ngayThanhToan: formattedSubmissionTime,
 				tongTien: data.price * numberOfDaysStayed,
 				giaGoc: data.price,
 				bookingDetails: {
-					...formData, checkinTime: formattedCheckinTime
-					, checkoutTime: formattedCheckoutTime
+					...formData,
+					checkinTime: formattedCheckinTime,
+					checkoutTime: formattedCheckoutTime,
+					bookingStatus: 'Đang chờ duyệt',
 				},
 			});
 
@@ -248,172 +269,228 @@ const Datphong = () => {
 				checkinTime: '',
 				checkoutTime: '',
 				cccd: '',
+				bookingStatus: 'Đang chờ duyệt', // Add this line
 			});
 
-			const { tieuDe, firstName, lastName, additionalRequest, cccd } = formData;
-			const { danhmuc, diaChi, img, title, price } = data;
+			const { tieuDe, firstName, lastName, additionalRequest, cccd, bookingStatus } = formData;
+			const { img, tenPhong, price, loaiPhong, soPhong } = data;
+			const { tinhThanh, diaChi, title } = filterKhachSan;
 			// Chuẩn bị dữ liệu email
 			const emailData = {
 				to: formData.email,
 				subject: `Thông tin booking FourWayTravel`,
-				html: `
-					
-				<!doctype html>
-				<html lang="en">
-					<head>
-						<meta charset="UTF-8" />
-						<meta
-							name="viewport"
-							content="width=device-width, initial-scale=1.0"
-						/>
-						<title>Mail from FourWayTravel</title>
-						<link rel="stylesheet" />
-					</head>
-					<body>
-						<div style="width: 100%; background-color: #e6e6e6;">
-							<div class="container" style="width: 60%; margin: 0 auto; background-color: white;">
+				html: `	
+					<!doctype html>
+					<html lang="en">
+						<head>
+							<meta charset="UTF-8" />
+							<meta
+								name="viewport"
+								content="width=device-width, initial-scale=1.0"
+							/>
+							<title>Mail from FourWayTravel</title>
+							<link rel="stylesheet" />
+						</head>
+						<body>
+							<div style="width: 100%; background-color: #e6e6e6">
 								<div
-								class="header"
-								style="width: 100%; display: flex; justify-content: center;"
+									class="container"
+									style="width: 60%; margin: 0 auto; background-color: white"
 								>
-								<div
-								class="logo"
-								style="
-											width: 75%;
-											height: 50px;
-											position: relative;
-											align-items: center;
-											margin: 0 auto;
-											"
+									<div
+										class="header"
+										style="width: 100%; display: flex; justify-content: center"
 									>
-									
-									<img
-									src="https://lh3.googleusercontent.com/pw/ABLVV85jVRB0wDfOHqewIRKOwDuz413j7soSXpW7UmJ5FXhyNhtZpfpOEAzhOWAvYdcRO6w7iWVp7w3fDJ887SCqM8-l5qeOk61cpRkHeF0_IFHVhZD5Oqeu92_IU6pkYhler1dKQvBH6seRry8VUd1CVe-bOroqZY1i-e5xZ-05FDoUkkk3rFG9ts_2HVKR5MbspV_yqVWvffQyaqg8fZdJQv-j1K19vZKmMXVQryGXiMnWEzYyeQ59eRcI27DuB7PCq1uSUBwr6v_wO2TIt_CT4MQI01hsLfdFFAQ02dFpAsRK_fCxOIrmve6w2D0S0JQcyOzqdVEs2qFexEoeYQEy-bVQVAvWp70PRW8aaGnmH881sw64G4mkaT7D4TVPwQVxBSblhf1bk_fRHqPmGxnEmLu-7uw6B-R--PrfHaS0hsfo5yHwyaq_pJP7LsjXofxT2CjWltF59MW4NrztuQCB3iUl7tpdzF-X7b-Z96Kyf50yOVbmA6jHBJmKl1P41NlLqosw1_P4m98s6ZjtOT7b0fCpOJYasP6zs-rkEVVeKT2-4yfPqE030r6QyKWrvYXNVc9XvtlrLKD_0X8XHX1LrSaKivQpKaFTZaiixLETPadYdpezcsw8URXB3SIxnwV8d_wsVzmR8YWDXwoPit8Yi4VGN8OfYwbx4QS-UMY9GSheWeFUAyTLSvr8X68KovDiIQ1H9zrDMhXvAkw7XDba4vqJ9sNkexQrv0D5tkeGWTgR9EOqRBhlmDdQTTt3E_idkzgtgf6NBxFXJbAgZir7qmX6bz3QIAFm_QnNH-5pDPhUgZuKVy-_cfXaFwNjUPzHT16zxEaOhUeUlsMs_BTFHHJbH1jra_fmxgcorOW64bwuBc84BTu6z4VTCgxZHOblphsgNw=w1024-h132-s-no-gm?authuser=0"
-									style="width: 200px; height: 50px; object-fit: contain; position: absolute;
-									inset: auto 0 auto 0; margin: auto;"
-									/>
-								</div>	
-							</div>
-							<img src="https://adminfourwaytravel.web.app/static/media/HOTEL.fcfa1d001ee4011c781c.jpg" style="width: 100%;" alt="">
-								<div class="title" style="margin-left: 2rem; margin-right: 2rem;">
-									<h3>Kính gửi: Quý ${tieuDe ? (tieuDe) : (`khách hàng`)} ${lastName} ${firstName}</h3>
-									<h3>Cám ơn Quý khách đã sử dụng dịch vụ của hệ thống Cổng thanh toán - Ví điện tử MOMO.</h3>
-									<h3>
-										Quý khách vừa thực hiện thanh toán thành công cho booking
-										<b class="inDam">FourWayTravel</b>
-									</h3>
-					
-									<h3 class="ttdh">Thông tin đơn hàng:</h3>
-									<table style="border-collapse: collapse; width: 100%; ">
-										<tr>
-											<td
-												colspan="2"
-												style="padding: 10px 10px 10px 0; "
-											>
-												<img
-													src="${img}"
-													style="width: 250px; 
-													height: 250px; 
-													object-fit: contain; 
-													display: block;
-													margin: 0 auto;"
-												/>
-											</td>
-										</tr>
-										<tr>
-											<td style="padding: 10px 10px 10px 0">Mã giao dịch</td>
-											<td style="padding: 10px 10px 10px 0">${bookingId}</td>
-										</tr>
-										<tr>
-											<td style="padding: 10px 10px 10px 0">Thời gian thanh toán</td>
-											<td style="padding: 10px 10px 10px 0">${formattedSubmissionTime}</td>
-										</tr>
-										<tr>
-											<td style="padding: 10px 10px 10px 0">Số CCCD của khách</td>
-											<td style="padding: 10px 10px 10px 0">${cccd}</td>
-										</tr>
-										<tr>
-											<td style="padding: 10px 10px 10px 0">Khu vực</td>
-											<td style="padding: 10px 10px 10px 0">${danhmuc}</td>
-										</tr>
-										<tr>
-											<td style="padding: 10px 10px 10px 0">Địa chỉ</td>
-											<td style="padding: 10px 10px 10px 0">${diaChi}</td>
-										</tr>
-										<tr>
-											<td style="padding: 10px 10px 10px 0">Tên khách sạn</td>
-											<td style="padding: 10px 10px 10px 0">${title}</td>
-										</tr>
-										<tr>
-											<td style="padding: 10px 10px 10px 0">Thời gian nhận</td>
-											<td style="padding: 10px 10px 10px 0">14:00:00 ${formattedCheckinTime}</td>
-										</tr>
-										<tr>
-											<td style="padding: 10px 10px 10px 0">Thời gian trả</td>
-											<td style="padding: 10px 10px 10px 0">12:00:00 ${formattedCheckoutTime}</td>
-										</tr>
-					
-										<tr>
-											<td style="padding: 10px 10px 10px 0">Tổng số ngày khách ở</td>
-											<td style="padding: 10px 10px 10px 0">${numberOfDaysStayed} ngày</td>
-										</tr>
-										<tr>
-											<td style="padding: 10px 10px 10px 0">Giá thuê Homestay / 1 ngày</td>
-											<td style="padding: 10px 10px 10px 0">${price.toLocaleString('vi')} VND</td>
-										</tr>
-										<tr>
-											<td style="padding: 10px 10px 10px 0">Tổng cộng của quý khách là</td>
-											<td style="padding: 10px 10px 10px 0">${(price * numberOfDaysStayed).toLocaleString('vi')} VND</td>
-										</tr>
-					
-										${additionalRequest == '' ? (``) : (`
-										<tr>
-											<td style="padding: 10px 10px 10px 0">Yêu cầu thêm</td>
-											<td style="padding: 10px 10px 10px 0">${additionalRequest}</td>
-										</tr>
-										`)}
-									</table>
+										<div
+											class="logo"
+											style="
+												width: 100%;
+												height: 50px;
+												position: relative;
+												display: flex;
+												justify-content: center;
+												align-items: center;
+											"
+										>
+											<img
+												src="https://firebasestorage.googleapis.com/v0/b/hotel-fourwaytravel.appspot.com/o/Logo.png?alt=media&token=f948c7fd-43ae-46b2-95fe-e92ad0a54053"
+												style="
+													width: 200px;
+													height: 50px;
+													object-fit: contain;
+													position: absolute;
+													top: 50%;
+													left: 50%;
+													transform: translate(-50%, -50%);
+													margin: auto; 
+												"
+											/>
+										</div>
+									</div>
+									<div
+										class="title"
+										style="margin-left: 2rem; margin-right: 2rem"
+									>
+										<h3>Kính gửi: Quý ${tieuDe ? tieuDe : `khách hàng`} ${lastName} ${firstName}</h3>
+										<h3>Cám ơn Quý khách đã sử dụng dịch vụ đặt phòng của FourWay Travel.</h3>
+
+										<h3 class="ttdh">Thông tin đơn hàng:</h3>
+										<table style="border-collapse: collapse; width: 100%">
+											<tr>
+												<td
+													colspan="2"
+													style="padding: 10px 10px 10px 0"
+												>
+													<img
+														src="${img}"
+														style="
+															width: 250px;
+															height: 250px;
+															object-fit: contain;
+															display: block;
+															margin: 0 auto;
+														"
+													/>
+												</td>
+											</tr>
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Mã giao dịch</td>
+												<td style="padding: 10px 10px 10px 0">${bookingId}</td>
+											</tr>
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Thời gian thanh toán</td>
+												<td style="padding: 10px 10px 10px 0">${formattedSubmissionTime}</td>
+											</tr>
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Khu vực</td>
+												<td style="padding: 10px 10px 10px 0">${tinhThanh}</td>
+											</tr>
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Địa chỉ</td>
+												<td style="padding: 10px 10px 10px 0">${diaChi}</td>
+											</tr>
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Tên khách sạn</td>
+												<td style="padding: 10px 10px 10px 0">${title}</td>
+											</tr>
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Tên phòng</td>
+												<td style="padding: 10px 10px 10px 0">${tenPhong}</td>
+											</tr>
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Loại phòng</td>
+												<td style="padding: 10px 10px 10px 0">${loaiPhong}</td>
+											</tr>
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Số phòng</td>
+												<td style="padding: 10px 10px 10px 0">${soPhong}</td>
+											</tr>
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Thời gian nhận</td>
+												<td style="padding: 10px 10px 10px 0">14:00:00 ${formattedCheckinTime}</td>
+											</tr>
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Thời gian trả</td>
+												<td style="padding: 10px 10px 10px 0">12:00:00 ${formattedCheckoutTime}</td>
+											</tr>
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Tổng cộng</td>
+												<td style="padding: 10px 10px 10px 0">${numberOfDaysStayed} ngày</td>
+											</tr>
+
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Giá thuê phòng</td>
+												<td style="padding: 10px 10px 10px 0">${price.toLocaleString('vi')} VND</td>
+											</tr>
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Tổng cộng của quý khách là</td>
+												<td style="padding: 10px 10px 10px 0">
+													${(price * numberOfDaysStayed).toLocaleString('vi')} VND
+												</td>
+											</tr>
+
+											${additionalRequest == ''
+						? ``
+						: `
+											<tr>
+												<td style="padding: 10px 10px 10px 0">Yêu cầu thêm</td>
+												<td style="padding: 10px 10px 10px 0">${additionalRequest}</td>
+											</tr>
+											`
+					}
+											${bookingStatus
+						? `
+												<tr>
+													<td style="padding: 10px 10px 10px 0">Trạng thái</td>
+													<td style="padding: 10px 10px 10px 0; color:#888888">${bookingStatus}</td>
+												</tr>
+											`
+						: `
+												<tr>
+													<td style="padding: 10px 10px 10px 0">Trạng thái</td>
+													<td style="padding: 10px 10px 10px 0; color:#888888">Đang chờ duyệt</td>
+												</tr>
+											`
+					}
+											
+										</table>
+									</div>
+									<div
+										class="footer"
+										style="
+											display: flex;
+											justify-content: space-around;
+											align-items: start;
+											margin-top: 1rem;
+											width: 100%;
+											border-top: 1px solid #999;
+											background-color: rgb(0, 48, 120);
+											color: #e6e6e6;
+											flex-wrap: wrap;
+										"
+									>
+										<img
+											src="https://firebasestorage.googleapis.com/v0/b/hotel-fourwaytravel.appspot.com/o/footerLogo.png?alt=media&token=639847c0-fdf3-4e67-b0b0-0e85bb1be2b5"
+											style="
+												width: 200px;
+												height: 100px;
+												object-fit: contain;
+												margin-top: 1.5rem;
+												margin-right: 1rem;
+												margin-left: 10px;
+											"
+										/>
+										<div
+											class="title-footer"
+											style="margin-top: 0.5rem; margin-right: 0.5rem"
+										>
+											<p>Mọi chi tiết xin liên hệ: Trung tâm thanh toán điện tử - MOMO</p>
+											<p>Địa chỉ: QTSC 9 Builingg, Tô Ký, Tân Chánh Hiệp ,Q.12 , Tòa T</p>
+											<p>
+												Email:
+												<a
+													href="#"
+													style="color: white"
+												>
+													support.fourwaytravel@gmail.com
+												</a>
+											</p>
+											<p>Số điện thoại: 1900 1530 hoặc 08.9999.1530</p>
+											<p>
+												Website:
+												<a
+													href="#"
+													style="color: white"
+												>
+													https://hotel-fourwaytravel.web.app/
+												</a>
+											</p>
+										</div>
+									</div>
 								</div>
-								<div
-									class="footer"
-									style="display: flex;
-									justify-content: space-around;
-									align-items: start;
-									margin-top: 1rem;
-									width: 100%;
-									border-top: 1px solid #999;
-									background-color: rgb(0, 48, 120);
-									color: #e6e6e6;
-									flex-wrap: wrap;
-								"
-							>
-								<img
-									src="https://lh3.googleusercontent.com/pw/ABLVV86a-hYNm7My1hw1ay-MR2N9zN4s5Xrr377bdOtZpuD2qYkNswV_9csqzjNxcphr37iM8YoJ0hbrd081d8oV_rBOtdqKVtGittDR108gRCywHAWivvEYS-hE9ImJtI0nMAqpFhywCflmhiK9xYAoUiwDY2FeskEzMBoekaZfyD77BbLsxGfk29ASi4pwawRbKynNxDVrYemfVc5uUmoAgoMDg5zscrMKEPszCi2jChPnUqlR_VwDy5YqDuSPl8RAQXEwkBn4G1oDdVvMhWgAaG7uI1CbTUR1lI6TLL06i_-IdOBxhrBh0zN6aOPaUPCL3ZedxFzBfspvv4Wc2maTaxWGTKhvBIKmjkRlbFbWTKRlwyJUKq8PweWBzs-ERAxHAEy6VIVVSj-aiSAOXqTMS2gXyE3RDSVWjYwMJfkmvIMffPmSLQnwy4f10_CX2ReuO0759TWcWvMj2WagxsioI7LFRN7YI9WKhpY654AdaghFo7dmpxkNJ0LhIhA1xnqGvvOKshI6GiIiBw4dBPfvvPVv8RYB4gISEVSpK4JGFb9H2HokD_MINdjzTQRmqG-ySK4nOnydVsiSqyQ378nKqlyTVdNbT8-ZRGQgAmSknOFmhXLlBuxPMiBz3bZEjKOjADrF1QyttlhbV8KExSvdwgq4-pmONP4sP2dmt0Ur-9lIg0BP0Kpd71piWhwHTqgQ2vcd2xqPEzR9apmMTKvp0zSRg05Iz2TN68SKVmKTe2QwcLdCpNrx_pzOsLY2dKkujqGMp0XWHj89c3TVpdGX4SNgP2ufQaFzB7Pgx4PNncOdpyIs-S0okKnNRlPiDXWLeEwLUf8wpLEmA2-I7rPSyjt7D3Ze55V3ZMswUY94J_bfYTF65HIC1tWbBpdBghtM7hOV=w512-h66-s-no-gm?authuser=0"
-									style="width: 200px; height: 100px; object-fit: contain; margin-top: 1.5rem; margin-right:1rem; margin-left: 10px;"
-								/>
-								<div
-									class="title-footer"
-									style="margin-top: 0.5rem;
-											margin-right: 0.5rem;"
-								>
-									<p>Mọi chi tiết xin liên hệ: Trung tâm thanh toán điện tử - MOMO</p>
-									<p>Địa chỉ: QTSC 9 Builingg, Tô Ký, Tân Chánh Hiệp ,Q.12 , Tòa T</p>
-									<p>
-										Email:
-										<a href="#" style="color: white">support.fourwaytravel@gmail.com</a>
-									</p>
-									<p>Số điện thoại: 1900 1530 hoặc 08.9999.1530</p>
-									<p>
-										Website:
-										<a href="#" style="color: white;">https://fourwaytravel.com</a>
-									</p>
-								</div>
 							</div>
-							</div>
-						</div>
-				</body>
-				</html>
-			
+						</body>
+					</html>
 				`,
 			};
 
@@ -424,7 +501,6 @@ const Datphong = () => {
 			} catch (error) {
 				// console.error('Error sending email:', error);
 			}
-
 		} catch (error) {
 			// console.error('Error updating document: ', error);
 			alert('Lỗi khi lưu thông tin đặt phòng.');
@@ -470,6 +546,18 @@ const Datphong = () => {
 		}
 	}, [formData.checkinTime, formData.checkoutTime]);
 
+	const renderStars = (soSao) => {
+		let stars = [];
+		for (let i = 0; i < soSao; i++) {
+			stars.push(
+				<i
+					key={i}
+					className="fa-solid fa-star text-white-100"
+				></i>,
+			);
+		}
+		return stars;
+	};
 
 	return (
 		<>
@@ -481,6 +569,8 @@ const Datphong = () => {
 				formErrors={formErrors}
 				updateFirebaseWithSelectedValue={updateFirebaseWithSelectedValue}
 				numberOfDaysStayed={numberOfDaysStayed}
+				filterKhachSan={filterKhachSan}
+				renderStars={renderStars}
 			/>
 		</>
 	);

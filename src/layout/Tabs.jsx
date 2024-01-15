@@ -2,167 +2,159 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/css/Tabs.css';
 
 function TabPanel(props) {
-  const { children, value, index } = props;
+	const { children, value, index } = props;
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
+	return (
+		<div
+			role="tabpanel"
+			hidden={value !== index}
+			id={`simple-tabpanel-${index}`}
+			aria-labelledby={`simple-tab-${index}`}
+		>
+			{value === index && (
+				<Box sx={{ p: 3 }}>
+					<Typography>{children}</Typography>
+				</Box>
+			)}
+		</div>
+	);
 }
 
-export default function BasicTabs({ tinhthanh1, tinhthanh2, tinhthanh3, countsArray, sanitizeAddress }) {
-  const [value, setValue] = useState(0);
+export default function BasicTabs({ value, sortedData, handleChange }) {
+	return (
+		<>
+			<Box className="container my-4 rounded-lg">
+				<Tabs
+					value={value}
+					onChange={handleChange}
+					aria-label="basic tabs example"
+				>
+					{sortedData.map((vung, index) => (
+						<Tab
+							key={vung.id}
+							label={vung.tenVungMien}
+							{...a11yProps(index)}
+						/>
+					))}
+				</Tabs>
 
-  const handleChange = async (event, newValue) => {
-    setValue(newValue);
-  };
+				{sortedData.map((vung, index) => (
+					<TabPanel
+						key={vung.id}
+						value={value}
+						index={index}
+					>
+						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full h-auto md:h-300">
+							{vung.tinhthanh.map((tt) => (
+								<Link
+									to={`/booking//${tt.id}`}
+									key={tt.id}
+								>
+									<div className="box-img relative">
+										<div className="backdrop-blur-sm w-full z-50 bg-black/30 bottom-0 absolute p-2">
+											<h4 className="name-travel">{tt.tenTinhThanh}</h4>
+											<h4 className="total-room">
+												<span className="total-number">{tt.count}</span> Khách Sạn
+											</h4>
+										</div>
+										<img
+											src={tt.img}
+											alt={tt.tenTinhThanh}
+											className="image"
+										/>
+									</div>
+								</Link>
+							))}
+						</div>
+					</TabPanel>
+				))}
+			</Box>
 
-  return (
-    <>
-      <Box className="container mt-4 bg-2 py-0 px-3 rounded-lg">
-        <div className="mt-4 pt-2 font-medium text-xl">
-          <i className="fa-brands fa-searchengin"></i> Tìm kiếm phổ biến
-        </div>
-        <Box className="search-tabs">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab
-              style={{ fontSize: '12px', fontWeight: '600' }}
-              className="tabs"
-              label="Miền bắc"
-              {...a11yProps(0)}
-            />
-            <Tab
-              style={{ fontSize: '12px', fontWeight: '600' }}
-              className="tabs"
-              label="Miền trung"
-              {...a11yProps(1)}
-            />
-            <Tab
-              style={{ fontSize: '12px', fontWeight: '600' }}
-              className="tabs"
-              label="Miền nam"
-              {...a11yProps(2)}
-            />
-          </Tabs>
-        </Box>
-
-        {tinhthanh1 ? (
-          <>
-            <TabPanel value={value} index={0} className="p-0">
-              <div className="grid grid-cols-4 gap-4 w-full md:h-300">
-                {tinhthanh1.slice(0, 4).map((item, index) => (
-                  <Link to={`/booking/${sanitizeAddress(item.text)}`} key={item.id} className='col-span-4 sm:col-span-2 md:col-span-1'>
-                    <div className="box-img relative">
-                      <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
-                        <h4 className="name-travel">{item.text}</h4>
-                        <h4 className="total-room">
-                          <span className="total-number">{countsArray[0][index]}</span> lưu trú
-                        </h4>
-                      </div>
-                      <img
-                        src={item.img}
-                        alt={item.title}
-                        className="image"
-                      />
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </TabPanel>
-
-          </>
-        ) : (
-          <>
-            <p>Không lấy được dữ liệu địa danh</p>
-          </>
-        )}
-
-        {tinhthanh3 ? (
-          <>
-            <TabPanel value={value} index={1} >
-              <div className="grid grid-cols-4 gap-4 w-full md:h-300">
-                {tinhthanh3.slice(0, 4).map((item, index) => (
-                  <Link to={`/booking/${sanitizeAddress(item.text)}`} key={item.id} className='col-span-4 sm:col-span-2 md:col-span-1'>
-                    <div className="box-img relative">
-                      <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
-                        <h3 className="name-travel">{item.text}</h3>
-                        <h3 className="total-room">
-                          <span className="total-number">{countsArray[2][index]}</span> lưu trú
-                        </h3>
-                      </div>
-                      <img
-                        src={item.img}
-                        alt=""
-                        className="image"
-                      />
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </TabPanel>
-          </>
-        ) : (
-          <>
-            <p>Không lấy được dữ liệu địa danh</p>
-          </>
-        )}
-
-        {tinhthanh2 ? (
-          <>
-            <TabPanel value={value} index={2}>
-              <div className="grid grid-cols-4 gap-4 w-full md:h-300">
-                {tinhthanh2.slice(0, 4).map((item, index) => (
-                  <Link to={`/booking/${sanitizeAddress(item.text)}`} key={item.id} className='col-span-4 sm:col-span-2 md:col-span-1'>
-                    <div className="box-img relative">
-                      <div className="backdrop-blur-sm w-full bg-black/30 bottom-0 absolute p-2">
-                        <h3 className="name-travel">{item.text}</h3>
-                        <h3 className="total-room">
-                          <span className="total-number">{countsArray[1][index]}</span> lưu trú
-                        </h3>
-                      </div>
-                      <img
-                        src={item.img}
-                        alt={item.title}
-                        className="image"
-                      />
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </TabPanel>
-          </>
-        ) : (
-          <>
-            <p>Không lấy được dữ liệu địa danh</p>
-          </>
-        )}
-      </Box>
-    </>
-  );
+			<div className="mt-6 mx-auto w-3/4 px-0 py-0">
+				<div className="bg-white">
+					<div className="mx-auto pt-10 pb-12 l:py-10 Wrapper_box__4K_5d px-4 2xs:px-5 l:px-10 2xl:px-5">
+						<section className="md:flex md:flex-wrap justify-between items-center gap-5">
+							<div className="md:w-1/4 m-auto text-center">
+								<picture>
+									<source
+										media="(min-width:80px)"
+										srcSet="https://www.trivago.vn/_static/images/ValueProposition/SearchDesktop.svg"
+										type="image/svg+xml"
+									/>
+									<img
+										className="w-300"
+										src="https://www.trivago.vn/_static/images/ValueProposition/SearchDesktop.svg"
+										alt="Tự tin so sánh"
+									/>
+								</picture>
+								<div className="ValueProposition_textSection__zPh83">
+									<h3 className="text-xl my-2 font-bold ValueProposition_heading__FoB8J">
+										Tìm dễ dàng
+									</h3>
+									<p className="font-extralight">
+										Tìm tất cả các khách sạn của FourWay Travel chỉ sau vài giây.
+									</p>
+								</div>
+							</div>
+							<div className="md:w-1/4 m-auto text-center">
+								<picture>
+									<source
+										media="(min-width:980px)"
+										srcSet="https://www.trivago.vn/_static/images/ValueProposition/CompareDesktop.svg"
+										type="image/svg+xml"
+									/>
+									<img
+										className="w-300"
+										src="https://www.trivago.vn/_static/images/ValueProposition/CompareDesktop.svg"
+										alt="Tự tin so sánh"
+									/>
+								</picture>
+								<div className="ValueProposition_textSection__zPh83">
+									<h3 className="text-xl my-2 font-bold ValueProposition_heading__FoB8J">
+										Tự tin so sánh
+									</h3>
+									<p className="font-extralight">
+										So sánh giá phòng khách sạn trên hàng trăm trang web cùng lúc.
+									</p>
+								</div>
+							</div>
+							<div className="md:w-1/4 m-auto text-center">
+								<picture className="w-300">
+									<source
+										className="w-300"
+										srcSet="https://www.trivago.vn/_static/images/ValueProposition/SaveDesktop.svg"
+										type="image/svg+xml"
+									/>
+									<img
+										className="w-300"
+										src="https://www.trivago.vn/_static/images/ValueProposition/SaveDesktop.svg"
+										alt="Tiết kiệm nhiều"
+									/>
+								</picture>
+								<div className="ValueProposition_textSection__zPh83">
+									<h3 className="text-xl my-2 font-bold ValueProposition_heading__FoB8J">
+										Tiết kiệm nhiều
+									</h3>
+									<p className="font-extralight">
+										Khám phá ưu đãi hấp dẫn để đặt trên trang web của chúng tôi.
+									</p>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 }
 
 function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
+	return {
+		id: `simple-tab-${index}`,
+		'aria-controls': `simple-tabpanel-${index}`,
+	};
 }

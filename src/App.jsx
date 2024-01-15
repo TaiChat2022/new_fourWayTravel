@@ -4,15 +4,14 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { routes } from './utils/routes';
-import Hoatdong from './layout/Hoatdong';
 
-const Header = lazy(() => import('@/pages/Header'));
-const Footer = lazy(() => import('@/pages/Footer'));
-const Main = lazy(() => import('@/pages/index'));
-const Booking = lazy(() => import('@/pages/Booking'));
-const ChiTiet = lazy(() => import('@/pages/chiTiet'));
-const ListLuutru = lazy(() => import('@/pages/ListLuutru'));
-const Favourite = lazy(() => import('@/pages/Favourite'));
+const Header = lazy(() => import('@/pages/Header'))
+const Footer = lazy(() => import('@/pages/Footer'))
+const Main = lazy(() => import('@/pages/index'))
+const Booking = lazy(() => import('@/pages/Booking'))
+const ChiTiet = lazy(() => import('@/pages/chiTiet'))
+const ListLuutru = lazy(() => import('@/pages/ListLuutru'))
+const Favourite = lazy(() => import('@/pages/Favourite'))
 const Datphong = lazy(() => import('@/pages/Datphong'));
 const UserXemGanDay = lazy(() => import('@/pages/userXemGanDay'));
 const LichSuDP = lazy(() => import('@/pages/lichSuDP'));
@@ -23,29 +22,33 @@ const TimHieu = lazy(() => import('@/layout/Timhieu'));
 const ThongTin = lazy(() => import('@/layout/Thongtin'));
 const Thongbao = lazy(() => import('@/layout/Thongbao'));
 const Tintuc = lazy(() => import('@/layout/Tintuc'));
+const Hoatdong = lazy(() => import('@/layout/Hoatdong'));
 
 const Login = lazy(() => import('@/auth/Login'));
 
 export default function App() {
 	return (
-		<Suspense
-			fallback={
-				<Backdrop
-					sx={{ zIndex: 1000 }}
-					open
-				>
-					<CircularProgress color="inherit" />
-				</Backdrop>
-			}
-		>
+		<Suspense fallback={
+			<Backdrop
+				sx={{ zIndex: 500 }}
+				open
+			>
+				<CircularProgress color="inherit" />
+			</Backdrop>
+		}>
 			<Header />
 			<Routes>
 				<Route
 					path={routes.HOME}
 					element={<Main />}
-				></Route>
+				>
+				</Route>
 				<Route
 					path={routes.BOOKING}
+					element={<Booking />}
+				/>
+				<Route
+					path={routes.ALLKHACHSAN}
 					element={<Booking />}
 				/>
 				<Route

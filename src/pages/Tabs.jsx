@@ -2,64 +2,47 @@ import { useDocsQuery } from '@/hooks/useFirestore';
 import BasicTabs from '@/layout/Tabs';
 import React from 'react';
 
-function sanitizeAddress(address) {
-  if (address === undefined || address === null) {
-    return '';
-  }
-  // Normalize and remove diacritics
-  let cleanAddress = address.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  // Remove spaces
-  cleanAddress = cleanAddress.replace(/\s+/g, '');
-  return cleanAddress;
-}
 const Tabs = () => {
 
-  const { data: luuTru } = useDocsQuery('luuTru');
-  const { data: tinhthanh1 } = useDocsQuery('danhmuc');
-  const { data: tinhthanh2 } = useDocsQuery('danhmuc');
-  const { data: tinhthanh3 } = useDocsQuery('danhmuc');
-
-  const filteredDanhmucMienBac = React.useMemo(() =>
-    tinhthanh1.filter((danhmuc) => danhmuc.khuvuc === 'Miền Bắc'),
-    [tinhthanh1]
-  );
-  const filteredDanhmucMienNam = React.useMemo(() =>
-    tinhthanh2.filter((danhmuc) => danhmuc.khuvuc === 'Miền Nam'),
-    [tinhthanh2]
-  );
-  const filteredDanhmucMienTrung = React.useMemo(() =>
-    tinhthanh3.filter((danhmuc) => danhmuc.khuvuc === 'Miền Trung'),
-    [tinhthanh3]
-  );
-
-  const getCounts = (tinhthanh) => {
-    return tinhthanh.map((danhmuc) => {
-      return luuTru.reduce((count, item) => {
-        return item.danhmuc === danhmuc.text ? count + 1 : count;
-      }, 0);
-    });
-  };
-
-  const [countsArray, setCountsArray] = React.useState([[0], [1], [2]]);
+  const [value, setValue] = React.useState(0);
+  const { data: khachsan } = useDocsQuery('khachsan');
+  const { data: vungMien } = useDocsQuery('vungmien');
+  const { data: tinhthanh } = useDocsQuery('tinhthanh');
+  const [sortedData, setSortedData] = React.useState([]);
 
   React.useEffect(() => {
-    setCountsArray([
-      getCounts(filteredDanhmucMienBac),
-      getCounts(filteredDanhmucMienNam),
-      getCounts(filteredDanhmucMienTrung)
-    ]);
-  }, [luuTru, filteredDanhmucMienBac, filteredDanhmucMienNam, filteredDanhmucMienTrung]);
+    if (vungMien && tinhthanh && khachsan) {
+      const newData = vungMien.map(vung => {
+        const tinhthanhInVung = tinhthanh.filter(tt => tt.vungMien === vung.tenVungMien);
+        const counts = tinhthanhInVung.map(tt => {
+          const count = khachsan.filter(ks => ks.tinhThanh === tt.tenTinhThanh).length;
+          return { ...tt, count };
+        });
+
+        // Filter out tinhthanh with 0 hotels
+        const filteredCounts = counts.filter(tt => tt.count > 0);
+
+        // Sort the filtered tinhthanh based on the number of hotels and slice the top 4
+        const sortedCounts = filteredCounts.sort((a, b) => b.count - a.count).slice(0, 4);
+
+        return { ...vung, tinhthanh: sortedCounts };
+      }).filter(vung => vung.tinhthanh.length > 0); // Filter out vung with no hotels in any tinhthanh
+
+      setSortedData(newData);
+    }
+  }, [vungMien, tinhthanh, khachsan]);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   return (
     <>
       <BasicTabs
-        tinhthanh1={filteredDanhmucMienBac}
-        tinhthanh2={filteredDanhmucMienNam}
-        tinhthanh3={filteredDanhmucMienTrung}
-
-        luuTru={luuTru}
-
-        countsArray={countsArray}
-        sanitizeAddress={sanitizeAddress}
+        value={value}
+        sortedData={sortedData}
+        tinhthanh={tinhthanh}
+        khachsan={khachsan}
+        handleChange={handleChange}
       />
     </>
   );

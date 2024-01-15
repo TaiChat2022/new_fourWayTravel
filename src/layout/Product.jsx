@@ -1,37 +1,34 @@
-import banner1 from '../assets/img/HOTELVIETANH.jpg';
+// import banner1 from '../assets/img/HOTELVIETANH.jpg';
 import banner2 from '../assets/img/banner2_pnt.png';
+
 const ProductLayout = ({
-	luuTru,
+	khachsan, highestPriceDict,
 	renderStars,
 	Link,
-	hotLuuTru,
-	// khachSanVip,
+	hotKhachSan,
 	handleAddToRecentlyViewed,
-	topDiscountedLuuTru,
+	khachSanVip,
+	styles,
 }) => {
+
 	return (
 		<>
-			<img
-				src={banner1}
-				alt="Banner FourWay Travel"
-				className="w-3/4 mt-2 max-h-72 object-cover mx-auto rounded-lg"
-			/>
 			<div className="mx-auto w-3/4 mt-4 px-0 py-0 ">
 				<div className="flex justify-center items-center gap-2">
-					<i className="fa-solid fa-fire text-2xl"></i>
-					<h1 className="py-5 text-xl font-semibold tracking-wide text-center">
+					<i className="fa-solid fa-fire text-2xl text-primary-cam"></i>
+					<h1 className="my-6 text-3xl font-semibold tracking-wide text-center">
 						Những chỗ nghỉ nổi bật được đề xuất cho quý khách
 					</h1>
 				</div>
 
 				<div className="w-full">
-					<div className="md:flex mb-4 gap-2 md:w-full md:flex-wrap">
-						{luuTru ? (
+					<div className="md:flex mb-4 gap-2 md:w-full md:flex-wrap justify-between">
+						{khachsan ? (
 							<>
-								{hotLuuTru.slice(0, 8).map((item, index) => (
+								{hotKhachSan.slice(0, 8).map((item, index) => (
 									<>
 										<div
-											className="md:w-w24 m-auto rounded-tl-2xl transition-all mb-3 h-340 hover:shadow-vv"
+											className="md:w-w24 rounded-tl-2xl transition-all mb-3 h-340 hover:shadow-vv"
 											key={index}
 										>
 											<Link
@@ -39,10 +36,11 @@ const ProductLayout = ({
 												onClick={() =>
 													handleAddToRecentlyViewed(
 														item.id,
-														item.danhmuc,
+														item.tinhThanh,
 														item.title,
+														item.tienich,
+														item.detail,
 														item.img,
-														item.price,
 														item.lastViewed,
 													)
 												}
@@ -57,15 +55,17 @@ const ProductLayout = ({
 														<p className="text-sm font-semibold tracking-wide mb-0.5 w-full truncate">
 															{item.title}
 														</p>
-														<div className="text-primary-cam text-xs tracking-wider">
-															<div className="mb-1">{renderStars(item.star)}</div>
-															<div className="flex justify-start gap-2 w-full truncate text-stone-400">
-																<i className="fa-solid fa-location-dot "></i>
+														<div className=" text-xs tracking-wider">
+															<div
+																className="mb-1 text-md"
+																style={styles}
+															>
+																{item.detail}
+															</div>
+															<div className="flex justify-start gap-2 w-full truncate text-primary-xanh">
+																<i className="fa-solid fa-location-dot"></i>
 																<p className="text-md">{item.diaChi}</p>
 															</div>
-														</div>
-														<div className="flex items-end font-semibold text-base text-primary-cam">
-															{item.price.toLocaleString('vi')} VND
 														</div>
 													</div>
 												</div>
@@ -85,21 +85,21 @@ const ProductLayout = ({
 					<img
 						src={banner2}
 						alt="Banner FourWay Travel"
-						className="w-full mt-2 mx-auto max-h-72 object-cover rounded-lg"
+						className="w-full mt-2 mx-auto  rounded-lg"
 					/>
 				</div>
 				<div className="flex justify-center items-center gap-2">
-					<i className="fa-solid fa-ticket text-2xl text-primary-xanh"></i>
-					<h1 className="py-5 text-xl font-semibold tracking-wide text-center">
-						Những chỗ nghỉ giảm giá hấp dẫn đề xuất cho quý khách
+					<i className="fa-solid fa-crown text-2xl text-primary-cam"></i>
+					<h1 className="my-6 text-3xl font-semibold tracking-wide text-center">
+						Những khách sạn sang trọng được đề xuất cho quý khách
 					</h1>
 				</div>
 
 				<div className="">
-					<div className="md:flex mb-4 gap-2 w-full md:flex-wrap ">
-						{luuTru ? (
+					<div className="md:flex mb-4 gap-2 w-full md:flex-wrap">
+						{khachsan ? (
 							<>
-								{topDiscountedLuuTru.slice(0, 8).map((item, index) => (
+								{khachSanVip.slice(0, 8).map((item, index) => (
 									<>
 										<div
 											className="md:w-w24 m-auto rounded-tl-2xl transition-all mb-3 h-340 hover:shadow-vv"
@@ -110,10 +110,10 @@ const ProductLayout = ({
 												onClick={() =>
 													handleAddToRecentlyViewed(
 														item.id,
-														item.danhmuc,
+														item.tinhThanh,
 														item.title,
+														item.detail,
 														item.img,
-														item.price,
 														item.lastViewed,
 													)
 												}
@@ -125,25 +125,30 @@ const ProductLayout = ({
 															alt={item.title}
 															className=" rounded-tl-2xl rounded-br-2xl w-full h-52 mb-0.5"
 														/>
-														<div className=" absolute top-5 opacity-90 right-0 w-1/3 text-center">
-															<div className="bg-primary-cam uppercase font-semibold tracking-wide text-xs py-1 text-white">
-																Giảm giá {item.voucher}%
-															</div>
+														<div className="absolute bottom-0 z-50 bg-gray-600">
+															<p className="px-3 py-1 text-sm text-white">
+																Giá từ: {(highestPriceDict[item.id])?.toLocaleString('vi') || 'N/A'} VND
+															</p>
 														</div>
 													</div>
 													<div className="text-black w-full p-2">
 														<p className="text-sm font-semibold tracking-wide mb-0.5 w-full truncate">
 															{item.title}
 														</p>
-														<div className="text-primary-cam text-xs tracking-wider">
-															<div className="mb-1">{renderStars(item.star)}</div>
-															<div className="flex justify-start gap-2 w-full text-stone-300  truncate">
+														<div className=" text-xs tracking-wider">
+															<div className="mb-1 text-primary-cam">
+																{renderStars(item.star)}
+															</div>
+															<div
+																className="mb-1 text-md"
+																style={styles}
+															>
+																{item.detail}
+															</div>
+															<div className="flex justify-start gap-2 w-full text-primary-xanh  truncate">
 																<i className="fa-solid fa-location-dot "></i>
 																<p className="text-md">{item.diaChi}</p>
 															</div>
-														</div>
-														<div className="font-semibold text-base text-primary-cam">
-															{item.price.toLocaleString('vi')} VND
 														</div>
 													</div>
 												</div>
@@ -158,7 +163,6 @@ const ProductLayout = ({
 					</div>
 				</div>
 			</div>
-
 		</>
 	);
 };

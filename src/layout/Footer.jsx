@@ -1,4 +1,4 @@
-export default function FooterLayout({ windowWidth, Link }) {
+export default function FooterLayout({ windowWidth, Link, Logo1 }) {
 	return (
 		<>
 			{windowWidth < 720 ? (
@@ -82,7 +82,8 @@ export default function FooterLayout({ windowWidth, Link }) {
 											Tìm nguồn cảm hứng đặc biệt cho kỳ nghỉ tiếp theo của bạn - đăng ký nhận bản
 											tin của chúng tôi.
 										</h2>
-										<form>
+
+										{/* <form>
 											<label
 												htmlFor="default-search"
 												className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-primary-footer"
@@ -121,7 +122,7 @@ export default function FooterLayout({ windowWidth, Link }) {
 													Đăng ký
 												</button>
 											</div>
-										</form>
+										</form> */}
 										<p className="mt-4 leading-normal text-left text-primary-footer text-s">
 											Copyright 2023 FourWay Travel.
 										</p>
@@ -136,7 +137,7 @@ export default function FooterLayout({ windowWidth, Link }) {
 					<footer>
 						<div className="py-6 mx-auto mt-12 border-t-2 bg-5 2xl:py-14 2xl:pb-16 px-7 2xs:px-8 l:px-14 2xl:px-5">
 							<div className="flex flex-col justify-between flex-shrink-0 w-3/4 mx-auto mb-6">
-								<h2 className="py-4 mb-4 text-3xl font-bold text-primary-footer">FOUR WAY TRAVEL</h2>
+								{/* <h2 className="py-4 mb-4 text-3xl font-bold text-primary-footer">FOUR WAY TRAVEL</h2> */}
 								<div className="grid grid-cols-3 gap-4">
 									<div className="flex flex-wrap col-span-1 gap-8">
 										<div className="List1">
@@ -208,11 +209,22 @@ export default function FooterLayout({ windowWidth, Link }) {
 									</div>
 
 									<div className="col-span-2 Input_form">
+										<div className="py-4 ">
+											<Link to="/">
+												<img
+													className="h-16 cursor-pointer"
+													src={Logo1}
+													alt=""
+												/>
+											</Link>
+										</div>
+
 										<h2 className="mb-6 text-lg font-bold text-primary-footer">
 											Tìm nguồn cảm hứng đặc biệt cho kỳ nghỉ tiếp theo của bạn - đăng ký nhận bản
 											tin của chúng tôi.
 										</h2>
-										<form>
+
+										{/* <form>
 											<label
 												htmlFor="default-search"
 												className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-primary-footer"
@@ -251,7 +263,7 @@ export default function FooterLayout({ windowWidth, Link }) {
 													Đăng ký
 												</button>
 											</div>
-										</form>
+										</form> */}
 										<p className="mt-4 leading-normal text-left text-grey-500 text-s text-primary-footer">
 											Copyright 2023 FourWay Travel.
 										</p>

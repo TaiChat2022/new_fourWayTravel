@@ -1,4 +1,4 @@
-import Logo from '@/assets/img/FWT.svg';
+import Logo from '@/assets/img/17.png';
 import Login from '@/auth/Login';
 import MenuLayOut from '@/layout/Menu';
 import { auth, firestore } from '@/utils/firebase.config';
@@ -8,7 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -27,7 +27,6 @@ const styleModal = {
 const ITEM_HEIGHT = 36;
 
 const Header = () => {
-
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
@@ -36,7 +35,6 @@ const Header = () => {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
-
 
 	// Modal
 	const [openModal, setOpenModal] = React.useState(false);
@@ -57,8 +55,7 @@ const Header = () => {
 		auth.onAuthStateChanged((user) => {
 			if (user) {
 				setUser(user);
-			}
-			else {
+			} else {
 				setUser(null);
 			}
 		});
@@ -83,7 +80,6 @@ const Header = () => {
 		}
 	};
 
-
 	return (
 		<MenuLayOut
 			Logo={Logo}
@@ -103,7 +99,6 @@ const Header = () => {
 			openModal={openModal}
 			handleOpenModal={handleOpenModal}
 			handleCloseModal={handleCloseModal}
-
 			Login={Login}
 			user={user}
 			signOut={signOut}
