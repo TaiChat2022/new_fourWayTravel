@@ -6,7 +6,7 @@ export default function FooterLayout({ windowWidth, Link, Logo1 }) {
 					<footer>
 						<div className="py-6 mx-auto mt-12 border-t-2 bg-5 2xl:py-14 2xl:pb-16 px-7 2xs:px-8 l:px-14 2xl:px-5">
 							<div className="flex flex-col justify-between flex-shrink-0 w-3/4 mx-auto mb-6">
-								<h2 className="py-4 mb-4 text-3xl font-bold text-primary-footer">FOUR WAY TRAVEL</h2>
+								{/* <h2 className="py-4 mb-4 text-3xl font-bold text-primary-footer">FOUR WAY TRAVEL</h2> */}
 								<div className="grid grid-cols-1 gap-4">
 									<div className="flex flex-col col-span-1 gap-8">
 										<div className="List1">
@@ -77,55 +77,59 @@ export default function FooterLayout({ windowWidth, Link, Logo1 }) {
 										</div>
 									</div>
 
-									<div className="col-span-1 Input_form">
+									<div className="grid col-span-1 Input_form">
 										<h2 className="mb-6 text-lg font-bold text-primary-footer">
 											Tìm nguồn cảm hứng đặc biệt cho kỳ nghỉ tiếp theo của bạn - đăng ký nhận bản
 											tin của chúng tôi.
 										</h2>
 
-										{/* <form>
-											<label
-												htmlFor="default-search"
-												className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-primary-footer"
-											>
-												Search
-											</label>
-											<div className="relative">
-												<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-													<svg
-														className="w-4 h-4 text-gray-500 dark:text-gray-400"
-														aria-hidden="true"
-														xmlns="http://www.w3.org/2000/svg"
-														fill="none"
-														viewBox="0 0 20 20"
-													>
-														<path
-															stroke="currentColor"
-															strokeLinecap="round"
-															strokeLinejoin="round"
-															strokeWidth={2}
-															d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-														/>
-													</svg>
-												</div>
-												<input
-													type="search"
-													id="default-search"
-													className="block w-full p-4 pl-10 text-sm text-gray-900 bg-white border border-gray-400 rounded-lg "
-													placeholder="Địa chỉ email..."
-													required
-												/>
-												<button
-													type="submit"
-													className="text-primary-footer absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-												>
-													Đăng ký
-												</button>
-											</div>
-										</form> */}
 										<p className="mt-4 leading-normal text-left text-primary-footer text-s">
 											Copyright 2023 FourWay Travel.
 										</p>
+									</div>
+									<div className="bao">
+										<h2 className="text-lg font-bold text-primary-footer">Thương hiệu</h2>
+										<div className="py-4 -ml-3 ">
+											<Link to="/">
+												<img
+													className="h-16 cursor-pointer"
+													src={Logo1}
+													alt=""
+												/>
+											</Link>
+										</div>
+
+										<h2 className="mb-6 text-lg font-bold text-primary-footer">
+											Tìm nguồn cảm hứng đặc biệt cho kỳ nghỉ tiếp theo của bạn - đăng ký nhận bản
+											tin của chúng tôi.
+										</h2>
+
+										<p className="mt-4 leading-normal text-left text-grey-500 text-s text-primary-footer">
+											Copyright 2023 FourWay Travel.
+										</p>
+									</div>
+									<div className="bao2">
+										<h2 className="-ml-3 text-lg font-bold text-primary-footer">
+											Thông tin liên lạc
+										</h2>
+										<div className="py-4 -ml-3 ">
+											<h3 className="text-primary-footer">
+												<i className="px-1 fas fa-envelope"></i>Fourwaytravel02@gmail.com
+											</h3>
+											<h3 className="py-4 text-primary-footer">
+												{' '}
+												<i className="px-1 fas fa-phone-volume"></i> 0865186230
+											</h3>
+											<h3 className="text-primary-footer">
+												{' '}
+												<i className="px-1 fas fa-home"></i> FPT Polytechnic
+											</h3>
+										</div>
+										<div className="h-0.5 w-full bg-1 "></div>
+										<h2 className="py-2 mb-6 text-lg font-bold text-primary-footer">
+											FourwayTravel đang nổ lực từng ngày để đem đến những khách sạn du lịch mới
+											mẻ và chất lượng dịch vụ hoàn hảo đến tay khách hàng.
+										</h2>
 									</div>
 								</div>
 							</div>
@@ -138,7 +142,7 @@ export default function FooterLayout({ windowWidth, Link, Logo1 }) {
 						<div className="py-6 mx-auto mt-12 border-t-2 bg-5 2xl:py-14 2xl:pb-16 px-7 2xs:px-8 l:px-14 2xl:px-5">
 							<div className="flex flex-col justify-between flex-shrink-0 w-3/4 mx-auto mb-6">
 								{/* <h2 className="py-4 mb-4 text-3xl font-bold text-primary-footer">FOUR WAY TRAVEL</h2> */}
-								<div className="grid grid-cols-3 gap-4">
+								<div className="grid grid-cols-3 gap-3">
 									<div className="flex flex-wrap col-span-1 gap-8">
 										<div className="List1">
 											<h2 className="mb-6 text-lg font-bold text-primary-footer">Công ty</h2>
@@ -208,65 +212,51 @@ export default function FooterLayout({ windowWidth, Link, Logo1 }) {
 										</div>
 									</div>
 
-									<div className="col-span-2 Input_form">
-										<div className="py-4 ">
-											<Link to="/">
-												<img
-													className="h-16 cursor-pointer"
-													src={Logo1}
-													alt=""
-												/>
-											</Link>
-										</div>
-
-										<h2 className="mb-6 text-lg font-bold text-primary-footer">
-											Tìm nguồn cảm hứng đặc biệt cho kỳ nghỉ tiếp theo của bạn - đăng ký nhận bản
-											tin của chúng tôi.
-										</h2>
-
-										{/* <form>
-											<label
-												htmlFor="default-search"
-												className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-primary-footer"
-											>
-												Search
-											</label>
-											<div className="relative">
-												<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-													<svg
-														className="w-4 h-4 text-gray-500 dark:text-gray-400"
-														aria-hidden="true"
-														xmlns="http://www.w3.org/2000/svg"
-														fill="none"
-														viewBox="0 0 20 20"
-													>
-														<path
-															stroke="currentColor"
-															strokeLinecap="round"
-															strokeLinejoin="round"
-															strokeWidth={2}
-															d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-														/>
-													</svg>
-												</div>
-												<input
-													type="search"
-													id="default-search"
-													className="block w-full p-4 pl-10 text-sm text-gray-900 bg-white border border-gray-400 rounded-lg "
-													placeholder="Địa chỉ email..."
-													required
-												/>
-												<button
-													type="submit"
-													className="text-primary-footer absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-												>
-													Đăng ký
-												</button>
+									<div className="flex col-span-2 gap-20 Input_form">
+										<div className="bao">
+											<h2 className="text-lg font-bold text-primary-footer">Thương hiệu</h2>
+											<div className="py-4 -ml-3 ">
+												<Link to="/">
+													<img
+														className="h-16 cursor-pointer"
+														src={Logo1}
+														alt=""
+													/>
+												</Link>
 											</div>
-										</form> */}
-										<p className="mt-4 leading-normal text-left text-grey-500 text-s text-primary-footer">
-											Copyright 2023 FourWay Travel.
-										</p>
+
+											<h2 className="mb-6 text-lg font-bold text-primary-footer">
+												Tìm nguồn cảm hứng đặc biệt cho kỳ nghỉ tiếp theo của bạn - đăng ký nhận
+												bản tin của chúng tôi.
+											</h2>
+
+											<p className="mt-4 leading-normal text-left text-grey-500 text-s text-primary-footer">
+												Copyright 2023 FourWay Travel.
+											</p>
+										</div>
+										<div className="bao">
+											<h2 className="-ml-3 text-lg font-bold text-primary-footer">
+												Thông tin liên lạc
+											</h2>
+											<div className="py-4 -ml-3 ">
+												<h3 className="text-primary-footer">
+													<i className="px-1 fas fa-envelope"></i>Fourwaytravel02@gmail.com
+												</h3>
+												<h3 className="py-4 text-primary-footer">
+													{' '}
+													<i className="px-1 fas fa-phone-volume"></i> 0865186230
+												</h3>
+												<h3 className="text-primary-footer">
+													{' '}
+													<i className="px-1 fas fa-home"></i> FPT Polytechnic
+												</h3>
+											</div>
+											<div className="h-0.5 w-full bg-1 "></div>
+											<h2 className="py-2 mb-6 text-lg font-bold text-primary-footer">
+												FourwayTravel đang nổ lực từng ngày để đem đến những khách sạn du lịch
+												mới mẻ và chất lượng dịch vụ hoàn hảo đến tay khách hàng.
+											</h2>
+										</div>
 									</div>
 								</div>
 							</div>
