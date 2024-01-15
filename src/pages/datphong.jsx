@@ -10,7 +10,9 @@ const Datphong = () => {
 	const { id } = useParams();
 	const { data } = useDocQuery('phong', id);
 	const { data: khachSan } = useDocsQuery('khachsan');
+	const { data: phong } = useDocsQuery('phong');
 	const [user, setUser] = React.useState(null);
+
 	React.useEffect(() => {
 		auth.onAuthStateChanged((user) => {
 			if (user) {
@@ -22,9 +24,8 @@ const Datphong = () => {
 	}, []);
 
 	const filterKhachSan = khachSan.find((item) => item.id === data.khachSanId);
-
+	const phongKS = phong.filter((item) => item.id === data.id);
 	const db = getFirestore();
-
 	const [formData, setFormData] = React.useState({
 		title: '',
 		firstName: '',
@@ -34,7 +35,7 @@ const Datphong = () => {
 		additionalRequest: '',
 		checkinTime: '',
 		checkoutTime: '',
-		cccd: '',
+		// cccd: '',
 	});
 
 	const [formErrors, setFormErrors] = React.useState({});
@@ -64,12 +65,6 @@ const Datphong = () => {
 
 		const currentDate = new Date();
 		currentDate.setHours(0, 0, 0, 0); // Reset time to 00:00:00 for comparison
-		// Validate CCCD
-		if (!formData.cccd.trim()) {
-			errors.cccd = 'CCCD không được để trống';
-		} else if (formData.cccd.trim().length !== 12 || !/^\d{12}$/.test(formData.cccd.trim())) {
-			errors.cccd = 'CCCD phải có đúng 12 số';
-		}
 
 		// Validate checkinTime
 		if (!formData.checkinTime) {
@@ -163,43 +158,6 @@ const Datphong = () => {
 		setFormData(updatedFormData);
 
 		try {
-			// Lấy thông tin đặt phòng của tất cả người dùng
-			const allUsersBookings = await getAllUsersBookings();
-
-			// Kiểm tra xung đột với thông tin đặt phòng của tất cả người dùng
-			const hasConflict = allUsersBookings.some((booking) => {
-				const bookingCheckinTime = new Date(booking.bookingDetails.checkinTime);
-				const bookingCheckoutTime = new Date(booking.bookingDetails.checkoutTime);
-				const newCheckinTime = new Date(formData.checkinTime);
-				const newCheckoutTime = new Date(formData.checkoutTime);
-
-				// Format dates to only include day, month, and year
-				const formatToDateOnly = (dateString) => {
-					const date = new Date(dateString);
-					const day = ('0' + date.getDate()).slice(-2);
-					const month = ('0' + (date.getMonth() + 1)).slice(-2);
-					const year = date.getFullYear();
-					return `${day}/${month}/${year}`;
-				};
-
-				const formattedBookingCheckin = formatToDateOnly(bookingCheckinTime);
-				const formattedBookingCheckout = formatToDateOnly(bookingCheckoutTime);
-				const formattedNewCheckin = formatToDateOnly(newCheckinTime);
-				const formattedNewCheckout = formatToDateOnly(newCheckoutTime);
-
-				return (
-					(formattedNewCheckin >= formattedBookingCheckin &&
-						formattedNewCheckin < formattedBookingCheckout) ||
-					(formattedNewCheckout > formattedBookingCheckin &&
-						formattedNewCheckout <= formattedBookingCheckout) ||
-					(formattedNewCheckin <= formattedBookingCheckin && formattedNewCheckout >= formattedBookingCheckout)
-				);
-			});
-
-			if (hasConflict) {
-				alert('Phòng đã được đặt trong khoảng thời gian này. Vui lòng chọn thời gian khác.');
-				return;
-			}
 
 			const submissionTime = new Date();
 			const formattedSubmissionTime = submissionTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
@@ -268,12 +226,12 @@ const Datphong = () => {
 				additionalRequest: '',
 				checkinTime: '',
 				checkoutTime: '',
-				cccd: '',
+				// cccd: '',
 				bookingStatus: 'Đang chờ duyệt', // Add this line
 			});
 
-			const { tieuDe, firstName, lastName, additionalRequest, cccd, bookingStatus } = formData;
-			const { img, tenPhong, price, loaiPhong, soPhong } = data;
+			const { tieuDe, firstName, lastName, additionalRequest, bookingStatus } = formData;
+			const { img, tenPhong, price, loaiPhong } = data;
 			const { tinhThanh, diaChi, title } = filterKhachSan;
 			// Chuẩn bị dữ liệu email
 			const emailData = {
@@ -380,10 +338,6 @@ const Datphong = () => {
 											<tr>
 												<td style="padding: 10px 10px 10px 0">Loại phòng</td>
 												<td style="padding: 10px 10px 10px 0">${loaiPhong}</td>
-											</tr>
-											<tr>
-												<td style="padding: 10px 10px 10px 0">Số phòng</td>
-												<td style="padding: 10px 10px 10px 0">${soPhong}</td>
 											</tr>
 											<tr>
 												<td style="padding: 10px 10px 10px 0">Thời gian nhận</td>

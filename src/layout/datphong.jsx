@@ -8,7 +8,9 @@ const DatphongLayout = ({
 	filterKhachSan,
 	renderStars,
 }) => {
+
 	return (
+
 		<>
 			<div className="container w-3/4 m-auto">
 				{Object.keys(formErrors).length > 0 && (
@@ -112,6 +114,7 @@ const DatphongLayout = ({
 									</div>
 								</div>
 
+								{/* Chọn thời gian đặt phòng */}
 								<div className="-mx-3 flex flex-wrap justify-between mb-4 relative">
 									<div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
 										<label
@@ -195,25 +198,6 @@ const DatphongLayout = ({
 									</div>
 								</div>
 
-								<div className="-mx-3 flex flex-wrap mb-2">
-									<div className="w-full px-3 mb-6 md:mb-0">
-										<label
-											className="block tracking-wide text-grey-darker text-sm mb-2"
-											htmlFor="grid-phone"
-										>
-											Số CCCD <span className="text-primary-xanh font-semibold">*</span>
-										</label>
-										<input
-											className="appearance-none text-sm outline-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-2 px-4"
-											id="grid-city"
-											type="text"
-											name="cccd"
-											value={formData.cccd}
-											onChange={handleChange}
-											placeholder=""
-										/>
-									</div>
-								</div>
 								<div className="-mx-3 flex mb-2">
 									<div className="w-full px-3 mb-6 md:mb-0">
 										<label
@@ -234,6 +218,8 @@ const DatphongLayout = ({
 									</div>
 								</div>
 							</div>
+
+
 							<div className="bg-white px-3 py-4 mb-4 border-primary-xanh border-2 rounded-lg">
 								<h1 className="text-lg font-semibold tracking-wide px-3">Chính sách Khách sạn</h1>
 								<div className="rounded-sm px-3">

@@ -15,27 +15,27 @@ const ChiTietLayout = ({
 
 }) => {
 
-	let totalAvailableRooms = 0;
+	// let totalAvailableRooms = 0;
 	let totalPhongDon = 0;
 	let totalPhongDoi = 0;
 	let totalPhongLon = 0;
 	if (phongKS) {
-		totalAvailableRooms = phongKS.reduce((total, room) => {
-			if (typeof room.trangThaiPhong === 'string') {
-				if (room.trangThaiPhong === 'Trống') {
-					return total;
-				} else {
-					return ++total;
-				}
-			} else {
-				const arrayLichSu = room.trangThaiPhong;
-				if (arrayLichSu.lichSuDatPhong?.some(item => item.trangThai) === true) {
-					return ++total;
-				} else {
-					return total;
-				}
-			}
-		}, 0);
+		// totalAvailableRooms = phongKS.reduce((total, room) => {
+		// 	if (typeof room.trangThaiPhong === 'string') {
+		// 		if (room.trangThaiPhong === 'Trống') {
+		// 			return total;
+		// 		} else {
+		// 			return ++total;
+		// 		}
+		// 	} else {
+		// 		const arrayLichSu = room.trangThaiPhong;
+		// 		if (arrayLichSu.lichSuDatPhong?.some(item => item.trangThai) === true) {
+		// 			return ++total;
+		// 		} else {
+		// 			return total;
+		// 		}
+		// 	}
+		// }, 0);
 
 		totalPhongDon = phongKS.reduce((total, room) => {
 			if (room.loaiPhong === 'Phòng đơn') {
@@ -70,6 +70,39 @@ const ChiTietLayout = ({
 			}
 		}, 0);
 	}
+
+	// Lấy ngày hiện tại
+	const currentDate = new Date();
+	const currentMonth = currentDate.getMonth() + 1; // Month is zero-based, so we add 1
+	const currentYear = currentDate.getFullYear();
+	const currentDay = currentDate.getDate();
+
+	// Tạo một mảng chứa tất cả các ngày trong tháng hiện tại
+	const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+	const allDays = Array.from({ length: daysInMonth }, (_, i) => String(i + 1).padStart(2, '0'));
+
+	// Map qua các phòng và tính toán các ngày còn trống
+	const formattedAvailableDaysByRoom = phongKS.map((room) => {
+		// Định dạng ngày checkin và checkout
+		const checkinDay = room.trangThaiPhong?.checkinTime?.slice(0, 2);
+		const checkoutDay = room.trangThaiPhong?.checkoutTime?.slice(0, 2);
+
+		// Loại bỏ các ngày đã được sử dụng và chỉ lấy ngày sau ngày hiện tại
+		const availableDays = allDays.filter(day => {
+			const dayNumber = parseInt(day, 10);
+			return (
+				dayNumber !== parseInt(checkinDay, 10) &&
+				dayNumber !== parseInt(checkoutDay, 10) &&
+				dayNumber >= currentDay
+			);
+		});
+
+		// Định dạng lại các ngày còn lại thành dd/mm/yy và thêm xuống dòng sau mỗi ngày
+		const formattedAvailableDays = availableDays.map(day => `${day}/${String(currentMonth).padStart(2, '0')}/${String(currentYear)}\n`);
+
+		return formattedAvailableDays;
+	});
+
 	return (
 		<>
 			<div className="container-details w-full h-auto">
@@ -80,7 +113,7 @@ const ChiTietLayout = ({
 							key={data.id}
 							className="flex flex-col items-start justify-center"
 						>
-							<div className="flex items-center gap-2">
+							<div className="flex flex-wrap items-center gap-2">
 								<h1 className="text-2xl font-bold my-2">{data.title}</h1>
 								<p className="render text-xm font-normal text-primary-xanh flex items-center pt-0.5">
 									Khách sạn
@@ -356,44 +389,53 @@ const ChiTietLayout = ({
 				{/* start loại phòng  */}
 				{
 					<>
-						{phongKS.length > 0 ?
-							(
-								<>
-									<div className="w-3/4 mx-auto py-2">
-										<h1 className="text-xl">
-											Tất cả các phòng: {phongKS.length}
-										</h1>
-										{totalPhongDon > 0 ? (
-											<>
-												<h1 className="text-xl">
-													Phòng đơn còn: {totalPhongDon}
-												</h1>
-											</>
-										) : (<></>)}
+						{phongKS.length > 0 ? (
+							<>
+								<div className="w-3/4 mx-auto py-2 flex justify-start items-center my-3 gap-3">
+									<h1 className="text-sm border-2 border-gray-300 rounded-3xl py-2 px-5">
+										Tất cả các phòng : {phongKS.length}
+									</h1>
+									{totalPhongDon > 0 ? (
+										<>
+											<h1 className="text-sm border-2 border-gray-300 rounded-3xl py-2 px-5">
+												Phòng đơn : {totalPhongDon}
+											</h1>
+										</>
+									) : (
+										<></>
+									)}
 
-										<h1 className="text-xl">
-											Phòng đôi còn: {totalPhongDoi}
-										</h1>
-										<h1 className="text-xl">
-											Phòng lớn còn: {totalPhongLon}
-										</h1>
-										<h1 className="text-xl">
-											Tất cả các phòng trống:
-											{phongKS.length - totalAvailableRooms}
-										</h1>
-									</div>
-								</>
-							) : (
-								<>
-									<div className="w-3/4 mx-auto py-2">
-										<h1 className="text-xl">
-											đã hết
-										</h1>
-									</div>
-								</>
-							)
-						}
-						{phongKS.map((room) => (
+									{totalPhongDoi > 0 ? (
+										<>
+											<h1 className="text-sm border-2 border-gray-300 rounded-3xl py-2 px-5">
+												Phòng đôi : {totalPhongDoi}
+											</h1>
+										</>
+									) : (
+										<></>
+									)}
+									{totalPhongLon > 0 ? (
+										<>
+											<h1 className="text-sm border-2 border-gray-300 rounded-3xl py-2 px-5">
+												Phòng lớn : {totalPhongLon}
+											</h1>
+										</>
+									) : (
+										<></>
+									)}
+									{/* {phongKS.length - totalAvailableRooms > 0 ? (
+										<>
+											<h1 className="text-sm border-2 border-gray-300 rounded-3xl py-2 px-5">
+												Tất cả các phòng trống: {phongKS.length - totalAvailableRooms}
+											</h1>
+										</>
+									) : (
+										<></>
+									)} */}
+								</div>
+							</>
+						) : (<></>)}
+						{phongKS?.map((room, index) => (
 							<div
 								className="shadow-3xl w-3/4 mx-auto mt-2 rounded-md px-3 py-3"
 								id="choose_room"
@@ -414,34 +456,18 @@ const ChiTietLayout = ({
 											</div>
 											<div className="flex justify-start text-lg items-center gap-3 pl-3 mt-3">
 												<i className="fa-solid fa-door-open"></i>
-												<span className="font-semibold ">
-													Số phòng :
-													{typeof room.trangThaiPhong === 'string' ? (
-														<>
-															{room.trangThaiPhong === 'Trống' ? (
-																<span className="text-green-500">
-																	{' '}
-																	1 phòng
-																</span>
-															) : (
-																<span className="text-red-500">
-																	{' '}
-																	đã hết
-																</span>
-															)}
-														</>
+												<span className="text-md">
+													Trạng thái :
+													{formattedAvailableDaysByRoom[index].length > 0 ? (
+														<span className="text-green-500">
+															{' '}
+															còn trống
+														</span>
 													) : (
-														<>
-															{room.trangThaiPhong.lichSuDatPhong?.some(item => item.trangThai) === true ? (
-																<>
-																	<span className="text-red-500"> đã hết</span>
-																</>
-															) : (
-																<>
-																	<span className="text-green-500"> 1 phòng</span>
-																</>
-															)}
-														</>
+														<span className="text-red-500">
+															{' '}
+															đã hết
+														</span>
 													)}
 												</span>
 											</div>
@@ -449,14 +475,23 @@ const ChiTietLayout = ({
 
 										<div className="md:w-4/6 md:h-auto shadow-3xl rounded-lg py-5 ">
 											<div className="px-6 md:flex md:justify-between">
-												<div className="flex flex-col pr-2">
-													<h1 className="font-semibold text-center">Tóm tắt</h1>
-													<span className="flex items-center justify-center mt-3 text-sm">
-														{/* 01/01/2024 */}
-														{room.trangThaiPhong?.checkinTime} -{' '}
-														{room.trangThaiPhong?.checkoutTime}
-														{/* 01/01/2024 */}
-													</span>
+												<div className="flex flex-col ">
+													<h1 className="font-semibold text-center">Chọn ngày</h1>
+													<select className="mt-3 text-md" >
+														{formattedAvailableDaysByRoom[index]
+															.filter(day => {
+																// Loại bỏ các ngày trùng với lichSu.checkinTime và lichSu.checkoutTime
+																const checkinDay = room?.trangThaiPhong?.lichSuDatPhong?.map(lichSu => lichSu.checkinTime.slice(0, 2));
+																const checkoutDay = room?.trangThaiPhong?.lichSuDatPhong?.map(lichSu => lichSu.checkoutTime.slice(0, 2));
+																return !checkinDay?.includes(day.slice(0, 2)) && !checkoutDay?.includes(day.slice(0, 2));
+															})
+															?.map((day, dayIndex) => (
+																<option key={dayIndex} value={day}>
+																	{day}
+																</option>
+															))}
+													</select>
+
 													<div className="font-medium text-xm text-gray-600 tracking-wider rounded-md mt-3">
 														<span>
 															{room?.khuyenmai ? (
@@ -507,7 +542,7 @@ const ChiTietLayout = ({
 														{room?.loaiPhong}
 													</p>
 												</div>
-												<div className="pl-2">
+												<div className="pl-2 pb-2">
 													{/* <p className="font-medium text-mm tracking-wider  mb-2">Bao gồm thuế mỗi đêm</p> */}
 													<p className="font-bold text-lg tracking-wider mb-1">
 														{room.price.toLocaleString('vi')} VND
@@ -516,6 +551,23 @@ const ChiTietLayout = ({
 													<p className="font-bold text-primary-cam text-mm tracking-wider text-xanhbg-primary-xanh">
 														Không tính VAT
 													</p>
+													{formattedAvailableDaysByRoom[index].length > 0 ? (
+														<div className="bg-primary-xanh mr-1 w-28 my-2 text-center rounded-lg">
+															<Link to={`/datphong/${room.id}`}>
+																<button className="px-3 py-2 text-base text-white">
+																	Đặt ngay
+																</button>
+															</Link>
+														</div>
+													) : (
+														<div className="bg-gray-300 mr-1 w-28 text-center rounded-lg">
+															<Link>
+																<button disabled className="px-3 py-2 text-base text-white">
+																	Đặt ngay
+																</button>
+															</Link>
+														</div>
+													)}
 												</div>
 											</div>
 											<div className="px-6 md:flex md:justify-between">
@@ -526,57 +578,6 @@ const ChiTietLayout = ({
 													</div>
 												</div>
 
-												{typeof room.trangThaiPhong === 'string' ? (
-													<>
-														{room.trangThaiPhong === 'Trống' ? (
-															<div className="bg-primary-xanh mr-1 w-28 text-center rounded-lg">
-																<Link to={`/datphong/${room.id}`}>
-																	<button className="px-3 py-2 text-base text-white">
-																		Đặt ngay
-																	</button>
-																</Link>
-															</div>
-														) : (
-															<div className="bg-gray-300 mr-1 w-28 text-center rounded-lg">
-																<Link>
-																	<button
-																		disabled
-																		className="px-3 py-2 text-base text-white"
-																	>
-																		Đặt ngay
-																	</button>
-																</Link>
-															</div>
-														)}
-													</>
-												) : (
-													<>
-														{room.trangThaiPhong.lichSuDatPhong?.some(item => item.trangThai) === true ? (
-															<>
-																<div className="bg-gray-300 mr-1 w-28 text-center rounded-lg">
-																	<Link>
-																		<button
-																			disabled
-																			className="px-3 py-2 text-base text-white"
-																		>
-																			Đặt ngay
-																		</button>
-																	</Link>
-																</div>
-															</>
-														) : (
-															<>
-																<div className="bg-primary-xanh mr-1 w-28 text-center rounded-lg">
-																	<Link to={`/datphong/${room.id}`}>
-																		<button className="px-3 py-2 text-base text-white">
-																			Đặt ngay
-																		</button>
-																	</Link>
-																</div>
-															</>
-														)}
-													</>
-												)}
 
 											</div>
 											<div className="px-6 md:flex md:justify-between gap-2 mt-4">
