@@ -36,17 +36,32 @@ const BookingLayout = ({
 			return acc;
 		}, {});
 	}, [filterKhachSan, phong, findCheapestRoom]);
-	const getLoaiPhong = useMemo(() => {
-		const kq = {};
-		filterKhachSan.map((item) => {
-			kq[item.id] = phong.filter((item2) => item2.khachSanId === item.id)[0]?.loaiPhong;
-		});
-		return kq;
-	}, [filterKhachSan, phong]);
-	console.log(getLoaiPhong);
+
 	// limit load khách sạn
 	const [numHotelsDisplayed, setNumHotelsDisplayed] = useState(4);
 	const numHotelsPerPage = 4; // Số lượng khách sạn mỗi lần hiển thị thêm
+
+	// Đếm số phòng
+	const demPhong = (idKS) => {
+		const filteredPhongKS = phong.filter((item) => item.khachSanId === idKS);
+		let totalAvailableRooms = 0;
+		totalAvailableRooms = filteredPhongKS.reduce((total, room) => {
+			if (typeof room.trangThaiPhong === 'string') {
+				if (room.trangThaiPhong === 'Trống') {
+					return total;
+				} else {
+					return ++total;
+				}
+			} else {
+				if (room.trangThaiPhong.lichSuDatPhong?.some((item) => item.trangThai) === true) {
+					return ++total;
+				} else {
+					return total;
+				}
+			}
+		}, 0);
+		return filteredPhongKS.length - totalAvailableRooms;
+	}
 
 	return (
 		<>
@@ -194,31 +209,6 @@ const BookingLayout = ({
 						</div>
 					</>
 				)}
-				<>
-					<span className="font-bold">Sắp xếp theo giá: </span>
-					<button
-						className={`
-								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-								
-								focus:outline-none bg-white rounded-lg border 
-								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-								
-							`}
-						onClick={() => setFilterPrice('thap')}
-					>
-						Giá Thấp - Cao
-					</button>
-					<button
-						className={`
-								py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-								focus:outline-none bg-white rounded-lg border 
-								hover:bg-gray-100 active:text-blue-700 focus:z-10 focus:ring-4
-							`}
-						onClick={() => setFilterPrice('cao')}
-					>
-						Giá Cao - Thấp
-					</button>
-				</>
 				{khachsan ? (
 					<>
 						{!selectedTinhThanh?.tenTinhThanh || !selectedTinhThanh ? (
@@ -342,23 +332,15 @@ const BookingLayout = ({
 																{cheapestRooms[item.id]}
 																<i className="fa-solid fa-user ml-2"></i>
 															</span>
-															<span className="flex text-lg md:text-md mt-1 font-semibold mr-4">
-																{item.price.toLocaleString('vi')} VND
-															</span>
-														</div>
-														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1">
-															{lowestPriceDict[item.id] > 0 ? (
-																<>
-																	<span className="flex text-md font-semibold mr-4">
-																		{lowestPriceDict[item.id]?.toLocaleString(
-																			'vi',
-																		) + ' VNĐ'}
-																	</span>
-																</>
+															{demPhong(item.id) > 0 ? (
+																<div className="">
+																	<p className="text-sm font-semibold text-primary-cam">
+																		Còn {demPhong(item.id)} phòng
+																	</p>
+																</div>
 															) : (
 																<></>
 															)}
-															<span className="font-bold">{getLoaiPhong[item.id]}</span>
 														</div>
 													</div>
 													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-xanh transition-all hover:opacity-80">
@@ -382,14 +364,13 @@ const BookingLayout = ({
 													</div>
 												</div>
 											</div>
-										</div>
+										</div >
 									</>
 								))}
 								<button
-									className={`
-												py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-												focus:outline-none bg-blue-500 rounded-lg border 
-												hover:bg-blue-700 active:text-blue-700 focus:z-10 focus:ring-4
+									className={`flex justify-center items-center
+												w-28 m-auto h-10 text-sm font-medium
+												bg-primary-xanh rounded-lg border-none text-white												
 											`}
 									onClick={() => {
 										// Tăng số lượng khách sạn đã được hiển thị lên numHotelsPerPage
@@ -520,22 +501,6 @@ const BookingLayout = ({
 																<i className="fa-solid fa-user mb-0.5 ml-2"></i>
 															</span>
 														</div>
-														<div className="flex flex-wrap items-center justify-between ml-3 mr-2 mb-1 gap-2">
-															<span className=" font-bold text-lg">
-																{lowestPriceDict[item.id] > 0 ? (
-																	<>
-																		<span className="flex text-md font-semibold mr-4">
-																			{lowestPriceDict[item.id]?.toLocaleString(
-																				'vi',
-																			) + ' VNĐ'}
-																		</span>
-																	</>
-																) : (
-																	<></>
-																)}
-															</span>
-															<span className="font-bold">{getLoaiPhong[item.id]}</span>
-														</div>
 													</div>
 													<div className="w-full h-14 border-none rounded-lg py-2 mt-3 flex gap-2 flex-wrap bg-primary-xanh transition-all hover:opacity-80">
 														<Link
@@ -562,10 +527,9 @@ const BookingLayout = ({
 									</>
 								))}
 								<button
-									className={`
-												py-2.5 ml-2 px-4 me-2 mb-2 text-sm font-medium
-												focus:outline-none bg-blue-500 rounded-lg border 
-												hover:bg-blue-700 active:text-blue-700 focus:z-10 focus:ring-4
+									className={`flex justify-center items-center
+												w-28 m-auto h-10 text-sm font-medium
+												bg-primary-xanh rounded-lg border-none text-white
 											`}
 									onClick={() => {
 										// Tăng số lượng khách sạn đã được hiển thị lên numHotelsPerPage
@@ -582,7 +546,7 @@ const BookingLayout = ({
 						<p>Không tìm được phòng</p>
 					</>
 				)}
-			</div>
+			</div >
 		</>
 	);
 };

@@ -1,7 +1,8 @@
 // import banner1 from '../assets/img/HOTELVIETANH.jpg';
 import banner2 from '../assets/img/banner2_pnt.png';
+
 const ProductLayout = ({
-	khachsan,
+	khachsan, highestPriceDict,
 	renderStars,
 	Link,
 	hotKhachSan,
@@ -9,6 +10,7 @@ const ProductLayout = ({
 	khachSanVip,
 	styles,
 }) => {
+
 	return (
 		<>
 			<div className="mx-auto w-3/4 mt-4 px-0 py-0 ">
@@ -125,7 +127,7 @@ const ProductLayout = ({
 														/>
 														<div className="absolute bottom-0 z-50 bg-gray-600">
 															<p className="px-3 py-1 text-sm text-white">
-																Giá từ 1.220.000 VND
+																Giá từ: {(highestPriceDict[item.id])?.toLocaleString('vi') || 'N/A'} VND
 															</p>
 														</div>
 													</div>

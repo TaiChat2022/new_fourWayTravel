@@ -43,7 +43,7 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChang
 														<div className="rounded-sm border p-3 flex flex-col md:flex-row justify-between item gap-5">
 															<div className="w-full md:w-1/5">
 																<img
-																	className="w-full md:w-32 h-32 rounded-lg object-cover"
+																	className="w-full h-32 rounded-lg object-cover"
 																	src={item.img}
 																	alt={item.title}
 																/>
@@ -144,7 +144,7 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChang
 																		vào ngày bạn chọn
 																	</p>
 																	<Link
-																		className="text-white px-3 py-2 self-end text-xs font-bold w-auto rounded-lg bg-gray-500 border-b border-gray-500 hover:bg-gray-500 focus:bg-gray-500 active:bg-gray-500 disabled:bg-gray-300 disabled:border-gray-300 "
+																		className="text-white w-full px-3 py-2 self-end text-xs text-center font-bol rounded-lg bg-gray-500 border-b border-gray-500 hover:bg-gray-500 focus:bg-gray-500 active:bg-gray-500 disabled:bg-gray-300 disabled:border-gray-300 "
 																		to={`/booking/chitiet/${item.id}`}
 																	>
 																		Kiểm tra giá

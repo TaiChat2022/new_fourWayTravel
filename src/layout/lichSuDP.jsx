@@ -1,4 +1,4 @@
-const LichSuDPLayout = ({ Link, currentUser, phong, renderStars, filteredPhong, userDatPhong }) => {
+const LichSuDPLayout = ({ Link, currentUser, phong, renderStars, filteredPhong, userDatPhong, filterKhachSan }) => {
 
 	return (
 		<>
@@ -21,7 +21,7 @@ const LichSuDPLayout = ({ Link, currentUser, phong, renderStars, filteredPhong, 
 									className="text-xl font-semibold  text-heading-xl text-gray-900"
 									data-testid="favorites-page-headline"
 								>
-									Lịch sử đặt lưu trú
+									Lịch sử đặt phòng
 								</h1>
 
 							</div>
@@ -35,53 +35,136 @@ const LichSuDPLayout = ({ Link, currentUser, phong, renderStars, filteredPhong, 
 											<div className="rounded-sm border p-3 flex flex-col md:flex-row justify-between item gap-5">
 												<div className="w-full md:w-1/5">
 													<img
-														className="w-full md:w-32 h-32 rounded-lg object-cover"
+														className="w-full h-full rounded-lg object-cover"
 														src={item.img}
 														alt={item.title}
 													/>
 												</div>
 												<div className="w-full md:w-3/5">
-													<div className="">
-														<h1 className="font-semibold text-xl">{item.title}</h1>
-													</div>
+													{/* Thông tin khách sạn */}
+													{filterKhachSan.length > 0 ? (
+														<>
+															{filterKhachSan.map((ks, index) => (
+																<div key={index}>
+																	<div className="">
+																		<h1 className="font-semibold text-xl">{ks.title}</h1>
+																	</div>
 
-													<div className="">
-														<p className="render text-xm font-normal text-primary-xanh flex items-center">
-															Khách Sạn
-															<span className="text-sm ml-2 text-primary-vang">
-																{renderStars(item.star)}
-															</span>
-														</p>
-													</div>
-													<div className="flex items-center justify-start mt-2 text-sm">
-														<span className="font-semibold text-sm mr-1">
-															<i className="fa-solid fa-location-dot text-primary-do"></i>
-														</span>
-														<p className="text-sm font-medium ">{item.diaChi} </p>
-													</div>
-													<div className="flex flex-wrap gap-2 mb-2">
-														{item.tienich.slice(0, 4).map((value, index) => (
-															<div
-																key={index}
-																className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
-															>
-																<div className="flex justify-start items-center  pt-1 text-mm gap-1">
-																	<div className="p-1">{value} </div>
+																	<div className="">
+																		<p className="render text-xm font-normal text-primary-xanh flex items-center">
+																			Khách Sạn
+																			<span className="text-sm ml-2 text-primary-vang">
+																				{renderStars(ks.star)}
+																			</span>
+																		</p>
+																	</div>
+																	<div className="flex items-center justify-start mt-2 text-sm">
+																		<span className="font-semibold text-sm mr-1">
+																			<i className="fa-solid fa-location-dot text-primary-do"></i>
+																		</span>
+																		<p className="text-sm font-medium ">{ks.diaChi} </p>
+																	</div>
+																	<div className="flex flex-wrap gap-2 mb-2">
+																		{ks.tienich?.slice(0, 4).map((value, index) => (
+																			<div
+																				key={index}
+																				className="w-auto h-8 border-none bg-gray-200 rounded-lg mt-1 "
+																			>
+																				<div className="flex justify-start items-center  pt-1 text-mm gap-1">
+																					<div className="p-1">{value} </div>
+																				</div>
+																			</div>
+																		))}
+																	</div>
 																</div>
-															</div>
-														))}
-													</div>
+															))}
+														</>
+													) : (
+														<>Không có thông tin khách sạn phù hợp</>
+													)}
+
+													{/* Thông tin trạng thái */}
+													<span className="font-semibold flex flex-row">
+														Trạng thái :
+														{typeof item.trangThaiPhong === 'string' ? (
+															<>
+																{item.trangThaiPhong === 'Trống' ? (
+																	<span className="text-green-500">
+																		{' '}
+																		{item.trangThaiPhong}
+																	</span>
+																) : (
+																	<span className="text-red-500">
+																		{' '}
+																		{item.trangThaiPhong}
+																	</span>
+																)}
+															</>
+														) : (
+															<>
+																{item.trangThaiPhong.lichSuDatPhong?.some((datphong) => datphong.trangThai) === true ?
+																	(
+																		<>
+																			<span className="text-red-500 ml-1"> Đã đặt</span>
+																		</>
+																	) : (
+																		<>
+																			<span className="text-green-500 ml-1"> Trống</span>
+																		</>
+																	)
+																}
+
+															</>
+														)}
+													</span>
 												</div>
+
 												<div className="w-full md:w-1/5 flex flex-row md:flex-col justify-between">
-													<div className="bg-primary-do w-full rounded-md mt-5 mr-1 md:mr-0">
-														<p className="font-semibold text-white tracking-wider text-center py-3 w-full px-5 text-sm">
+													<div className="border border-orange-500 w-full rounded-md mt-5 mr-1 md:mr-0">
+														<p className="font-semibold text-orange-500 tracking-wider text-center py-3 w-full px-5 text-sm">
 															{item.price.toLocaleString('vi')} VND
 														</p>
 													</div>
 													<div className="mt-5 w-full">
-														<button className="rounded-lg bg-primary-xanh py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
-															<Link to={`/datphong/${item.id}`}>Đặt lại ngay</Link>
-														</button>
+														{typeof item.trangThaiPhong === 'string' ? (
+															<>
+																{item.trangThaiPhong === 'Trống' ? (
+																	<Link to={`/datphong/${item.id}`}>
+																		<button className="rounded-lg bg-primary-xanh py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
+																			Đặt lại ngay
+																		</button>
+																	</Link>
+																) : (
+																	<Link>
+																		<button disabled className="rounded-lg bg-gray-300 py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
+																			Đặt lại ngay
+																		</button>
+																	</Link>
+																)}
+															</>
+														) : (
+															<>
+																{item.trangThaiPhong.lichSuDatPhong?.some((datphong) => datphong.trangThai) === true ?
+																	(
+																		<>
+																			<Link>
+																				<button disabled className="rounded-lg bg-gray-300 py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
+																					Đặt lại ngay
+																				</button>
+																			</Link>
+																		</>
+																	) : (
+																		<>
+																			<Link to={`/datphong/${item.id}`}>
+																				<button className="rounded-lg bg-primary-xanh py-4 w-full px-5 text-xs text-white font-semibold tracking-wider uppercase">
+																					Đặt lại ngay
+																				</button>
+																			</Link>
+																		</>
+																	)
+																}
+															</>
+														)}
 													</div>
 												</div>
 											</div>

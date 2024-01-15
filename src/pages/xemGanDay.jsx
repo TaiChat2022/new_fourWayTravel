@@ -1,7 +1,7 @@
 import { useDocsQuery } from '@/hooks/useFirestore';
 import XemGanDayLayout from '@/layout/xemGanDay';
 import { auth, firestore } from '@/utils/firebase.config';
-import { collection, doc, getDocs, query, where, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -46,37 +46,39 @@ const XemGanDay = () => {
 			unsubscribe();
 		};
 	}, []);
-	const autoDeleteXemGanDay = async () => {
-		if (currentUser) {
-			const userRef = doc(firestore, 'users', currentUser.uid);
-			const xemGanDayRef = collection(userRef, 'xemGanDay');
 
-			try {
-				// Lấy thời điểm hiện tại
-				const currentTime = new Date();
+	// xóa lịch sử xem gần đây theo thời gian
+	// const autoDeleteXemGanDay = async () => {
+	// 	if (currentUser) {
+	// 		const userRef = doc(firestore, 'users', currentUser.uid);
+	// 		const xemGanDayRef = collection(userRef, 'xemGanDay');
 
-				// Xác định thời điểm 1 phút trước
-				const oneMinuteAgo = new Date(currentTime.getTime() - 30000); // 60000 milliseconds = 1 phút
+	// 		try {
+	// 			// Lấy thời điểm hiện tại
+	// 			const currentTime = new Date();
 
-				// Lấy các tài liệu có trường 'lastViewed' trước thời điểm 1 phút trước
-				const querySnapshot = await getDocs(query(xemGanDayRef, where('lastViewed', '<', oneMinuteAgo)));
+	// 			// Xác định thời điểm 1 phút trước
+	// 			const oneMinuteAgo = new Date(currentTime.getTime() - 30000); // 60000 milliseconds = 1 phút
 
-				const deletePromises = [];
+	// 			// Lấy các tài liệu có trường 'lastViewed' trước thời điểm 1 phút trước
+	// 			const querySnapshot = await getDocs(query(xemGanDayRef, where('lastViewed', '<', oneMinuteAgo)));
 
-				// Thực hiện xóa từng tài liệu
-				querySnapshot.forEach((doc) => {
-					deletePromises.push(deleteDoc(doc.ref));
-				});
+	// 			const deletePromises = [];
 
-				// Chờ cho tất cả các hành động xóa hoàn thành
-				await Promise.all(deletePromises);
+	// 			// Thực hiện xóa từng tài liệu
+	// 			querySnapshot.forEach((doc) => {
+	// 				deletePromises.push(deleteDoc(doc.ref));
+	// 			});
 
-				// console.log(`Xóa xem gần đây sau 30s  thành công.`);
-			} catch (error) {
-				// console.error('Lỗi không thể nào xóa xem gần đây sau 30s được:', error);
-			}
-		}
-	};
+	// 			// Chờ cho tất cả các hành động xóa hoàn thành
+	// 			await Promise.all(deletePromises);
+
+	// 			// console.log(`Xóa xem gần đây sau 30s  thành công.`);
+	// 		} catch (error) {
+	// 			// console.error('Lỗi không thể nào xóa xem gần đây sau 30s được:', error);
+	// 		}
+	// 	}
+	// };
 	const [xemGanDay, setXemGanDay] = React.useState([]);
 
 	const handleAddToRecentlyViewed = async (itemId, tinhThanh, title, img) => {

@@ -21,7 +21,7 @@ const Datphong = () => {
 		});
 	}, []);
 
-	const filterKhachSan = khachSan.find(item => item.id === data.khachSanId);
+	const filterKhachSan = khachSan.find((item) => item.id === data.khachSanId);
 
 	const db = getFirestore();
 
@@ -34,7 +34,7 @@ const Datphong = () => {
 		additionalRequest: '',
 		checkinTime: '',
 		checkoutTime: '',
-		cccd: ''
+		cccd: '',
 	});
 
 	const [formErrors, setFormErrors] = React.useState({});
@@ -105,7 +105,7 @@ const Datphong = () => {
 
 		return allUsersBookings;
 	};
-	// cập nhật 2 hàm này để sài được thống kê 
+	// cập nhật 2 hàm này để sài được thống kê
 	const handleBookingSuccess = async (phongID) => {
 		try {
 			const phongDocRef = doc(db, 'phong', phongID);
@@ -145,19 +145,18 @@ const Datphong = () => {
 			// Set check-in time to 2 PM (14:00) on the selected date
 			const checkinDate = new Date(value);
 			checkinDate.setHours(14, 0, 0); // Set to 14:00:00
-			updatedFormData.checkinTime = checkinDate.toISOString().split("T")[0];
+			updatedFormData.checkinTime = checkinDate.toISOString().split('T')[0];
 
 			// Automatically set checkout time to 12 PM (12:00) the next day
 			const checkoutDate = new Date(checkinDate);
 			checkoutDate.setDate(checkoutDate.getDate() + 1); // Add one day
 			checkoutDate.setHours(12, 0, 0); // Set to 12:00:00
-			updatedFormData.checkoutTime = checkoutDate.toISOString().split("T")[0];
-
+			updatedFormData.checkoutTime = checkoutDate.toISOString().split('T')[0];
 		} else if (name === 'checkoutTime') {
 			// Set checkout time to 12 PM (12:00) on the selected date
 			const checkoutDate = new Date(value);
 			checkoutDate.setHours(12, 0, 0); // Set to 12:00:00
-			updatedFormData.checkoutTime = checkoutDate.toISOString().split("T")[0];
+			updatedFormData.checkoutTime = checkoutDate.toISOString().split('T')[0];
 		} else {
 			updatedFormData[name] = value;
 		}
@@ -189,8 +188,10 @@ const Datphong = () => {
 				const formattedNewCheckout = formatToDateOnly(newCheckoutTime);
 
 				return (
-					(formattedNewCheckin >= formattedBookingCheckin && formattedNewCheckin < formattedBookingCheckout) ||
-					(formattedNewCheckout > formattedBookingCheckin && formattedNewCheckout <= formattedBookingCheckout) ||
+					(formattedNewCheckin >= formattedBookingCheckin &&
+						formattedNewCheckin < formattedBookingCheckout) ||
+					(formattedNewCheckout > formattedBookingCheckin &&
+						formattedNewCheckout <= formattedBookingCheckout) ||
 					(formattedNewCheckin <= formattedBookingCheckin && formattedNewCheckout >= formattedBookingCheckout)
 				);
 			});
@@ -219,8 +220,22 @@ const Datphong = () => {
 				newDatphongArray = userData.datphong ? [...userData.datphong] : [];
 			}
 			// Format checkinTime and checkoutTime
-			const formattedCheckinTime = new Date(formData.checkinTime).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', year: 'numeric', month: '2-digit', day: '2-digit' }).split(', ')[0];
-			const formattedCheckoutTime = new Date(formData.checkoutTime).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', year: 'numeric', month: '2-digit', day: '2-digit' }).split(', ')[0];
+			const formattedCheckinTime = new Date(formData.checkinTime)
+				.toLocaleString('vi-VN', {
+					timeZone: 'Asia/Ho_Chi_Minh',
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit',
+				})
+				.split(', ')[0];
+			const formattedCheckoutTime = new Date(formData.checkoutTime)
+				.toLocaleString('vi-VN', {
+					timeZone: 'Asia/Ho_Chi_Minh',
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit',
+				})
+				.split(', ')[0];
 			// Append the new booking with a unique ID to the datphong array
 			newDatphongArray.push({
 				uid: bookingId,
@@ -230,9 +245,10 @@ const Datphong = () => {
 				tongTien: data.price * numberOfDaysStayed,
 				giaGoc: data.price,
 				bookingDetails: {
-					...formData, checkinTime: formattedCheckinTime
-					, checkoutTime: formattedCheckoutTime,
-					bookingStatus: 'Đang chờ duyệt'
+					...formData,
+					checkinTime: formattedCheckinTime,
+					checkoutTime: formattedCheckoutTime,
+					bookingStatus: 'Đang chờ duyệt',
 				},
 			});
 
@@ -253,7 +269,7 @@ const Datphong = () => {
 				checkinTime: '',
 				checkoutTime: '',
 				cccd: '',
-				bookingStatus: 'Đang chờ duyệt' // Add this line
+				bookingStatus: 'Đang chờ duyệt', // Add this line
 			});
 
 			const { tieuDe, firstName, lastName, additionalRequest, cccd, bookingStatus } = formData;
@@ -315,7 +331,7 @@ const Datphong = () => {
 										class="title"
 										style="margin-left: 2rem; margin-right: 2rem"
 									>
-										<h3>Kính gửi: Quý ${tieuDe ? (tieuDe) : (`khách hàng`)} ${lastName} ${firstName}</h3>
+										<h3>Kính gửi: Quý ${tieuDe ? tieuDe : `khách hàng`} ${lastName} ${firstName}</h3>
 										<h3>Cám ơn Quý khách đã sử dụng dịch vụ đặt phòng của FourWay Travel.</h3>
 
 										<h3 class="ttdh">Thông tin đơn hàng:</h3>
@@ -344,10 +360,6 @@ const Datphong = () => {
 											<tr>
 												<td style="padding: 10px 10px 10px 0">Thời gian thanh toán</td>
 												<td style="padding: 10px 10px 10px 0">${formattedSubmissionTime}</td>
-											</tr>
-											<tr>
-												<td style="padding: 10px 10px 10px 0">Số CCCD của khách</td>
-												<td style="padding: 10px 10px 10px 0">${cccd}</td>
 											</tr>
 											<tr>
 												<td style="padding: 10px 10px 10px 0">Khu vực</td>
@@ -382,7 +394,7 @@ const Datphong = () => {
 												<td style="padding: 10px 10px 10px 0">12:00:00 ${formattedCheckoutTime}</td>
 											</tr>
 											<tr>
-												<td style="padding: 10px 10px 10px 0">Tổng số ngày khách ở</td>
+												<td style="padding: 10px 10px 10px 0">Tổng cộng</td>
 												<td style="padding: 10px 10px 10px 0">${numberOfDaysStayed} ngày</td>
 											</tr>
 
@@ -397,23 +409,29 @@ const Datphong = () => {
 												</td>
 											</tr>
 
-											${additionalRequest == '' ? (``) : (`
+											${additionalRequest == ''
+						? ``
+						: `
 											<tr>
 												<td style="padding: 10px 10px 10px 0">Yêu cầu thêm</td>
 												<td style="padding: 10px 10px 10px 0">${additionalRequest}</td>
 											</tr>
-											`)}
-											${bookingStatus ? (`
+											`
+					}
+											${bookingStatus
+						? `
 												<tr>
 													<td style="padding: 10px 10px 10px 0">Trạng thái</td>
 													<td style="padding: 10px 10px 10px 0; color:#888888">${bookingStatus}</td>
 												</tr>
-											`) : (`
+											`
+						: `
 												<tr>
 													<td style="padding: 10px 10px 10px 0">Trạng thái</td>
 													<td style="padding: 10px 10px 10px 0; color:#888888">Đang chờ duyệt</td>
 												</tr>
-											`)}
+											`
+					}
 											
 										</table>
 									</div>
@@ -432,7 +450,7 @@ const Datphong = () => {
 										"
 									>
 										<img
-											src="https://firebasestorage.googleapis.com/v0/b/hotel-fourwaytravel.appspot.com/o/Logo.png?alt=media&token=f948c7fd-43ae-46b2-95fe-e92ad0a54053"
+											src="https://firebasestorage.googleapis.com/v0/b/hotel-fourwaytravel.appspot.com/o/footerLogo.png?alt=media&token=639847c0-fdf3-4e67-b0b0-0e85bb1be2b5"
 											style="
 												width: 200px;
 												height: 100px;
@@ -483,7 +501,6 @@ const Datphong = () => {
 			} catch (error) {
 				// console.error('Error sending email:', error);
 			}
-
 		} catch (error) {
 			// console.error('Error updating document: ', error);
 			alert('Lỗi khi lưu thông tin đặt phòng.');
@@ -529,6 +546,18 @@ const Datphong = () => {
 		}
 	}, [formData.checkinTime, formData.checkoutTime]);
 
+	const renderStars = (soSao) => {
+		let stars = [];
+		for (let i = 0; i < soSao; i++) {
+			stars.push(
+				<i
+					key={i}
+					className="fa-solid fa-star text-white-100"
+				></i>,
+			);
+		}
+		return stars;
+	};
 
 	return (
 		<>
@@ -541,6 +570,7 @@ const Datphong = () => {
 				updateFirebaseWithSelectedValue={updateFirebaseWithSelectedValue}
 				numberOfDaysStayed={numberOfDaysStayed}
 				filterKhachSan={filterKhachSan}
+				renderStars={renderStars}
 			/>
 		</>
 	);

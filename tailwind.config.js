@@ -8,6 +8,7 @@ export default {
 				product: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;',
 				zz: 'rgba(0, 0, 0, 0.16) 0px 1px 4px;',
 				vv: 'rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;',
+				xgd: 'rgba(0, 0, 0, 0.16) 0px 1px 4px;',
 			},
 			lineHeight: {
 				128: '128px',
@@ -34,6 +35,7 @@ export default {
 				w24: '24%',
 			},
 			height: {
+				600: '600px',
 				400: '400px',
 				300: '300px',
 				340: '340px',
@@ -64,6 +66,7 @@ export default {
 				do: '#FF6D43',
 				vang: '#FFCC43',
 				cam: '#ff6d43',
+				banner: '#000',
 			},
 			translate: {
 				10: '10%',

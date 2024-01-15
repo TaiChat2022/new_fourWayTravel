@@ -2,11 +2,11 @@ import '@/assets/css/hotTab.css';
 import { useDocsQuery } from '@/hooks/useFirestore';
 import ProductLayout from '@/layout/Product';
 import { auth, firestore } from '@/utils/firebase.config';
-
 import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 const Product = () => {
+	const { data: phong } = useDocsQuery('phong');
 	const { data: khachsan } = useDocsQuery('khachsan');
 	const renderStars = (soSao) => {
 		let stars = [];
@@ -84,10 +84,28 @@ const Product = () => {
 	};
 	const topDiscountedLuuTru = [...LuuTruGiamGia].sort((a, b) => b.voucher - a.voucher).slice(0, 4);
 
+	// lấy giá lớn nhất từ phòng khách sạn
+	const highestPriceDict = useMemo(() => {
+		const kq = {};
+
+		khachSanVip.forEach((vipHotel) => {
+			const roomsForHotel = phong.filter((room) => room.khachSanId === vipHotel.id);
+			if (roomsForHotel.length > 0) {
+				const highestPriceRoom = roomsForHotel.reduce((maxPriceRoom, currentRoom) => {
+					return currentRoom.price > maxPriceRoom.price ? currentRoom : maxPriceRoom;
+				}, roomsForHotel[0]);
+				kq[vipHotel.id] = highestPriceRoom.price;
+			}
+		});
+
+		return kq;
+	}, [khachSanVip, phong]);
+
 	return (
 		<>
 			<ProductLayout
 				styles={styles}
+				highestPriceDict={highestPriceDict}
 				khachsan={khachsan}
 				khachSanVip={khachSanVip}
 				hotKhachSan={hotKhachSan}
