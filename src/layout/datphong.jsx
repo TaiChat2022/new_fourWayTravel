@@ -7,6 +7,7 @@ const DatphongLayout = ({
 	numberOfDaysStayed,
 	filterKhachSan,
 	renderStars,
+	timNhanNgayTrung, timTraNgayTrung
 }) => {
 
 	return (

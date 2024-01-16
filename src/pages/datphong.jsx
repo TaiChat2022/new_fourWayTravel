@@ -10,7 +10,6 @@ const Datphong = () => {
 	const { id } = useParams();
 	const { data } = useDocQuery('phong', id);
 	const { data: khachSan } = useDocsQuery('khachsan');
-	const { data: phong } = useDocsQuery('phong');
 	const [user, setUser] = React.useState(null);
 
 	React.useEffect(() => {
@@ -23,8 +22,15 @@ const Datphong = () => {
 		});
 	}, []);
 
+
+	const timNhanNgayTrung = data.trangThaiPhong?.lichSuDatPhong?.map(item => item?.checkinTime);
+	const timTraNgayTrung = data.trangThaiPhong?.lichSuDatPhong?.map(item => item?.checkoutTime);
+
+	// console.log('Ngày nhận: ' + timNhanNgayTrung);
+	// console.log('Ngày trả: ' + timTraNgayTrung);
+
+
 	const filterKhachSan = khachSan.find((item) => item.id === data.khachSanId);
-	const phongKS = phong.filter((item) => item.id === data.id);
 	const db = getFirestore();
 	const [formData, setFormData] = React.useState({
 		title: '',
@@ -125,6 +131,8 @@ const Datphong = () => {
 			// console.error('Error updating booking count and total revenue:', error);
 		}
 	};
+
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -132,33 +140,46 @@ const Datphong = () => {
 			alert('Vui lòng sửa các lỗi trước khi đặt phòng.');
 			return;
 		}
+		// Kiểm tra xung đột ngày
+		const isDateConflicting = (checkin, checkout, existingCheckinDates, existingCheckoutDates) => {
+			const formatDateString = (date) => {
+				const d = new Date(date);
+				return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()}`;
+			};
 
-		// Cài đặt thời gian nhận phòng là 2h chiều còn thời gian trả phòng là 12h trưa hôm trả phòng sau
-		const { name, value } = e.target;
-		let updatedFormData = { ...formData };
-		if (name === 'checkinTime') {
-			// Set check-in time to 2 PM (14:00) on the selected date
-			const checkinDate = new Date(value);
-			checkinDate.setHours(14, 0, 0); // Set to 14:00:00
-			updatedFormData.checkinTime = checkinDate.toISOString().split('T')[0];
+			const formattedCheckin = formatDateString(checkin);
+			const formattedCheckout = formatDateString(checkout);
 
-			// Automatically set checkout time to 12 PM (12:00) the next day
-			const checkoutDate = new Date(checkinDate);
-			checkoutDate.setDate(checkoutDate.getDate() + 1); // Add one day
-			checkoutDate.setHours(12, 0, 0); // Set to 12:00:00
-			updatedFormData.checkoutTime = checkoutDate.toISOString().split('T')[0];
-		} else if (name === 'checkoutTime') {
-			// Set checkout time to 12 PM (12:00) on the selected date
-			const checkoutDate = new Date(value);
-			checkoutDate.setHours(12, 0, 0); // Set to 12:00:00
-			updatedFormData.checkoutTime = checkoutDate.toISOString().split('T')[0];
+			for (let i = 0; i < existingCheckinDates.length; i++) {
+				if (
+					formattedCheckin >= existingCheckinDates[i] &&
+					formattedCheckin < existingCheckoutDates[i] ||
+					formattedCheckout > existingCheckinDates[i] &&
+					formattedCheckout <= existingCheckoutDates[i]
+				) {
+					return false; // Trùng ngày, cần chọn lại
+				}
+			}
+			return true; // Không trùng, có thể tiếp tục
+		};
+
+		// Sử dụng hàm kiểm tra trùng ngày
+		const isDateAvailable = isDateConflicting(
+			formData.checkinTime,
+			formData.checkoutTime,
+			timNhanNgayTrung,
+			timTraNgayTrung
+		);
+
+		if (!isDateAvailable) {
+			alert('Ngày đã chọn trùng với ngày đã đặt, vui lòng chọn ngày khác.');
+			return;
 		} else {
-			updatedFormData[name] = value;
+			// Tiến hành các bước tiếp theo nếu ngày không trùng
 		}
-		setFormData(updatedFormData);
+
 
 		try {
-
 			const submissionTime = new Date();
 			const formattedSubmissionTime = submissionTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
 
@@ -525,6 +546,8 @@ const Datphong = () => {
 				numberOfDaysStayed={numberOfDaysStayed}
 				filterKhachSan={filterKhachSan}
 				renderStars={renderStars}
+				timNhanNgayTrung={timNhanNgayTrung}
+				timTraNgayTrung={timTraNgayTrung}
 			/>
 		</>
 	);

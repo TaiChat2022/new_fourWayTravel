@@ -22,7 +22,7 @@ const FavouriteLayout = ({ Link, userFavorites, currentUser, handleFavoriteChang
 											className="text-md md:text-xl font-semibold  text-heading-xl text-gray-900"
 											data-testid="favorites-page-headline"
 										>
-											Nơi lưu trú bạn đã thích
+											Khách sạn bạn đã thích
 										</h1>
 										<span className="text-md md:text-xl font-semibold text-blue-600">
 											({userFavorites.length} danh sách)

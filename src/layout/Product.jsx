@@ -16,7 +16,7 @@ const ProductLayout = ({
 			<div className="mx-auto w-3/4 mt-4 px-0 py-0 ">
 				<div className="flex justify-center items-center gap-2">
 					<i className="fa-solid fa-fire text-2xl text-primary-cam"></i>
-					<h1 className="my-6 text-3xl font-semibold tracking-wide text-center">
+					<h1 className="my-6 text-sm md:text-3xl font-semibold tracking-wide text-center">
 						Những chỗ nghỉ nổi bật được đề xuất cho quý khách
 					</h1>
 				</div>
@@ -90,7 +90,7 @@ const ProductLayout = ({
 				</div>
 				<div className="flex justify-center items-center gap-2">
 					<i className="fa-solid fa-crown text-2xl text-primary-cam"></i>
-					<h1 className="my-6 text-3xl font-semibold tracking-wide text-center">
+					<h1 className="my-6 text-sm md:text-3xl font-semibold tracking-wide text-center">
 						Những khách sạn sang trọng được đề xuất cho quý khách
 					</h1>
 				</div>
